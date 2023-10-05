@@ -13,11 +13,11 @@ I am a postdoctoral researcher at the QUT Centre for Robotics working at the int
 ## Publications
 
 1. <img class="project-picture" src="images/search.gif"> <b>Rana, K.</b>, Haviland, J., Garg, S., Abou-Chakra, J., Reid, I., & Sünderhauf, N. <em>"SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning"</em> 2023 Conference on Robot Learning (CoRL) (Oral Presentation)<br />
-[[Paper]]([https://arxiv.org/abs/2211.02231](https://openreview.net/pdf?id=wMpOMO0Ss7a)) [[Site]]([https://krishanrana.github.io/reskill](https://sayplan.github.io/))
+[[Paper]](https://openreview.net/pdf?id=wMpOMO0Ss7a) [[Site]](https://sayplan.github.io/)
 
 2. <img class="project-picture" src="images/robohop.png"> Garg, S., <b>Rana, K.</b>, Hosseinzadeh, M., Mares, L., Hosseinzadeh, M., Sünderhauf, N., Dayoub, F., & Reid, I. <em>"RoboHop: Segment-based Topological Map Representation for
 Open-World Visual Navigation"</em> 2024 International Conference on Robotics and Automation (ICRA) [under review] <br />
-[[Paper]]([https://arxiv.org/abs/2211.02231](https://openreview.net/pdf?id=wMpOMO0Ss7a)) [[Site]]([https://krishanrana.github.io/reskill](https://sayplan.github.io/))
+[[Paper]](#) [[Site]](https://oravus.github.io/RoboHop/)
 
 3. <img class="project-picture" src="images/CLASP.png"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
 Pre-training for Robot Learning"</em> ICRA 2023 Pretraining for Robotics Workshop <br />
