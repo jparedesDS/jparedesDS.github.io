@@ -20,7 +20,7 @@ Open-World Visual Navigation"</em> 2024 International Conference on Robotics and
 [[Paper]](#) [[Site]](https://oravus.github.io/RoboHop/)
 
 3. <img class="project-picture" src="images/behaviour.gif"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
-Pre-training for Robot Learning"</em> ICRA 2023 Pretraining for Robotics Workshop <br />
+Pre-training for Robot Learning"</em> 2024 International Conference on Robotics and Automation (ICRA) Pretraining for Robotics Workshop () <br />
 [[Paper]](https://openreview.net/pdf?id=sxKR6zhBDH)
 
 4. <img class="project-picture" src="images/rsp.png"> <b>Rana, K.</b>, Milford, M., & Sünderhauf, N. <em>"Residual Skill Policies: Learning an Adaptable Skill Space for Reinforcement Learning for Robotics"</em> 2022 Conference on Robot Learning (CoRL)<br />
