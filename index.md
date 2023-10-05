@@ -19,7 +19,7 @@ I am a postdoctoral researcher at the QUT Centre for Robotics working at the int
 Open-World Visual Navigation"</em> 2024 International Conference on Robotics and Automation (ICRA) [under review] <br />
 [[Paper]](#) [[Site]](https://oravus.github.io/RoboHop/)
 
-3. <img class="project-picture" src="images/clasp.png"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
+3. <img class="project-picture" src="images/behaviour.gif"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
 Pre-training for Robot Learning"</em> ICRA 2023 Pretraining for Robotics Workshop <br />
 [[Paper]](https://openreview.net/pdf?id=sxKR6zhBDH)
 
