@@ -12,7 +12,7 @@ I am a postdoctoral researcher at the QUT Centre for Robotics working at the int
 
 ## Publications
 
-1. <img class="project-picture" src="images/search.gif"> <b>Rana, K.</b>, Haviland, J., Garg, S., Abou-Chakra, J., & Sünderhauf, N. <em>"SayPlan: SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning"</em> 2023 Conference on Robot Learning (CoRL) (Oral Presentation)<br />
+1. <img class="project-picture" src="images/search.gif"> <b>Rana, K.</b>, Haviland, J., Garg, S., Abou-Chakra, J., & Sünderhauf, N. <em>"SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning"</em> 2023 Conference on Robot Learning (CoRL) (Oral Presentation)<br />
 [[Paper]]([https://arxiv.org/abs/2211.02231](https://openreview.net/pdf?id=wMpOMO0Ss7a)) [[Site]]([https://krishanrana.github.io/reskill](https://sayplan.github.io/))
 
 2. <img class="project-picture" src="images/CLASP.png"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
