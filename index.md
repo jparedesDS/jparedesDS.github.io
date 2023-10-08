@@ -79,8 +79,15 @@ Pre-training for Robot Learning"</em> 2024 International Conference on Robotics 
    
 ## Grants
 
-UA-DAAD Australia-Germany Joint Research Cooperation Scheme
+- UA-DAAD Australia-Germany Joint Research Cooperation Scheme
 Project: Sample-efficient learning for autonomous agents in complex hierarchical, and sparse environments
+
+## Teaching
+
+- Lecturer: IFN680 Artificial Intelligence and Machine Learning (Masters Specialisation Unit) 2023
+- Tutor: DXB211 Creative Coding 2020-2021
+
+
 
 
 
