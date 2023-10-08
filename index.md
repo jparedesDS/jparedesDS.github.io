@@ -1,5 +1,5 @@
 ---
-title: Krishan Rana
+title: **Krishan** Rana
 layout: default
 ---
 
@@ -7,7 +7,7 @@ layout: default
 
 <img class="profile-picture" src="profile.jpg">
 
-I am a postdoctoral researcher at the QUT Centre for Robotics working at the intersection of AI and robotics with a focus on enabling machines to intelligently plan and interact with the world in order to solve everyday tasks. Feel free to contact me via <ranak@qut.edu.au>.
+I am a postdoctoral researcher at the QUT Centre for Robotics working on robot learning which lies at the intersection of AI and robotics with a focus on teaching robots to intelligently plan and interact with the world in order to solve everyday tasks. Feel free to contact me via <ranak@qut.edu.au>.
 
 
 ## Publications
