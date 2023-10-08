@@ -55,8 +55,8 @@ Pre-training for Robot Learning"</em> 2024 International Conference on Robotics 
 
 ## Organised Workshops
 
-"Pretraining For Robotics Workshop" - International Conference on Robotics and Automation (ICRA) 2024 [under review] [[Site]](https://pretraining4robotics.github.io/) <br />
-"Behaviour Priors in Reinforcement Learning for Robotics Workshop" - International Conference on Robotics and Automation (ICRA) 2022 [[Site]](https://sites.google.com/view/rlbp-icra2022/home) <br />
+_Pretraining For Robotics Workshop_ - International Conference on Robotics and Automation (ICRA) 2024 [under review] [[Site]](https://pretraining4robotics.github.io/) <br />
+_Behaviour Priors in Reinforcement Learning for Robotics Workshop_ - International Conference on Robotics and Automation (ICRA) 2022 [[Site]](https://sites.google.com/view/rlbp-icra2022/home) <br />
 
 
 ## Invited Talks
