@@ -53,6 +53,19 @@ Pre-training for Robot Learning"</em> 2024 International Conference on Robotics 
 13. &nbsp; <img class="project-picture" src="images/plen2.png"> Coppin, T., Palmer, D.W.,  <b>Rana, K.</b>, Dansereau, D., Collins, M., Atchison, D., Roberts, J., Crawford, R., & Jaiprakash, A. (2021). <em>"Design of a Focused Light Field Fundus Camera for Retinal Imaging"</em>. [Under review for IEEE Transactions on Medical Imaging (T-MI)] <br />
 
 
+## Organised Workshops
+
+"Pretraining For Robotics Workshop" - International Conference on Robotics and Automation (ICRA) 2024 [under review] [[Site]](https://pretraining4robotics.github.io/) <br />
+"Behaviour Priors in Reinforcement Learning for Robotics Workshop" - International Conference on Robotics and Automation (ICRA) 2022 [[Site]](https://sites.google.com/view/rlbp-icra2022/home) <br />
+
+
+## Invited Talks
+
+"Scaling Robot Learning" - CSIRO Data61 <br />
+"Pretraining for Robot Learning" - Australian Institue for Machine Learning (AIML)<br />
+"Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning" - QUT Centre for Robotics (Mid Year Retreat)<br />
+"Scaling Robot Learning" - Technical University of Darmstadt
+
 ## Patents
 
 1. Ophthalmic Imaging Apparatus and System <br />
