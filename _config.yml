@@ -11,21 +11,21 @@ tracking_id: #
 
 footer: yes
 footer_url: "https://github.com/krishanrana"
-footer_text: "Teaching robots how to act"
+footer_text: "Feel free to [reach out](mailto:ranak@qut.edu.au) if you'd like to collaborate :)"
 
 sass:
     style: compressed
     sass_dir: _sass
 
 nav:
- - name: "Resume"
-   link: "resume.pdf"
+ # - name: "Resume"
+ #   link: "resume.pdf"
  - name: "Google Scholar"
    link: "https://scholar.google.com.au/citations?user=-hYjPxsAAAAJ&hl=en&oi=ao"
  - name: "LinkedIn"
    link: "https://www.linkedin.com/in/krishanrana/"
  - name: "Twitter"
-   link: "https://twitter.com/krishanranaa"
+   link: "https://twitter.com/krshnrana"
  
  
 
