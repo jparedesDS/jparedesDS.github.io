@@ -1,5 +1,5 @@
 ---
-title: **Krishan** Rana
+title: Krishan Rana
 layout: default
 ---
 
