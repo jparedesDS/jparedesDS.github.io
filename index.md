@@ -64,7 +64,8 @@ Pre-training for Robot Learning"</em> 2024 International Conference on Robotics 
 - _Scaling Robot Learning_ - CSIRO Data61 <br />
 - _Pretraining for Robot Learning_ - Australian Institue for Machine Learning (AIML)<br />
 - _Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning_ - QUT Centre for Robotics (Mid Year Retreat)<br />
-- _Scaling Robot Learning_ - Technical University of Darmstadt
+- _Scaling Robot Learning_ - Technical University of Darmstadt <br />
+- _Accelerating Reinforcement Learning_ - Center for Cognitive Interaction Technology, University of Bielefeld
 
 ## Patents
 
