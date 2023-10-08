@@ -84,8 +84,8 @@ Project: Sample-efficient learning for autonomous agents in complex hierarchical
 
 ## Teaching
 
-- Lecturer: IFN680 Artificial Intelligence and Machine Learning (Masters Specialisation Unit) 2023
-- Tutor: DXB211 Creative Coding 2020-2021
+- Lecturer: IFN680 Artificial Intelligence and Machine Learning (Masters Specialisation Unit) _2023_
+- Tutor: DXB211 Creative Coding _2020-2021_
 
 
 
