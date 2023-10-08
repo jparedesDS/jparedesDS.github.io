@@ -55,16 +55,16 @@ Pre-training for Robot Learning"</em> 2024 International Conference on Robotics 
 
 ## Organised Workshops
 
-_Pretraining For Robotics Workshop_ - International Conference on Robotics and Automation (ICRA) 2024 [under review] [[Site]](https://pretraining4robotics.github.io/) <br />
-_Behaviour Priors in Reinforcement Learning for Robotics Workshop_ - International Conference on Robotics and Automation (ICRA) 2022 [[Site]](https://sites.google.com/view/rlbp-icra2022/home) <br />
+1. _Pretraining For Robotics Workshop_ - International Conference on Robotics and Automation (ICRA) 2024 [under review] [[Site]](https://pretraining4robotics.github.io/) <br />
+2. _Behaviour Priors in Reinforcement Learning for Robotics Workshop_ - International Conference on Robotics and Automation (ICRA) 2022 [[Site]](https://sites.google.com/view/rlbp-icra2022/home) <br />
 
 
 ## Invited Talks
 
-"Scaling Robot Learning" - CSIRO Data61 <br />
-"Pretraining for Robot Learning" - Australian Institue for Machine Learning (AIML)<br />
-"Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning" - QUT Centre for Robotics (Mid Year Retreat)<br />
-"Scaling Robot Learning" - Technical University of Darmstadt
+- _Scaling Robot Learning_ - CSIRO Data61 <br />
+- _Pretraining for Robot Learning_ - Australian Institue for Machine Learning (AIML)<br />
+- _Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning_ - QUT Centre for Robotics (Mid Year Retreat)<br />
+- _Scaling Robot Learning_ - Technical University of Darmstadt
 
 ## Patents
 
