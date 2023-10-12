@@ -78,9 +78,10 @@ Pre-training for Robot Learning"</em> 2024 International Conference on Robotics 
    D. Palmer, T. Coppin, K. Rana
    
 ## Grants
-
+- QCR Early Career Researcher Grant Award: _Learning an Instance and View-Point Invariant
+Manipulation Skills Database for Service Robots_ 2022-2023
 - UA-DAAD Australia-Germany Joint Research Cooperation Scheme
-Project: Sample-efficient learning for autonomous agents in complex hierarchical, and sparse environments
+Project: _Sample-efficient learning for autonomous agents in complex hierarchical, and sparse environments_ 2020-2023
 
 ## Teaching
 
