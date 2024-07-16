@@ -12,7 +12,7 @@ Hi! I am a postdoctoral researcher at the QUT Centre for Robotics working on **r
 
 ## Publications
 
-1. <img class="project-picture" src="images/policy_decom.gif"> <b>Rana, K.</b>, Abou-Chakra, J., Garg, S., Lee, R., Reid, I., & Sünderhauf, N. <em>"Affordance-Centric Policy Decomposition :
+1. <img class="project-picture" src="images/long_horizon_gif.gif"> <b>Rana, K.</b>, Abou-Chakra, J., Garg, S., Lee, R., Reid, I., & Sünderhauf, N. <em>"Affordance-Centric Policy Decomposition :
 Generalisable and Sample Efficient Robot Policy Learning for Multi-Object, Long-Horizon Manipulation"</em> [under review])<br/> <br />
 [[Paper]](https://policy-decomposition.github.io/Images/paper.pdf) [[Site]](https://policy-decomposition.github.io/)
 
