@@ -22,7 +22,7 @@ Generalisable and Sample Efficient Robot Policy Learning for Multi-Object, Long-
 3. &nbsp; <img class="project-picture" src="images/openx.gif"> Open X-Embodiment Collaboration <em>"Open X-Embodiment: Robotic Learning Datasets and RT-X Models"</em> 2024 International Conference on Robotics and Automation (ICRA) <span style="color:red">(Best Conference Paper | Best Manipulation Paper Finalist | Best Student Paper Finalist)</span>  <br />
 [[Paper]](https://robotics-transformer-x.github.io/paper.pdf) [[Site]](https://robotics-transformer-x.github.io/)
 
-4. <img class="project-picture" src="images/search.gif"> <b>Rana, K.</b>, Haviland, J., Garg, S., Abou-Chakra, J., Reid, I., & Sünderhauf, N. <em>"SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning"</em> 2023 Conference on Robot Learning (CoRL)<br/> <span style="color:red">(Oral Presentation)</span> <br />
+4. &nbsp; <img class="project-picture" src="images/search.gif"> <b>Rana, K.</b>, Haviland, J., Garg, S., Abou-Chakra, J., Reid, I., & Sünderhauf, N. <em>"SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning"</em> 2023 Conference on Robot Learning (CoRL)<br/> <span style="color:red">(Oral Presentation)</span> <br />
 [[Paper]](https://openreview.net/pdf?id=wMpOMO0Ss7a) [[Site]](https://sayplan.github.io/)
 
 5. &nbsp; <img class="project-picture" src="images/robohop.png"> Garg, S., <b>Rana, K.</b>, Hosseinzadeh, M., Mares, L., Sünderhauf, N., Dayoub, F., & Reid, I. <em>"RoboHop: Segment-based Topological Map Representation for
