@@ -12,17 +12,16 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 
 ## Publications
 
-1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
+1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
+Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling.
+[[Code]](https://github.com/jparedesDS/extract-data-dxf))
+
+2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
 Development of object detection models tailored for metallurgy companies. These models are optimized for identifying and categorizing industrial objects in complex environments.
-[[Code]](https://github.com/jparedesDS/welding-defects-detection)
+[[Model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[Code]](https://github.com/jparedesDS/welding-defects-detection)
 
-2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Data Entry Automation</b>
-Description: Automation of data entry processes into company databases, improving speed and accuracy for large-scale operations. Includes integration with tracking and reporting systems.
-[Repo]
-
-3. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Technical Drawing Identification</b>
-Description: Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling.
-[Repo]
+3. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Scraper - Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game"</em>
+[[Code]](https://github.com/jparedesDS/hltv-scraper)
 
 4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Custom Image Augmentation for Object Detection</b>
 Description: A Python library for applying various image augmentations to enhance object detection model performance, including transformations like zoom, distortion, and brightness changes.
