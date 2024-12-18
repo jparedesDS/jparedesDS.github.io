@@ -12,20 +12,19 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 
 ## Publications
 
-1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
+1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI (YOLO11)"</em> Development of object detection models tailored for metallurgy companies. <span style="color:red">(FPI, DP, LPI, PT)</span>
+[[Model]](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) [[Code]](https://github.com/jparedesDS/fluorescent-penetrant-inspection)
+
+2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
 Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling.
 [[Code]](https://github.com/jparedesDS/extract-data-dxf))
 
-2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
-Development of object detection models tailored for metallurgy companies. These models are optimized for identifying and categorizing industrial objects in complex environments.
+3. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
+Development of object detection models tailored for metallurgy companies.
 [[Model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[Code]](https://github.com/jparedesDS/welding-defects-detection)
 
-3. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Scraper - Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game"</em>
+4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game.
 [[Code]](https://github.com/jparedesDS/hltv-scraper)
-
-4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Custom Image Augmentation for Object Detection</b>
-Description: A Python library for applying various image augmentations to enhance object detection model performance, including transformations like zoom, distortion, and brightness changes.
-[Repo]
 
 5. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Documentation Tracking System</b>
 Description: A system for generating detailed tracking reports for received documentation, enabling efficient management and record-keeping.
