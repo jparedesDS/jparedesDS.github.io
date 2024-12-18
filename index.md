@@ -1,5 +1,5 @@
 ---
-title: Krishan Rana
+title: Jose Paredes
 layout: default
 ---
 
