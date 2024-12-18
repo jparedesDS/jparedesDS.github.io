@@ -12,22 +12,25 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 
 ## Publications
 
-1. &nbsp; <img class="project-picture" src="images/long_horizon_gif.gif"> <b>Rana, K.</b>, Abou-Chakra, J., Garg, S., Lee, R., Reid, I., & Sünderhauf, N. <em>"Affordance-Centric Policy Decomposition :
-Generalisable and Sample Efficient Robot Policy Learning for Multi-Object, Long-Horizon Manipulation"</em> [under review])<br/>
-[[Paper]](https://policy-decomposition.github.io/Images/paper.pdf) [[Site]](https://policy-decomposition.github.io/)
+1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Object Detection for Metallurgy</b>
+Description: Development of object detection models tailored for metallurgy companies. These models are optimized for identifying and categorizing industrial objects in complex environments.
+[[Code]](https://github.com/jparedesDS/welding-defects-detection)
 
-2. &nbsp; <img class="project-picture" src="images/pegs.gif"> Abou-Chakra, J., <b>Rana, K.</b>, Dayoub, F., & Sünderhauf, N. <em>"Physically Embodied Gaussian Splatting: A Realtime Correctable World Model for Robotics"</em> [under review]<br/> 
-[[Paper]](https://arxiv.org/abs/2406.10788) [[Site]](https://embodied-gaussians.github.io/)
+2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Data Entry Automation</b>
+Description: Automation of data entry processes into company databases, improving speed and accuracy for large-scale operations. Includes integration with tracking and reporting systems.
+[Repo]
 
-3. &nbsp; <img class="project-picture" src="images/openx.gif"> Open X-Embodiment Collaboration <em>"Open X-Embodiment: Robotic Learning Datasets and RT-X Models"</em> 2024 International Conference on Robotics and Automation (ICRA) <span style="color:red">(Best Conference Paper | Best Manipulation Paper Finalist | Best Student Paper Finalist)</span>  <br />
-[[Paper]](https://robotics-transformer-x.github.io/paper.pdf) [[Site]](https://robotics-transformer-x.github.io/)
+3. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Technical Drawing Identification</b>
+Description: Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling.
+[Repo]
 
-4. &nbsp; <img class="project-picture" src="images/search.gif"> <b>Rana, K.</b>, Haviland, J., Garg, S., Abou-Chakra, J., Reid, I., & Sünderhauf, N. <em>"SayPlan: Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning"</em> 2023 Conference on Robot Learning (CoRL)<br/> <span style="color:red">(Oral Presentation)</span> <br />
-[[Paper]](https://openreview.net/pdf?id=wMpOMO0Ss7a) [[Site]](https://sayplan.github.io/)
+4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Custom Image Augmentation for Object Detection</b>
+Description: A Python library for applying various image augmentations to enhance object detection model performance, including transformations like zoom, distortion, and brightness changes.
+[Repo]
 
-5. &nbsp; <img class="project-picture" src="images/robohop.png"> Garg, S., <b>Rana, K.</b>, Hosseinzadeh, M., Mares, L., Sünderhauf, N., Dayoub, F., & Reid, I. <em>"RoboHop: Segment-based Topological Map Representation for
-Open-World Visual Navigation"</em> 2024 International Conference on Robotics and Automation (ICRA) <br />
-[[Paper]](#) [[Site]](https://oravus.github.io/RoboHop/)
+5. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Documentation Tracking System</b>
+Description: A system for generating detailed tracking reports for received documentation, enabling efficient management and record-keeping.
+[Repo]
 
 6. &nbsp; <img class="project-picture" src="images/behaviour.gif"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
 Pre-training for Robot Learning"</em> 2024 International Conference on Robotics and Automation (ICRA) Pretraining for Robotics Workshop <br />
