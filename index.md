@@ -12,18 +12,18 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 
 ## Publications
 
-1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI (YOLO11)"</em> Development of object detection models tailored for metallurgy companies. <span style="color:red">(FPI, DP, LPI, PT)</span>
+1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI (YOLO11)"</em> Development of object detection models tailored for metallurgy companies. <span style="color:red">(FPI, DP, LPI, PT)</span> <br />
 [[Model]](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) [[Code]](https://github.com/jparedesDS/fluorescent-penetrant-inspection)
 
 2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
-Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling.
+Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling. <br />
 [[Code]](https://github.com/jparedesDS/extract-data-dxf)
 
 4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
-Development of object detection models tailored for metallurgy companies.
+Development of object detection models tailored for metallurgy companies. <br />
 [[Model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[Code]](https://github.com/jparedesDS/welding-defects-detection)
 
-6. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game.
+6. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game. <br />
 [[Code]](https://github.com/jparedesDS/hltv-scraper)
 
 7. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Documentation Tracking System</b>
