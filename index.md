@@ -17,7 +17,7 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 
 2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
 Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling.
-[[Code]](https://github.com/jparedesDS/extract-data-dxf))
+[[Code]](https://github.com/jparedesDS/extract-data-dxf)
 
 4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
 Development of object detection models tailored for metallurgy companies.
