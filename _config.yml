@@ -18,14 +18,14 @@ sass:
     sass_dir: _sass
 
 nav:
- - name: "Curriculum Vitae"
+ - name: "CV"
    link: "resume.pdf"
-# - name: "Google Scholar"
-#  link: "https://scholar.google.com.au/citations?user=-hYjPxsAAAAJ&hl=en&oi=ao"
  - name: "LinkedIn"
-   link: "https://www.linkedin.com/in/krishanrana/"
+   link: "https://www.linkedin.com/in/jparedesDS/"
  - name: "GitHub"
    link: "https://github.com/jparedesDS"
+ - name: "Kaggle"
+   link: "https://www.kaggle.com/joseparedesc"
  - name: "Twitter"
    link: "https://twitter.com/xhitoCS"
  
@@ -34,3 +34,4 @@ nav:
 # author:
 #   name:       Krishan Rana
 #   url:        https://krishanrana.github.io/
+
