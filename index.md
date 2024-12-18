@@ -12,7 +12,7 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 
 ## Publications
 
-1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Object Detection for Metallurgy</b>
+1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Object Detection for Metallurgy</b>
 Description: Development of object detection models tailored for metallurgy companies. These models are optimized for identifying and categorizing industrial objects in complex environments.
 [[Code]](https://github.com/jparedesDS/welding-defects-detection)
 
