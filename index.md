@@ -7,7 +7,7 @@ layout: default
 
 <img class="profile-picture" src="profile.jpg">
 
-Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learning, Deep Learning, NLP, Computer Vision, and Data Analysis. Currently, I’m working at EIPSA S.A., where I develop object detection models for metallurgy companies, automate data entry processes, generate tracking reports for received documentation, and implement deep learning solutions for identifying technical drawings. Feel free to contact me via <jparedescolmenarejo@gmail.com>.
+Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Vision, Deep Learning, NLP, and Data Analysis. Currently, I’m working at EIPSA S.A., where I develop object detection models for metallurgy companies, automate data entry processes, generate tracking reports for received documentation, and implement deep learning solutions for identifying technical drawings. <br /> Feel free to contact me via <jparedescolmenarejo@gmail.com>.
 
 
 ## My Repositories
@@ -42,55 +42,26 @@ Development of object detection models tailored for metallurgy companies. <br />
 [[Code]](https://github.com/jparedesDS/lazy-classifier-traffic-accidents-madrid)
 
 10. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Image & Vision Classification of Futurama Frames"</em> Identification characters in Futurama frames - Kaggle Competition 🥉3º position - ResNet152 & Keras/Tensorflow <br />
-[[Code]](https://github.com/jparedesDS/image-classification-multilabel)
+[[Kaggle]](https://www.kaggle.com/competitions/comp-mediavida-2-futurama/leaderboard) [[Code]](https://github.com/jparedesDS/image-classification-multilabel)
 
 
-## MODELS Computer Vision // Object Detection
+## <3 Computer Vision 
 
-1. _Counter Strike 2 Players Detector_ - Players Identification of CS2 <span style="color:blue">(YOLOv9, YOLOv10 & YOLO11)</span> 2024 [under review] <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/cs2-yolo-object-detection-66f65a7fa395d5e5ede71489) [[GitHub]](https://github.com/jparedesDS/cs2-object-dectection) <br />
-2. _Valorant Players Detector_ - Players Identification of Valorant <span style="color:blue">(YOLOv10 & YOLO11)</span> 2024 [under review] <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/valorant-yolo-object-detection-6708db8eda7c23b8859bcd3b) [[GitHub]](https://github.com/jparedesDS/valorant-object-detection) <br />
-3. _Fortnite Players Detector_ - Players Identification of CS2 <span style="color:blue">(YOLO11)</span> 2024 [under review] <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/fortnite-yolo11m) [[GitHub]](https://github.com/jparedesDS/fortnite-object-detection) <br />
-4. _OverWatch 2 Players Detector_ - Players Identification of OW2 <span style="color:blue">(YOLO11)</span> 2024 [under review] <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/ow2-yolo11m) [[GitHub]](https://github.com/jparedesDS/ow2-object-dectection) <br />
-5. _Deadlock Players Detector_ - Players Identification of Deadlock <span style="color:blue">(YOLO11)</span> 2024 [under review] <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/deadlock-yolo11l) [[GitHub]](https://github.com/jparedesDS/deadlock-object-detection) <br />
-
-
-## Invited Talks
-
-- _Scaling Robot Learning_ - CSIRO Data61 <br />
-- _Pretraining for Robot Learning_ - Australian Institue for Machine Learning (AIML)<br />
-- _Grounding Large Language Models using 3D Scene Graphs for Scalable Robot Task Planning_ - QUT Centre for Robotics (Mid Year Retreat)<br />
-- _Scaling Robot Learning_ - Technical University of Darmstadt <br />
-- _Accelerating Reinforcement Learning_ - Center for Cognitive Interaction Technology, University of Bielefeld
-
-## Patents
-
-1. Method and System for Generating a Robot Task Plan <br />
-   Patent Number au2023904229 <br />
-   K. Rana, N. Suenderhauf  
-
-2. Ophthalmic Imaging Apparatus and System <br />
-   Patent Number au2017901153 <br />
-   A. Jaiprakash, D. Palmer, D. G. Dansereau, T. Coppin, K. Rana, J. Roberts, R. Crawford  
-   
-3. Method and System for Calibrating an Ophthalmic Imager <br /> 
-   Patent Number au2018900513  <br />
-   D. Palmer, T. Coppin, K. Rana
-   
-## Grants
-- QCR Early Career Researcher Grant Award: _Learning an Instance and View-Point Invariant
-Manipulation Skills Database for Service Robots_ 2022-2023
-- UA-DAAD Australia-Germany Joint Research Cooperation Scheme
-Project: _Sample-efficient learning for autonomous agents in complex hierarchical, and sparse environments_ 2020-2023
-
-## Teaching
-
-- Lecturer: IFN680 Artificial Intelligence and Machine Learning (Masters Specialisation Unit) _2023_
-- Tutor: DXB211 Creative Coding _2020-2021_
+1. _"Counter Strike 2 Players Detector"_ - Players Identification of CS2 <span style="color:blue">(YOLOv9, YOLOv10 & YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/cs2-yolo-object-detection-66f65a7fa395d5e5ede71489) [[GitHub]](https://github.com/jparedesDS/cs2-object-dectection) <br />
+2. _"Valorant Players Detector"_ - Players Identification of Valorant <span style="color:blue">(YOLOv10 & YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/valorant-yolo-object-detection-6708db8eda7c23b8859bcd3b) [[GitHub]](https://github.com/jparedesDS/valorant-object-detection) <br />
+3. _"Fortnite Players Detector"_ - Players Identification of CS2 <span style="color:blue">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/fortnite-yolo11m) [[GitHub]](https://github.com/jparedesDS/fortnite-object-detection) <br />
+4. _"OverWatch 2 Players Detector"_ - Players Identification of OW2 <span style="color:blue">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/ow2-yolo11m) [[GitHub]](https://github.com/jparedesDS/ow2-object-dectection) <br />
+5. _"Deadlock Players Detector"_ - Players Identification of Deadlock <span style="color:blue">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/deadlock-yolo11l) [[GitHub]](https://github.com/jparedesDS/deadlock-object-detection) <br />
+6. _"HuggingFace Profile"_ - All my models for computer vision <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/)
 
 
+## Contact with me
 
-
-
+- _[[curriculum vitae]](https://jparedesds.github.io/resume.pdf)_ <br />
+- _[[linkedin]](https://www.linkedin.com/in/jparedesDS/)_ <br />
+- _[[github]](https://github.com/jparedesDS/)_ <br />
+- _[[huggingface]](https://huggingface.co/jparedesDS/)_ <br />
+- _[[kaggle]](https://www.kaggle.com/joseparedesc)_ <br />
 
 
 
