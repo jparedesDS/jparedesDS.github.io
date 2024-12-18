@@ -1,6 +1,6 @@
 
-title: Krishan Rana
-url: "https://krishanrana.github.io/"
+title: Jose Paredes
+url: "https://jparedesDS.github.io/"
 baseurl: ""
 #remote_theme: ankitsultana/researcher@gem
 
@@ -10,26 +10,27 @@ markdown: kramdown
 tracking_id: #
 
 footer: yes
-footer_url: "https://docs.google.com/forms/d/e/1FAIpQLSeKV1Ln1Y7mFm9Wuy4nELk_aTAMpRDLDhiu2EKV0wU_fptFQA/viewform?usp=sf_link"
-footer_text: "Click here if you'd like to collaborate :)"
+footer_url: "#"
+footer_text: "Click here if you'd like to collaborate with me:)"
 
 sass:
     style: compressed
     sass_dir: _sass
 
 nav:
- # - name: "Resume"
- #   link: "resume.pdf"
- - name: "Google Scholar"
-   link: "https://scholar.google.com.au/citations?user=-hYjPxsAAAAJ&hl=en&oi=ao"
+ - name: "Curriculum Vitae"
+   link: "resume.pdf"
+# - name: "Google Scholar"
+#  link: "https://scholar.google.com.au/citations?user=-hYjPxsAAAAJ&hl=en&oi=ao"
  - name: "LinkedIn"
    link: "https://www.linkedin.com/in/krishanrana/"
+ - name: "GitHub"
+   link: "https://github.com/jparedesDS"
  - name: "Twitter"
-   link: "https://twitter.com/krshnrana"
+   link: "https://twitter.com/xhitoCS"
  
  
 
 # author:
 #   name:       Krishan Rana
 #   url:        https://krishanrana.github.io/
-
