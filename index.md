@@ -47,11 +47,11 @@ Development of object detection models tailored for metallurgy companies. <br />
 
 ## <3 Computer Vision 
 
-1. _"Counter Strike 2 Players Detector"_ - Players Identification of CS2 <span style="color:blue">(YOLOv9, YOLOv10 & YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/cs2-yolo-object-detection-66f65a7fa395d5e5ede71489) [[GitHub]](https://github.com/jparedesDS/cs2-object-dectection) <br />
-2. _"Valorant Players Detector"_ - Players Identification of Valorant <span style="color:blue">(YOLOv10 & YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/valorant-yolo-object-detection-6708db8eda7c23b8859bcd3b) [[GitHub]](https://github.com/jparedesDS/valorant-object-detection) <br />
-3. _"Fortnite Players Detector"_ - Players Identification of CS2 <span style="color:blue">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/fortnite-yolo11m) [[GitHub]](https://github.com/jparedesDS/fortnite-object-detection) <br />
-4. _"OverWatch 2 Players Detector"_ - Players Identification of OW2 <span style="color:blue">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/ow2-yolo11m) [[GitHub]](https://github.com/jparedesDS/ow2-object-dectection) <br />
-5. _"Deadlock Players Detector"_ - Players Identification of Deadlock <span style="color:blue">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/deadlock-yolo11l) [[GitHub]](https://github.com/jparedesDS/deadlock-object-detection) <br />
+1. _"Counter Strike 2 Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLOv9, YOLOv10 & YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/cs2-yolo-object-detection-66f65a7fa395d5e5ede71489) [[GitHub]](https://github.com/jparedesDS/cs2-object-dectection) <br />
+2. _"Valorant Players Detector"_ - Players Identification of Valorant <span style="color:red">(YOLOv10 & YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/collections/jparedesDS/valorant-yolo-object-detection-6708db8eda7c23b8859bcd3b) [[GitHub]](https://github.com/jparedesDS/valorant-object-detection) <br />
+3. _"Fortnite Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/fortnite-yolo11m) [[GitHub]](https://github.com/jparedesDS/fortnite-object-detection) <br />
+4. _"OverWatch 2 Players Detector"_ - Players Identification of OW2 <span style="color:red">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/ow2-yolo11m) [[GitHub]](https://github.com/jparedesDS/ow2-object-dectection) <br />
+5. _"Deadlock Players Detector"_ - Players Identification of Deadlock <span style="color:red">(YOLO11)</span> _2024_ <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/deadlock-yolo11l) [[GitHub]](https://github.com/jparedesDS/deadlock-object-detection) <br />
 6. _"HuggingFace Profile"_ - All my models for computer vision <br /> [[HuggingFace]](https://huggingface.co/jparedesDS/)
 
 
