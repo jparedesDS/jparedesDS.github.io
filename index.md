@@ -19,43 +19,43 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling.
 [[Code]](https://github.com/jparedesDS/extract-data-dxf))
 
-3. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
+4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI (YOLO11)"</em>
 Development of object detection models tailored for metallurgy companies.
 [[Model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[Code]](https://github.com/jparedesDS/welding-defects-detection)
 
-4. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game.
+6. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game.
 [[Code]](https://github.com/jparedesDS/hltv-scraper)
 
-5. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Documentation Tracking System</b>
+7. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Documentation Tracking System</b>
 Description: A system for generating detailed tracking reports for received documentation, enabling efficient management and record-keeping.
 [Repo]
 
-6. &nbsp; <img class="project-picture" src="images/behaviour.gif"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
+8. &nbsp; <img class="project-picture" src="images/behaviour.gif"> <b>Rana, K.</b>, Melnik, A., & Sünderhauf, N. <em>"Contrastive Language, Action, and State
 Pre-training for Robot Learning"</em> 2024 International Conference on Robotics and Automation (ICRA) Pretraining for Robotics Workshop <br />
 [[Paper]](https://openreview.net/pdf?id=sxKR6zhBDH)
 
-7. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Rana, K.</b>, Milford, M., & Sünderhauf, N. <em>"Residual Skill Policies: Learning an Adaptable Skill Space for Reinforcement Learning for Robotics"</em> 2022 Conference on Robot Learning (CoRL)<br />
+10. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Rana, K.</b>, Milford, M., & Sünderhauf, N. <em>"Residual Skill Policies: Learning an Adaptable Skill Space for Reinforcement Learning for Robotics"</em> 2022 Conference on Robot Learning (CoRL)<br />
 [[Paper]](https://arxiv.org/abs/2211.02231) [[Code]](https://github.com/krishanrana/reskill) [[Site]](https://krishanrana.github.io/reskill)
 
-8. &nbsp; <img class="project-picture" src="images/sim_real.png"> <b>Rana, K.</b>, Dasagi, V., Haviland, J., Milford, M., & Sünderhauf, N. <em>"Zero-Shot Uncertainty-Aware Deployment of Simulation Trained Policies on Real-World Robots"</em> NeurIPS 2021 Workshop on Deployable Decision Making in Embodied Systems (DDM) <span style="color:red">(Spotlight Presentation)</span> <br />
+11. &nbsp; <img class="project-picture" src="images/sim_real.png"> <b>Rana, K.</b>, Dasagi, V., Haviland, J., Milford, M., & Sünderhauf, N. <em>"Zero-Shot Uncertainty-Aware Deployment of Simulation Trained Policies on Real-World Robots"</em> NeurIPS 2021 Workshop on Deployable Decision Making in Embodied Systems (DDM) <span style="color:red">(Spotlight Presentation)</span> <br />
 [[Paper]](https://arxiv.org/abs/2112.05299) [[Code]](https://github.com/krishanrana/bcf) [[Site]](https://krishanrana.github.io/bcf)
 
-9. &nbsp; <img class="project-picture" src="images/bcf.png"> <b>Rana, K.</b>, Dasagi, V., Haviland, J., Milford, M., & Sünderhauf, N. <em>"Bayesian Controller Fusion: Leveraging Control Priors in Deep Reinforcement Learning for Robotics"</em> The International Journal of Robotics Research (IJRR) <br />
+12. &nbsp; <img class="project-picture" src="images/bcf.png"> <b>Rana, K.</b>, Dasagi, V., Haviland, J., Milford, M., & Sünderhauf, N. <em>"Bayesian Controller Fusion: Leveraging Control Priors in Deep Reinforcement Learning for Robotics"</em> The International Journal of Robotics Research (IJRR) <br />
 [[Paper]](https://journals.sagepub.com/doi/full/10.1177/02783649231167210) [[Code]](https://github.com/krishanrana/bcf) [[Site]](https://krishanrana.github.io/bcf)
 
-10. &nbsp; <img class="project-picture" src="images/mcf.png"> <b>Rana, K.</b>, Dasagi, V., Talbot, B., Milford, M., & Sunderhauf, N. (2020). <em>"Multiplicative Controller Fusion: Leveraging Algorithmic Priors for Sample-efficient Reinforcement Learning and Safe Sim-To-Real Transfer"</em>. 2020 International Conference on Intelligent Robots and Systems (IROS) <br />
+13. &nbsp; <img class="project-picture" src="images/mcf.png"> <b>Rana, K.</b>, Dasagi, V., Talbot, B., Milford, M., & Sunderhauf, N. (2020). <em>"Multiplicative Controller Fusion: Leveraging Algorithmic Priors for Sample-efficient Reinforcement Learning and Safe Sim-To-Real Transfer"</em>. 2020 International Conference on Intelligent Robots and Systems (IROS) <br />
 [[Paper]](https://arxiv.org/abs/2003.05117) [[Code]](https://github.com/krishanrana/multiplicative_controller_fusion) [[Site]](https://sites.google.com/view/mcf-nav/home)
 
-11. &nbsp; <img class="project-picture" src="images/rrn.png"> <b>Rana, K.</b>, Talbot, B., Milford, M., & Sünderhauf, N. (2020). <em>"Residual Reactive Navigation: Combining Classical and Learned Navigation Strategies For Deployment in Unknown Environments"</em>. 2020 IEEE International Conference on Robotics and Automation (ICRA), 11493-11499. <br />
+14. &nbsp; <img class="project-picture" src="images/rrn.png"> <b>Rana, K.</b>, Talbot, B., Milford, M., & Sünderhauf, N. (2020). <em>"Residual Reactive Navigation: Combining Classical and Learned Navigation Strategies For Deployment in Unknown Environments"</em>. 2020 IEEE International Conference on Robotics and Automation (ICRA), 11493-11499. <br />
 [[Paper]](https://arxiv.org/pdf/1909.10972.pdf) [[Code]](https://github.com/krishanrana/2D_SRRN) [[Site]](https://sites.google.com/view/srrn/home)
 
-12. &nbsp; <img class="project-picture" src="images/seg.png"> Melnik, A., Harter, A., Limberg, C., <b>Rana, K.</b>, Sünderhauf, N., & Ritter, H. <em>"Critic Guided Segmentation of Rewarding Objects in First Person Views"</em>. German Conference of Artificial Intelligence, 2021. <br/>
+15. &nbsp; <img class="project-picture" src="images/seg.png"> Melnik, A., Harter, A., Limberg, C., <b>Rana, K.</b>, Sünderhauf, N., & Ritter, H. <em>"Critic Guided Segmentation of Rewarding Objects in First Person Views"</em>. German Conference of Artificial Intelligence, 2021. <br/>
 [[Paper]](https://arxiv.org/abs/2107.09540)
 
-13. &nbsp; <img class="project-picture" src="images/plen.png"> Palmer, D.W., Coppin, T., <b>Rana, K.</b>, Dansereau, D., Suheimat, M., Maynard, M., Atchison, D., Roberts, J., Crawford, R., & Jaiprakash, A. (2018). <em>"Glare-free retinal imaging using a portable light field fundus camera"</em>. Biomedical Optics Express, 9, 3178 - 3192. <br />
+16. &nbsp; <img class="project-picture" src="images/plen.png"> Palmer, D.W., Coppin, T., <b>Rana, K.</b>, Dansereau, D., Suheimat, M., Maynard, M., Atchison, D., Roberts, J., Crawford, R., & Jaiprakash, A. (2018). <em>"Glare-free retinal imaging using a portable light field fundus camera"</em>. Biomedical Optics Express, 9, 3178 - 3192. <br />
 [[Paper]](https://www.osapublishing.org/viewmedia.cfm?seq=0&uri=boe-9-7-3178)
 
-14. &nbsp; <img class="project-picture" src="images/plen2.png"> Coppin, T., Palmer, D.W.,  <b>Rana, K.</b>, Dansereau, D., Collins, M., Atchison, D., Roberts, J., Crawford, R., & Jaiprakash, A. (2021). <em>"Design of a Focused Light Field Fundus Camera for Retinal Imaging"</em>. [Under review for IEEE Transactions on Medical Imaging (T-MI)] <br />
+17. &nbsp; <img class="project-picture" src="images/plen2.png"> Coppin, T., Palmer, D.W.,  <b>Rana, K.</b>, Dansereau, D., Collins, M., Atchison, D., Roberts, J., Crawford, R., & Jaiprakash, A. (2021). <em>"Design of a Focused Light Field Fundus Camera for Retinal Imaging"</em>. [Under review for IEEE Transactions on Medical Imaging (T-MI)] <br />
 
 
 ## Organised Workshops
