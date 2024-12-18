@@ -7,7 +7,7 @@ layout: default
 
 <img class="profile-picture" src="profile.jpg">
 
-Hi! I am a postdoctoral researcher at the QUT Centre for Robotics working on **robot learning** which lies at the intersection of AI and robotics with a focus on **teaching robots to intelligently plan and interact with the world** in order to solve everyday tasks. Feel free to contact me via <ranak@qut.edu.au>.
+Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learning, Deep Learning, NLP, Computer Vision, and Data Analysis. Currently, I’m working at EIPSA S.A., where I develop object detection models for metallurgy companies, automate data entry processes, generate tracking reports for received documentation, and implement deep learning solutions for identifying technical drawings. Feel free to contact me via <jparedescolmenarejo@gmail.com>.
 
 
 ## Publications
