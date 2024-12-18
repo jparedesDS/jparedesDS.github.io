@@ -12,7 +12,7 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Machine Learn
 
 ## Publications
 
-1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI (YOLO11)"</em> Development of object detection models tailored for metallurgy companies. <span style="color:red">(FPI, DP, LPI, PT)</span> <br />
+1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> **(YOLO11)** Development of object detection models tailored for metallurgy companies. <span style="color:red">(FPI, DP, LPI, PT)</span> <br />
 [[Model]](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) [[Code]](https://github.com/jparedesDS/fluorescent-penetrant-inspection)
 
 2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
