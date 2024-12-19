@@ -47,8 +47,8 @@ Development of object detection models tailored for metallurgy companies. <br />
 
 ## <3 Computer Vision 
 
-1. _"Welding Defects Detector"_ - Detection of welding defects with AI <span style="color:red">(YOLO11x)</span> _mAP50=0.793_ <br /> [[model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[github]](https://github.com/jparedesDS/welding-defects-detection) <br />
-2. _"Liquid Penetrant Test (DP, LPI, PT)"_ - Detection of liquid penetrant test with AI <span style="color:red">(YOLO11l)</span> _mAP50=0.793_ <br /> [[model]](https://huggingface.co/jparedesDS/liquid-penetrant-test-detection) [[github]](https://github.com/jparedesDS/fluorescent-penetrant-inspection) <br />
+1. _"Welding Defects Detector"_ - Detection of welding defects with AI <span style="color:red">(YOLO11x)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[github]](https://github.com/jparedesDS/welding-defects-detection) <br />
+2. _"Liquid Penetrant Test (DP, LPI, PT)"_ - Detection of liquid penetrant test with AI <span style="color:red">(YOLO11l)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/liquid-penetrant-test-detection) [[github]](https://github.com/jparedesDS/fluorescent-penetrant-inspection) <br />
 3. _"Counter Strike 2 Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLOv9, YOLOv10 & YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/collections/jparedesDS/cs2-yolo-object-detection-66f65a7fa395d5e5ede71489) [[github]](https://github.com/jparedesDS/cs2-object-dectection) <br />
 4. _"Valorant Players Detector"_ - Players Identification of Valorant <span style="color:red">(YOLOv10 & YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/collections/jparedesDS/valorant-yolo-object-detection-6708db8eda7c23b8859bcd3b) [[github]](https://github.com/jparedesDS/valorant-object-detection) <br />
 5. _"Fortnite Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/fortnite-yolo11m) [[github]](https://github.com/jparedesDS/fortnite-object-detection) <br />
