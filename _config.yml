@@ -10,7 +10,7 @@ markdown: kramdown
 tracking_id: #
 
 footer: yes
-footer_url: "#"
+footer_url: "https://github.com/jparedesDS"
 footer_text: "Click here if you'd like to collaborate with me:)"
 
 sass:
