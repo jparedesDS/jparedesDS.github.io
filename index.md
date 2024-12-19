@@ -12,36 +12,36 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Visi
 
 ## My Repositories
 
-1. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> <span style="color:red">(YOLO11)</span> Development of object detection models tailored for metallurgy companies. <span style="color:blue">(FPI, DP, LPI, PT)</span> <br />
+1. &nbsp; <img class="project-picture" src="images/myyolo11.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> <span style="color:red">(YOLO11)</span> Development of object detection models tailored for metallurgy companies. <span style="color:blue">(FPI, DP, LPI, PT)</span> <br />
 [[model]](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) [[code]](https://github.com/jparedesDS/fluorescent-penetrant-inspection)
 
-2. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
+2. &nbsp; <img class="project-picture" src="images/mydxf.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
 Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling. <br />
 [[code]](https://github.com/jparedesDS/extract-data-dxf)
 
-3. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Email MAPI Tools Automation"</em> Automation of documentation entry through email (Outlook/IMAP) to excel and BBDD (ERP).<br />
+3. &nbsp; <img class="project-picture" src="images/myemailmapi.png"> <b>Paredes, J.</b> <em>"Email MAPI Tools Automation"</em> Automation of documentation entry through email (Outlook/IMAP) to excel and BBDD (ERP).<br />
 [[code]](https://github.com/jparedesDS/email-mapi-tools-automation)
 
 4. &nbsp; <img class="project-picture" src="images/behaviour.gif"> Serrano, E., <b>Paredes, J.</b> <em>"EIPSA ERP"</em> Based on an ERP (Enterprise Resource Planning) system to manage the different daily activities of the different sections of the company. <br />
 [[code]](https://github.com/jparedesDS/ERP_EIPSA)
 
-5. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI"</em> <span style="color:red">(YOLO11)</span>
+5. &nbsp; <img class="project-picture" src="images/mywelding.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI"</em> <span style="color:red">(YOLO11)</span>
 Development of object detection models tailored for metallurgy companies. <br />
 [[model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[code]](https://github.com/jparedesDS/welding-defects-detection)
 
-6. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game. <br />
+6. &nbsp; <img class="project-picture" src="images/myhltv.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game. <br />
 [[code]](https://github.com/jparedesDS/hltv-scraper)
 
-7. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Twitter - Sentiment Analysis with Emojis"</em> using emojis to classify the emotional tone of tweets. By leveraging Natural Language Processing (NLP) techniques. <br />
+7. &nbsp; <img class="project-picture" src="images/mytwitter.png"> <b>Paredes, J.</b> <em>"Twitter - Sentiment Analysis with Emojis"</em> using emojis to classify the emotional tone of tweets. By leveraging Natural Language Processing (NLP) techniques. <br />
 [[code]](https://github.com/jparedesDS/lazy-classifier-traffic-accidents-madrid)
 
-8. &nbsp; <img class="project-picture" src="images/behaviour.gif"> <b>Paredes, J.</b> <em>"Twitter Sentiment Analysis"</em> identifying positive and negative emotions while exploring various natural language characteristics. <br />
+8. &nbsp; <img class="project-picture" src="images/mytwittersentiment.png"> <b>Paredes, J.</b> <em>"Twitter Sentiment Analysis"</em> identifying positive and negative emotions while exploring various natural language characteristics. <br />
 [[code]](https://github.com/jparedesDS/tensorflow-twitter-sentiment-analysis)
 
 9. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Analysis of Traffic Accidents"</em> Analysis and predictions of Traffic Accidents in the City of Madrid <br />
 [[code]](https://github.com/jparedesDS/lazy-classifier-traffic-accidents-madrid)
 
-10. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Image & Vision Classification of Futurama Frames"</em> Identification characters in Futurama frames - Kaggle Competition 🥉3º position - ResNet152 & Keras/Tensorflow <br />
+10. &nbsp; <img class="project-picture" src="images/myimage-classification.png"> <b>Paredes, J.</b> <em>"Image & Vision Classification of Futurama Frames"</em> Identification characters in Futurama frames - Kaggle Competition 🥉3º position - ResNet152 & Keras/Tensorflow <br />
 [[kaggle]](https://www.kaggle.com/competitions/comp-mediavida-2-futurama/leaderboard) [[code]](https://github.com/jparedesDS/image-classification-multilabel)
 
 
