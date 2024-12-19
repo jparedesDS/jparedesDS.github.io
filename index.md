@@ -12,17 +12,17 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Visi
 
 ## My Repositories
 
-1. &nbsp; <img class="project-picture" src="images/myyolo11.png"> <b>Paredes, J.</b>, <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> <span style="color:red">(YOLO11)</span> Development of object detection models tailored for metallurgy companies. <span style="color:blue">(FPI, DP, LPI, PT)</span> <br />
+1. &nbsp; <img class="project-picture" src="images/myyolo11.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> <span style="color:red">(YOLO11)</span> Development of object detection models tailored for metallurgy companies. <span style="color:blue">(FPI, DP, LPI, PT)</span> <br />
 [[model]](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) [[code]](https://github.com/jparedesDS/fluorescent-penetrant-inspection)
 
-2. &nbsp; <img class="project-picture" src="images/mydxf.png"> <b>Paredes, J.,</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
+2. &nbsp; <img class="project-picture" src="images/mydxf.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
 Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling. <br />
 [[code]](https://github.com/jparedesDS/extract-data-dxf)
 
-3. &nbsp; <img class="project-picture" src="images/myemailmapi.png"> <b>Paredes, J.,</b> <em>"Email MAPI Tools Automation"</em> Automation of documentation entry through email (Outlook/IMAP) to excel and BBDD (ERP).<br />
+3. &nbsp; <img class="project-picture" src="images/myemailmapi.png"> <b>Paredes, J.</b> <em>"Email MAPI Tools Automation"</em> Automation of documentation entry through email (Outlook/IMAP) to excel and BBDD (ERP).<br />
 [[code]](https://github.com/jparedesDS/email-mapi-tools-automation)
 
-4. &nbsp; <img class="project-picture" src="images/myERP.png"> Serrano, E., <b>Paredes, J.</b>, <em>"EIPSA ERP"</em> Based on an ERP (Enterprise Resource Planning) system to manage the different daily activities of the different sections of the company. <br />
+4. &nbsp; <img class="project-picture" src="images/myERP.png"> Serrano, E., <b>Paredes, J.</b> <em>"EIPSA ERP"</em> Based on an ERP (Enterprise Resource Planning) system to manage the different daily activities of the different sections of the company. <br />
 [[code]](https://github.com/jparedesDS/ERP_EIPSA)
 
 5. &nbsp; <img class="project-picture" src="images/mywelding.jpg"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI"</em> <span style="color:red">(YOLO11)</span>
