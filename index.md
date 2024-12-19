@@ -32,7 +32,7 @@ Development of object detection models tailored for metallurgy companies. <br />
 6. &nbsp; <img class="project-picture" src="images/myhltv.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game. <br />
 [[code]](https://github.com/jparedesDS/hltv-scraper)
 
-7. &nbsp; <img class="project-picture" src="images/mytwitter.png"> <b>Paredes, J.</b> <em>"Twitter - Sentiment Analysis with Emojis"</em> using emojis to classify the emotional tone of tweets. By leveraging Natural Language Processing (NLP) techniques. <br />
+7. &nbsp; <img class="project-picture" src="images/mytwitter.jpeg"> <b>Paredes, J.</b> <em>"Twitter - Sentiment Analysis with Emojis"</em> using emojis to classify the emotional tone of tweets. By leveraging Natural Language Processing (NLP) techniques. <br />
 [[code]](https://github.com/jparedesDS/lazy-classifier-traffic-accidents-madrid)
 
 8. &nbsp; <img class="project-picture" src="images/mytwittersentiment.png"> <b>Paredes, J.</b> <em>"Twitter Sentiment Analysis"</em> identifying positive and negative emotions while exploring various natural language characteristics. <br />
