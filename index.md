@@ -22,7 +22,7 @@ Implementation of deep learning algorithms for the recognition and classificatio
 3. &nbsp; <img class="project-picture" src="images/myemailmapi.png"> <b>Paredes, J.</b> <em>"Email MAPI Tools Automation"</em> Automation of documentation entry through email (Outlook/IMAP) to excel and BBDD (ERP).<br />
 [[code]](https://github.com/jparedesDS/email-mapi-tools-automation)
 
-4. &nbsp; <img class="project-picture" src="images/behaviour.gif"> Serrano, E., <b>Paredes, J.</b> <em>"EIPSA ERP"</em> Based on an ERP (Enterprise Resource Planning) system to manage the different daily activities of the different sections of the company. <br />
+4. &nbsp; <img class="project-picture" src="images/myERP.png"> Serrano, E., <b>Paredes, J.</b> <em>"EIPSA ERP"</em> Based on an ERP (Enterprise Resource Planning) system to manage the different daily activities of the different sections of the company. <br />
 [[code]](https://github.com/jparedesDS/ERP_EIPSA)
 
 5. &nbsp; <img class="project-picture" src="images/mywelding.png"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI"</em> <span style="color:red">(YOLO11)</span>
@@ -38,7 +38,7 @@ Development of object detection models tailored for metallurgy companies. <br />
 8. &nbsp; <img class="project-picture" src="images/mytwittersentiment.png"> <b>Paredes, J.</b> <em>"Twitter Sentiment Analysis"</em> identifying positive and negative emotions while exploring various natural language characteristics. <br />
 [[code]](https://github.com/jparedesDS/tensorflow-twitter-sentiment-analysis)
 
-9. &nbsp; <img class="project-picture" src="images/rsp.png"> <b>Paredes, J.</b> <em>"Analysis of Traffic Accidents"</em> Analysis and predictions of Traffic Accidents in the City of Madrid <br />
+9. &nbsp; <img class="project-picture" src="images/mytraffic.png"> <b>Paredes, J.</b> <em>"Analysis of Traffic Accidents"</em> Analysis and predictions of Traffic Accidents in the City of Madrid <br />
 [[code]](https://github.com/jparedesDS/lazy-classifier-traffic-accidents-madrid)
 
 10. &nbsp; <img class="project-picture" src="images/myimage-classification.png"> <b>Paredes, J.</b> <em>"Image & Vision Classification of Futurama Frames"</em> Identification characters in Futurama frames - Kaggle Competition 🥉3º position - ResNet152 & Keras/Tensorflow <br />
