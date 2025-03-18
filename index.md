@@ -67,7 +67,7 @@ Development of object detection models tailored for metallurgy companies. <br />
 - _[[github]](https://github.com/jparedesDS/)_ <br />
 - _[[huggingface]](https://huggingface.co/jparedesDS/)_ <br />
 - _[[kaggle]](https://www.kaggle.com/joseparedesc)_ <br />
-- _[[X/twitter]](https://twitter.com/xhitoCS)_ <br />
+- _[[Twitter/X]](https://twitter.com/xhitoCS)_ <br />
 
 
 
