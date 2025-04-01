@@ -15,7 +15,7 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Visi
 1. &nbsp; <img class="project-picture" src="images/subtitle.png"> <b>Paredes, J.</b> <em>"Twitch Automatic Subtitle Generation,</em> Captures system audio in real-time, transcribes it into text using a speech recognition model (ASR), and translates it from English to Spanish using HuggingFace models. <span style="color:blue">STATUS: IN DEVELOPMENT</span><br />
 [[code]](https://github.com/jparedesDS/twitch-automatic-subtitle-generation) <br />
 
-2. &nbsp; <img class="project-picture" src="images/ocr-identification.png.png"> <b>Paredes, J.</b> <em>"OCR Weapon Detection in Counter-Strike 2,</em> Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition (OCR). <br />
+2. &nbsp; <img class="project-picture" src="images/ocr-identification.png"> <b>Paredes, J.</b> <em>"OCR Weapon Detection in Counter-Strike 2,</em> Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition (OCR). <br />
 [[code]](https://github.com/jparedesDS/OCR-Identification-CS2-Weapons) <br />
 
 3. &nbsp; <img class="project-picture" src="images/myyolo11.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> <span style="color:red">(YOLO11)</span> Development of object detection models tailored for metallurgy companies. <span style="color:blue">(FPI, DP, LPI, PT)</span> <br />
