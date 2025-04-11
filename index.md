@@ -52,6 +52,7 @@ Development of object detection models tailored for metallurgy companies. <br />
 
 
 ## <3 Computer Vision 
+1. _"Counter Strike 2 Weapon Detector"_ - Weapon Identification of CS2 <span style="color:red">(YOLO12m)</span> _2025_ <br /> [[model]](https://huggingface.co/jparedesDS/cs2-yolo12m-weapon-detection) [[github]](https://github.com/jparedesDS/cs2-yolo12m-weapon-detection) <br />
 1. _"Welding Defects Detector"_ - Detection of welding defects with AI <span style="color:red">(YOLO11x)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[github]](https://github.com/jparedesDS/welding-defects-detection) <br />
 2. _"Liquid Penetrant Test (DP, LPI, PT)"_ - Detection of liquid penetrant test with AI <span style="color:red">(YOLO11l)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/liquid-penetrant-test-detection) [[github]](https://github.com/jparedesDS/fluorescent-penetrant-inspection) <br />
 3. _"Counter Strike 2 Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLO12s)</span> _2025_ <br /> [[model]](https://huggingface.co/jparedesDS/cs2_yolo12s) [[github]](https://github.com/jparedesDS/cs2-object-dectection) <br />
