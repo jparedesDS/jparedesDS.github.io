@@ -10,7 +10,7 @@ layout: default
 Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Vision, Deep Learning, NLP, and Data Analysis. Currently, I’m working at EIPSA S.A., where I develop object detection models for metallurgy companies, automate data entry processes, generate tracking reports for received documentation, and implement deep learning solutions for identifying technical drawings. Contact me via <jparedescolmenarejo@gmail.com>.
 
 
-## My Repositories
+## My Portfolio
 1. &nbsp; <img class="project-picture" src="images/tableau-logo.png"> <b>Paredes, J.</b> <em>"TABLEAU, Documentation Flow Dashboard,</em> A visual progress report designed to monitor document inflow, processing, and delivery across projects. <br />
 [[View on Tableau Public]](https://public.tableau.com/app/profile/jose.paredes6369/viz/INFORMEDEPROGRESO/DASHDOCUMENTACIN) <br />
 
