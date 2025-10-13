@@ -11,7 +11,7 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Visi
 
 
 ## My Repositories
-1. &nbsp; <img class="project-picture" src="images/tableau-logo.png"> <b>Paredes, J.</b> <em>"TABLEAU - Documentation Flow Dashboard,</em> A visual progress report designed to monitor document inflow, processing, and delivery across projects. <br />
+1. &nbsp; <img class="project-picture" src="images/tableau-logo.png"> <b>Paredes, J.</b> <em>"TABLEAU, Documentation Flow Dashboard,</em> A visual progress report designed to monitor document inflow, processing, and delivery across projects. <br />
 [[View on Tableau Public]](https://public.tableau.com/app/profile/jose.paredes6369/viz/INFORMEDEPROGRESO/DASHDOCUMENTACIN) <br />
 
 1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocuControl,</em> Automation of reports and document control, focused on the analysis of data exported from ERP and the generation of advanced visual reports. <br />
