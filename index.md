@@ -17,7 +17,7 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Visi
 1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocuControl,</em> Automation of reports and document control, focused on the analysis of data exported from ERP and the generation of advanced visual reports. <br />
 [[code]](https://github.com/jparedesDS/DocuControl) <br />
 
-1. &nbsp; <img class="project-picture" src="images/subtitle.png"> <b>Paredes, J.</b> <em>"Twitch Automatic Subtitle Generation,</em> Captures system audio in real-time, transcribes it into text using a speech recognition model (ASR), and translates it from English to Spanish using HuggingFace models. <span style="color:blue">STATUS: IN DEVELOPMENT</span><br />
+1. &nbsp; <img class="project-picture" src="images/subtitle.png"> <b>Paredes, J.</b> <em>"Twitch Automatic Subtitle Generation,</em> Captures system audio in real-time, transcribes it into text using a speech recognition model (ASR), and translates it from English to Spanish using HuggingFace models. <span style="color:blue">STATUS: ALPHA DEVELOPMENT</span><br />
 [[code]](https://github.com/jparedesDS/twitch-automatic-subtitle-generation) <br />
 
 2. &nbsp; <img class="project-picture" src="images/ocr-identification.png"> <b>Paredes, J.</b> <em>"OCR Weapon Detection in Counter-Strike 2,</em> Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition (OCR). <br />
