@@ -78,5 +78,24 @@ Development of object detection models tailored for metallurgy companies. <br />
 - _[[kaggle]](https://www.kaggle.com/joseparedesc)_ <br />
 - _[[Twitter/X]](https://twitter.com/xhitoCS)_ <br />
 
+## ❤️ Why buy me a coffee?
+If any of my repositories have been useful to you, saved you time, or inspired you in any way, you can support my work by buying me a coffee ☕
+Your support helps me to:
+
+Keep projects maintained and improved
+
+Create new open source repositories
+
+Spend more time documenting and explaining the code
+
+👉 Buy me a coffee here:
+
+<a href="https://buymeacoffee.com/joseparedes" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200"/>
+</a>
+
+
+Thank you for stopping by and supporting open source! 🚀
+
 
 
