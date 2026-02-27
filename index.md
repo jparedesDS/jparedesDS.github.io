@@ -11,6 +11,9 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Visi
 
 
 ## My Portfolio
+1. &nbsp; <img class="project-picture" src="images/polymarket.png"> <b>Paredes, J.</b> <em>"Polymarket Auto-Betting Bot,</em> Automated trading bot for BTC prediction markets (UP/DOWN 5m and 15m) on Polymarket. Uses limit maker orders at 45¢, Kelly criterion with Monte Carlo backtesting for position sizing, bail-out mechanism when only one leg fills, and gasless auto-redeem with on-chain fallback. Includes a Telegram bot for real-time dashboard, alerts, and controls. <br />
+[[code]](https://github.com/jparedesDS/polymarket-autobetting)
+
 1. &nbsp; <img class="project-picture" src="images/tableau-logo.png"> <b>Paredes, J.</b> <em>"TABLEAU, Documentation Flow Dashboard,</em> A visual progress report designed to monitor document inflow, processing, and delivery across projects. <br />
 [[View on Tableau Public]](https://public.tableau.com/app/profile/jose.paredes6369/viz/INFORMEDEPROGRESO/DASHDOCUMENTACIN) <br />
 
