@@ -11,6 +11,9 @@ Hi! I’m a Data Scientist based in Madrid, Spain. I specialize in Computer Visi
 
 
 ## My Portfolio
+1. &nbsp; <img class="project-picture" src="images/telegram-bot.png"> <b>Paredes, J.</b> <em>"Claude Telegram Bot,</em> AI-powered Telegram bot integrating Claude API to provide conversational assistance, automation workflows, and command-based interactions directly from Telegram. Designed for real-time AI interaction and extensible automation scripts. <br />
+[[code]](https://github.com/jparedesDS/claude-telegram) <br />
+
 1. &nbsp; <img class="project-picture" src="images/polymarket.png"> <b>Paredes, J.</b> <em>"Polymarket Auto-Betting Bot,</em> Automated trading bot for BTC prediction markets (UP/DOWN 5m and 15m) on Polymarket. Uses limit maker orders at 45¢, Kelly criterion with Monte Carlo backtesting for position sizing, bail-out mechanism when only one leg fills, and gasless auto-redeem with on-chain fallback. Includes a Telegram bot for real-time dashboard, alerts, and controls. <br />
 [[code]](https://github.com/jparedesDS/polymarket-autobetting)
 
