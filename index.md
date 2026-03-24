@@ -84,8 +84,7 @@ Development of object detection models tailored for metallurgy companies. <br />
 6. _"Fortnite Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/fortnite-yolo11m) [[github]](https://github.com/jparedesDS/fortnite-object-detection) <br />
 7. _"OverWatch 2 Players Detector"_ - Players Identification of OW2 <span style="color:red">(YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/ow2-yolo11m) [[github]](https://github.com/jparedesDS/ow2-object-dectection) <br />
 8. _"Deadlock Players Detector"_ - Players Identification of Deadlock <span style="color:red">(YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/deadlock-yolo11l) [[github]](https://github.com/jparedesDS/deadlock-object-detection) <br />
-9. _"AI-YOLO Object Detection"_ _2024_ <br /> [[github]](https://github.com/jparedesDS/AI-YOLO) <br />
-10. _"League of Legends Map Tracking"_ <span style="color:red">(YOLO11)</span> _2024_ <br /> [[github]](https://github.com/jparedesDS/lol-map-tracking-object-detection) <br />
+10. _"League of Legends Map Tracking"_ - Identification of all characters via the minimap <span style="color:red">(YOLO11)</span> _2024_ <br /> [[github]](https://github.com/jparedesDS/lol-map-tracking-object-detection) <br />
 
 
 ## Contact with me
