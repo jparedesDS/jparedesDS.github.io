@@ -17,7 +17,7 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 1. &nbsp; <img class="project-picture" src="images/polymarket.png"> <b>Paredes, J.</b> <em>"Polymarket Auto-Betting Bot,</em> Automated trading bot for BTC prediction markets (UP/DOWN 5m and 15m) on Polymarket. Uses limit maker orders at 45¢, Kelly criterion with Monte Carlo backtesting for position sizing, bail-out mechanism when only one leg fills, and gasless auto-redeem with on-chain fallback. Includes a Telegram bot for real-time dashboard, alerts, and controls. <br />
 [[code]](https://github.com/jparedesDS/polymarket-autobetting) *(Private repo)*
 
-1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocFlow SaaS,</em> Multi-tenant SaaS platform for industrial document control, automated email processing, workflow orchestration, and real-time analytics — built for engineering companies managing thousands of technical documents across multiple clients and projects. <br />
+1. &nbsp; <img class="project-picture" src="images/docflow-saas.svg"> <b>Paredes, J.</b> <em>"DocFlow SaaS,</em> Multi-tenant SaaS platform for industrial document control, automated email processing, workflow orchestration, and real-time analytics — built for engineering companies managing thousands of technical documents across multiple clients and projects. <br />
 [[code]](https://github.com/jparedesDS/docflow-saas) <br />
 
 1. &nbsp; <img class="project-picture" src="images/tableau-logo.png"> <b>Paredes, J.</b> <em>"TABLEAU, Documentation Flow Dashboard,</em> A visual progress report designed to monitor document inflow, processing, and delivery across projects. <br />
@@ -26,7 +26,7 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocuControl,</em> Automation of reports and document control, focused on the analysis of data exported from ERP and the generation of advanced visual reports. <br />
 [[code]](https://github.com/jparedesDS/DocuControl) *(Private repo)* <br />
 
-1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocFlow,</em> Industrial SaaS prototype for document management and ERP-driven workflow automation — predecessor architecture that evolved into the multi-tenant DocFlow SaaS platform. <br />
+1. &nbsp; <img class="project-picture" src="images/docflow.svg"> <b>Paredes, J.</b> <em>"DocFlow,</em> Industrial SaaS prototype for document management and ERP-driven workflow automation — predecessor architecture that evolved into the multi-tenant DocFlow SaaS platform. <br />
 [[code]](https://github.com/jparedesDS/docflow) *(Private repo)* <br />
 
 1. &nbsp; <img class="project-picture" src="images/subtitle.png"> <b>Paredes, J.</b> <em>"Twitch Automatic Subtitle Generation,</em> Captures system audio in real-time, transcribes it into text using a speech recognition model (ASR), and translates it from English to Spanish using HuggingFace models. <span style="color:blue">STATUS: ALPHA DEVELOPMENT</span><br />
@@ -35,10 +35,10 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 2. &nbsp; <img class="project-picture" src="images/ocr-identification.png"> <b>Paredes, J.</b> <em>"OCR Weapon Detection in Counter-Strike 2,</em> Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition (OCR). <br />
 [[code]](https://github.com/jparedesDS/OCR-Identification-CS2-Weapons) <br />
 
-1. &nbsp; <b>Paredes, J.</b> <em>"ClutchBot.ai (CS2AI),</em> Conversational AI assistant for Counter-Strike 2 players — provides chat-based tactical guidance, match insights and gameplay support, built on a TypeScript stack. <br />
+1. &nbsp; <img class="project-picture" src="images/cs2ai.svg"> <b>Paredes, J.</b> <em>"ClutchBot.ai (CS2AI),</em> Conversational AI assistant for Counter-Strike 2 players — provides chat-based tactical guidance, match insights and gameplay support, built on a TypeScript stack. <br />
 [[code]](https://github.com/jparedesDS/CS2AI) *(Private repo)* <br />
 
-1. &nbsp; <b>Paredes, J.</b> <em>"CS2 VRS Predictions,</em> Predictive modeling pipeline for Counter-Strike 2 ranking systems (VRS) — forecasts team standings and competitive tournament outcomes from historical performance data. <br />
+1. &nbsp; <img class="project-picture" src="images/cs2-vrs.svg"> <b>Paredes, J.</b> <em>"CS2 VRS Predictions,</em> Predictive modeling pipeline for Counter-Strike 2 ranking systems (VRS) — forecasts team standings and competitive tournament outcomes from historical performance data. <br />
 [[code]](https://github.com/jparedesDS/cs2-vrs-predictions) *(Private repo)* <br />
 
 3. &nbsp; <img class="project-picture" src="images/myyolo11.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> <span style="color:red">(YOLO11)</span> Development of object detection models tailored for metallurgy companies. <span style="color:blue">(FPI, DP, LPI, PT)</span> <br />
