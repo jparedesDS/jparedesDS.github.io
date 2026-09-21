@@ -14,6 +14,9 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 1. &nbsp; <img class="project-picture" src="images/docflow-saas.svg"> <b>Paredes, J.</b> <em>"DocFlow SaaS,</em> Multi-tenant SaaS platform for industrial document control, automated email processing, workflow orchestration, and real-time analytics — built for engineering companies managing thousands of technical documents across multiple clients and projects. <br />
 [[code]](https://github.com/jparedesDS/docflow-saas) <br />
 
+1. &nbsp; <img class="project-picture" src="images/workshop-scheduler.svg"> <b>Paredes, J.</b> <em>"Appointment Management for Auto Repair Shops,</em> Self-hosted scheduling and customer/vehicle management system for garages. Drag-and-drop agenda by service bay, full appointment lifecycle, roadworthiness (ITV) expiry alerts, WhatsApp/email customer notifications, and role-based access (admin/reception/mechanic) enforced server-side. Runs on the shop's local network with real-time sync across every screen, SQLite storage with automated daily and off-site backups, and zero external dependencies — Node.js native APIs only. <span style="color:blue">Deployed at Ritmo Talleres.</span> <br />
+[[code]](https://github.com/jparedesDS/talleres-ritmo) <br />
+
 1. &nbsp; <img class="project-picture" src="images/telegram-bot.png"> <b>Paredes, J.</b> <em>"Claude Telegram Bot,</em> AI-powered Telegram bot integrating Claude API to provide conversational assistance, automation workflows, and command-based interactions directly from Telegram. Designed for real-time AI interaction and extensible automation scripts. <br />
 [[code]](https://github.com/jparedesDS/claude-telegram) <br />
 
