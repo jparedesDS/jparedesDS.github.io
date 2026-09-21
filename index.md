@@ -11,8 +11,8 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 
 
 ## My Portfolio
-1. &nbsp; <img class="project-picture" src="images/docflow-saas.svg"> <b>Paredes, J.</b> <em>"DocFlow SaaS,</em> Multi-tenant SaaS platform for industrial document control, automated email processing, workflow orchestration, and real-time analytics — built for engineering companies managing thousands of technical documents across multiple clients and projects. <br />
-[[code]](https://github.com/jparedesDS/docflow-saas) <br />
+1. &nbsp; <img class="project-picture" src="images/docflow-saas.svg"> <b>Paredes, J.</b> <em>"DocFlow SaaS,</em> Document control platform for engineering projects. Live KPI dashboard, agenda with automatic task sync, AI-powered inbox and executive summaries via Claude, document monitoring with filterable views, email parsers for 6 transmittal platforms (TR, GAIA, Aconex, Sendoc, Prodoc, Document Space), 3-level claim escalation with bulk sending, multi-sheet Excel reporting and scheduled email reports. <br />
+[[code]](https://github.com/jparedesDS/docflow-lite) <br />
 
 1. &nbsp; <img class="project-picture" src="images/workshop-scheduler.svg"> <b>Paredes, J.</b> <em>"Appointment Management for Auto Repair Shops,</em> Self-hosted scheduling and customer/vehicle management system for garages. Drag-and-drop agenda by service bay, full appointment lifecycle, roadworthiness (ITV) expiry alerts, WhatsApp/email customer notifications, and role-based access (admin/reception/mechanic) enforced server-side. Runs on the shop's local network with real-time sync across every screen, SQLite storage with automated daily and off-site backups, and zero external dependencies — Node.js native APIs only. <span style="color:blue">Deployed at Ritmo Talleres.</span> <br />
 [[code]](https://github.com/jparedesDS/talleres-ritmo) <br />
