@@ -42,3 +42,9 @@ th { color: var(--muted); font-weight: 600; }
 footer { border-top: 1px solid var(--line); padding-top: 18px; padding-bottom: 36px;
   color: var(--muted); font-size: 14px; }
 footer a { color: var(--muted); }
+.api { display: flex; gap: 14px; align-items: center; background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px 18px; margin: 18px 0 8px; font-size: 15px; }
+.api .yt { width: 42px; height: 30px; flex: none; }
+.yt { display: inline-block; vertical-align: middle; }
+.uses { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.uses .yt { width: 22px; height: 16px; }
