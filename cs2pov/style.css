@@ -48,3 +48,10 @@ footer a { color: var(--muted); }
 .yt { display: inline-block; vertical-align: middle; }
 .uses { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .uses .yt { width: 22px; height: 16px; }
+.code { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; background: var(--bg2);
+  border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin: 18px 0; }
+.code code { flex: 1 1 260px; font: 600 15px/1.4 ui-monospace, Consolas, monospace; color: var(--yellow);
+  word-break: break-all; }
+.code button { font: 700 15px "Chakra Petch", sans-serif; background: var(--yellow); color: var(--bg);
+  border: 0; border-radius: 10px; padding: 9px 16px; cursor: pointer; }
+.error { color: #FF6B6B; }
