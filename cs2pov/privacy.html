@@ -74,6 +74,12 @@
     name) and permission to upload videos (<code>user.info.basic</code>, <code>video.upload</code>)</td>
     <td>Confirm the account and send each clip to its TikTok inbox as a draft, which the owner reviews and
     posts in the TikTok app.</td></tr>
+    <tr><td>Buffer (Buffer API)</td><td>An API key of the channel owner's own Buffer account, with access
+    to its account information and posts, and the id of the TikTok channel connected there</td>
+    <td>Publish each clip on the channel's TikTok account through Buffer, which TikTok has approved to
+    publish. Buffer fetches the clip from the same temporary host used for Instagram (below) and posts it
+    with its caption. The clip is the channel's own content; no personal data is included. See the
+    <a href="https://buffer.com/privacy">Buffer Privacy Policy</a>.</td></tr>
     <tr><td>Instagram (Instagram Graph API)</td><td>The Facebook Page linked to the channel's Instagram
     professional account, the account's id and username, and permission to publish</td>
     <td>Publish each clip as a Reel on the channel's account. So that Instagram can fetch the
@@ -85,7 +91,7 @@
     the channel's own content, published right afterwards; no personal data is included.</td></tr>
   </table></div>
   <ul>
-    <li>Their access tokens are stored only on the channel owner's computer, like the Google token. Nothing
+    <li>Their access tokens and the Buffer API key are stored only on the channel owner's computer, like the Google token. Nothing
     is read from followers or other users, and nothing is shared or sold.</li>
     <li>Access can be revoked from TikTok (Settings and privacy &rarr; Security &rarr; Apps and services
     permissions) and from Facebook (Settings &rarr; Business integrations). After revocation the owner deletes
