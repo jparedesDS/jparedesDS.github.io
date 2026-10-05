@@ -32,8 +32,8 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocuControl,</em> Automation of reports and document control, focused on the analysis of data exported from ERP and the generation of advanced visual reports. <br />
 [[code]](https://github.com/jparedesDS/DocuControl) *(Private repo)* <br />
 
-1. &nbsp; <img class="project-picture" src="images/subtitle.png"> <b>Paredes, J.</b> <em>"Twitch Automatic Subtitle Generation,</em> Captures system audio in real-time, transcribes it into text using a speech recognition model (ASR), and translates it from English to Spanish using HuggingFace models. <span style="color:blue">STATUS: ALPHA DEVELOPMENT</span><br />
-[[code]](https://github.com/jparedesDS/twitch-automatic-subtitle-generation) <br />
+1. &nbsp; <img class="project-picture" src="images/trtw-tv.png"> <b>Paredes, J.</b> <em>"trtw.tv — Live Spanish Subtitles for Twitch & YouTube,</em> Chrome extension (Manifest V3) that captures the tab audio, transcribes English with Whisper and overlays Spanish subtitles on the player with a 1.5–3 s delay. Runs entirely on the user's machine — no paid APIs, no keys, no server — on WebGPU with a WASM/CPU fallback, so integrated graphics are enough. Silero VAD segments speech, local-agreement confirmation and a hallucination filter keep sentences complete and invented text out, and translation goes through Chrome's built-in Translator API with an Opus-MT fallback, plus glossary, context and bilingual options. <br />
+[[code]](https://github.com/jparedesDS/trtw-tv) <br />
 
 2. &nbsp; <img class="project-picture" src="images/ocr-identification.png"> <b>Paredes, J.</b> <em>"OCR Weapon Detection in Counter-Strike 2,</em> Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition (OCR). <br />
 [[code]](https://github.com/jparedesDS/OCR-Identification-CS2-Weapons) <br />
