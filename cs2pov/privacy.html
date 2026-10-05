@@ -22,7 +22,7 @@
 </header>
 <main>
   <h1>Privacy <b>Policy</b></h1>
-  <p class="meta">Last updated: 1 October 2026 (Instagram video hosting)</p>
+  <p class="meta">Last updated: 5 October 2026 (YouTube Analytics statistics)</p>
 
   <p>This policy covers <strong>cs2pov</strong>, the application that publishes the
   <a href="https://www.youtube.com/@Pro-POV-CS2">Pro POV CS2</a> YouTube channel and shares short clips
@@ -44,6 +44,10 @@
     <tr><td>Uploading videos, thumbnails, titles, descriptions and tags</td><td>Publish the channel's videos.</td></tr>
     <tr><td>The channel's playlists</td><td>Add each video to its playlists.</td></tr>
     <tr><td>View, like and comment counts of the channel's own videos</td><td>Learn which players, maps and sources the audience watches, to choose the next matches.</td></tr>
+    <tr><td>Watch time, average view duration and percentage, likes, shares and subscribers gained of the
+    channel's own videos (YouTube Analytics API, read-only: <code>yt-analytics.readonly</code>)</td><td>Learn
+    what the audience actually watches, to choose the next matches, and send the channel owner a weekly
+    summary of how the channel's videos did.</td></tr>
     <tr><td>Public search results and their view counts</td><td>Compute one number per pro player: how many views recent POV videos of that player get.</td></tr>
   </table></div>
   <p>cs2pov does not access private data of other users, does not read viewers' personal information, and does
@@ -52,7 +56,9 @@
   <h2>Storage, sharing and retention</h2>
   <ul>
     <li>The OAuth token and all data are stored only on the channel owner's computer. There is no server and
-    nothing is sent to third parties; the data is never sold or shared.</li>
+    nothing is sent to third parties; the data is never sold or shared. The only place it goes is the
+    channel owner's own private Discord channel, where cs2pov sends the owner its notifications and the
+    weekly summary of the channel's statistics.</li>
     <li>Statistics of the channel's videos are refreshed daily. Public search results are reduced to one
     number per player and refreshed weekly. No data obtained from YouTube API Services is kept for more
     than 30 days without being refreshed, except the ids of the channel's own uploads.</li>
