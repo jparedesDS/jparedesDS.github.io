@@ -20,6 +20,9 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 1. &nbsp; <img class="project-picture" src="images/workshop-scheduler.svg"> <b>Paredes, J.</b> <em>"Appointment Management for Auto Repair Shops,</em> Self-hosted scheduling and customer/vehicle management system for garages. Drag-and-drop agenda by service bay, full appointment lifecycle, roadworthiness (ITV) expiry alerts, WhatsApp/email customer notifications, and role-based access (admin/reception/mechanic) enforced server-side. Runs on the shop's local network with real-time sync across every screen, SQLite storage with automated daily and off-site backups, and zero external dependencies — Node.js native APIs only. <span style="color:blue">Deployed at Ritmo Talleres.</span> <br />
 [[code]](https://github.com/jparedesDS/talleres-ritmo) <br />
 
+1. &nbsp; <img class="project-picture" src="images/trtw-tv.png"> <b>Paredes, J.</b> <em>"trtw.tv — Live Spanish Subtitles for Twitch & YouTube,</em> Chrome extension (Manifest V3) that captures the tab audio, transcribes English with Whisper and overlays Spanish subtitles on the player with a 1.5–3 s delay. Runs entirely on the user's machine — no paid APIs, no keys, no server — on WebGPU with a WASM/CPU fallback, so integrated graphics are enough. Silero VAD segments speech, local-agreement confirmation and a hallucination filter keep sentences complete and invented text out, and translation goes through Chrome's built-in Translator API with an Opus-MT fallback, plus glossary, context and bilingual options. <br />
+[[code]](https://github.com/jparedesDS/trtw-tv) <br />
+
 1. &nbsp; <img class="project-picture" src="images/telegram-bot.png"> <b>Paredes, J.</b> <em>"Claude Telegram Bot,</em> AI-powered Telegram bot integrating Claude API to provide conversational assistance, automation workflows, and command-based interactions directly from Telegram. Designed for real-time AI interaction and extensible automation scripts. <br />
 [[code]](https://github.com/jparedesDS/claude-telegram) <br />
 
@@ -31,9 +34,6 @@ Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision
 
 1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocuControl,</em> Automation of reports and document control, focused on the analysis of data exported from ERP and the generation of advanced visual reports. <br />
 [[code]](https://github.com/jparedesDS/DocuControl) *(Private repo)* <br />
-
-1. &nbsp; <img class="project-picture" src="images/trtw-tv.png"> <b>Paredes, J.</b> <em>"trtw.tv — Live Spanish Subtitles for Twitch & YouTube,</em> Chrome extension (Manifest V3) that captures the tab audio, transcribes English with Whisper and overlays Spanish subtitles on the player with a 1.5–3 s delay. Runs entirely on the user's machine — no paid APIs, no keys, no server — on WebGPU with a WASM/CPU fallback, so integrated graphics are enough. Silero VAD segments speech, local-agreement confirmation and a hallucination filter keep sentences complete and invented text out, and translation goes through Chrome's built-in Translator API with an Opus-MT fallback, plus glossary, context and bilingual options. <br />
-[[code]](https://github.com/jparedesDS/trtw-tv) <br />
 
 2. &nbsp; <img class="project-picture" src="images/ocr-identification.png"> <b>Paredes, J.</b> <em>"OCR Weapon Detection in Counter-Strike 2,</em> Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition (OCR). <br />
 [[code]](https://github.com/jparedesDS/OCR-Identification-CS2-Weapons) <br />
