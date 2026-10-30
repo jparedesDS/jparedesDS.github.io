@@ -27,7 +27,7 @@
   --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --serif: Georgia, "Times New Roman", serif;
   --script: "Caveat", "Segoe Script", cursive;
-  --board-max: min(100%, 78vh);
+  --board-max: min(100%, 74vh);
 }
 
 * { box-sizing: border-box; }
