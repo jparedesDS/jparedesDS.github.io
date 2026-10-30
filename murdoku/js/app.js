@@ -20,7 +20,6 @@
     cells: $("#cells"),
     tokens: $("#tokens"),
     roster: $("#roster"),
-    clues: $("#clues"),
     colLabels: $("#colLabels"),
     rowLabels: $("#rowLabels"),
     placedCount: $("#placedCount"),
@@ -315,11 +314,13 @@
   function buildRoster() {
     els.roster.innerHTML = "";
     for (const p of PUZZLE.people) {
-      const card = document.createElement("button");
-      card.type = "button";
+      const card = document.createElement("div");
       card.className = "person-card";
       card.dataset.id = p.id;
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
       card.setAttribute("aria-pressed", "false");
+      card.setAttribute("aria-label", `${p.name}: ${p.clue}`);
       card.innerHTML = `
         <span class="thumb">
           <img src="assets/portraits/${p.id}.webp?v=${ASSET_VERSION}" alt="Retrato de ${p.name}" loading="lazy" draggable="false">
@@ -331,32 +332,9 @@
         </span>
         <span class="tag">${p.tag}</span>
         <span class="clue-snippet">${p.clue}</span>
+        <button class="clue-used-toggle" type="button" aria-label="Marcar la pista de ${p.name} como usada" aria-pressed="false">✓ pista</button>
       `;
       els.roster.appendChild(card);
-    }
-  }
-
-  function buildClues() {
-    els.clues.innerHTML = "";
-    for (const p of PUZZLE.people) {
-      const card = document.createElement("div");
-      card.className = "clue-card";
-      card.dataset.id = p.id;
-      card.tabIndex = 0;
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-label", `Pista de ${p.name}: ${p.clue}`);
-      card.style.setProperty("--c", p.color);
-      card.innerHTML = `
-        <div class="clue-face">
-          <img src="assets/portraits/${p.id}.webp?v=${ASSET_VERSION}" alt="" loading="lazy" draggable="false">
-        </div>
-        <div class="clue-body">
-          <div class="clue-name">${p.name} <span class="tag">${p.tag}</span></div>
-          <div class="clue-text">${p.clue}</div>
-        </div>
-        <button class="clue-check" type="button" aria-label="Marcar pista de ${p.name} como usada" aria-pressed="false">✓</button>
-      `;
-      els.clues.appendChild(card);
     }
   }
 
@@ -365,7 +343,6 @@
   function syncAll() {
     syncTokens();
     syncRoster();
-    syncClues();
     syncCounts();
     syncPlacing();
     syncTreasure();
@@ -465,8 +442,10 @@
     for (const card of $$(".person-card", els.roster)) {
       const id = card.dataset.id;
       const p = state.placements[id];
+      const used = !!state.used[id];
       card.classList.toggle("selected", state.selected === id);
       card.classList.toggle("placed", !!p);
+      card.classList.toggle("used", used);
       card.setAttribute("aria-pressed", state.selected === id ? "true" : "false");
       const pos = $(".pos", card);
       const check = $(".check", card);
@@ -480,17 +459,8 @@
         }
       }
       if (check) check.hidden = !p;
-    }
-  }
-
-  function syncClues() {
-    for (const card of $$(".clue-card", els.clues)) {
-      const id = card.dataset.id;
-      const used = !!state.used[id];
-      card.classList.toggle("used", used);
-      card.classList.toggle("selected", state.selected === id);
-      const btn = $(".clue-check", card);
-      if (btn) btn.setAttribute("aria-pressed", used ? "true" : "false");
+      const toggle = $(".clue-used-toggle", card);
+      if (toggle) toggle.setAttribute("aria-pressed", used ? "true" : "false");
       const show = state.filter === "all" || (state.filter === "used" ? used : !used);
       card.hidden = !show;
     }
@@ -622,14 +592,11 @@
     state.selected = state.selected === id ? null : id;
     syncPlacing();
     syncRoster();
-    syncClues();
     if (state.selected) {
       const id2 = state.selected;
       if (scroll) {
         const card = els.roster.querySelector(`.person-card[data-id="${id2}"]`);
         if (card) card.scrollIntoView({ block: "nearest", behavior: "smooth" });
-        const clue = els.clues.querySelector(`.clue-card[data-id="${id2}"]`);
-        if (clue && !clue.hidden) clue.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
       const p = state.placements[id2];
       if (p) boardToast(`${nameOf(id2)} está en F${p.r} C${p.c}. Toca otra casilla para moverlo.`);
@@ -823,7 +790,7 @@
     state.startedAt = null;
     IDS.forEach(id => { state.used[id] = true; });
     state.filter = "all";
-    $$(".clue-filters .chip").forEach(c => c.classList.toggle("active", c.dataset.filter === "all"));
+    $$(".roster-filters .chip").forEach(c => c.classList.toggle("active", c.dataset.filter === "all"));
     syncAll();
     saveNow();
     showVictory();
@@ -1191,41 +1158,34 @@
     els.roster.addEventListener("click", (e) => {
       const card = e.target.closest(".person-card");
       if (!card) return;
-      selectPerson(card.dataset.id);
-    });
-
-    // Pistas
-    els.clues.addEventListener("click", (e) => {
-      const check = e.target.closest(".clue-check");
-      const card = e.target.closest(".clue-card");
-      if (!card) return;
-      const id = card.dataset.id;
-      if (check) {
+      const toggle = e.target.closest(".clue-used-toggle");
+      if (toggle) {
         e.stopPropagation();
+        const id = card.dataset.id;
         state.used[id] = !state.used[id];
         if (!state.used[id]) delete state.used[id];
-        syncClues();
+        syncRoster();
         syncCounts();
         save();
         return;
       }
-      selectPerson(id);
+      selectPerson(card.dataset.id);
     });
 
-    els.clues.addEventListener("keydown", (e) => {
+    els.roster.addEventListener("keydown", (e) => {
       if (e.key !== "Enter" && e.key !== " ") return;
-      const card = e.target.closest(".clue-card");
-      if (!card || e.target.closest(".clue-check")) return;
+      const card = e.target.closest(".person-card");
+      if (!card || e.target.closest(".clue-used-toggle")) return;
       e.preventDefault();
       selectPerson(card.dataset.id);
     });
 
     // Filtros
-    for (const chip of $$(".clue-filters .chip")) {
+    for (const chip of $$(".roster-filters .chip")) {
       chip.addEventListener("click", () => {
         state.filter = chip.dataset.filter;
-        $$(".clue-filters .chip").forEach(c => c.classList.toggle("active", c === chip));
-        syncClues();
+        $$(".roster-filters .chip").forEach(c => c.classList.toggle("active", c === chip));
+        syncRoster();
       });
     }
 
@@ -1250,7 +1210,6 @@
       state.selected = null;
       syncPlacing();
       syncRoster();
-      syncClues();
     });
 
     // Modales
@@ -1293,7 +1252,6 @@
           state.selected = null;
           syncPlacing();
           syncRoster();
-          syncClues();
           e.preventDefault();
         }
         return;
@@ -1343,7 +1301,6 @@
     buildLabels();
     buildCells();
     buildRoster();
-    buildClues();
     bindEvents();
 
     const params = new URLSearchParams(window.location.search);

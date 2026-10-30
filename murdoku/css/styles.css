@@ -27,7 +27,11 @@
   --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --serif: Georgia, "Times New Roman", serif;
   --script: "Caveat", "Segoe Script", cursive;
-  --board-max: min(100%, 74vh);
+  --board-max: min(100%, 82vh);
+}
+
+@media (max-height: 1000px) {
+  :root { --board-max: min(100%, 74vh); }
 }
 
 * { box-sizing: border-box; }
@@ -178,7 +182,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
   margin: 0 auto;
   padding: 0 20px 18px;
   display: grid;
-  grid-template-columns: 286px minmax(0, 1fr) 356px;
+  grid-template-columns: 310px minmax(0, 1fr);
   gap: 16px;
   align-items: start;
 }
@@ -191,7 +195,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
   backdrop-filter: blur(8px);
 }
 
-.roster-panel, .clues-panel {
+.roster-panel {
   position: sticky;
   top: 12px;
   max-height: calc(100vh - 92px);
@@ -236,6 +240,43 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
 
 /* ---------------- Roster ---------------- */
 
+.roster-filters {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 12px 8px;
+  flex-wrap: wrap;
+}
+.roster-filters .chip { font-size: 10px; padding: 4px 9px; }
+.used-badge {
+  margin-left: auto;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.clue-used-toggle {
+  appearance: none;
+  align-self: flex-start;
+  margin-top: 2px;
+  border: 1px solid var(--line);
+  background: rgba(255, 250, 240, 0.7);
+  color: var(--ink-faint);
+  border-radius: 999px;
+  padding: 2px 7px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.clue-used-toggle:hover { background: #fff; color: var(--ink); }
+.clue-used-toggle[aria-pressed="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
 .roster-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -250,6 +291,8 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
 
 .person-card {
   position: relative;
+  cursor: pointer;
+  user-select: none;
   appearance: none;
   border: 1px solid var(--line);
   background: var(--card);
@@ -370,6 +413,8 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
 .person-card.wrong-flash { animation: shake 0.36s ease; border-color: var(--red); }
 .person-card .check[hidden],
 .person-card .pos[hidden] { display: none; }
+.person-card[hidden] { display: none; }
+.person-card.used .clue-snippet { opacity: 0.55; }
 
 .treasure-card {
   margin: 0 12px 12px;
@@ -1139,15 +1184,13 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
 /* ---------------- Responsive ---------------- */
 
 @media (max-width: 1320px) {
-  .layout { grid-template-columns: 250px minmax(0, 1fr) 320px; }
+  .layout { grid-template-columns: 280px minmax(0, 1fr); }
   .roster-grid { gap: 6px; padding-inline: 10px; }
   .person-card .name { font-size: 10.5px; }
 }
 
 @media (max-width: 1120px) {
   .layout { grid-template-columns: 250px minmax(0, 1fr); }
-  .clues-panel { grid-column: 1 / -1; position: static; max-height: none; }
-  .clue-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
   .how-grid { grid-template-columns: 1fr 1fr; }
   .how-grid .how-block:last-child { grid-column: 1 / -1; }
 }
@@ -1159,9 +1202,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
   .layout { grid-template-columns: 1fr; padding: 0 10px 14px; gap: 10px; }
   .board-panel { order: 1; }
   .roster-panel { order: 2; position: static; max-height: none; }
-  .clues-panel { order: 3; }
   .roster-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: none; overflow: visible; }
-  .clue-list { grid-template-columns: 1fr; }
   .board-shell { width: min(100%, 86vh); }
   .board-toolbar { flex-wrap: wrap; }
   .tool-label { display: none; }
