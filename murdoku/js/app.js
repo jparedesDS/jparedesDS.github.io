@@ -321,7 +321,7 @@
       card.setAttribute("aria-pressed", "false");
       card.innerHTML = `
         <span class="thumb">
-          <img src="assets/portraits/${p.id}.webp" alt="Retrato de ${p.name}" loading="lazy" draggable="false">
+          <img src="assets/portraits/${p.id}.webp?v=${ASSET_VERSION}" alt="Retrato de ${p.name}" loading="lazy" draggable="false">
         </span>
         <span class="check" hidden>✓</span>
         <span class="name-row">
@@ -346,7 +346,7 @@
       card.style.setProperty("--c", p.color);
       card.innerHTML = `
         <div class="clue-face">
-          <img src="assets/portraits/${p.id}.webp" alt="" loading="lazy" draggable="false">
+          <img src="assets/portraits/${p.id}.webp?v=${ASSET_VERSION}" alt="" loading="lazy" draggable="false">
         </div>
         <div class="clue-body">
           <div class="clue-name">${p.name} <span class="tag">${p.tag}</span></div>
@@ -393,7 +393,7 @@
       token.style.setProperty("--c", p.color);
       token.innerHTML = `
         <div class="token-inner">
-          <div class="token-face" style="background-image:url('assets/portraits/${id}.webp')"></div>
+          <div class="token-face" style="background-image:url('assets/portraits/${id}.webp?v=${ASSET_VERSION}')"></div>
           <span class="token-badge">${initialOf(id)}</span>
         </div>
       `;

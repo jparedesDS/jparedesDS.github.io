@@ -4,6 +4,8 @@
    Las coordenadas de la solución son 1-indexadas (Fila, Columna).
    ============================================================ */
 
+const ASSET_VERSION = "3";
+
 const PUZZLE = {
   n: 24,
   title: "La Búsqueda del Tesoro",

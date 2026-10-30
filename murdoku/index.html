@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Versión jugable de La Búsqueda del Tesoro, el puzle de Murdoku del concurso mundial #1. Coloca a los sospechosos y encuentra el cofre.">
   <title>Murdoku · La Búsqueda del Tesoro</title>
-  <link rel="icon" type="image/webp" href="assets/treasure.webp">
+  <link rel="icon" type="image/webp" href="assets/treasure.webp?v=3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=3">
 </head>
 <body>
   <div class="app">
@@ -39,7 +39,7 @@
         <div class="roster-grid" id="roster"></div>
         <div class="treasure-card" id="treasureCard">
           <div class="treasure-card-img">
-            <img src="assets/treasure.webp" alt="Cofre del tesoro" draggable="false">
+            <img src="assets/treasure.webp?v=3" alt="Cofre del tesoro" draggable="false">
             <div class="treasure-card-lock" id="treasureLock">?</div>
           </div>
           <div class="treasure-card-body">
@@ -83,7 +83,7 @@
           <div class="col-labels" id="colLabels" aria-hidden="true"></div>
           <div class="row-labels" id="rowLabels" aria-hidden="true"></div>
           <div class="board" id="board">
-            <img class="board-bg" src="assets/board.webp" alt="Mapa de la isla con zonas, objetos y sospechosos" draggable="false">
+            <img class="board-bg" src="assets/board.webp?v=3" alt="Mapa de la isla con zonas, objetos y sospechosos" draggable="false">
             <div class="cells" id="cells"></div>
             <div class="tokens" id="tokens" aria-live="polite"></div>
             <div class="cross-overlay" id="crossOverlay" hidden>
@@ -91,7 +91,7 @@
               <div class="cross-col" id="crossCol"></div>
               <div class="treasure-burst" id="treasureBurst">
                 <div class="treasure-glow"></div>
-                <img src="assets/treasure.webp" alt="Cofre del tesoro" draggable="false">
+                <img src="assets/treasure.webp?v=3" alt="Cofre del tesoro" draggable="false">
                 <div class="treasure-label">¡TESORO!</div>
               </div>
             </div>
@@ -212,7 +212,7 @@
     <div class="modal-backdrop" data-close="modalVictory"></div>
     <div class="modal-card victory-card" role="dialog" aria-modal="true" aria-labelledby="victoryTitle">
       <div class="victory-rays" aria-hidden="true"></div>
-      <div class="victory-chest"><img src="assets/treasure.webp" alt="Cofre del tesoro" draggable="false"></div>
+      <div class="victory-chest"><img src="assets/treasure.webp?v=3" alt="Cofre del tesoro" draggable="false"></div>
       <div class="eyebrow">¡Caso resuelto!</div>
       <h2 id="victoryTitle">Has encontrado el tesoro</h2>
       <p class="victory-coords" id="victoryCoords">Fila 4 · Columna 11</p>
@@ -225,7 +225,7 @@
     </div>
   </div>
 
-  <script src="js/data.js" defer></script>
-  <script src="js/app.js" defer></script>
+  <script src="js/data.js?v=3" defer></script>
+  <script src="js/app.js?v=3" defer></script>
 </body>
 </html>
