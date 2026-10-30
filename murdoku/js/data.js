@@ -4,7 +4,7 @@
    Las coordenadas de la solución son 1-indexadas (Fila, Columna).
    ============================================================ */
 
-const ASSET_VERSION = "7";
+const ASSET_VERSION = "8";
 
 const PUZZLE = {
   n: 24,

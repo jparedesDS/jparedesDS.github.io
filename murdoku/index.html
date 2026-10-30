@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Versión jugable de La Búsqueda del Tesoro, el puzle de Murdoku del concurso mundial #1. Coloca a los sospechosos y encuentra el cofre.">
   <title>Murdoku · La Búsqueda del Tesoro</title>
-  <link rel="icon" type="image/webp" href="assets/treasure.webp?v=7">
+  <link rel="icon" type="image/webp" href="assets/treasure.webp?v=8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=7">
+  <link rel="stylesheet" href="css/styles.css?v=8">
 </head>
 <body>
   <div class="app">
@@ -48,7 +48,7 @@
         <div class="roster-grid" id="roster"></div>
         <div class="treasure-card" id="treasureCard">
           <div class="treasure-card-img">
-            <img src="assets/treasure.webp?v=7" alt="Cofre del tesoro" draggable="false">
+            <img src="assets/treasure.webp?v=8" alt="Cofre del tesoro" draggable="false">
             <div class="treasure-card-lock" id="treasureLock">?</div>
           </div>
           <div class="treasure-card-body">
@@ -92,7 +92,7 @@
           <div class="col-labels" id="colLabels" aria-hidden="true"></div>
           <div class="row-labels" id="rowLabels" aria-hidden="true"></div>
           <div class="board" id="board">
-            <img class="board-bg" src="assets/board.webp?v=7" alt="Mapa de la isla con zonas, objetos y sospechosos" draggable="false">
+            <img class="board-bg" src="assets/board.webp?v=8" alt="Mapa de la isla con zonas, objetos y sospechosos" draggable="false">
             <div class="cells" id="cells"></div>
             <div class="tokens" id="tokens" aria-live="polite"></div>
             <div class="cross-overlay" id="crossOverlay" hidden>
@@ -100,7 +100,7 @@
               <div class="cross-col" id="crossCol"></div>
               <div class="treasure-burst" id="treasureBurst">
                 <div class="treasure-glow"></div>
-                <img src="assets/treasure.webp?v=7" alt="Cofre del tesoro" draggable="false">
+                <img src="assets/treasure.webp?v=8" alt="Cofre del tesoro" draggable="false">
                 <div class="treasure-label">¡TESORO!</div>
               </div>
             </div>
@@ -123,19 +123,6 @@
         </div>
       </section>
 
-      <!-- ================= CLUES ================= -->
-      <aside class="panel clues-panel" aria-labelledby="cluesTitle">
-        <div class="panel-head">
-          <h2 id="cluesTitle">Pistas</h2>
-          <div class="panel-count"><span id="usedCount">0</span>/23 usadas</div>
-        </div>
-        <div class="clue-filters" role="group" aria-label="Filtrar pistas">
-          <button class="chip active" data-filter="all" type="button">Todas</button>
-          <button class="chip" data-filter="pending" type="button">Pendientes</button>
-          <button class="chip" data-filter="used" type="button">Usadas</button>
-        </div>
-        <div class="clue-list" id="clues"></div>
-      </aside>
     </main>
 
     <footer class="credits">
@@ -221,7 +208,7 @@
     <div class="modal-backdrop" data-close="modalVictory"></div>
     <div class="modal-card victory-card" role="dialog" aria-modal="true" aria-labelledby="victoryTitle">
       <div class="victory-rays" aria-hidden="true"></div>
-      <div class="victory-chest"><img src="assets/treasure.webp?v=7" alt="Cofre del tesoro" draggable="false"></div>
+      <div class="victory-chest"><img src="assets/treasure.webp?v=8" alt="Cofre del tesoro" draggable="false"></div>
       <div class="eyebrow">¡Caso resuelto!</div>
       <h2 id="victoryTitle">Has encontrado el tesoro</h2>
       <p class="victory-coords" id="victoryCoords">Fila 4 · Columna 11</p>
@@ -234,7 +221,7 @@
     </div>
   </div>
 
-  <script src="js/data.js?v=7" defer></script>
-  <script src="js/app.js?v=7" defer></script>
+  <script src="js/data.js?v=8" defer></script>
+  <script src="js/app.js?v=8" defer></script>
 </body>
 </html>
