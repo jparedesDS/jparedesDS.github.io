@@ -9,6 +9,11 @@
   font-weight: 700;
 }
 
+#navlist .nav-list:first-child a {
+  color: #272727;
+  font-weight: 700;
+}
+
 /* Home */
 
 .home-grid {
@@ -146,17 +151,24 @@
   font-size: 13px;
 }
 
-/* Category cards on the home page */
+/* Latest projects on the home page */
 
-.category-grid {
+.home-note {
+  margin: 0 0 6px;
+  color: #666;
+  font-size: 13px;
+}
+
+.latest-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+  margin-top: 12px;
 }
 
-.category-card {
+.latest-card {
   display: block;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid #e5e5e5;
   border-radius: 12px;
   background: #fff;
@@ -164,36 +176,36 @@
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
-.category-card:hover {
+.latest-card:hover {
   border-color: #c9c9f5;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   text-decoration: none;
   transform: translateY(-1px);
 }
 
-.cat-num {
-  color: #0800a6;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+.content img.latest-thumb {
+  display: block;
+  width: 170px;
+  height: 85px;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-.category-card h4 {
-  margin: 6px 0 6px;
+.latest-card h4 {
+  margin: 0 0 6px;
   color: #272727;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-.category-card p {
-  margin: 0;
+.latest-card p {
+  margin: 0 0 8px;
   color: #555;
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.5;
 }
 
-.cat-meta {
-  display: block;
-  margin-top: 10px;
+.latest-card span {
   color: #0800a6;
   font-size: 12px;
   font-weight: 700;
@@ -287,6 +299,29 @@
   line-height: 1.55;
 }
 
+@media (max-width: 900px) {
+  .navbar {
+    text-align: center;
+  }
+
+  #author-name {
+    float: none;
+    display: block;
+  }
+
+  .navbar-ul {
+    float: none;
+    display: block;
+    margin: 8px 0 0;
+    text-align: center;
+  }
+
+  .nav-list {
+    float: none;
+    display: inline-block;
+  }
+}
+
 @media (max-width: 800px) {
   .home-grid {
     grid-template-columns: 1fr;
@@ -295,7 +330,7 @@
 }
 
 @media (max-width: 650px) {
-  .category-grid {
+  .latest-grid {
     grid-template-columns: 1fr;
   }
 }

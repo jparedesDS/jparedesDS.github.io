@@ -36,18 +36,29 @@ wide: true
     <h3>Featured projects</h3>
 
     <div class="featured-project">
-      <img class="featured-thumb" src="images/cleanyour-suite.png" alt="CleanYourMail and CleanYourPhone">
-      <p class="featured-kicker">Special project · Free for everyone · Open source</p>
-      <h3><a href="/projects/products/">CleanYour — free, reversible tools for your phone and inbox</a></h3>
-      <p>CleanYourMail and CleanYourPhone remove noise without deleting anything: headers-only inbox cleanup and reversible Android debloat. Local, no accounts, no telemetry, one command to undo.</p>
-      <p class="featured-meta">4 repositories · MIT · one command to undo</p>
+      <img class="featured-thumb" src="images/cleanyourmail-thumb.png" alt="CleanYourMail">
+      <p class="featured-kicker">Free for everyone · Open source · Agent-native</p>
+      <h3><a href="/cleanyourmail/">CleanYourMail — your inbox, minus the noise</a></h3>
+      <p>A local skill for coding agents that reads email headers only, files newsletters, promotions and spam, and unsubscribes safely. Every move is journaled and reversible; nothing is permanently deleted.</p>
+      <p class="featured-meta">145 tests · 10 languages · 7 provider presets · MIT</p>
       <p class="featured-links">
-        <a href="/projects/products/">Suite details →</a>
-        <a href="/cleanyourmail/">CleanYourMail</a>
-        <a href="https://github.com/jparedesDS/cleanyourmail">Mail code</a>
-        <a href="https://jparedesds.github.io/cleanyourmail-web/">Mail site</a>
-        <a href="https://github.com/jparedesDS/clean-your-phone">Phone code</a>
-        <a href="https://jparedesds.github.io/cleanyourphone-web/">Phone site</a>
+        <a href="/cleanyourmail/">Case study →</a>
+        <a href="https://github.com/jparedesDS/cleanyourmail">Code</a>
+        <a href="https://jparedesds.github.io/cleanyourmail-web/">Site</a>
+        <a href="https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5">Release</a>
+      </p>
+    </div>
+
+    <div class="featured-project">
+      <img class="featured-thumb" src="images/cleanyourphone-thumb.png" alt="CleanYourPhone">
+      <p class="featured-kicker">Free for everyone · Open source · Android</p>
+      <h3><a href="/projects/products/">CleanYourPhone — your phone, minus the bloat</a></h3>
+      <p>An open-source, reversible Android debloat skill for coding agents. Disables preinstalled apps and services over ADB: no root, no custom ROM, nothing uninstalled, one command to undo.</p>
+      <p class="featured-meta">157 profiles · 6 brands · MIT</p>
+      <p class="featured-links">
+        <a href="/projects/products/">Details →</a>
+        <a href="https://github.com/jparedesDS/clean-your-phone">Code</a>
+        <a href="https://jparedesds.github.io/cleanyourphone-web/">Site</a>
       </p>
     </div>
 
@@ -66,32 +77,45 @@ wide: true
       </p>
     </div>
 
-    <h3>Project categories</h3>
+    <h3>Latest projects</h3>
+    <p class="home-note">Recent work across products, automation and computer vision.</p>
 
-    <div class="category-grid">
-      <a class="category-card" href="/projects/ai-vision/">
-        <span class="cat-num">01</span>
-        <h4>AI &amp; Computer Vision</h4>
-        <p>Object detection, OCR, image classification and technical-drawing models.</p>
-        <span class="cat-meta">7 projects · 10 model releases →</span>
+    <div class="latest-grid">
+      <a class="latest-card" href="https://github.com/jparedesDS/trtw-tv">
+        <img class="latest-thumb" src="images/trtw-tv.png" alt="trtw.tv">
+        <h4>trtw.tv</h4>
+        <p>Live Spanish subtitles for Twitch &amp; YouTube, running locally with Whisper and Chrome Translator.</p>
+        <span>View project →</span>
       </a>
-      <a class="category-card" href="/projects/data-automation/">
-        <span class="cat-num">02</span>
-        <h4>Data &amp; Automation</h4>
-        <p>Document control, ERP integrations, reporting pipelines, scrapers and analysis.</p>
-        <span class="cat-meta">11 projects →</span>
+      <a class="latest-card" href="https://github.com/jparedesDS/docflow">
+        <img class="latest-thumb" src="images/docflow-saas.svg" alt="DocFlow SaaS">
+        <h4>DocFlow SaaS</h4>
+        <p>Document control for engineering projects: 8 client portals, ERP read-only, automated reports and AI summaries.</p>
+        <span>View project →</span>
       </a>
-      <a class="category-card" href="/projects/products/">
-        <span class="cat-num">03</span>
-        <h4>Products &amp; Tools</h4>
-        <p>Self-hosted products, free open-source tools and automation agents.</p>
-        <span class="cat-meta">5 projects →</span>
+      <a class="latest-card" href="/projects/products/">
+        <img class="latest-thumb" src="images/polymarket.png" alt="Polymarket Auto-Betting Bot">
+        <h4>Polymarket Auto-Betting Bot</h4>
+        <p>BTC prediction-market bot with Kelly sizing, Monte Carlo backtesting and a Telegram dashboard.</p>
+        <span>View project →</span>
       </a>
-      <a class="category-card" href="/projects/esports/">
-        <span class="cat-num">04</span>
-        <h4>Esports &amp; Content</h4>
-        <p>CS2 analytics, content automation and esports products.</p>
-        <span class="cat-meta">3 projects →</span>
+      <a class="latest-card" href="https://github.com/jparedesDS/talleres-ritmo">
+        <img class="latest-thumb" src="images/workshop-scheduler.svg" alt="Appointment Management">
+        <h4>Appointment Management</h4>
+        <p>Self-hosted scheduling and customer/vehicle management for auto repair shops.</p>
+        <span>View project →</span>
+      </a>
+      <a class="latest-card" href="https://github.com/jparedesDS/claude-telegram">
+        <img class="latest-thumb" src="images/telegram-bot.png" alt="Claude Telegram Bot">
+        <h4>Claude Telegram Bot</h4>
+        <p>Claude in Telegram for notifications, approvals and remote control from your phone.</p>
+        <span>View project →</span>
+      </a>
+      <a class="latest-card" href="https://github.com/jparedesDS/OCR-Identification-CS2-Weapons">
+        <img class="latest-thumb" src="images/ocr-identification.png" alt="OCR Weapon Detection">
+        <h4>OCR Weapon Detection</h4>
+        <p>Screen OCR that identifies Counter-Strike 2 weapon names in real time.</p>
+        <span>View project →</span>
       </a>
     </div>
   </main>

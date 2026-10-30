@@ -18,13 +18,16 @@ sass:
     sass_dir: _sass
 
 nav:
- - name: "AI & CV"
+ - name: "CV"
+   link: "resume.pdf"
+   new_tab: true
+ - name: "AI & Computer Vision"
    link: "/projects/ai-vision/"
- - name: "Data"
+ - name: "Data & Automation"
    link: "/projects/data-automation/"
- - name: "Products"
+ - name: "Products & Tools"
    link: "/projects/products/"
- - name: "Esports"
+ - name: "Esports & Content"
    link: "/projects/esports/"
  
  

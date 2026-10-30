@@ -64,7 +64,7 @@
             <a id="author-name" class="alignable pull-left" href="{{ site.baseurl }}">{{ site.title }}</a>
             <ul id="navlist" class="alignable pull-right navbar-ul">
                 {% for x in site.nav %}
-                    <li class="alignable pull-left nav-list"><a href="{{ x.link }}"{% if page.url == x.link %} aria-current="page"{% endif %}>{{ x.name }}</a>
+                    <li class="alignable pull-left nav-list"><a href="{{ x.link }}"{% if x.new_tab %} target="_blank" rel="noopener"{% endif %}{% if page.url == x.link %} aria-current="page"{% endif %}>{{ x.name }}</a>
                     {% if forloop.last == false %}
                         /
                     {% endif %}
