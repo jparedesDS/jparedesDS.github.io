@@ -305,6 +305,10 @@
         b.dataset.r = String(r);
         b.dataset.c = String(c);
         b.setAttribute("aria-label", `Fila ${r}, columna ${c}`);
+        if (isBlockedCell(r, c)) {
+          b.classList.add("blocked");
+          b.title = "Casilla no transitable: hay un objeto";
+        }
         frag.appendChild(b);
       }
     }
@@ -433,6 +437,7 @@
         if (pid) label += `, ${nameOf(pid)}`;
         if (notes && notes.length && !pid) label += `, notas: ${notes.map(nameOf).join(", ")}`;
         if (state.xmarks[k] && !pid) label += `, marcada como imposible`;
+        if (isBlockedCell(r, c)) label += `, no transitable`;
         cell.setAttribute("aria-label", label);
       }
     }
@@ -699,6 +704,11 @@
   function placePerson(id, r, c) {
     if (state.solved) {
       toast("Puzle resuelto. Reinicia para volver a jugar.");
+      return;
+    }
+    if (isBlockedCell(r, c)) {
+      toast("Esa casilla no es transitable: hay un objeto encima.");
+      boardToast("Casilla no transitable", 1400);
       return;
     }
     const other = idAt(r, c);
