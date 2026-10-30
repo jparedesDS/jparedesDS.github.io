@@ -4,6 +4,11 @@
   max-width: min(1000px, calc(100% - 40px));
 }
 
+#navlist .nav-list a[aria-current="page"] {
+  color: #272727;
+  font-weight: 700;
+}
+
 /* Home */
 
 .home-grid {

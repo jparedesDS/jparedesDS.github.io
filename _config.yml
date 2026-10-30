@@ -18,16 +18,14 @@ sass:
     sass_dir: _sass
 
 nav:
- - name: "CV"
-   link: "resume.pdf"
- - name: "LinkedIn"
-   link: "https://www.linkedin.com/in/jparedesDS/"
- - name: "GitHub"
-   link: "https://github.com/jparedesDS"
- - name: "Kaggle"
-   link: "https://www.kaggle.com/joseparedesc"
- - name: "Twitter"
-   link: "https://twitter.com/xhitoCS"
+ - name: "AI & CV"
+   link: "/projects/ai-vision/"
+ - name: "Data"
+   link: "/projects/data-automation/"
+ - name: "Products"
+   link: "/projects/products/"
+ - name: "Esports"
+   link: "/projects/esports/"
  
  
 

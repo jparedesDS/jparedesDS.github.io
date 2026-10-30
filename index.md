@@ -33,17 +33,36 @@ wide: true
   <main class="home-main">
     <h2 id="my-portfolio">My Portfolio</h2>
 
+    <h3>Featured projects</h3>
+
     <div class="featured-project">
-      <img class="featured-thumb" src="images/cleanyourmail-thumb.png" alt="CleanYourMail logo">
-      <p class="featured-kicker">Featured project · Open source · Agent-native</p>
-      <h3><a href="/cleanyourmail/">CleanYourMail — your inbox, minus the noise</a></h3>
-      <p>A local skill for coding agents that reads email headers only, files newsletters, promotions and spam, and unsubscribes safely. Every move is journaled and reversible; nothing is permanently deleted.</p>
-      <p class="featured-meta">145 tests · 10 languages · 7 provider presets · MIT</p>
+      <img class="featured-thumb" src="images/cleanyour-suite.png" alt="CleanYourMail and CleanYourPhone">
+      <p class="featured-kicker">Special project · Free for everyone · Open source</p>
+      <h3><a href="/projects/products/">CleanYour — free, reversible tools for your phone and inbox</a></h3>
+      <p>CleanYourMail and CleanYourPhone remove noise without deleting anything: headers-only inbox cleanup and reversible Android debloat. Local, no accounts, no telemetry, one command to undo.</p>
+      <p class="featured-meta">4 repositories · MIT · one command to undo</p>
       <p class="featured-links">
-        <a href="/cleanyourmail/">Case study →</a>
-        <a href="https://jparedesds.github.io/cleanyourmail-web/">Live site</a>
-        <a href="https://github.com/jparedesDS/cleanyourmail">GitHub</a>
-        <a href="https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5">Release</a>
+        <a href="/projects/products/">Suite details →</a>
+        <a href="/cleanyourmail/">CleanYourMail</a>
+        <a href="https://github.com/jparedesDS/cleanyourmail">Mail code</a>
+        <a href="https://jparedesds.github.io/cleanyourmail-web/">Mail site</a>
+        <a href="https://github.com/jparedesDS/clean-your-phone">Phone code</a>
+        <a href="https://jparedesds.github.io/cleanyourphone-web/">Phone site</a>
+      </p>
+    </div>
+
+    <div class="featured-project">
+      <img class="featured-thumb" src="images/propov-cs2.png" alt="Pro POV CS2">
+      <p class="featured-kicker">Featured project · Esports · Automation</p>
+      <h3><a href="/projects/esports/">Pro POV CS2 — autonomous esports content pipeline</a></h3>
+      <p>Finds pro CS2 matches, downloads and parses demos, records the player's POV with CS2 + HLAE, renders per-round chapters and vertical clips, and publishes to YouTube, Shorts, TikTok, Instagram Reels and X unattended.</p>
+      <p class="featured-meta">YouTube · Shorts · TikTok · Instagram · X</p>
+      <p class="featured-links">
+        <a href="/projects/esports/">Details →</a>
+        <a href="https://github.com/jparedesDS/cs2data">Code (private)</a>
+        <a href="https://www.youtube.com/@Pro-POV-CS2">YouTube</a>
+        <a href="https://www.tiktok.com/@propov.cs2">TikTok</a>
+        <a href="https://x.com/ProPOVCS2">X</a>
       </p>
     </div>
 
@@ -65,7 +84,7 @@ wide: true
       <a class="category-card" href="/projects/products/">
         <span class="cat-num">03</span>
         <h4>Products &amp; Tools</h4>
-        <p>Self-hosted products, developer tools and automation agents built end to end.</p>
+        <p>Self-hosted products, free open-source tools and automation agents.</p>
         <span class="cat-meta">5 projects →</span>
       </a>
       <a class="category-card" href="/projects/esports/">
