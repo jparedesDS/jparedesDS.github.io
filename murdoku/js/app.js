@@ -42,6 +42,7 @@
     btnReveal: $("#btnReveal"),
     btnReset: $("#btnReset"),
     btnHow: $("#btnHow"),
+    btnFullscreen: $("#btnFullscreen"),
     placingBadge: $("#placingBadge"),
     placingName: $("#placingName"),
     placingDot: $("#placingDot"),
@@ -975,6 +976,35 @@
     openModal("modalHow");
   }
 
+  function syncFullscreenLabel() {
+    if (!els.btnFullscreen) return;
+    const on = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    els.btnFullscreen.innerHTML = on
+      ? '<span aria-hidden="true">⛶</span> Salir de pantalla completa'
+      : '<span aria-hidden="true">⛶</span> Pantalla completa';
+  }
+
+  function toggleFullscreen() {
+    const root = document.documentElement;
+    const isFull = document.fullscreenElement || document.webkitFullscreenElement;
+    try {
+      if (!isFull) {
+        const request = root.requestFullscreen || root.webkitRequestFullscreen;
+        if (!request) {
+          toast("Tu navegador no permite pantalla completa.");
+          return;
+        }
+        const result = request.call(root);
+        if (result && result.catch) result.catch(() => toast("No se pudo activar la pantalla completa."));
+      } else {
+        const exit = document.exitFullscreen || document.webkitExitFullscreen;
+        if (exit) exit.call(document);
+      }
+    } catch (e) {
+      toast("No se pudo cambiar el modo de pantalla completa.");
+    }
+  }
+
   function showVictory() {
     els.victoryCoords.textContent = `Fila ${TREASURE.row} · Columna ${TREASURE.col}`;
     els.victorySub.textContent = state.revealed
@@ -1206,6 +1236,15 @@
     els.btnReveal.addEventListener("click", revealSolution);
     els.btnReset.addEventListener("click", () => resetPuzzle(false));
     els.btnHow.addEventListener("click", showHow);
+    if (els.btnFullscreen) {
+      if (!document.documentElement.requestFullscreen && !document.documentElement.webkitRequestFullscreen) {
+        els.btnFullscreen.style.display = "none";
+      } else {
+        els.btnFullscreen.addEventListener("click", toggleFullscreen);
+        document.addEventListener("fullscreenchange", syncFullscreenLabel);
+        document.addEventListener("webkitfullscreenchange", syncFullscreenLabel);
+      }
+    }
     els.placingClear.addEventListener("click", () => {
       state.selected = null;
       syncPlacing();
