@@ -10,33 +10,10 @@ layout: default
 Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision, Deep Learning, NLP, and Data Analysis. Currently, I'm working at EIPSA S.A., where I develop object detection models for metallurgy companies, automate data entry processes, generate tracking reports for received documentation, and implement deep learning solutions for identifying technical drawings. Contact me via <jparedescolmenarejo@gmail.com>.
 
 
-## Featured project
-
-<div class="featured-project">
-  <a class="featured-media" href="/cleanyourmail/">
-    <img src="images/cleanyourmail.png" alt="CleanYourMail — your inbox, minus the noise">
-  </a>
-  <div class="featured-body">
-    <p class="featured-kicker">Featured project · Open source · Agent-native</p>
-    <h3><a href="/cleanyourmail/">CleanYourMail — your inbox, minus the noise</a></h3>
-    <p class="featured-lede">A local skill for coding agents that reads email headers only, files newsletters, promotions and spam, and unsubscribes safely. Every move is journaled and reversible; nothing is permanently deleted.</p>
-    <ul class="project-tags">
-      <li>145 tests</li>
-      <li>10 languages</li>
-      <li>7 provider presets</li>
-      <li>MIT</li>
-    </ul>
-    <p class="project-links">
-      <a href="/cleanyourmail/">Case study →</a>
-      <a href="https://jparedesds.github.io/cleanyourmail-web/">Live site</a>
-      <a href="https://github.com/jparedesDS/cleanyourmail">GitHub</a>
-      <a href="https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5">v1.1.5</a>
-    </p>
-  </div>
-</div>
-
-
 ## My Portfolio
+1. &nbsp; <img class="project-picture" src="images/cleanyourmail-thumb.png"> <b>Paredes, J.</b> <em>"CleanYourMail — Reversible Inbox Cleanup for Coding Agents,</em> A local, agent-native skill that reads email headers only, finds newsletters, promotions, social notifications, cold outreach and spam, files them into folders or labels, and unsubscribes safely. Every move is journaled with COPYUID and Message-ID and can be undone; nothing is permanently deleted. Built as a Python 3.11+ standard-library CLI with a reviewable plan, protected-mail policy and a safe unsubscribe guard. <span style="color:blue">Featured · Open source · 145 tests · 10 languages.</span> <br />
+[[case study]](/cleanyourmail/) [[code]](https://github.com/jparedesDS/cleanyourmail) [[website]](https://jparedesds.github.io/cleanyourmail-web/) [[release]](https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5) <br />
+
 1. &nbsp; <img class="project-picture" src="images/propov-cs2.png"> <b>Paredes, J.</b> <em>"Pro POV CS2 — Autonomous Esports Content Pipeline,</em> The engine behind the Pro POV CS2 channel: finds pro matches on FACEIT and tier-1 HLTV events, downloads and parses the demos, records the player's point of view with CS2 + HLAE on GPU — reproducing their exact aspect ratio, crosshair code, viewmodel, HUD and radar — then renders per-round chapters, a thumbnail with the player's cut-out photo, and vertical clips, publishing to YouTube, Shorts, TikTok, Instagram Reels and X with generated SEO, all unattended every 20 minutes. Daily picks are chosen with an optimal-stopping policy over a learned threshold, player demand is estimated from YouTube view velocity, and a ridge audience model reorders the queue. SQLite state with priority queue, retries, FFmpeg quality gate and auto-pause when a CS2 update breaks recording. <br />
 [[code]](https://github.com/jparedesDS/cs2data) *(Private repo)* [[youtube]](https://www.youtube.com/@Pro-POV-CS2) [[tiktok]](https://www.tiktok.com/@propov.cs2) [[instagram]](https://www.instagram.com/propov.cs2/) [[X]](https://x.com/ProPOVCS2) <br />
 

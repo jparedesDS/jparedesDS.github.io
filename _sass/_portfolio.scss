@@ -1,0 +1,65 @@
+// Compact project cards for the main portfolio list.
+// Keeps the existing 170x85 project images and text sizes.
+
+#my-portfolio + ol {
+  padding: 0;
+}
+
+#my-portfolio + ol > li {
+  position: relative;
+  margin: 14px 0;
+  padding: 18px 18px 16px 48px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#my-portfolio + ol > li:hover {
+  border-color: #c9c9f5;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+#my-portfolio + ol > li > p {
+  margin: 0;
+}
+
+#my-portfolio + ol > li:before {
+  content: counter(list, decimal);
+  left: 14px;
+  top: 14px;
+  min-width: 22px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: #f0f0ff;
+  color: #0800a6;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+#my-portfolio + ol > li .project-picture {
+  margin: 0 0 10px 18px;
+}
+
+@media (max-width: 500px) {
+  #my-portfolio + ol > li {
+    padding: 16px 14px 14px 42px;
+  }
+
+  #my-portfolio + ol > li:before {
+    left: 12px;
+    top: 12px;
+  }
+
+  #my-portfolio + ol > li .project-picture {
+    float: none;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 12px 0;
+    border-radius: 8px;
+  }
+}
