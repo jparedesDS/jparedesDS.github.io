@@ -18,7 +18,7 @@
   min-width: 0;
 }
 
-.home-profile {
+.content img.home-profile {
   display: block;
   width: 96px;
   height: 96px;
@@ -92,7 +92,7 @@
   overflow: hidden;
 }
 
-.featured-thumb {
+.content img.featured-thumb {
   float: right;
   width: 170px;
   height: 85px;
@@ -300,7 +300,7 @@
     padding: 14px;
   }
 
-  .featured-thumb {
+  .content img.featured-thumb {
     float: none;
     display: block;
     width: 170px;
