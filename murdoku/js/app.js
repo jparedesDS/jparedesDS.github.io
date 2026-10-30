@@ -330,6 +330,7 @@
           <span class="pos" hidden></span>
         </span>
         <span class="tag">${p.tag}</span>
+        <span class="clue-snippet">${p.clue}</span>
       `;
       els.roster.appendChild(card);
     }

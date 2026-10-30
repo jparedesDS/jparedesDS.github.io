@@ -276,8 +276,8 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
 .person-card .thumb {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 8px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
   overflow: hidden;
   background: var(--card);
   border: 1px solid rgba(33, 27, 20, 0.1);
@@ -286,15 +286,15 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 100%;
+  object-position: 50% 50%;
   display: block;
 }
 .person-card .thumb::before {
   content: "";
   position: absolute;
   inset: 0 0 auto 0;
-  height: 18%;
-  background: linear-gradient(180deg, var(--card) 10%, rgba(255, 250, 240, 0));
+  height: 0%;
+  background: transparent;
   pointer-events: none;
   z-index: 1;
 }
@@ -302,7 +302,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 88%, rgba(20, 14, 8, 0.08));
+  background: transparent;
   pointer-events: none;
 }
 
@@ -340,6 +340,17 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 1px 1px;
+}
+.person-card .clue-snippet {
+  display: block;
+  margin-top: 1px;
+  padding: 3px 2px 1px;
+  border-top: 1px dashed var(--line);
+  font-size: 9px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  text-align: left;
+  overflow-wrap: anywhere;
 }
 .person-card .check {
   position: absolute;
@@ -642,8 +653,8 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
   position: absolute;
   inset: 0;
   background-repeat: no-repeat;
-  background-size: 145%;
-  background-position: 50% 12%;
+  background-size: 100%;
+  background-position: 50% 50%;
   transform: scale(1.02);
 }
 .token-inner::after {
@@ -866,9 +877,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
 .clue-card .clue-face img {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: 50% 12%;
-  transform: scale(1.25);
-  transform-origin: 50% 0%;
+  object-position: 50% 50%;
 }
 .clue-card .clue-body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .clue-card .clue-name {
