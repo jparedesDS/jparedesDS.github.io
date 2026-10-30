@@ -1,0 +1,105 @@
+---
+layout: default
+title: "CleanYourMail — a reversible inbox cleaner for coding agents"
+description: "Case study: CleanYourMail, an open-source agent-native skill that reads email headers only and makes every mailbox move reversible."
+permalink: /cleanyourmail/
+---
+
+<div class="case-page">
+
+  <p class="case-kicker">Case study · Open source · 2026</p>
+  <h1 class="case-title">CleanYourMail</h1>
+  <p class="case-subtitle">Your inbox, minus the noise.</p>
+  <p class="case-lede">A local, agent-native skill that reads email headers only, files newsletters, promotions and spam, and unsubscribes safely — without reading message bodies and without permanently deleting anything.</p>
+
+  <p class="case-links">
+    <a class="case-button case-button-primary" href="https://jparedesds.github.io/cleanyourmail-web/">Live site</a>
+    <a class="case-button" href="https://github.com/jparedesDS/cleanyourmail">GitHub</a>
+    <a class="case-button" href="https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5">v1.1.5</a>
+  </p>
+
+  <img class="case-hero" src="/images/cleanyourmail.png" alt="CleanYourMail website and inbox demo">
+
+  <div class="case-stats">
+    <div class="case-stat"><strong>145</strong><span>tests</span></div>
+    <div class="case-stat"><strong>10</strong><span>languages</span></div>
+    <div class="case-stat"><strong>7</strong><span>provider presets</span></div>
+    <div class="case-stat"><strong>0</strong><span>bodies read</span></div>
+    <div class="case-stat"><strong>0</strong><span>permanent deletes</span></div>
+    <div class="case-stat"><strong>1</strong><span>command to undo</span></div>
+  </div>
+
+  <h2>Why I built it</h2>
+
+  <p>Inbox cleaners usually ask for your password, read your mail and delete the evidence. I wanted the opposite: a small local tool that shows the plan first, touches headers only, and can undo every move. CleanYourMail is that tool.</p>
+
+  <p>The project is also an experiment in agent-native software. The CLI is the product; <code>SKILL.md</code> and a short prompt teach a coding agent to use it without hiding the safety rules. There is no hosted service, no account, no telemetry and no third-party API.</p>
+
+  <h2>What it does</h2>
+
+  <ul>
+    <li><strong>Scans headers only.</strong> Sender, subject, date, size, flags and <code>List-Unsubscribe</code> headers. No bodies, no attachments, no full-mailbox download.</li>
+    <li><strong>Classifies</strong> newsletters, promotions, social notifications, cold outreach, spam, transactional and personal mail.</li>
+    <li><strong>Protects</strong> banks, security codes, invoices, travel, medical, government, legal, personal, starred, answered and recent mail. Protected messages are never auto-moved or auto-unsubscribed.</li>
+    <li><strong>Plans before acting.</strong> Writes a reviewable <code>plan.json</code> with exact UIDs, destinations and unsubscribe targets. Nothing changes during <code>scan</code>, <code>report</code> or <code>plan</code>.</li>
+    <li><strong>Files reversibly.</strong> Moves to folders/labels, Junk or Trash; Gmail archive removes the Inbox label. Every move is journaled with COPYUID and Message-ID, and <code>undo</code> restores it.</li>
+    <li><strong>Unsubscribes safely.</strong> RFC 8058 one-click POST, <code>mailto:</code> or a manual link. No body links, redirects, cookies or private/local targets.</li>
+  </ul>
+
+  <h2>How it works</h2>
+
+  <p>The workflow is deliberately boring: read, protect, plan, apply, verify, undo if needed.</p>
+
+  <ol>
+    <li><strong>Scan</strong> — cache headers and classify messages.</li>
+    <li><strong>Plan</strong> — write <code>plan.json</code> with the exact moves and unsubscribe targets.</li>
+    <li><strong>Apply</strong> — copy first, then <code>UID EXPUNGE</code> only the source copy. Moves run before any unsubscribe request.</li>
+    <li><strong>Undo</strong> — the append-only journal verifies the Message-ID (or <code>X-GM-MSGID</code> for Gmail archive) before restoring.</li>
+  </ol>
+
+  <img class="case-image" src="/images/cleanyourmail-terminal.png" alt="CleanYourMail CLI: scan, report and plan commands" loading="lazy">
+
+  <h2>Safety model</h2>
+
+  <ul>
+    <li><strong>No permanent deletion.</strong> No empty Trash, no “delete forever”, no mailbox-wide <code>EXPUNGE</code>. If the server lacks UIDPLUS or MOVE, moves are refused.</li>
+    <li><strong>Plan/apply split.</strong> <code>apply</code> re-checks UIDVALIDITY, flags, category and the protected list before each batch.</li>
+    <li><strong>Protected mail.</strong> Transactional and personal mail, security codes, banks, invoices, travel, medical, government, legal, starred, answered and recent messages stay put.</li>
+    <li><strong>Unsubscribe is the only irreversible step.</strong> It is explicit, capped, delayed and never applied to spam.</li>
+    <li><strong>Prompt injection is data.</strong> Instructions inside an email are reported, never followed.</li>
+  </ul>
+
+  <p class="case-note">The interesting part is not what it can do. It is what it refuses to do.</p>
+
+  <h2>Technical notes</h2>
+
+  <ul>
+    <li>Python 3.11+ standard library only: <code>imaplib</code>, <code>smtplib</code>, <code>sqlite3</code>, <code>tomllib</code>.</li>
+    <li>IMAP/SMTP with app passwords or OAuth2 access tokens. The CLI does not acquire or refresh tokens.</li>
+    <li>SQLite metadata cache and an append-only JSONL undo journal. No body column.</li>
+    <li>RFC 8058 one-click unsubscribe, <code>mailto:</code>, manual links and an SSRF guard.</li>
+    <li>Gmail label archive via <code>X-GM-LABELS</code> and undo via <code>X-GM-MSGID</code>.</li>
+    <li>145 tests with an in-process fake IMAP server; no real mailbox or network in CI.</li>
+    <li>Static bilingual website with a strict CSP, JSON-LD, <code>security.txt</code>, sitemap and no analytics.</li>
+    <li>README translated into 10 languages.</li>
+  </ul>
+
+  <h2>What I learned</h2>
+
+  <p>The hardest part was not classification. It was designing the refusal paths: what to do when the server cannot move safely, when the plan is stale, when the message is protected, or when an unsubscribe target looks hostile. A tool that can say “I will not do that” is more useful than one that can do everything.</p>
+
+  <p>A reviewable plan also turned out to be better UX than a hidden automatic action. The person sees the exact moves before anything changes, and the undo journal makes the reversible part real instead of a promise.</p>
+
+  <h2>Links</h2>
+
+  <ul>
+    <li><a href="https://jparedesds.github.io/cleanyourmail-web/">Live website</a> — English and Spanish landing page.</li>
+    <li><a href="https://github.com/jparedesDS/cleanyourmail">GitHub repository</a> — code, docs and the 10-language README.</li>
+    <li><a href="https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5">Release v1.1.5</a> — latest release.</li>
+    <li><a href="https://github.com/jparedesDS/cleanyourmail/blob/master/docs/SAFETY.md">Safety model</a> — the full threat model.</li>
+    <li><a href="https://github.com/jparedesDS/cleanyourmail/blob/master/SKILL.md">SKILL.md</a> — the agent procedure.</li>
+  </ul>
+
+  <p class="case-back"><a href="/">← Back to the portfolio</a></p>
+
+</div>

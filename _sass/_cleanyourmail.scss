@@ -1,0 +1,237 @@
+// Featured project card and CleanYourMail case study.
+
+.featured-project {
+  margin: 22px 0 34px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.featured-media {
+  display: block;
+  line-height: 0;
+}
+
+.featured-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.featured-body {
+  padding: 18px 20px 20px;
+}
+
+.featured-kicker {
+  margin: 0 0 6px;
+  color: #6b7280;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.featured-body h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.featured-body h3 a {
+  color: #272727;
+}
+
+.featured-body h3 a:hover {
+  color: #0800a6;
+  text-decoration: none;
+}
+
+.featured-lede {
+  margin: 0 0 14px;
+  color: #444;
+  line-height: 1.55;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.project-tags li {
+  margin: 0;
+  padding: 2px 9px;
+  border: 1px solid #e1e1e1;
+  border-radius: 999px;
+  background: #fafafa;
+  color: #555;
+  font-size: 12px;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.project-links a {
+  font-weight: 700;
+}
+
+// Case study page
+
+.case-kicker {
+  margin: 0 0 6px;
+  color: #6b7280;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.case-title {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.case-subtitle {
+  margin: 6px 0 0;
+  color: #555;
+  font-size: 20px;
+}
+
+.case-lede {
+  margin: 18px 0 0;
+  color: #444;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+
+.case-button {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid #0800a6;
+  border-radius: 6px;
+  background: #fff;
+  color: #0800a6;
+  font-weight: 700;
+}
+
+.case-button:hover {
+  background: #f0f0ff;
+  text-decoration: none;
+}
+
+.case-button-primary {
+  background: #0800a6;
+  color: #fff;
+}
+
+.case-button-primary:hover {
+  background: #06007d;
+  color: #fff;
+}
+
+.case-hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 8px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.case-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 22px 0 8px;
+}
+
+.case-stat {
+  padding: 14px 8px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  background: #fafafa;
+  text-align: center;
+}
+
+.case-stat strong {
+  display: block;
+  color: #0800a6;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.case-stat span {
+  display: block;
+  margin-top: 5px;
+  color: #666;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.case-page h2 {
+  margin-top: 34px;
+}
+
+.case-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 12px 0 22px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+.case-note {
+  margin: 18px 0;
+  padding: 10px 14px;
+  border-left: 3px solid #0800a6;
+  background: #f7f7fb;
+  color: #444;
+}
+
+.case-back {
+  margin-top: 34px;
+  font-weight: 700;
+}
+
+@media (max-width: 500px) {
+  .featured-body {
+    padding: 14px;
+  }
+
+  .featured-body h3 {
+    font-size: 19px;
+  }
+
+  .case-title {
+    font-size: 32px;
+  }
+
+  .case-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .case-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
