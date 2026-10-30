@@ -43,6 +43,7 @@ wide: true
       <p class="featured-meta">145 tests · 10 languages · 7 provider presets · MIT</p>
       <p class="featured-links">
         <a href="/cleanyourmail/">Case study →</a>
+        <a href="https://github.com/jparedesDS/cleanyourmail-app">Local app</a>
         <a href="https://github.com/jparedesDS/cleanyourmail">Code</a>
         <a href="https://jparedesds.github.io/cleanyourmail-web/">Site</a>
         <a href="https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5">Release</a>
