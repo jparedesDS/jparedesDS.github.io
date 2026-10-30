@@ -1,11 +1,244 @@
-// Compact project cards for the main portfolio list.
-// Keeps the existing 170x85 project images and text sizes.
+// Portfolio layout: two-column home, category pages and compact project cards.
 
-#my-portfolio + ol {
+.wrapper.wide .container {
+  max-width: min(1000px, calc(100% - 40px));
+}
+
+/* Home */
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 34px;
+  align-items: start;
+}
+
+.home-sidebar,
+.home-main {
+  min-width: 0;
+}
+
+.home-profile {
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 0 0 16px;
+  border-radius: 50%;
+}
+
+.home-sidebar h2 {
+  margin: 0 0 10px;
+}
+
+.home-sidebar h3 {
+  margin: 22px 0 8px;
+  color: #666;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-sidebar p {
+  margin: 0 0 10px;
+  color: #444;
+}
+
+.home-main h2 {
+  margin-top: 0;
+}
+
+.home-main h3 {
+  margin: 26px 0 12px;
+}
+
+.focus-list,
+.contact-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.focus-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.focus-list li {
+  margin: 0;
+  padding: 2px 8px;
+  border: 1px solid #e1e1e1;
+  border-radius: 999px;
+  background: #fafafa;
+  color: #555;
+  font-size: 11px;
+}
+
+.contact-list li {
+  margin: 0 0 4px;
+  font-size: 13px;
+}
+
+/* Featured project on the home page */
+
+.featured-project {
+  position: relative;
+  margin: 0 0 28px;
+  padding: 18px 18px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.featured-thumb {
+  float: right;
+  width: 170px;
+  height: 85px;
+  margin: 0 0 10px 18px;
+  border-radius: 8px;
+}
+
+.featured-kicker {
+  margin: 0 0 6px;
+  color: #6b7280;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.featured-project h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.featured-project h3 a {
+  color: #272727;
+}
+
+.featured-project h3 a:hover {
+  color: #0800a6;
+  text-decoration: none;
+}
+
+.featured-project p {
+  margin: 0 0 8px;
+  color: #444;
+}
+
+.featured-meta {
+  color: #0800a6 !important;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.featured-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 13px;
+}
+
+/* Category cards on the home page */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.category-card {
+  display: block;
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.category-card:hover {
+  border-color: #c9c9f5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.cat-num {
+  color: #0800a6;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.category-card h4 {
+  margin: 6px 0 6px;
+  color: #272727;
+  font-size: 16px;
+}
+
+.category-card p {
+  margin: 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cat-meta {
+  display: block;
+  margin-top: 10px;
+  color: #0800a6;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Category pages */
+
+.page-kicker {
+  margin: 0 0 6px;
+  color: #6b7280;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.page-lede {
+  margin: 10px 0 0;
+  color: #444;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.page-back {
+  margin: 16px 0 0;
+  font-size: 13px;
+}
+
+.page-note {
+  color: #555;
+  font-size: 13px;
+}
+
+/* Compact project cards, used on the category pages */
+
+.project-cards {
+  margin: 18px 0 0;
+}
+
+.project-cards ol {
   padding: 0;
 }
 
-#my-portfolio + ol > li {
+.project-cards ol > li {
   position: relative;
   margin: 14px 0;
   padding: 18px 18px 16px 48px;
@@ -17,16 +250,16 @@
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-#my-portfolio + ol > li:hover {
+.project-cards ol > li:hover {
   border-color: #c9c9f5;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
 }
 
-#my-portfolio + ol > li > p {
+.project-cards ol > li > p {
   margin: 0;
 }
 
-#my-portfolio + ol > li:before {
+.project-cards ol > li:before {
   content: counter(list, decimal);
   left: 14px;
   top: 14px;
@@ -40,21 +273,55 @@
   text-align: center;
 }
 
-#my-portfolio + ol > li .project-picture {
+.project-cards ol > li .project-picture {
   margin: 0 0 10px 18px;
 }
 
+.model-list ol > li {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+@media (max-width: 800px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 650px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 500px) {
-  #my-portfolio + ol > li {
+  .featured-project {
+    padding: 14px;
+  }
+
+  .featured-thumb {
+    float: none;
+    display: block;
+    width: 170px;
+    height: 85px;
+    margin: 0 auto 12px;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .project-cards ol > li {
     padding: 16px 14px 14px 42px;
   }
 
-  #my-portfolio + ol > li:before {
+  .project-cards ol > li:before {
     left: 12px;
     top: 12px;
   }
 
-  #my-portfolio + ol > li .project-picture {
+  .project-cards ol > li .project-picture {
     float: none;
     display: block;
     width: 170px;

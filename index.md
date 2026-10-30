@@ -1,134 +1,79 @@
 ---
 title: Jose Paredes
 layout: default
+wide: true
 ---
 
-## About Me
+<div class="home-grid">
+  <aside class="home-sidebar">
+    <img class="home-profile" src="profile.jpg" alt="Jose Paredes">
+    <h2>About</h2>
+    <p>Data Scientist based in Madrid, focused on Computer Vision, Deep Learning, NLP and automation. At EIPSA I build object-detection models for metallurgy, automate document control and turn technical drawings into structured data.</p>
+    <p>I like local-first software, reversible workflows and tools that explain what they do before they do it.</p>
+    <ul class="focus-list">
+      <li>Computer Vision</li>
+      <li>Deep Learning</li>
+      <li>NLP</li>
+      <li>Data Analysis</li>
+      <li>Automation</li>
+    </ul>
+    <h3>Contact</h3>
+    <ul class="contact-list">
+      <li><a href="mailto:jparedescolmenarejo@gmail.com">Email</a></li>
+      <li><a href="resume.pdf">CV</a></li>
+      <li><a href="https://www.linkedin.com/in/jparedesDS/">LinkedIn</a></li>
+      <li><a href="https://github.com/jparedesDS">GitHub</a></li>
+      <li><a href="https://huggingface.co/jparedesDS">Hugging Face</a></li>
+      <li><a href="https://www.kaggle.com/joseparedesc">Kaggle</a></li>
+      <li><a href="https://twitter.com/xhitoCS">X / Twitter</a></li>
+      <li><a href="https://buymeacoffee.com/joseparedes">☕ Buy me a coffee</a></li>
+    </ul>
+  </aside>
 
-<img class="profile-picture" src="profile.jpg">
+  <main class="home-main">
+    <h2 id="my-portfolio">My Portfolio</h2>
 
-Hi! I'm a Data Scientist based in Madrid, Spain. I specialize in Computer Vision, Deep Learning, NLP, and Data Analysis. Currently, I'm working at EIPSA S.A., where I develop object detection models for metallurgy companies, automate data entry processes, generate tracking reports for received documentation, and implement deep learning solutions for identifying technical drawings. Contact me via <jparedescolmenarejo@gmail.com>.
+    <div class="featured-project">
+      <img class="featured-thumb" src="images/cleanyourmail-thumb.png" alt="CleanYourMail logo">
+      <p class="featured-kicker">Featured project · Open source · Agent-native</p>
+      <h3><a href="/cleanyourmail/">CleanYourMail — your inbox, minus the noise</a></h3>
+      <p>A local skill for coding agents that reads email headers only, files newsletters, promotions and spam, and unsubscribes safely. Every move is journaled and reversible; nothing is permanently deleted.</p>
+      <p class="featured-meta">145 tests · 10 languages · 7 provider presets · MIT</p>
+      <p class="featured-links">
+        <a href="/cleanyourmail/">Case study →</a>
+        <a href="https://jparedesds.github.io/cleanyourmail-web/">Live site</a>
+        <a href="https://github.com/jparedesDS/cleanyourmail">GitHub</a>
+        <a href="https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5">Release</a>
+      </p>
+    </div>
 
+    <h3>Project categories</h3>
 
-## My Portfolio
-1. &nbsp; <img class="project-picture" src="images/cleanyourmail-thumb.png"> <b>Paredes, J.</b> <em>"CleanYourMail — Reversible Inbox Cleanup for Coding Agents,</em> A local, agent-native skill that reads email headers only, finds newsletters, promotions, social notifications, cold outreach and spam, files them into folders or labels, and unsubscribes safely. Every move is journaled with COPYUID and Message-ID and can be undone; nothing is permanently deleted. Built as a Python 3.11+ standard-library CLI with a reviewable plan, protected-mail policy and a safe unsubscribe guard. <span style="color:blue">Featured · Open source · 145 tests · 10 languages.</span> <br />
-[[case study]](/cleanyourmail/) [[code]](https://github.com/jparedesDS/cleanyourmail) [[website]](https://jparedesds.github.io/cleanyourmail-web/) [[release]](https://github.com/jparedesDS/cleanyourmail/releases/tag/v1.1.5) <br />
-
-1. &nbsp; <img class="project-picture" src="images/propov-cs2.png"> <b>Paredes, J.</b> <em>"Pro POV CS2 — Autonomous Esports Content Pipeline,</em> The engine behind the Pro POV CS2 channel: finds pro matches on FACEIT and tier-1 HLTV events, downloads and parses the demos, records the player's point of view with CS2 + HLAE on GPU — reproducing their exact aspect ratio, crosshair code, viewmodel, HUD and radar — then renders per-round chapters, a thumbnail with the player's cut-out photo, and vertical clips, publishing to YouTube, Shorts, TikTok, Instagram Reels and X with generated SEO, all unattended every 20 minutes. Daily picks are chosen with an optimal-stopping policy over a learned threshold, player demand is estimated from YouTube view velocity, and a ridge audience model reorders the queue. SQLite state with priority queue, retries, FFmpeg quality gate and auto-pause when a CS2 update breaks recording. <br />
-[[code]](https://github.com/jparedesDS/cs2data) *(Private repo)* [[youtube]](https://www.youtube.com/@Pro-POV-CS2) [[tiktok]](https://www.tiktok.com/@propov.cs2) [[instagram]](https://www.instagram.com/propov.cs2/) [[X]](https://x.com/ProPOVCS2) <br />
-
-1. &nbsp; <img class="project-picture" src="images/docflow-saas.svg"> <b>Paredes, J.</b> <em>"DocFlow SaaS,</em> End-to-end document control for engineering project orders, reading the company ERP in read-only mode. Parses client transmittal returns from 8 portals (eGesDoc/Técnicas Reunidas, AYESA, SACYR Proarc, PRODOC/Wood, Document Space/Hyundai, GAIA, Aconex, Sendoc), auto-downloads portal packages and files every returned PDF into its network folder without ever overwriting an archived revision. Also generates client cover sheets from Word/Excel templates, the monthly Vendor Progress Report, 3-level claim escalation, DocuSign envelopes, departmental views (sales, purchasing, production, quality, administration, warehouse) and interactive web + Excel reporting, with AI summaries via Claude. <br />
-[[code]](https://github.com/jparedesDS/docflow) <br />
-
-1. &nbsp; <img class="project-picture" src="images/workshop-scheduler.svg"> <b>Paredes, J.</b> <em>"Appointment Management for Auto Repair Shops,</em> Self-hosted scheduling and customer/vehicle management system for garages. Drag-and-drop agenda by service bay, full appointment lifecycle, roadworthiness (ITV) expiry alerts, WhatsApp/email customer notifications, and role-based access (admin/reception/mechanic) enforced server-side. Runs on the shop's local network with real-time sync across every screen, SQLite storage with automated daily and off-site backups, and zero external dependencies — Node.js native APIs only. <span style="color:blue">Deployed at Ritmo Talleres.</span> <br />
-[[code]](https://github.com/jparedesDS/talleres-ritmo) <br />
-
-1. &nbsp; <img class="project-picture" src="images/trtw-tv.png"> <b>Paredes, J.</b> <em>"trtw.tv — Live Spanish Subtitles for Twitch & YouTube,</em> Chrome extension (Manifest V3) that captures the tab audio, transcribes English with Whisper and overlays Spanish subtitles on the player with a 1.5–3 s delay. Runs entirely on the user's machine — no paid APIs, no keys, no server — on WebGPU with a WASM/CPU fallback, so integrated graphics are enough. Silero VAD segments speech, local-agreement confirmation and a hallucination filter keep sentences complete and invented text out, and translation goes through Chrome's built-in Translator API with an Opus-MT fallback, plus glossary, context and bilingual options. <br />
-[[code]](https://github.com/jparedesDS/trtw-tv) <br />
-
-1. &nbsp; <img class="project-picture" src="images/telegram-bot.png"> <b>Paredes, J.</b> <em>"Claude Telegram Bot,</em> AI-powered Telegram bot integrating Claude API to provide conversational assistance, automation workflows, and command-based interactions directly from Telegram. Designed for real-time AI interaction and extensible automation scripts. <br />
-[[code]](https://github.com/jparedesDS/claude-telegram) <br />
-
-1. &nbsp; <img class="project-picture" src="images/polymarket.png"> <b>Paredes, J.</b> <em>"Polymarket Auto-Betting Bot,</em> Automated trading bot for BTC prediction markets (UP/DOWN 5m and 15m) on Polymarket. Uses limit maker orders at 45¢, Kelly criterion with Monte Carlo backtesting for position sizing, bail-out mechanism when only one leg fills, and gasless auto-redeem with on-chain fallback. Includes a Telegram bot for real-time dashboard, alerts, and controls. <br />
-[[code]](https://github.com/jparedesDS/polymarket-autobetting) *(Private repo)*
-
-1. &nbsp; <img class="project-picture" src="images/tableau-logo.png"> <b>Paredes, J.</b> <em>"TABLEAU, Documentation Flow Dashboard,</em> A visual progress report designed to monitor document inflow, processing, and delivery across projects. <br />
-[[View on Tableau Public]](https://public.tableau.com/app/profile/jose.paredes6369/viz/INFORMEDEPROGRESO/DASHDOCUMENTACIN) <br />
-
-1. &nbsp; <img class="project-picture" src="images/docucontrol.png"> <b>Paredes, J.</b> <em>"DocuControl,</em> Automation of reports and document control, focused on the analysis of data exported from ERP and the generation of advanced visual reports. <br />
-[[code]](https://github.com/jparedesDS/DocuControl) *(Private repo)* <br />
-
-2. &nbsp; <img class="project-picture" src="images/ocr-identification.png"> <b>Paredes, J.</b> <em>"OCR Weapon Detection in Counter-Strike 2,</em> Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition (OCR). <br />
-[[code]](https://github.com/jparedesDS/OCR-Identification-CS2-Weapons) <br />
-
-1. &nbsp; <img class="project-picture" src="images/cs2ai.svg"> <b>Paredes, J.</b> <em>"ClutchBot.ai (CS2AI),</em> Conversational AI assistant for Counter-Strike 2 players — provides chat-based tactical guidance, match insights and gameplay support, built on a TypeScript stack. <br />
-[[code]](https://github.com/jparedesDS/CS2AI) *(Private repo)* <br />
-
-1. &nbsp; <img class="project-picture" src="images/cs2-vrs.svg"> <b>Paredes, J.</b> <em>"CS2 VRS Predictions,</em> Predictive modeling pipeline for Counter-Strike 2 ranking systems (VRS) — forecasts team standings and competitive tournament outcomes from historical performance data. <br />
-[[code]](https://github.com/jparedesDS/cs2-vrs-predictions) *(Private repo)* <br />
-
-3. &nbsp; <img class="project-picture" src="images/myyolo11.png"> <b>Paredes, J.</b> <em>"Fluorescent Penetrant Inspection Test, Detection of liquid penetrant test with AI"</em> <span style="color:red">(YOLO11)</span> Development of object detection models tailored for metallurgy companies. <span style="color:blue">(FPI, DP, LPI, PT)</span> <br />
-[[model]](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) [[code]](https://github.com/jparedesDS/fluorescent-penetrant-inspection)
-
-4. &nbsp; <img class="project-picture" src="images/mydxf.png"> <b>Paredes, J.</b> <em>"Data Extraction from DXF Files for entity identification in technical drawings"</em>
-Implementation of deep learning algorithms for the recognition and classification of technical drawings, enabling automated documentation handling. <br />
-[[code]](https://github.com/jparedesDS/extract-data-dxf)
-
-5. &nbsp; <img class="project-picture" src="images/myemailmapi.png"> <b>Paredes, J.</b> <em>"Email MAPI Tools Automation"</em> Automation of documentation entry through email (Outlook/IMAP) to excel and BBDD (ERP).<br />
-[[code]](https://github.com/jparedesDS/email-mapi-automation)
-
-6. &nbsp; <img class="project-picture" src="images/myERP.png"> Serrano, E., <b>Paredes, J.</b> <em>"EIPSA ERP"</em> Based on an ERP (Enterprise Resource Planning) system to manage the different daily activities of the different sections of the company. <br />
-[[code]](https://github.com/jparedesDS/ERP_EIPSA)
-
-7. &nbsp; <img class="project-picture" src="images/mywelding.jpg"> <b>Paredes, J.</b> <em>"Welding Defects Detector, detection of welding defects with AI"</em> <span style="color:red">(YOLO11)</span>
-Development of object detection models tailored for metallurgy companies. <br />
-[[model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[code]](https://github.com/jparedesDS/welding-defects-detection)
-
-8. &nbsp; <img class="project-picture" src="images/myhltv.png"> <b>Paredes, J.</b> <em>"HLTV Team and Player Stats Scraper"</em> Scraping and data analysis of each individual and team player for the Counter Strike 2 competitive game. <br />
-[[code]](https://github.com/jparedesDS/hltv-scraper)
-
-9. &nbsp; <img class="project-picture" src="images/myemoji.png"> <b>Paredes, J.</b> <em>"Twitter - Sentiment Analysis with Emojis"</em> using emojis to classify the emotional tone of tweets. By leveraging Natural Language Processing (NLP) techniques. <br />
-[[code]](https://github.com/jparedesDS/NLP-sentiment-analysis-with-emojis)
-
-10. &nbsp; <img class="project-picture" src="images/mytwittersentiment.png"> <b>Paredes, J.</b> <em>"Twitter Sentiment Analysis"</em> identifying positive and negative emotions while exploring various natural language characteristics. <br />
-[[code]](https://github.com/jparedesDS/tensorflow-twitter-sentiment-analysis)
-
-11. &nbsp; <img class="project-picture" src="images/mytraffic.png"> <b>Paredes, J.</b> <em>"Analysis of Traffic Accidents"</em> Analysis and predictions of Traffic Accidents in the City of Madrid <br />
-[[code]](https://github.com/jparedesDS/lazy-classifier-traffic-accidents-madrid)
-
-12. &nbsp; <img class="project-picture" src="images/myimage-classification.png"> <b>Paredes, J.</b> <em>"Image & Vision Classification of Futurama Frames"</em> Identification characters in Futurama frames - Kaggle Competition 🥉3º position - ResNet152 & Keras/Tensorflow <br />
-[[kaggle]](https://www.kaggle.com/competitions/comp-mediavida-2-futurama/leaderboard) [[code]](https://github.com/jparedesDS/image-classification-multilabel)
-
-13. &nbsp; <b>Paredes, J.</b> <em>"AI-YOLO Object Detection"</em> - AI-YOLO Project for Object Detection and Computer Vision. <br />
-[[code]](https://github.com/jparedesDS/AI-YOLO)
-
-14. &nbsp; <b>Paredes, J.</b> <em>"Data Wrangling Titanic"</em> - Complete cleaning and analysis of the Titanic dataset using pandas. <br />
-[[code]](https://github.com/jparedesDS/data-wrangling-titanic)
-
-15. &nbsp; <b>Paredes, J.</b> <em>"Monitoring Report Automation"</em> - Reduce report generation times and minimize manual data entry errors. <br />
-[[code]](https://github.com/jparedesDS/monitoring-report)
-
-16. &nbsp; <b>Paredes, J.</b> <em>"LoL Map Tracking Object Detection"</em> - League of Legends object detection and minimap tracking. <br />
-[[code]](https://github.com/jparedesDS/lol-map-tracking-object-detection)
-
-
-## <3 Computer Vision
-1. _"Counter Strike 2 Weapon Detector"_ - Weapon Identification of CS2 <span style="color:red">(YOLO12m)</span> _2025_ <br /> [[model]](https://huggingface.co/jparedesDS/cs2-yolo12m-weapon-detection) [[github]](https://github.com/jparedesDS/cs2-yolo12m-weapon-detection) <br />
-1. _"Welding Defects Detector"_ - Detection of welding defects with AI <span style="color:red">(YOLO11x)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/welding-defects-detection) [[github]](https://github.com/jparedesDS/welding-defects-detection) <br />
-2. _"Liquid Penetrant Test (DP, LPI, PT)"_ - Detection of liquid penetrant test with AI <span style="color:red">(YOLO11l)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/liquid-penetrant-test-detection) [[github]](https://github.com/jparedesDS/fluorescent-penetrant-inspection) <br />
-3. _"Counter Strike 2 Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLO12s)</span> _2025_ <br /> [[model]](https://huggingface.co/jparedesDS/cs2_yolo12s) [[github]](https://github.com/jparedesDS/cs2-object-dectection) <br />
-4. _"Counter Strike 2 Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLOv9, YOLOv10 & YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/collections/jparedesDS/cs2-yolo-object-detection-66f65a7fa395d5e5ede71489) [[github]](https://github.com/jparedesDS/cs2-object-dectection) <br />
-5. _"Valorant Players Detector"_ - Players Identification of Valorant <span style="color:red">(YOLOv10 & YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/collections/jparedesDS/valorant-yolo-object-detection-6708db8eda7c23b8859bcd3b) [[github]](https://github.com/jparedesDS/valorant-object-detection) <br />
-6. _"Fortnite Players Detector"_ - Players Identification of CS2 <span style="color:red">(YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/fortnite-yolo11m) [[github]](https://github.com/jparedesDS/fortnite-object-detection) <br />
-7. _"OverWatch 2 Players Detector"_ - Players Identification of OW2 <span style="color:red">(YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/ow2-yolo11m) [[github]](https://github.com/jparedesDS/ow2-object-dectection) <br />
-8. _"Deadlock Players Detector"_ - Players Identification of Deadlock <span style="color:red">(YOLO11)</span> _2024_ <br /> [[model]](https://huggingface.co/jparedesDS/deadlock-yolo11l) [[github]](https://github.com/jparedesDS/deadlock-object-detection) <br />
-10. _"League of Legends Map Tracking"_ - Identification of all characters via the minimap <span style="color:red">(YOLO11)</span> _2024_ <br /> [[github]](https://github.com/jparedesDS/lol-map-tracking-object-detection) <br />
-
-
-## Contact with me
-
-- _[[curriculum vitae]](https://jparedesds.github.io/resume.pdf)_ <br />
-- _[[linkedin]](https://www.linkedin.com/in/jparedesDS/)_ <br />
-- _[[github]](https://github.com/jparedesDS/)_ <br />
-- _[[huggingface]](https://huggingface.co/jparedesDS/)_ <br />
-- _[[kaggle]](https://www.kaggle.com/joseparedesc)_ <br />
-- _[[Twitter/X]](https://twitter.com/xhitoCS)_ <br />
-
-## ❤️ Why buy me a coffee?
-If any of my repositories have been useful to you, saved you time, or inspired you in any way, you can support my work by buying me a coffee ☕
-Your support helps me to:
-
-Keep projects maintained and improved
-
-Create new open source repositories
-
-Spend more time documenting and explaining the code
-
-👉 Buy me a coffee here:
-
-<a href="https://buymeacoffee.com/joseparedes" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200"/>
-</a>
-
-
-Thank you for stopping by and supporting open source! 🚀
+    <div class="category-grid">
+      <a class="category-card" href="/projects/ai-vision/">
+        <span class="cat-num">01</span>
+        <h4>AI &amp; Computer Vision</h4>
+        <p>Object detection, OCR, image classification and technical-drawing models.</p>
+        <span class="cat-meta">7 projects · 10 model releases →</span>
+      </a>
+      <a class="category-card" href="/projects/data-automation/">
+        <span class="cat-num">02</span>
+        <h4>Data &amp; Automation</h4>
+        <p>Document control, ERP integrations, reporting pipelines, scrapers and analysis.</p>
+        <span class="cat-meta">11 projects →</span>
+      </a>
+      <a class="category-card" href="/projects/products/">
+        <span class="cat-num">03</span>
+        <h4>Products &amp; Tools</h4>
+        <p>Self-hosted products, developer tools and automation agents built end to end.</p>
+        <span class="cat-meta">5 projects →</span>
+      </a>
+      <a class="category-card" href="/projects/esports/">
+        <span class="cat-num">04</span>
+        <h4>Esports &amp; Content</h4>
+        <p>CS2 analytics, content automation and esports products.</p>
+        <span class="cat-meta">3 projects →</span>
+      </a>
+    </div>
+  </main>
+</div>
