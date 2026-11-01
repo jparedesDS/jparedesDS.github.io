@@ -1,40 +1,59 @@
+/* The Pro POV CS2 brand (01/11/2026): graphite and bone, yellow accent,
+   Big Shoulders Display for headings, JetBrains Mono for labels. */
 :root {
-  --bg: #0B0E13; --bg2: #151B26; --line: #232B38;
-  --yellow: #FFC400; --white: #F4F6FA; --muted: #8C96A8;
+  --bg: #121316; --bg2: #1B1D21; --line: #2A2C31;
+  --yellow: #FFC400; --white: #F3F1EC; --muted: #A19E96;
+  --orange: #FF5500; --violet: #9650FF;
+  --slant: 18deg;
+  --head: "Big Shoulders Display", Impact, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
   margin: 0; background: var(--bg); color: var(--white);
-  font: 17px/1.65 "Chakra Petch", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* The brand's three bands along the top: pro matches, FACEIT, Majors. */
+  border-top: 6px solid; border-image: linear-gradient(90deg, var(--yellow) 0 60%, var(--orange) 60% 80%, var(--violet) 80%) 1;
 }
 a { color: var(--yellow); }
 a:hover { color: #FFD84D; }
-header, main, footer { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+header, main, footer { max-width: 820px; margin: 0 auto; padding: 0 16px; }
 header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding-top: 28px; padding-bottom: 20px;
   border-bottom: 1px solid var(--line); }
-header a.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
-header .xhair { width: 38px; height: 38px; flex: none; }
-header .word { font-family: Anton, Impact, sans-serif; font-size: 26px; letter-spacing: .01em; }
-header .word b { color: var(--yellow); font-weight: normal; }
-nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; font-weight: 600; }
+/* The wordmark: a yellow slab cut at the brand angle with "PRO POV", then "CS2" in mono. */
+a.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--white); }
+.slab { display: inline-block; background: var(--yellow); color: var(--bg); padding: 1px 12px 0;
+  transform: skewX(calc(-1 * var(--slant))); }
+.slab > span { display: inline-block; transform: skewX(var(--slant));
+  font: 900 30px/1.1 var(--head); letter-spacing: .01em; }
+a.brand .cs2 { font: 700 15px var(--mono); }
+nav { margin-left: auto; display: flex; gap: 16px; flex-wrap: wrap; font: 700 14px var(--mono); text-transform: uppercase; }
 nav a { color: var(--muted); text-decoration: none; }
 nav a:hover, nav a[aria-current] { color: var(--yellow); }
 main { padding-top: 36px; padding-bottom: 48px; }
-h1 { font-family: Anton, Impact, sans-serif; font-weight: normal; font-size: clamp(34px, 7vw, 52px);
-  line-height: 1.1; margin: 0 0 14px; }
-h1 b { color: var(--yellow); font-weight: normal; }
-h2 { font-size: 22px; margin: 36px 0 8px; color: var(--yellow); }
-p, li { color: #D9DEE7; }
-.lead { font-size: 20px; color: var(--white); }
+h1 { font: 900 clamp(40px, 8vw, 64px)/1.02 var(--head); text-transform: uppercase; margin: 0 0 14px; }
+h1 b, h2 b { color: var(--yellow); font-weight: inherit; }
+h2 { font: 900 30px/1.1 var(--head); text-transform: uppercase; margin: 40px 0 10px; }
+/* Every section title opens with the three bands. */
+h2::before { content: ""; display: inline-block; width: 40px; height: .66em; margin: 0 14px 0 4px;
+  background: linear-gradient(90deg, var(--yellow) 0 46%, transparent 46% 58%, var(--orange) 58% 72%,
+    transparent 72% 86%, var(--violet) 86%);
+  transform: skewX(calc(-1 * var(--slant))); }
+.kicker { font: 700 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--yellow); margin: 0 0 6px; }
+p, li { color: #D9D6CF; }
+.lead { font-size: 19px; color: var(--white); }
 .meta { color: var(--muted); font-size: 15px; }
+code { font-family: var(--mono); }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 26px 0; }
-.card { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
-.card h3 { margin: 0 0 6px; font-size: 17px; }
+.card { background: var(--bg2); border: 1px solid var(--line); border-radius: 4px; padding: 16px 18px; }
+.card h3 { margin: 0 0 6px; font: 700 21px var(--head); text-transform: uppercase; }
 .card p { margin: 0; font-size: 15px; color: var(--muted); }
-.button { display: inline-block; background: var(--yellow); color: var(--bg); font-weight: 700;
-  padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 6px 10px 6px 0; }
+.button { display: inline-block; background: var(--yellow); color: var(--bg); font: 700 15px var(--mono);
+  padding: 10px 18px; border-radius: 3px; text-decoration: none; margin: 6px 10px 6px 0; }
 .button:hover { background: #FFD84D; color: var(--bg); }
+.button.ghost { background: transparent; color: var(--white); border: 1px solid var(--line); }
+.button.ghost:hover { border-color: var(--yellow); color: var(--yellow); }
 table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 15px; }
 th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
 th { color: var(--muted); font-weight: 600; }
@@ -43,15 +62,39 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; padding-bottom: 3
   color: var(--muted); font-size: 14px; }
 footer a { color: var(--muted); }
 .api { display: flex; gap: 14px; align-items: center; background: var(--bg2); border: 1px solid var(--line);
-  border-radius: 12px; padding: 14px 18px; margin: 18px 0 8px; font-size: 15px; }
+  border-radius: 4px; padding: 14px 18px; margin: 18px 0 8px; font-size: 15px; }
 .api .yt { width: 42px; height: 30px; flex: none; }
 .yt { display: inline-block; vertical-align: middle; }
 .uses { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .uses .yt { width: 22px; height: 16px; }
 .code { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; background: var(--bg2);
-  border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin: 18px 0; }
-.code code { flex: 1 1 260px; font: 600 15px/1.4 ui-monospace, Consolas, monospace; color: var(--yellow);
-  word-break: break-all; }
-.code button { font: 700 15px "Chakra Petch", sans-serif; background: var(--yellow); color: var(--bg);
-  border: 0; border-radius: 10px; padding: 9px 16px; cursor: pointer; }
+  border: 1px solid var(--line); border-radius: 4px; padding: 14px 18px; margin: 18px 0; }
+.code code { flex: 1 1 260px; font: 600 15px/1.4 var(--mono); color: var(--yellow); word-break: break-all; }
+.code button { font: 700 15px var(--mono); background: var(--yellow); color: var(--bg);
+  border: 0; border-radius: 3px; padding: 9px 16px; cursor: pointer; }
 .error { color: #FF6B6B; }
+
+/* Home page: wider, with the players. */
+.hero { position: relative; padding-right: 260px; }
+.bands { position: absolute; top: -36px; bottom: 0; right: 60px; display: flex; gap: 14px; transform: skewX(calc(-1 * var(--slant))); }
+.bands i { display: block; width: 18px; }
+.bands i:nth-child(1) { width: 52px; background: var(--yellow); }
+.bands i:nth-child(2) { background: var(--orange); }
+.bands i:nth-child(3) { background: var(--violet); }
+.key { display: flex; flex-wrap: wrap; gap: 6px 22px; font: 700 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; margin: 4px 0 0; }
+.key span { display: inline-flex; align-items: center; gap: 9px; }
+.key i { width: 24px; height: 13px; transform: skewX(calc(-1 * var(--slant))); }
+.wide header, .wide main, .wide footer { max-width: 1240px; }
+.player { position: relative; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.player.tall { aspect-ratio: 9 / 16; width: 100%; max-width: 380px; margin: 0 auto; }
+.live { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; align-items: start; }
+.tag { font: 700 13px var(--mono); text-transform: uppercase; color: var(--muted); margin: 8px 0 0; }
+.tag b { color: #FF4040; }
+.split { display: grid; grid-template-columns: 2fr 1fr; gap: 14px 28px; align-items: start; }
+@media (max-width: 760px) {
+  .live, .split { grid-template-columns: 1fr; }
+  .hero { padding-right: 0; }
+  .bands { display: none; }
+  nav { margin-left: 0; }
+}
