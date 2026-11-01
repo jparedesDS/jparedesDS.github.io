@@ -72,6 +72,7 @@ wide: true
       <p class="featured-links">
         <a href="/projects/esports/">Details →</a>
         <a href="https://github.com/jparedesDS/cs2data">Code (private)</a>
+        <a href="/propovcs2/">Web</a>
         <a href="https://www.youtube.com/@Pro.POV.CS2">YouTube</a>
         <a href="https://www.tiktok.com/@propov.cs2">TikTok</a>
         <a href="https://x.com/ProPOVCS2">X</a>
