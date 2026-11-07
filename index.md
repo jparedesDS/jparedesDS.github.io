@@ -39,7 +39,7 @@ wide: true
       <img class="featured-thumb" src="images/subtitleme-thumb.png" alt="SubtitleMe — subtítulos traducidos en directo">
       <p class="featured-kicker">Gratis · Open source · Sin cuentas · En tu navegador</p>
       <h3><a href="https://subtitleme-web.subtitleme.workers.dev">SubtitleMe — tus directos, en tu idioma</a></h3>
-      <p>Mira directos de Twitch, Kick y CHZZK, o un VOD de Twitch, Kick, Vimeo, VK, OK.ru o CanalPeer (incluidos enlaces <code>acestream://</code>), con subtítulos traducidos al vuelo. La transcripción con Whisper y la traducción ocurren íntegramente en tu navegador: sin instalar nada y sin que el vídeo pase por servidores propios.</p>
+      <p>Mira directos de Twitch, Kick y CHZZK, o un VOD de Twitch, Kick, Vimeo, VK u OK.ru, con subtítulos traducidos al vuelo. La transcripción con Whisper y la traducción ocurren íntegramente en tu navegador: sin instalar nada y sin que el vídeo pase por servidores propios.</p>
       <p class="featured-meta">Whisper WebGPU/WASM · Traducción en tiempo real · Diarización de voces · Pastel UI</p>
       <p class="featured-links">
         <a href="https://subtitleme-web.subtitleme.workers.dev">Abrir SubtitleMe →</a>
