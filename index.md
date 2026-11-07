@@ -36,6 +36,18 @@ wide: true
     <h3>Featured projects</h3>
 
     <div class="featured-project">
+      <img class="featured-thumb" src="images/subtitleme-thumb.png" alt="SubtitleMe — subtítulos traducidos en directo">
+      <p class="featured-kicker">Gratis · Open source · Sin cuentas · En tu navegador</p>
+      <h3><a href="https://subtitleme-web.subtitleme.workers.dev">SubtitleMe — tus directos, en tu idioma</a></h3>
+      <p>Mira directos de Twitch, Kick y CHZZK, o un VOD de Twitch, Kick, Vimeo, VK, OK.ru o CanalPeer (incluidos enlaces <code>acestream://</code>), con subtítulos traducidos al vuelo. La transcripción con Whisper y la traducción ocurren íntegramente en tu navegador: sin instalar nada y sin que el vídeo pase por servidores propios.</p>
+      <p class="featured-meta">Whisper WebGPU/WASM · Traducción en tiempo real · Diarización de voces · Pastel UI</p>
+      <p class="featured-links">
+        <a href="https://subtitleme-web.subtitleme.workers.dev">Abrir SubtitleMe →</a>
+        <a href="https://github.com/jparedesDS/subtitleme">Code</a>
+      </p>
+    </div>
+
+    <div class="featured-project">
       <img class="featured-thumb" src="images/cleanyourmail-thumb.png" alt="CleanYourMail">
       <p class="featured-kicker">Free for everyone · Open source · Agent-native</p>
       <h3><a href="/cleanyourmail/">CleanYourMail — your inbox, minus the noise</a></h3>
