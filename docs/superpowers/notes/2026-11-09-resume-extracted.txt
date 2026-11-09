@@ -1,0 +1,93 @@
+JOSE PAREDES COLMENAREJO
+Data Scientist  |  AI Engineer  |  ML Engineer
+Madrid, Spain  |  +34 616 744 808  |  jparedescolmenarejo@gmail.com 
+linkedin.com/in/jparedesDS  |  github.com/jparedesDS  |  jparedesds.github.io
+PROFESSIONAL SUMMARY
+Data Scientist and AI Engineer with hands-on experience building production-grade ML models, AI-assisted 
+applications, and automation systems for industrial engineering. Architected DocFlow, a multi-tenant SaaS 
+document management platform built using AI-assisted development (Claude/Anthropic API), orchestrating the full 
+product lifecycle from system design to Docker deployment. Active open-source contributor with 33+ repositories, 
+268+ GitHub followers, and 10+ computer vision models published on HuggingFace. Strong expertise in Computer 
+Vision (YOLO), NLP, algorithmic trading, agentic AI workflows, and end-to-end data pipeline development. Bilingual 
+(Spanish/English).
+TECHNICAL SKILLS
+Programming: Python, JavaScript, SQL, Bash, HTML/CSS
+AI Engineering: Anthropic Claude API, AI-assisted development, agentic workflows, context engineering, prompt 
+design, LLM integration
+Backend: FastAPI, Flask, REST APIs, JWT authentication, WebSockets, IMAP/SMTP integration
+Frontend: React 18, Tailwind CSS, Framer Motion, Axios
+Data Science & ML: Pandas, NumPy, scikit-learn, XGBoost, TensorFlow, Keras, PyTorch, Transformers
+Computer Vision: YOLO (v9/v11/v12), OpenCV, ResNet, object detection, image classification
+NLP: Sentiment analysis, text mining, Hugging Face Transformers, spaCy, ASR/speech recognition
+Data & Databases: SQL, SQLite, openpyxl, Excel automation, EDA, feature engineering, time series
+DevOps & Tools: Docker, Docker Compose, GitHub Actions CI/CD, Git, Jupyter, VS Code
+Visualization & BI: Tableau, Matplotlib, Seaborn, Plotly
+Other: PCA, K-Means, Monte Carlo simulation, Kelly Criterion, DocuSign API, multi-tenant architecture, AI agent 
+orchestration
+PROJECTS
+DocFlow SaaS - Document Management Platform  |  FastAPI, React 18, Tailwind CSS, Docker, JWT, Anthropic 
+API, DocuSign
+Architected and directed AI-assisted development (Claude) of a full-stack multi-tenant SaaS for industrial document 
+management at EIPSA. Designed system architecture, defined requirements, and orchestrated AI agents to build 
+21 API router modules, 24 service layers, and 24 frontend pages. Features include AI-powered document 
+processing (Anthropic API), DocuSign e-signature integration, automated email ingestion (IMAP/SMTP), JWT 
+authentication, i18n, backup scheduling, and Docker deployment with CI/CD via GitHub Actions. Currently in 
+production use.
+Fluorescent Penetrant Inspection Detection  |  YOLO11, Computer Vision, HuggingFace, Python
+Developed an AI model for automated detection of liquid penetrant test results in metallurgy quality control. Trained 
+on industrial inspection data and deployed as a HuggingFace model for real-time defect classification in 
+manufacturing environments.
+Welding Defects Detection System  |  YOLO11, Computer Vision, Deep Learning, HuggingFace
+Built an object detection system for real-time identification and classification of welding defects in industrial 
+environments. Model published on HuggingFace. 14+ GitHub stars.
+DXF Data Extraction Tool  |  Python, CAD automation, deep learning, data extraction
+Created a tool combining deep learning with CAD parsing to automatically extract and classify entities from DXF 
+technical drawings. Reduced manual data entry time by approximately 80% in engineering workflows. 18+ GitHub 
+stars, 4 forks.
+Polymarket Auto-Betting Bot  |  Python, REST APIs, Kelly Criterion, Monte Carlo, Telegram
+Algorithmic trading bot for BTC prediction markets on Polymarket. Implements Kelly Criterion sizing, Monte Carlo 
+backtesting (10,000+ simulations), bail-out logic, gasless on-chain operations, and real-time Telegram dashboard. 
+5+ GitHub stars.
+Email MAPI Automation  |  Python, Outlook/IMAP, Excel, ERP integration
+Automated documentation ingestion pipeline: captures emails via Outlook/IMAP, extracts attachments and 
+metadata, and loads structured data into Excel and ERP systems. Eliminated manual email processing for 
+document control.
+
+PROFESSIONAL EXPERIENCE
+Data Analyst & AI Engineer Jan 2024 - Present
+EIPSA - Espanola de Instrumentacion Primaria S.A., Madrid
+- Architected DocFlow, a full-stack SaaS document management platform, using AI-assisted development 
+(Claude) to design and build the complete system (FastAPI + React). Now in production use.
+- Built and deployed YOLO-based computer vision models for automated defect detection in metallurgy quality 
+control (penetrant inspection, welding defects).
+- Created automated data extraction pipelines from DXF technical drawings using deep learning, reducing 
+manual processing time by 80%.
+- Automated email-to-ERP workflows, eliminating manual document entry for 500+ monthly incoming 
+documents.
+- Built interactive Tableau dashboards for real-time project documentation tracking across international clients.
+- Coordinated documentation submissions with international contractors (Tecnicas Reunidas) using 
+eGesdoc/VDDL platforms.
+Data Management Technician Jan 2021 - Dec 2023
+Comunicacion Permanente S.L., Madrid
+- Managed and maintained customer database with 10,000+ records, ensuring data integrity and accuracy.
+- Processed and validated incoming data streams for technical incident tracking and emergency response.
+- Developed internal reporting procedures that improved incident resolution tracking by 25%.
+Electronics Lab Technician Jan 2015 - Dec 2020
+GRUPO ANOVO S.L., Madrid
+- Diagnosed and repaired 50+ electronic devices weekly (Samsung, ZTE, multi-brand) with 95%+ quality rate.
+- Managed production data and quality control metrics for device repair workflows.
+EDUCATION
+Data Science Bootcamp Sep 2021 - Jun 2022
+The Bridge | Digital Talent Accelerator, Madrid
+- Supervised and unsupervised learning, deep learning, NLP with Transformers, Computer Vision (OpenCV), 
+time series forecasting, data storytelling, and Flask deployment.
+Advanced Vocational Degree in Telecommunications Sep 2010 - Jun 2012
+Centro de Formacion Padre Piquer, Madrid
+LANGUAGES
+Spanish: Native
+English: Professional working proficiency (B2)
+ADDITIONAL INFORMATION
+Platforms: HuggingFace (jparedesDS) - 10+ published models  |  Kaggle (joseparedesc)  |  Tableau Public
+Open Source: 33+ public repositories, 268+ GitHub followers, Pull Shark & Starstruck achievements
+Computer Vision: 10+ YOLO models (v9-v12) for real-time object detection deployed on HuggingFace
+Competitions: Kaggle Bronze Medal - Multilabel Image Classification (3rd place, ResNet152)
