@@ -7,10 +7,22 @@ home: true
 ---
 
 <div class="home">
-  <header class="home-intro">
-    <p class="home-eyebrow">Data Scientist · Madrid, Spain</p>
-    <h1>Building useful AI products.</h1>
-    <p class="home-lede">Computer vision, local-first software and automation.</p>
+  <header class="profile-header" id="about">
+    <img class="home-profile" src="profile.jpg" alt="Portrait of Jose Paredes">
+    <div>
+      <p class="home-eyebrow">About</p>
+      <h1>Jose Paredes</h1>
+      <p class="profile-role">Data Scientist · Madrid, Spain</p>
+      <p class="profile-summary">At EIPSA, I build computer-vision systems and automation for engineering and manufacturing. I also develop practical AI products and local-first tools.</p>
+      <nav class="home-contact" aria-label="Contact and professional profiles">
+        <a href="mailto:jparedescolmenarejo@gmail.com">Email</a>
+        <a href="resume.pdf">CV</a>
+        <a href="https://www.linkedin.com/in/jparedesDS/">LinkedIn</a>
+        <a href="https://github.com/jparedesDS">GitHub</a>
+        <a href="https://huggingface.co/jparedesDS">Hugging Face</a>
+        <a href="https://www.kaggle.com/joseparedesc">Kaggle</a>
+      </nav>
+    </div>
   </header>
 
   <main>
@@ -22,7 +34,7 @@ home: true
         <p class="hero-project-description">Live subtitles and translation for streams and videos, processed privately in your browser. No account needed.</p>
         <div class="hero-project-actions">
           <a class="button button-primary" href="https://subany.video/">Try subany.video <span aria-hidden="true">↗</span></a>
-          <a class="button button-secondary" href="https://github.com/jparedesDS/subtitle.me">View code</a>
+          <a class="button button-secondary" href="https://github.com/jparedesDS/subtitle.me" aria-label="View subany.video source code">View code</a>
         </div>
       </div>
       <a class="hero-project-preview" href="https://subany.video/" aria-label="Open subany.video">
@@ -30,66 +42,111 @@ home: true
       </a>
     </section>
 
-    <section class="selected-work" id="selected-work" aria-labelledby="selected-work-title">
+    <section class="project-index" id="projects" aria-labelledby="projects-title">
       <div class="section-heading">
-        <h2 id="selected-work-title">Selected work</h2>
-        <a href="#more-work">More projects <span aria-hidden="true">↓</span></a>
+        <h2 id="projects-title">Projects</h2>
       </div>
 
-      <div class="work-grid">
-        <a class="work-card" href="/cleanyourmail/">
-          <img class="work-card-image" src="images/cleanyourmail-thumb.png" alt="CleanYourMail">
-          <div class="work-card-body">
-            <div class="work-card-title">
-              <h3>CleanYourMail</h3>
-              <span aria-hidden="true">→</span>
+      <ul class="project-list">
+        <li>
+          <article class="project-item">
+            <h3>CleanYourMail</h3>
+            <p>Local-first, reversible inbox cleanup for coding agents.</p>
+            <div class="project-links">
+              <a href="/cleanyourmail/">Case study</a>
+              <a href="https://github.com/jparedesDS/cleanyourmail" aria-label="CleanYourMail source code">Source code</a>
             </div>
-            <p>Reversible, local-first inbox cleanup for coding agents.</p>
-          </div>
-        </a>
+          </article>
+        </li>
 
-        <a class="work-card" href="/propovcs2/">
-          <img class="work-card-image" src="images/propov-cs2.png" alt="Pro POV CS2">
-          <div class="work-card-body">
-            <div class="work-card-title">
-              <h3>Pro POV CS2</h3>
-              <span aria-hidden="true">→</span>
-            </div>
-            <p>An autonomous pipeline from pro demos to published content.</p>
-          </div>
-        </a>
-
-        <a class="work-card" href="/projects/products/">
-          <img class="work-card-image" src="images/cleanyourphone-thumb.png" alt="CleanYourPhone">
-          <div class="work-card-body">
-            <div class="work-card-title">
-              <h3>CleanYourPhone</h3>
-              <span aria-hidden="true">→</span>
-            </div>
+        <li>
+          <article class="project-item">
+            <h3>CleanYourPhone</h3>
             <p>Safe, reversible Android debloating without root.</p>
-          </div>
-        </a>
-      </div>
+            <div class="project-links">
+              <a href="https://jparedesds.github.io/cleanyourphone-web/" aria-label="CleanYourPhone website">Website</a>
+              <a href="https://github.com/jparedesDS/clean-your-phone" aria-label="CleanYourPhone source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Pro POV CS2</h3>
+            <p>Autonomous esports content, from professional demos to publication.</p>
+            <div class="project-links">
+              <a href="/propovcs2/" aria-label="Pro POV CS2 website">Website</a>
+              <a href="https://www.youtube.com/@Pro.POV.CS2" aria-label="Pro POV CS2 on YouTube">YouTube</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>trtw.tv</h3>
+            <p>Live Spanish subtitles for Twitch and YouTube, running locally.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/trtw-tv" aria-label="trtw.tv source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>DocFlow SaaS</h3>
+            <p>Document control, reporting and automation for engineering projects.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/docflow" aria-label="DocFlow SaaS source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Polymarket Auto-Betting Bot</h3>
+            <p>BTC prediction-market automation with backtesting and Telegram controls.</p>
+            <div class="project-links">
+              <a href="/projects/products/" aria-label="Polymarket Auto-Betting Bot project details">Project details</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Appointment Management</h3>
+            <p>Scheduling and customer management for auto repair shops.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/talleres-ritmo" aria-label="Appointment Management source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Claude Telegram Bot</h3>
+            <p>Claude-powered assistance, automation and remote control from Telegram.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/claude-telegram" aria-label="Claude Telegram Bot source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>OCR Weapon Detection</h3>
+            <p>Real-time Counter-Strike 2 weapon recognition using OCR.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/OCR-Identification-CS2-Weapons" aria-label="OCR Weapon Detection source code">Source code</a>
+            </div>
+          </article>
+        </li>
+      </ul>
     </section>
   </main>
 
   <footer>
-    <section class="home-about" id="about" aria-labelledby="about-title">
-      <img class="home-profile" src="profile.jpg" alt="Jose Paredes">
-      <div>
-        <h2 id="about-title">About</h2>
-        <p>I’m Jose, a Data Scientist at EIPSA building computer-vision systems and automation for engineering and manufacturing.</p>
-        <div class="home-contact" aria-label="Contact links">
-          <a href="mailto:jparedescolmenarejo@gmail.com">Email</a>
-          <a href="https://www.linkedin.com/in/jparedesDS/">LinkedIn</a>
-          <a href="https://github.com/jparedesDS">GitHub</a>
-          <a href="resume.pdf">CV</a>
-        </div>
-      </div>
-    </section>
-
-    <nav class="more-work" id="more-work" aria-label="More projects">
-      <span>Explore more</span>
+    <nav class="more-work" id="more-work" aria-label="Browse all project categories">
+      <span>Browse all projects</span>
       <div>
         <a href="/projects/ai-vision/">AI &amp; Vision</a>
         <a href="/projects/data-automation/">Data &amp; Automation</a>

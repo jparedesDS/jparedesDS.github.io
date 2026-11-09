@@ -18,8 +18,8 @@ sass:
     sass_dir: _sass
 
 nav:
- - name: "Work"
-   link: "/#selected-work"
+ - name: "Projects"
+   link: "/#projects"
  - name: "About"
    link: "/#about"
  - name: "CV"

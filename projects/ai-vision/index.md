@@ -8,7 +8,7 @@ permalink: /projects/ai-vision/
 <p class="page-kicker">Projects · 01</p>
 <h1 class="page-title">AI & Computer Vision</h1>
 <p class="page-lede">Object detection, OCR, image classification and technical-drawing models for industry and games.</p>
-<p class="page-back"><a href="/#my-portfolio">← Back to the portfolio</a></p>
+<p class="page-back"><a href="/#projects">← Back to the portfolio</a></p>
 
 <div class="project-cards" markdown="1">
 

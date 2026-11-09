@@ -8,7 +8,7 @@ permalink: /projects/data-automation/
 <p class="page-kicker">Projects · 02</p>
 <h1 class="page-title">Data & Automation</h1>
 <p class="page-lede">Document control, ERP integrations, reporting pipelines, scrapers and data analysis.</p>
-<p class="page-back"><a href="/#my-portfolio">← Back to the portfolio</a></p>
+<p class="page-back"><a href="/#projects">← Back to the portfolio</a></p>
 
 <div class="project-cards" markdown="1">
 

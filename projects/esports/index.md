@@ -8,7 +8,7 @@ permalink: /projects/esports/
 <p class="page-kicker">Projects · 04</p>
 <h1 class="page-title">Esports & Content</h1>
 <p class="page-lede">CS2 analytics, content automation and esports products.</p>
-<p class="page-back"><a href="/#my-portfolio">← Back to the portfolio</a></p>
+<p class="page-back"><a href="/#projects">← Back to the portfolio</a></p>
 
 <div class="project-cards" markdown="1">
 

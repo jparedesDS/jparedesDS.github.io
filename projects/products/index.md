@@ -8,7 +8,7 @@ permalink: /projects/products/
 <p class="page-kicker">Projects · 03</p>
 <h1 class="page-title">Products & Tools</h1>
 <p class="page-lede">Self-hosted products, free open-source tools and automation agents built end to end.</p>
-<p class="page-back"><a href="/#my-portfolio">← Back to the portfolio</a></p>
+<p class="page-back"><a href="/#projects">← Back to the portfolio</a></p>
 
 <div class="project-cards" markdown="1">
 
