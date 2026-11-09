@@ -53,8 +53,10 @@
         <meta name="twitter:image" content="{{ site.profile_picture }}">
     {% endif %}
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+    {% unless page.home %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+    {% endunless %}
 </head>
 <body>
     <div class="wrapper{% if page.wide %} wide{% endif %}">
@@ -64,11 +66,7 @@
             <a id="author-name" class="alignable pull-left" href="{{ site.baseurl }}">{{ site.title }}</a>
             <ul id="navlist" class="alignable pull-right navbar-ul">
                 {% for x in site.nav %}
-                    <li class="alignable pull-left nav-list"><a href="{{ x.link }}"{% if x.new_tab %} target="_blank" rel="noopener"{% endif %}{% if page.url == x.link %} aria-current="page"{% endif %}>{{ x.name }}</a>
-                    {% if forloop.last == false %}
-                        /
-                    {% endif %}
-                    </li>
+                    <li class="alignable pull-left nav-list"><a href="{{ x.link }}"{% if x.new_tab %} target="_blank" rel="noopener"{% endif %}{% if page.url == x.link %} aria-current="page"{% endif %}>{{ x.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -80,15 +78,17 @@
             <div class="container content">
         {% endif %}
                 {{ content }}
-                <script src="{{ site.baseurl }}/js/GridWorld.js"></script>
-                <script src="{{ site.baseurl }}/js/QAgent.js"></script>
-                <script src="{{ site.baseurl }}/js/Count.js"></script>
-                <!--<p align="center"><iframe style="width: 100px; height: 107px; overflow: hidden;"  frameborder="0" scrolling="no" src="https://editor.p5js.org/krishanrana/embed/1bngpYaRU"></iframe></p>-->
-                <script src="{{ site.baseurl }}/js/Particles.js"></script>
-                <script src="{{ site.baseurl }}/js/sketch.js"></script>
+                {% unless page.home %}
+                    <script src="{{ site.baseurl }}/js/GridWorld.js"></script>
+                    <script src="{{ site.baseurl }}/js/QAgent.js"></script>
+                    <script src="{{ site.baseurl }}/js/Count.js"></script>
+                    <!--<p align="center"><iframe style="width: 100px; height: 107px; overflow: hidden;"  frameborder="0" scrolling="no" src="https://editor.p5js.org/krishanrana/embed/1bngpYaRU"></iframe></p>-->
+                    <script src="{{ site.baseurl }}/js/Particles.js"></script>
+                    <script src="{{ site.baseurl }}/js/sketch.js"></script>
+                {% endunless %}
                 <script src="{{ site.baseurl }}/js/external-links.js"></script>
         
-                {% if site.footer == true %}
+                {% if site.footer == true and page.home != true %}
                     <hr />
                     <p style="text-align: center; margin-bottom: 10px">
                     <a href="{{ site.footer_url }}" style="color: black"><small>{{ site.footer_text }}</small></a>

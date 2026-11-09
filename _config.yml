@@ -11,24 +11,23 @@ tracking_id: #
 
 footer: yes
 footer_url: "https://github.com/jparedesDS"
-footer_text: "Click here if you'd like to collaborate with me:)"
+footer_text: "Open to new ideas and collaborations."
 
 sass:
     style: compressed
     sass_dir: _sass
 
 nav:
+ - name: "Work"
+   link: "/#selected-work"
+ - name: "About"
+   link: "/#about"
  - name: "CV"
    link: "resume.pdf"
    new_tab: true
- - name: "AI & Computer Vision"
-   link: "/projects/ai-vision/"
- - name: "Data & Automation"
-   link: "/projects/data-automation/"
- - name: "Products & Tools"
-   link: "/projects/products/"
- - name: "Esports & Content"
-   link: "/projects/esports/"
+ - name: "GitHub"
+   link: "https://github.com/jparedesDS"
+   new_tab: true
  
  
 
