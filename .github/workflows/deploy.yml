@@ -31,15 +31,13 @@ jobs:
       - name: Install JS dependencies
         run: npm ci
 
+      - name: Sync blog preview
+        run: node blog-preview-sync.mjs
+
       - name: Build site
         run: |
           export JEKYLL_ENV=production
           bundle exec jekyll build
-
-      - name: Purge unused CSS
-        run: |
-          npm install -g purgecss@9.1.0
-          purgecss -c purgecss.config.js
 
       - name: Add .nojekyll
         run: touch _site/.nojekyll
