@@ -20,14 +20,10 @@ links:
 
 ## Overview
 
-subany.video adds live subtitles and translation to streams and videos in the browser. The media is processed locally and no account is needed.
+subany.video adds live subtitles and translation to streams and videos, processed privately in the browser. No account is needed.
 
-## Problem
-
-Viewers need live subtitles and translation for streams and videos without creating an account.
-
-## Main features
+## What it does
 
 - Live subtitles and translation for streams and videos
-- Processing happens privately in the browser
-- No account required
+- Processing in your browser, privately
+- No account needed

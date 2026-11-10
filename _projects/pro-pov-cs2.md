@@ -31,6 +31,6 @@ links:
 
 ## Overview
 
-The engine behind the Pro POV CS2 channel: it finds pro matches on FACEIT and tier-1 HLTV events, downloads and parses the demos, records the player's point of view with CS2 and HLAE on GPU — reproducing their exact aspect ratio, crosshair code, viewmodel, HUD and radar — then renders per-round chapters, a thumbnail with the player's cut-out photo, and vertical clips, publishing to YouTube, Shorts, TikTok, Instagram Reels and X with generated SEO, all unattended every 20 minutes. Daily picks are chosen with an optimal-stopping policy over a learned threshold, player demand is estimated from YouTube view velocity, and a ridge audience model reorders the queue. SQLite state with priority queue, retries, FFmpeg quality gate and auto-pause when a CS2 update breaks recording.
+The autonomous engine behind the Pro POV CS2 channel, which publishes professional player point-of-view videos.
 
-> Private repository. Implementation details are not disclosed.
+> Private repository. Additional implementation details are not disclosed.

@@ -21,6 +21,6 @@ links:
 
 ## Overview
 
-Conversational AI assistant for Counter-Strike 2 players — it provides chat-based tactical guidance, match insights and gameplay support, built on a TypeScript stack.
+Conversational AI assistant for Counter-Strike 2 players with chat-based tactical guidance and match insights.
 
-> Private repository. Implementation details are not disclosed.
+> Private repository. Additional implementation details are not disclosed.

@@ -21,6 +21,6 @@ links:
 
 ## Overview
 
-Automation of reports and document control, focused on the analysis of data exported from the ERP and the generation of advanced visual reports.
+Automation of reports and document control, analysing ERP exports and generating advanced visual reports.
 
-> Private repository. Implementation details are not disclosed.
+> Private repository. Additional implementation details are not disclosed.

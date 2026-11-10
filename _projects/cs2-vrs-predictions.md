@@ -21,6 +21,6 @@ links:
 
 ## Overview
 
-Predictive modeling pipeline for Counter-Strike 2 ranking systems (VRS) — it forecasts team standings and competitive tournament outcomes from historical performance data.
+Predictive modelling pipeline that forecasts Counter-Strike 2 team standings and tournament outcomes.
 
-> Private repository. Implementation details are not disclosed.
+> Private repository. Additional implementation details are not disclosed.

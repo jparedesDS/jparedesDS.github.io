@@ -21,6 +21,6 @@ links:
 
 ## Overview
 
-Automated trading bot for BTC prediction markets (UP/DOWN 5m and 15m) on Polymarket. It uses limit maker orders at 45¢, Kelly criterion with Monte Carlo backtesting for position sizing, a bail-out mechanism when only one leg fills, and gasless auto-redeem with on-chain fallback. It includes a Telegram bot for a real-time dashboard, alerts and controls.
+Automated trading bot for BTC prediction markets on Polymarket with limit orders and Telegram controls.
 
-> Private repository. Implementation details are not disclosed.
+> Private repository. Additional implementation details are not disclosed.
