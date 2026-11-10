@@ -420,8 +420,8 @@ html[data-theme="dark"] .theme-dot {
 
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .work-card {
@@ -441,7 +441,7 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .work-media {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--surface-2);
   border-bottom: 1px solid var(--line);
@@ -499,7 +499,7 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .work-body {
-  padding: 18px 20px 20px;
+  padding: 12px 13px 14px;
 }
 
 .work-meta {
@@ -514,21 +514,27 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .work-body h3 {
-  margin: 12px 0 6px;
-  font-size: 21px;
+  margin: 8px 0 5px;
+  font-size: 17px;
   letter-spacing: -0.03em;
   font-weight: 600;
 }
 
 .work-body p {
   margin: 0;
-  font-size: 14.5px;
-  line-height: 1.55;
+  font-size: 12.5px;
+  line-height: 1.45;
   color: var(--muted);
 }
 
 .work-body .chips {
-  margin-top: 16px;
+  margin-top: 10px;
+  gap: 4px;
+}
+
+.work-body .chips span {
+  font-size: 9.5px;
+  padding: 3px 6px;
 }
 
 /* Experience */
@@ -716,6 +722,10 @@ html[data-theme="dark"] .theme-dot {
     grid-template-columns: minmax(0, 1fr) 250px;
     gap: 42px;
     padding-top: 72px;
+  }
+
+  .work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .exp-row {

@@ -15,12 +15,25 @@ test("the build produces the home with the shell", () => {
   assert.match(html, /data-theme/);
 });
 
-test("the home shows the six selected projects", () => {
+test("the home shows the eight selected projects", () => {
   const html = read("index.html");
-  for (const title of ["subany.video", "CleanYourMail", "DocFlow", "Pro POV CS2", "trtw.tv", "CleanYourPhone"]) {
-    assert.match(html, new RegExp(title));
+  assert.equal((html.match(/class="work-card"/g) || []).length, 8);
+  for (const title of [
+    "subany.video",
+    "CleanYourMail",
+    "DocFlow",
+    "Pro POV CS2",
+    "CleanYourPhone",
+    "HLTV Team &amp; Player Stats Scraper",
+    "Technical Drawing Data Extraction",
+    "Welding Defects Detector",
+  ]) {
+    assert.ok(html.includes(title), title);
   }
-  assert.equal((html.match(/class="work-card"/g) || []).length, 6);
+  assert.doesNotMatch(html, /href="\/work\/trtw-tv\/"/);
+  assert.match(html, /https:\/\/github\.com\/jparedesDS\/hltv-scraper/);
+  assert.match(html, /https:\/\/github\.com\/jparedesDS\/extract-data-dxf/);
+  assert.match(html, /https:\/\/github\.com\/jparedesDS\/welding-defects-detection/);
 });
 
 test("the home has the hero, the portrait and the contact links", () => {

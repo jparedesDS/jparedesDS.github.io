@@ -7,6 +7,7 @@ interface Props {
 
 const { project } = Astro.props;
 const href = project.href ?? `/work/${project.slug}/`;
+const external = href.startsWith("http");
 
 const categoryLabels: Record<Project["category"], string> = {
   "ai-vision": "AI & Vision",
@@ -20,7 +21,12 @@ const initial = project.title.slice(0, 1).toUpperCase();
 const tags = project.tags ?? [];
 ---
 
-<a class="work-card" href={href}>
+<a
+  class="work-card"
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noreferrer" : undefined}
+>
   <div class="work-media" data-project={project.slug}>
     {
       project.image ? (
@@ -49,7 +55,7 @@ const tags = project.tags ?? [];
     {
       tags.length > 0 && (
         <div class="chips">
-          {tags.map((tag) => (
+          {tags.slice(0, 2).map((tag) => (
             <span>{tag}</span>
           ))}
         </div>

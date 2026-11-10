@@ -1,5 +1,16 @@
 import { test, expect } from "@playwright/test";
 
+for (const [width, columns] of [[1440, 4], [768, 2], [360, 1]]) {
+  test(`the work grid has ${columns} columns at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    const count = await page.evaluate(
+      () => getComputedStyle(document.querySelector(".work-grid")).gridTemplateColumns.split(" ").length,
+    );
+    expect(count).toBe(columns);
+  });
+}
+
 test("the page has no vertical frame and a round portrait", async ({ page }) => {
   await page.goto("/");
   const s = await page.evaluate(() => {
