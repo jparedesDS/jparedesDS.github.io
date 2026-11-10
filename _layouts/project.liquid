@@ -50,7 +50,9 @@ layout: shell
   {% assign next_index = current_index | plus: 1 | modulo: same.size %}
   {% assign next_project = same[next_index] %}
   {% if next_project and next_project.url != page.url %}
-    <a class="next-project" href="{{ next_project.url | relative_url }}">
+    {% assign next_url = next_project.url %}
+    {% if active_lang == 'es' %}{% assign next_url = '/es' | append: next_url %}{% endif %}
+    <a class="next-project" href="{{ next_url | relative_url }}">
       {{ strings.tabs.portfolio }} → {{ next_project.title }}
       {% include icon.liquid name="arrow-right" %}
     </a>

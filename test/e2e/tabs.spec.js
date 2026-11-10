@@ -31,6 +31,18 @@ test("the contact section has no form and copies the email", async ({ page, cont
   await expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("@");
 });
 
+test("a filter without a hash opens the portfolio", async ({ page }) => {
+  await page.goto("/?filter=products");
+  await expect(page.locator('[data-page="portfolio"]')).toHaveClass(/active/);
+});
+
+test("the blog hash keeps a tab reachable", async ({ page }) => {
+  await page.goto("/#blog");
+  await expect(page.locator('[data-page="blog"]')).toHaveClass(/active/);
+  const indexes = await page.locator("button[data-nav-link]").evaluateAll((buttons) => buttons.map((button) => button.tabIndex));
+  expect(indexes.some((index) => index === 0)).toBe(true);
+});
+
 test.describe("without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
 

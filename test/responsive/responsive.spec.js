@@ -55,3 +55,24 @@ test("the desktop sidebar shows the contacts without a toggle", async ({ page })
   await expect(page.locator(".info_more-btn")).toBeHidden();
   await expect(page.locator(".sidebar-info_more")).toBeVisible();
 });
+
+test("the mobile sidebar reveals the language and theme controls", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 });
+  await page.goto("/");
+
+  const toggle = page.locator(".info_more-btn");
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+  const clipped = await expect
+    .poll(async () =>
+      page.evaluate(() => {
+        const sidebar = document.querySelector("[data-sidebar]").getBoundingClientRect();
+        return [".lang-switch", "[data-theme-toggle]"].filter((selector) => {
+          const box = document.querySelector(selector).getBoundingClientRect();
+          return box.bottom > sidebar.bottom + 1 || box.top < sidebar.top - 1;
+        });
+      })
+    )
+    .toEqual([]);
+});

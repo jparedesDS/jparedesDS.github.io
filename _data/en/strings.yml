@@ -19,6 +19,7 @@ contact_actions:
   copy_email: Copy email
   copied: Copied
   email: Email
+contacts_toggle: Show contacts
 nav_label: Main navigation
 menu_toggle: Toggle navigation
 theme_toggle: Change color theme

@@ -53,6 +53,15 @@ test("the Gemfile uses Jekyll and polyglot only", () => {
   assert.equal(gemfile.includes("al_folio"), false);
 });
 
+test("the main landmark is the skip-link target", () => {
+  const html = read("_site/index.html");
+  assert.match(html, /<main id="main-content"/);
+});
+
+test("the lockfile includes linux for CI", () => {
+  assert.match(read("Gemfile.lock"), /x86_64-linux/);
+});
+
 test("the vCard MIT notice is present", () => {
   const notice = read("NOTICE");
   assert.ok(notice.includes("codewithsadee"));

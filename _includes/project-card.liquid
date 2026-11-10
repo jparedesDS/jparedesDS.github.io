@@ -1,5 +1,7 @@
 <li class="project-item active" data-filter-item data-category="{{ include.project.category }}">
-  <a href="{{ include.project.url | relative_url }}">
+  {% assign project_url = include.project.url %}
+  {% if site.active_lang == 'es' %}{% assign project_url = '/es' | append: project_url %}{% endif %}
+  <a href="{{ project_url | relative_url }}">
     {% if include.project.img %}
       <figure class="project-img">
         <div class="project-item-icon-box">

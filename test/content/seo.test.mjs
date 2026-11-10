@@ -17,7 +17,22 @@ test("the English home declares canonical, hreflang and Person JSON-LD", () => {
 test("a translated project points at its Spanish twin", () => {
   const html = read("projects/cleanyourmail/index.html");
   assert.match(html, /hreflang="es" href="https:\/\/jparedesds\.github\.io\/es\/projects\/cleanyourmail\/"/);
+  assert.match(html, /hreflang="en" href="https:\/\/jparedesds\.github\.io\/projects\/cleanyourmail\/"/);
   assert.match(html, /"@type": "CreativeWork"/);
+});
+
+test("an English-only project does not advertise a Spanish alternate", () => {
+  const html = read("projects/valorant-players-detector/index.html");
+  assert.doesNotMatch(html, /<link rel="alternate" hreflang="es"/);
+  assert.match(
+    html,
+    /<link rel="alternate" hreflang="en" href="https:\/\/jparedesds\.github\.io\/projects\/valorant-players-detector\/"/
+  );
+});
+
+test("the English-only case study does not advertise a Spanish alternate", () => {
+  const html = read("cleanyourmail/index.html");
+  assert.doesNotMatch(html, /<link rel="alternate" hreflang="es"/);
 });
 
 test("a fallback page is noindex and has no Spanish alternate", () => {

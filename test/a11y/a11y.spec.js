@@ -35,3 +35,11 @@ for (const theme of ["light", "dark"]) {
     });
   }
 }
+
+for (const path of ["/", "/es/"]) {
+  test(`${path} has no WCAG 2.1 AA violations at 360px`, async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 900 });
+    await page.goto(path);
+    await analyze(page, `${path} at 360px`);
+  });
+}

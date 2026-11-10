@@ -93,12 +93,18 @@ function activateTab(name, push) {
   pages.forEach(function (page) {
     page.classList.toggle("active", page.dataset.page === name);
   });
+  const matchingTab = tabButtons.find(function (button) {
+    return button.dataset.target === name;
+  });
   tabButtons.forEach(function (button) {
     const active = button.dataset.target === name;
     button.classList.toggle("active", active);
     button.setAttribute("aria-selected", String(active));
     button.tabIndex = active ? 0 : -1;
   });
+  if (!matchingTab && tabButtons.length) tabButtons[0].tabIndex = 0;
+  const blogLink = document.querySelector(".navbar-blog");
+  if (blogLink) blogLink.classList.toggle("active", name === "blog");
   if (push) history.pushState({ tab: name }, "", `#${name}`);
 }
 
@@ -121,7 +127,7 @@ tabButtons.forEach(function (button, index) {
   });
 });
 
-const initialTab = window.location.hash.slice(1);
+const initialTab = window.location.hash.slice(1) || (requestedFilter ? "portfolio" : "");
 if (tabButtons.length) {
   activateTab(pages.some((page) => page.dataset.page === initialTab) ? initialTab : "about", false);
 

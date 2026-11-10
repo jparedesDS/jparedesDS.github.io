@@ -20,11 +20,15 @@ test("cv and repositories redirect to their new homes", () => {
 });
 
 test("the projects index preserves the old category hash", () => {
-  const html = fs.readFileSync(path.join(root, "projects/index.html"), "utf8");
+  const html = fs.readFileSync(path.join(root, "_pages/projects.md"), "utf8");
   assert.match(html, /location\.hash/);
   assert.match(html, /filter=/);
 });
 
 test("a 404 page exists", () => {
   assert.ok(fs.existsSync(path.join(root, "_pages/404.md")));
+});
+
+test("the Spanish projects index is generated", () => {
+  assert.ok(fs.existsSync(path.join(root, "_site/es/projects/index.html")));
 });

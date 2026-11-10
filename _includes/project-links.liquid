@@ -11,17 +11,25 @@
             {% endif %}
           </span>
         {% else %}
+          {% assign url = link.url %}
           {% assign external = false %}
-          {% if link.url contains "://" or link.url contains "mailto:" %}
+          {% if url contains "://" or url contains "mailto:" %}
             {% assign external = true %}
           {% endif %}
-          <a
-            class="project-link"
-            {% if external %}href="{{ link.url }}"{% else %}{% static_href %}href="{{ link.url | relative_url }}"{% endstatic_href %}{% endif %}
-            {% if external %}target="_blank" rel="noopener noreferrer"{% endif %}
-          >
-            {{ label }}
-          </a>
+          {% assign same_host = false %}
+          {% if url contains site.url %}
+            {% assign same_host = true %}
+            {% assign url = url | remove_first: site.url %}
+          {% endif %}
+          {% if external and same_host == false %}
+            <a class="project-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">
+              {{ label }}
+            </a>
+          {% else %}
+            <a class="project-link" {% static_href %}href="{{ url | relative_url }}"{% endstatic_href %}>
+              {{ label }}
+            </a>
+          {% endif %}
         {% endif %}
       </li>
     {% endfor %}

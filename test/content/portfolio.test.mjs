@@ -25,3 +25,15 @@ test("every card links to its project page", () => {
   assert.match(html, /href="\/projects\/cleanyourmail\/"/);
   assert.match(html, /href="\/projects\/docflow-saas\/"/);
 });
+
+test("the Spanish grid links to the Spanish project routes", () => {
+  const html = read("es/index.html");
+  assert.match(html, /href="\/es\/projects\/cleanyourmail\/"/);
+  assert.doesNotMatch(html, /href="\/projects\/cleanyourmail\/"/);
+});
+
+test("Spanish project links keep the same-host external URLs unlocalized", () => {
+  const html = read("es/projects/cleanyourmail/index.html");
+  assert.match(html, /href="\/cleanyourmail-web\/"/);
+  assert.doesNotMatch(html, /\/es\/cleanyourmail-web/);
+});

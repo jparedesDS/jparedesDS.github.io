@@ -3,8 +3,10 @@
     {% assign external = false %}
     {% if app.url contains "://" %}{% assign external = true %}{% endif %}
     <li class="app-item">
+      {% assign app_url = app.url %}
+      {% unless external %}{% if site.active_lang == 'es' %}{% assign app_url = '/es' | append: app.url %}{% endif %}{% endunless %}
       <a
-        href="{% if external %}{{ app.url }}{% else %}{{ app.url | relative_url }}{% endif %}"
+        href="{% if external %}{{ app_url }}{% else %}{{ app_url | relative_url }}{% endif %}"
         {% if external %}target="_blank" rel="noopener noreferrer"{% endif %}
       >
         <figure class="app-img">

@@ -19,6 +19,7 @@ contact_actions:
   copy_email: Copiar correo
   copied: Copiado
   email: Correo
+contacts_toggle: Mostrar contactos
 nav_label: Navegación principal
 menu_toggle: Mostrar navegación
 theme_toggle: Cambiar tema

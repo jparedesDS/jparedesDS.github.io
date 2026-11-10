@@ -18,8 +18,14 @@
       <p class="title">{{ home.role }}</p>
     </div>
 
-    <button class="info_more-btn" data-sidebar-btn aria-expanded="false" aria-controls="sidebar-more">
-      <span>Show Contacts</span>
+    <button
+      class="info_more-btn"
+      data-sidebar-btn
+      aria-expanded="false"
+      aria-controls="sidebar-more"
+      aria-label="{{ strings.contacts_toggle | default: 'Show contacts' }}"
+    >
+      <span>{{ strings.contacts_toggle | default: "Show contacts" }}</span>
       {% include icon.liquid name="chevron-down" %}
     </button>
   </div>
@@ -44,7 +50,11 @@
           <div class="icon-box">{% include icon.liquid name=icon_name %}</div>
           <div class="contact-info">
             <p class="contact-title">{{ link.label }}</p>
-            <a class="contact-link" {% static_href %}href="{{ link.url }}"{% endstatic_href %}>{{ link_text }}</a>
+            {% if link.url contains "://" or link.url contains "mailto:" %}
+              <a class="contact-link" href="{{ link.url }}">{{ link_text }}</a>
+            {% else %}
+              <a class="contact-link" {% static_href %}href="{{ link.url }}"{% endstatic_href %}>{{ link_text }}</a>
+            {% endif %}
           </div>
         </li>
       {% endfor %}
