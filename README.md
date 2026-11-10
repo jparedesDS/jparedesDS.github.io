@@ -52,3 +52,8 @@ deploy.
 
 The blog lives at `/blog/` and is a separate Hugo project site; it is not built
 or deployed from this repository.
+
+## Credits
+
+Visual patterns are inspired by Chanh Dai's portfolio (<https://chanhdai.com>);
+see [NOTICE](NOTICE) for the full attribution.
