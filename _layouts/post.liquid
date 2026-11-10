@@ -18,10 +18,17 @@ layout: default
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">
-      {{ strings.post.created_on }} {{ page.date | date: strings.blog.date_format }}
-      {% if page.author %}{{ strings.post.by }} {{ page.author }}{% endif %}
+      {{ strings.post.created_on }}
+      {{ page.date | date: strings.blog.date_format }}
+      {% if page.author -%}
+        {{- strings.post.by }}
+        {{ page.author -}}
+      {%- endif %}
       {% assign last_date = page.last_modified_at | default: page.last_updated %}
-      {% if last_date %}, {{ strings.post.last_updated_on }} {{ last_date | date: strings.blog.date_format }}{% endif %}
+      {% if last_date -%}
+        , {{ strings.post.last_updated_on }}
+        {{ last_date | date: strings.blog.date_format -}}
+      {%- endif %}
       {% if page.meta %}&middot; {{ page.meta }}{% endif %}
     </p>
     <p class="post-tags">
@@ -34,7 +41,9 @@ layout: default
         &nbsp; &middot; &nbsp;
         {% for tag in page.tags %}
           {% if is_blog_post %}
-            <a href="{{ tag | slugify | prepend: '/blog/tag/' | append: '/' | relative_url }}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
+            <a href="{{ tag | slugify | prepend: '/blog/tag/' | append: '/' | relative_url }}">
+              <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag -}}
+            </a>
           {% else %}
             <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}
           {% endif %}
@@ -46,7 +55,9 @@ layout: default
         &nbsp; &middot; &nbsp;
         {% for category in page.categories %}
           {% if is_blog_post %}
-            <a href="{{ category | slugify | prepend: '/blog/category/' | append: '/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}</a>
+            <a href="{{ category | slugify | prepend: '/blog/category/' | append: '/' | relative_url }}">
+              <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}
+            </a>
           {% else %}
             <i class="fa-solid fa-tag fa-sm"></i> {{ category }}
           {% endif %}

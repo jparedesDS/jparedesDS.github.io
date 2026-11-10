@@ -33,15 +33,15 @@
         English source. Tell the visitor instead of silently mixing languages.
       {% endcomment %}
       {% if page.rendered_lang and page.rendered_lang != active_lang and page.layout != 'archive' %}
-        {% if page.permalink_lang['en'] %}
-          {% assign en_path = page.permalink_lang['en'] | remove_first: '/' %}
+        {% if page.permalink_lang.en %}
+          {% assign en_path = page.permalink_lang.en | remove_first: '/' %}
         {% else %}
           {% assign en_path = page.url | remove_first: '/es/' | remove_first: '/' %}
         {% endif %}
         <div class="fallback-notice" role="note">
           <p>
             {{ strings.fallback_notice }}
-            <a {% static_href %}href="/{% unless en_path == '' %}{{ en_path }}{% endunless %}"{% endstatic_href %}>{{ strings.fallback_link }}</a>
+            <a {% static_href %} href="/{% unless en_path == '' %}{{ en_path }}{% endunless %}" {% endstatic_href %}>{{ strings.fallback_link }}</a>
           </p>
         </div>
       {% endif %}
@@ -90,5 +90,6 @@
 
     <!-- JavaScripts -->
     {% include scripts.liquid %}
+    <script src="{{ '/assets/js/code-scroll.js' | relative_url }}" defer></script>
   </body>
 </html>

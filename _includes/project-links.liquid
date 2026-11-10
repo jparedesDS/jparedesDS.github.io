@@ -20,7 +20,7 @@
     {% unless label %}
       {% assign label = link.label | default: link.type %}
     {% endunless %}
-    {% if link.private or link.url == nil or link.url == '' %}
+    {% if link.private or link.url == null or link.url == '' %}
       <span class="project-link project-link--private">
         <span class="project-link-label">{{ label }}</span>
         {% if link.private %}
@@ -37,12 +37,24 @@
       {% endif %}
       <a
         class="project-link"
-        {% if external_link %}{% if site.url != '' and link.url contains site.url %}{% static_href %}href="{{ link.url }}"{% endstatic_href %}{% else %}href="{{ link.url }}"{% endif %}{% else %}href="{{ link.url | relative_url }}"{% endif %}
-        {% if external_link %}target="_blank" rel="noopener noreferrer"{% endif %}
+        {% if external_link %}
+          {%- if site.url != '' and link.url contains site.url -%}
+            {%- static_href %}href="{{ link.url }}"{% endstatic_href -%}
+          {%- else -%}
+            href="{{ link.url }}"
+          {%- endif -%}
+        {% else %}
+          href="{{ link.url | relative_url }}"
+        {% endif %}
+        {% if external_link %}
+          target="_blank" rel="noopener noreferrer"
+        {% endif %}
       >
         {{- label -}}
       </a>
-      {%- if link.note %} <small class="project-link-note">{{ link.note }}</small>{% endif %}
+      {%- if link.note %}
+        <small class="project-link-note">{{ link.note }}</small>
+      {%- endif %}
     {% endif %}
   {% endfor %}
 {% endif %}

@@ -70,7 +70,7 @@ export function configHls(objetivoSeg: number) {
   return {
     liveSyncDuration: objetivoSeg,
     liveMaxLatencyDuration: objetivoSeg + 20,
-    maxLiveSyncPlaybackRate: 1,          // nunca acelerar para alcanzar el borde del directo
+    maxLiveSyncPlaybackRate: 1, // nunca acelerar para alcanzar el borde del directo
     maxBufferLength: objetivoSeg * 2,
     lowLatencyMode: false,
   };
@@ -94,8 +94,8 @@ Al arrancar hay dos modos. `saltar` es el camino rápido descrito arriba: hay hi
 
 ```ts
 // src/reproductor/retraso.ts
-export function planificarRetraso(ventanaSeg: number, objetivoSeg: number, margenSeg = 2): 'saltar' | 'acumular' {
-  return ventanaSeg >= objetivoSeg + margenSeg ? 'saltar' : 'acumular';
+export function planificarRetraso(ventanaSeg: number, objetivoSeg: number, margenSeg = 2): "saltar" | "acumular" {
+  return ventanaSeg >= objetivoSeg + margenSeg ? "saltar" : "acumular";
 }
 ```
 
@@ -116,19 +116,19 @@ Esa asimetría es la razón de ser del proxy mínimo. Solo reenvía listas de te
 export function urlMaestra(canal: string, token: { valor: string; firma: string }, via: ViaAcceso): string {
   const u = new URL(`https://usher.ttvnw.net/api/v2/channel/hls/${canal.toLowerCase()}.m3u8`);
   const p: Record<string, string> = {
-    platform: 'web',
+    platform: "web",
     p: String(Math.floor(Math.random() * 999999)),
-    allow_source: 'true',
-    allow_audio_only: 'true',
-    playlist_include_framerate: 'true',
-    multigroup_video: 'true',
-    supported_codecs: 'h264',
+    allow_source: "true",
+    allow_audio_only: "true",
+    playlist_include_framerate: "true",
+    multigroup_video: "true",
+    supported_codecs: "h264",
     sig: token.firma,
     token: token.valor,
-    fast_bread: 'true',
+    fast_bread: "true",
   };
   for (const [k, v] of Object.entries(p)) u.searchParams.set(k, v);
-  return via === 'directo' ? u.href : `${PROXY}/hls?u=${encodeURIComponent(u.href)}`;
+  return via === "directo" ? u.href : `${PROXY}/hls?u=${encodeURIComponent(u.href)}`;
 }
 ```
 
@@ -165,8 +165,13 @@ El VAD solo produce una probabilidad por trama. El segmentador convierte esa sec
 
 ```ts
 // src/directo/segmentador.ts
-export const TRAMA_MS = 32, UMBRAL_INICIO = 0.5, UMBRAL_FIN = 0.35,
-  SILENCIO_FIN_MS = 500, MIN_FRASE_MS = 250, MAX_FRASE_MS = 8000, VENTANA_PAUSA_MS = 3000;
+export const TRAMA_MS = 32,
+  UMBRAL_INICIO = 0.5,
+  UMBRAL_FIN = 0.35,
+  SILENCIO_FIN_MS = 500,
+  MIN_FRASE_MS = 250,
+  MAX_FRASE_MS = 8000,
+  VENTANA_PAUSA_MS = 3000;
 
 // Una frase se abre con >= 0.5 y se cierra tras 500 ms por debajo de 0.35.
 // A los 8 s se corta en la trama más silenciosa de los últimos 3 s, o exactamente a los 8 s.
@@ -214,10 +219,8 @@ El paso por el inglés es explícito en el catálogo. Si falta un modelo Opus-MT
 // src/modelos/catalogo.ts
 export function candidatoOpus(origen: string): CandidatoTraduccion {
   const directa = `Xenova/opus-mt-${origen}-es`;
-  const modelos = CATALOGO.some(e => e.id === directa)
-    ? [directa]
-    : [`Xenova/opus-mt-${origen}-en`, 'Xenova/opus-mt-en-es'];
-  return { nombre: 'opus-mt', tipo: 'opus', modelos, licencia: 'comercial' };
+  const modelos = CATALOGO.some((e) => e.id === directa) ? [directa] : [`Xenova/opus-mt-${origen}-en`, "Xenova/opus-mt-en-es"];
+  return { nombre: "opus-mt", tipo: "opus", modelos, licencia: "comercial" };
 }
 ```
 
@@ -231,11 +234,11 @@ La admisión es una decisión de tres vías según cuándo estuvo listo el subt�
 
 ```ts
 // src/directo/subtitulos.ts
-export type Admision = 'a-tiempo' | 'tarde-mostrado' | 'tarde-descartado';
+export type Admision = "a-tiempo" | "tarde-mostrado" | "tarde-descartado";
 
 export function admitirSubtitulo(s: Subtitulo, ahoraMs: number): Admision {
-  if (ahoraMs <= s.inicio) return 'a-tiempo';
-  return s.fin - ahoraMs >= 1000 ? 'tarde-mostrado' : 'tarde-descartado';
+  if (ahoraMs <= s.inicio) return "a-tiempo";
+  return s.fin - ahoraMs >= 1000 ? "tarde-mostrado" : "tarde-descartado";
 }
 ```
 
@@ -247,10 +250,12 @@ Las líneas se parten a **42 caracteres**, sin resumir ni reescribir la traducci
 // src/directo/subtitulos.ts
 export function partirLineas(texto: string, maxCaracteres = 42): string[] {
   const lineas: string[] = [];
-  let actual = '';
+  let actual = "";
   for (const p of texto.split(/\s+/).filter(Boolean)) {
-    if (actual && actual.length + 1 + p.length > maxCaracteres) { lineas.push(actual); actual = p; }
-    else actual = actual ? `${actual} ${p}` : p;
+    if (actual && actual.length + 1 + p.length > maxCaracteres) {
+      lineas.push(actual);
+      actual = p;
+    } else actual = actual ? `${actual} ${p}` : p;
   }
   if (actual) lineas.push(actual);
   return lineas;
@@ -273,14 +278,14 @@ No hay sistema de cuentas, así que no hay perfil, historial ni identidad en el 
 
 El informe de la fase 0 midió el prototipo en un portátil Windows con CPU Ryzen, 16 GB de RAM y una GPU AMD RX 5600M. Estas son las cifras que decidieron si el proyecto continuaba:
 
-| Métrica | Resultado |
-|---|---|
-| Retardo fijo | 15.27–15.62 s con un objetivo de 15 s |
-| Ventana HLS | 28–30 s |
-| Desfase mediano de subtítulos | 0–40 ms |
-| Puntualidad en nivel alto | 99.0%, 100%, 100% en tres canales |
-| Primer subtítulo | 11–13 s con caché; 66–108 s en una primera visita |
-| Precisión de turnos de hablante | 56% |
+| Métrica                         | Resultado                                         |
+| ------------------------------- | ------------------------------------------------- |
+| Retardo fijo                    | 15.27–15.62 s con un objetivo de 15 s             |
+| Ventana HLS                     | 28–30 s                                           |
+| Desfase mediano de subtítulos   | 0–40 ms                                           |
+| Puntualidad en nivel alto       | 99.0%, 100%, 100% en tres canales                 |
+| Primer subtítulo                | 11–13 s con caché; 66–108 s en una primera visita |
+| Precisión de turnos de hablante | 56%                                               |
 
 El retardo se mantuvo dentro de ±1 segundo en ejecuciones de diez minutos a 10, 15 y 20 segundos. El desfase del subtítulo es la diferencia entre el audio que se está oyendo y la marca temporal de la frase a la que pertenece; un desfase de 300 ms inyectado a propósito se detectó con exactitud. Los porcentajes de puntualidad proceden de tres canales en el nivel alto y superaron el objetivo del 95 %.
 

@@ -28,14 +28,9 @@ test("the Spanish search placeholder is localized and results link under /es/", 
   await page.keyboard.type("clean");
   await expect.poll(() => searchActions(page)).toEqual(expect.arrayContaining([expect.stringContaining("CleanYourMail")]));
 
-  const handlers = await page.evaluate(() => {
-    const ninja = document.querySelector("ninja-keys");
-    return ninja.data.filter((item) => item.title.toLowerCase().includes("clean")).map((item) => item.handler.toString());
-  });
-  expect(handlers.length).toBeGreaterThan(0);
-  for (const handler of handlers) {
-    expect(handler).toContain("/es/");
-  }
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/es\/projects\/cleanyourmail\/$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "es");
 });
 
 test("an English-only model is marked with the · EN suffix in Spanish search", async ({ page }) => {

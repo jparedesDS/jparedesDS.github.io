@@ -1,4 +1,5 @@
 {
+  "name": "jparedesds-portfolio",
   "scripts": {
     "lint:prettier": "prettier . --check",
     "lint:style-contract": "node test/style_contract.js",

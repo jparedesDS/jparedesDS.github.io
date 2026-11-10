@@ -42,17 +42,15 @@ test("links contain no development or placeholder hosts", () => {
   }
 });
 
-test("private projects mark their private links or explain them", () => {
+test("private projects mark at least one link as private", () => {
   for (const file of projectFiles.filter((file) => !file.endsWith("-es.md"))) {
     const data = readProject(file);
     if (!data.private) continue;
     const links = data.links || [];
-    const hasPrivateLink = links.some((link) => link.private === true);
-    const hasNote = Boolean(data.note) || links.some((link) => Boolean(link.note));
-    assert.ok(hasPrivateLink || hasNote, `${file} is private but never marks a private link or adds a note`);
-    for (const link of links.filter((link) => link.private === true)) {
-      assert.equal(link.private, true);
-    }
+    assert.ok(
+      links.some((link) => link.private === true),
+      `${file} is private but has no link with private: true`
+    );
   }
 });
 

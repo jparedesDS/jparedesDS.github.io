@@ -70,7 +70,7 @@ export function configHls(objetivoSeg: number) {
   return {
     liveSyncDuration: objetivoSeg,
     liveMaxLatencyDuration: objetivoSeg + 20,
-    maxLiveSyncPlaybackRate: 1,          // never speed up to catch the live edge
+    maxLiveSyncPlaybackRate: 1, // never speed up to catch the live edge
     maxBufferLength: objetivoSeg * 2,
     lowLatencyMode: false,
   };
@@ -94,8 +94,8 @@ At startup there are two modes. `saltar` is the fast path described above: enoug
 
 ```ts
 // src/reproductor/retraso.ts
-export function planificarRetraso(ventanaSeg: number, objetivoSeg: number, margenSeg = 2): 'saltar' | 'acumular' {
-  return ventanaSeg >= objetivoSeg + margenSeg ? 'saltar' : 'acumular';
+export function planificarRetraso(ventanaSeg: number, objetivoSeg: number, margenSeg = 2): "saltar" | "acumular" {
+  return ventanaSeg >= objetivoSeg + margenSeg ? "saltar" : "acumular";
 }
 ```
 
@@ -116,19 +116,19 @@ That asymmetry motivates the minimal proxy. It only forwards text playlists — 
 export function urlMaestra(canal: string, token: { valor: string; firma: string }, via: ViaAcceso): string {
   const u = new URL(`https://usher.ttvnw.net/api/v2/channel/hls/${canal.toLowerCase()}.m3u8`);
   const p: Record<string, string> = {
-    platform: 'web',
+    platform: "web",
     p: String(Math.floor(Math.random() * 999999)),
-    allow_source: 'true',
-    allow_audio_only: 'true',
-    playlist_include_framerate: 'true',
-    multigroup_video: 'true',
-    supported_codecs: 'h264',
+    allow_source: "true",
+    allow_audio_only: "true",
+    playlist_include_framerate: "true",
+    multigroup_video: "true",
+    supported_codecs: "h264",
     sig: token.firma,
     token: token.valor,
-    fast_bread: 'true',
+    fast_bread: "true",
   };
   for (const [k, v] of Object.entries(p)) u.searchParams.set(k, v);
-  return via === 'directo' ? u.href : `${PROXY}/hls?u=${encodeURIComponent(u.href)}`;
+  return via === "directo" ? u.href : `${PROXY}/hls?u=${encodeURIComponent(u.href)}`;
 }
 ```
 
@@ -165,8 +165,13 @@ The VAD only produces a probability per frame. The segmenter turns that sequence
 
 ```ts
 // src/directo/segmentador.ts
-export const TRAMA_MS = 32, UMBRAL_INICIO = 0.5, UMBRAL_FIN = 0.35,
-  SILENCIO_FIN_MS = 500, MIN_FRASE_MS = 250, MAX_FRASE_MS = 8000, VENTANA_PAUSA_MS = 3000;
+export const TRAMA_MS = 32,
+  UMBRAL_INICIO = 0.5,
+  UMBRAL_FIN = 0.35,
+  SILENCIO_FIN_MS = 500,
+  MIN_FRASE_MS = 250,
+  MAX_FRASE_MS = 8000,
+  VENTANA_PAUSA_MS = 3000;
 
 // A phrase opens at >= 0.5 and closes after 500 ms below 0.35.
 // At 8 s it is cut at the quietest frame of the last 3 s, or at 8 s exactly.
@@ -214,10 +219,8 @@ The pivot through English is explicit in the catalogue. If a direct Opus-MT mode
 // src/modelos/catalogo.ts
 export function candidatoOpus(origen: string): CandidatoTraduccion {
   const directa = `Xenova/opus-mt-${origen}-es`;
-  const modelos = CATALOGO.some(e => e.id === directa)
-    ? [directa]
-    : [`Xenova/opus-mt-${origen}-en`, 'Xenova/opus-mt-en-es'];
-  return { nombre: 'opus-mt', tipo: 'opus', modelos, licencia: 'comercial' };
+  const modelos = CATALOGO.some((e) => e.id === directa) ? [directa] : [`Xenova/opus-mt-${origen}-en`, "Xenova/opus-mt-en-es"];
+  return { nombre: "opus-mt", tipo: "opus", modelos, licencia: "comercial" };
 }
 ```
 
@@ -231,11 +234,11 @@ Admission is a three-way decision based on when the subtitle became ready:
 
 ```ts
 // src/directo/subtitulos.ts
-export type Admision = 'a-tiempo' | 'tarde-mostrado' | 'tarde-descartado';
+export type Admision = "a-tiempo" | "tarde-mostrado" | "tarde-descartado";
 
 export function admitirSubtitulo(s: Subtitulo, ahoraMs: number): Admision {
-  if (ahoraMs <= s.inicio) return 'a-tiempo';
-  return s.fin - ahoraMs >= 1000 ? 'tarde-mostrado' : 'tarde-descartado';
+  if (ahoraMs <= s.inicio) return "a-tiempo";
+  return s.fin - ahoraMs >= 1000 ? "tarde-mostrado" : "tarde-descartado";
 }
 ```
 
@@ -247,10 +250,12 @@ Lines are wrapped at **42 characters**, without summarising or rewriting the tra
 // src/directo/subtitulos.ts
 export function partirLineas(texto: string, maxCaracteres = 42): string[] {
   const lineas: string[] = [];
-  let actual = '';
+  let actual = "";
   for (const p of texto.split(/\s+/).filter(Boolean)) {
-    if (actual && actual.length + 1 + p.length > maxCaracteres) { lineas.push(actual); actual = p; }
-    else actual = actual ? `${actual} ${p}` : p;
+    if (actual && actual.length + 1 + p.length > maxCaracteres) {
+      lineas.push(actual);
+      actual = p;
+    } else actual = actual ? `${actual} ${p}` : p;
   }
   if (actual) lineas.push(actual);
   return lineas;
@@ -273,14 +278,14 @@ There is no account system, so there is no server-side profile, history or ident
 
 The phase-0 report measured the prototype on a Windows laptop with a Ryzen CPU, 16 GB of RAM and an AMD RX 5600M GPU. These are the numbers that decided whether the project continued:
 
-| Metric | Result |
-|---|---|
-| Fixed delay | 15.27–15.62 s with a 15 s target |
-| HLS window | 28–30 s |
-| Median subtitle offset | 0–40 ms |
-| High tier on time | 99.0%, 100%, 100% across three channels |
-| First subtitle | 11–13 s with cache; 66–108 s on a first visit |
-| Speaker-turn accuracy | 56% |
+| Metric                 | Result                                        |
+| ---------------------- | --------------------------------------------- |
+| Fixed delay            | 15.27–15.62 s with a 15 s target              |
+| HLS window             | 28–30 s                                       |
+| Median subtitle offset | 0–40 ms                                       |
+| High tier on time      | 99.0%, 100%, 100% across three channels       |
+| First subtitle         | 11–13 s with cache; 66–108 s on a first visit |
+| Speaker-turn accuracy  | 56%                                           |
 
 The delay stayed inside ±1 second across ten-minute runs at 10, 15 and 20 seconds. The subtitle offset is the difference between the audio being heard and the timestamp of the phrase it belongs to; a deliberately injected 300 ms offset was detected exactly. The on-time percentages come from three channels at the high tier and cleared the 95% target.
 

@@ -143,22 +143,22 @@
   {% else %}
     {% capture archive_path %}/{{ archive_lang }}{{ page.url }}{% endcapture %}
   {% endif %}
-  <link rel="canonical" {% static_href %}href="{{ archive_path | absolute_url }}"{% endstatic_href %}>
+  <link rel="canonical" {% static_href %} href="{{ archive_path | absolute_url }}" {% endstatic_href %}>
 {% else %}
-  {% assign canonical_path = page.permalink_lang['en'] | default: page.url | remove_first: '/' %}
+  {% assign canonical_path = page.permalink_lang.en | default: page.url | remove_first: '/' %}
   {% capture canonical_url %}{{ site.url }}/{% unless canonical_path == '' %}{{ canonical_path }}{% endunless %}{% endcapture %}
-  {% assign es_path = page.permalink_lang['es'] %}
+  {% assign es_path = page.permalink_lang.es %}
   {% if es_path %}
     {% assign es_path = es_path | remove_first: '/' %}
   {% else %}
     {% assign es_path = canonical_path %}
   {% endif %}
   {% capture es_url %}{{ site.url }}/es/{% unless es_path == '' %}{{ es_path }}{% endunless %}{% endcapture %}
-  <link rel="canonical" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+  <link rel="canonical" {% static_href %} href="{{ canonical_url }}" {% endstatic_href %}>
   {% if page.permalink_lang and page.lang %}
-    <link rel="alternate" hreflang="en" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
-    <link rel="alternate" hreflang="es" {% static_href %}href="{{ es_url }}"{% endstatic_href %}>
-    <link rel="alternate" hreflang="x-default" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+    <link rel="alternate" hreflang="en" {% static_href %} href="{{ canonical_url }}" {% endstatic_href %}>
+    <link rel="alternate" hreflang="es" {% static_href %} href="{{ es_url }}" {% endstatic_href %}>
+    <link rel="alternate" hreflang="x-default" {% static_href %} href="{{ canonical_url }}" {% endstatic_href %}>
   {% endif %}
 {% endif %}
 

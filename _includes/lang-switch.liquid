@@ -23,4 +23,14 @@
     {% capture other_url %}/{{ other_lang }}{{ fallback }}{% endcapture %}
   {% endif %}
 {% endif %}
-<a class="nav-link lang-switch" {% static_href %}href="{{ other_url }}"{% endstatic_href %} hreflang="{{ other_lang }}" lang="{{ other_lang }}" aria-label="{{ other_lang | upcase }} — {{ strings.language_switch_label }}">{{ other_lang | upcase }}</a>
+<a
+  class="nav-link lang-switch"
+  {% static_href -%}
+  href="{{ other_url }}"
+  {% endstatic_href %}
+  hreflang="{{ other_lang }}"
+  lang="{{ other_lang }}"
+  aria-label="{{ other_lang | upcase }} — {{ strings.language_switch_label }}"
+>
+  {{- other_lang | upcase -}}
+</a>

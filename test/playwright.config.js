@@ -5,6 +5,7 @@ const repoRoot = path.resolve(__dirname, "..");
 
 module.exports = defineConfig({
   testDir: __dirname,
+  testMatch: "**/*.spec.js",
   timeout: 30_000,
   outputDir: path.join(repoRoot, "test-results"),
   reporter: [["list"], ["html", { outputFolder: path.join(repoRoot, "playwright-report"), open: "never" }]],

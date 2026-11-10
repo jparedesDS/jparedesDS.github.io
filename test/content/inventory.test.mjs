@@ -17,7 +17,12 @@ const readProject = (file) => {
 const files = fs.readdirSync(projectsDir).filter((file) => file.endsWith(".md"));
 const enFiles = files.filter((file) => !file.endsWith("-es.md"));
 const esFiles = files.filter((file) => file.endsWith("-es.md"));
-const enBySlug = new Map(enFiles.map((file) => [readProject(file).project_key, { file, data: readProject(file) }]));
+const enBySlug = new Map(
+  enFiles.map((file) => {
+    const data = readProject(file);
+    return [data.project_key, { file, data }];
+  })
+);
 
 test("the manifest lists the 38 English projects with the expected per-category counts", () => {
   assert.equal(manifest.projects.length, 38);

@@ -47,7 +47,9 @@
                     {% elsif link.url contains '.pdf' %}
                       download
                     {% endif %}
-                  >{{ link.label }}</a>
+                  >
+                    {{- link.label -}}
+                  </a>
                 </li>
               {% endfor %}
             </ul>
@@ -81,7 +83,9 @@
                   {% if external_link %}
                     target="_blank" rel="noopener noreferrer"
                   {% endif %}
-                >{{ link.label }}</a>
+                >
+                  {{- link.label -}}
+                </a>
               {% endfor %}
             </div>
           {% endif %}
@@ -160,7 +164,8 @@
               <p class="tutorial-card-meta">
                 <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: strings.blog.date_format }}</time>
                 <span aria-hidden="true">&middot;</span>
-                {{ reading_time }} {{ strings.blog.min_read }}
+                {{ reading_time }}
+                {{ strings.blog.min_read }}
               </p>
               {% if post.description and post.description != '' %}
                 <p class="tutorial-card-description">{{ post.description }}</p>
