@@ -4,3 +4,4 @@ _site
 .DS_Store
 .superpowers/
 al-folio-upgrade-report.md
+.worktrees/
