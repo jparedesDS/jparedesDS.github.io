@@ -7,6 +7,9 @@ lang: en
 page_id: subany-video-tutorial
 nav_key: blog
 permalink: /blog/2026/11/09/how-subany-video-works/
+permalink_lang:
+  en: /blog/2026/11/09/how-subany-video-works/
+  es: /blog/2026/11/09/como-funciona-subany-video/
 categories: [tutorials]
 tags: [subany, hls, whisper, onnx, webgpu, translation]
 author: Jose Paredes
