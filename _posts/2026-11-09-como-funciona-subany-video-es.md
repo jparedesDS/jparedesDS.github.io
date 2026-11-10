@@ -273,14 +273,14 @@ No hay sistema de cuentas, así que no hay perfil, historial ni identidad en el 
 
 El informe de la fase 0 midió el prototipo en un portátil Windows con CPU Ryzen, 16 GB de RAM y una GPU AMD RX 5600M. Estas son las cifras que decidieron si el proyecto continuaba:
 
-| Metric | Result |
+| Métrica | Resultado |
 |---|---|
-| Fixed delay | 15.27–15.62 s with a 15 s target |
-| HLS window | 28–30 s |
-| Median subtitle offset | 0–40 ms |
-| High tier on time | 99.0%, 100%, 100% across three channels |
-| First subtitle | 11–13 s with cache; 66–108 s on a first visit |
-| Speaker-turn accuracy | 56% |
+| Retardo fijo | 15.27–15.62 s con un objetivo de 15 s |
+| Ventana HLS | 28–30 s |
+| Desfase mediano de subtítulos | 0–40 ms |
+| Puntualidad en nivel alto | 99.0%, 100%, 100% en tres canales |
+| Primer subtítulo | 11–13 s con caché; 66–108 s en una primera visita |
+| Precisión de turnos de hablante | 56% |
 
 El retardo se mantuvo dentro de ±1 segundo en ejecuciones de diez minutos a 10, 15 y 20 segundos. El desfase del subtítulo es la diferencia entre el audio que se está oyendo y la marca temporal de la frase a la que pertenece; un desfase de 300 ms inyectado a propósito se detectó con exactitud. Los porcentajes de puntualidad proceden de tres canales en el nivel alto y superaron el objetivo del 95 %.
 

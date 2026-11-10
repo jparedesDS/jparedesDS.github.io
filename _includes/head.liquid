@@ -128,21 +128,38 @@
   Canonical and hreflang follow the English URL, which is the SEO reference.
   `static_href` keeps Polyglot from prefixing these absolute links with /es on
   the Spanish pages.
+
+  Archives are language-specific listings rather than translation pairs: each
+  archive canonicalises to itself and emits no hreflang.
 {% endcomment %}
-{% assign canonical_path = page.permalink_lang['en'] | default: page.url | remove_first: '/' %}
-{% capture canonical_url %}{{ site.url }}/{% unless canonical_path == '' %}{{ canonical_path }}{% endunless %}{% endcapture %}
-{% assign es_path = page.permalink_lang['es'] %}
-{% if es_path %}
-  {% assign es_path = es_path | remove_first: '/' %}
+{% if page.layout == 'archive' %}
+  {% comment %}
+    Polyglot keeps the un-prefixed `page.url` for Spanish pages and only
+    changes the output directory, so the language prefix has to be added here.
+  {% endcomment %}
+  {% assign archive_lang = site.active_lang | default: site.lang | default: 'en' %}
+  {% if archive_lang == site.default_lang %}
+    {% assign archive_path = page.url %}
+  {% else %}
+    {% capture archive_path %}/{{ archive_lang }}{{ page.url }}{% endcapture %}
+  {% endif %}
+  <link rel="canonical" {% static_href %}href="{{ archive_path | absolute_url }}"{% endstatic_href %}>
 {% else %}
-  {% assign es_path = canonical_path %}
-{% endif %}
-{% capture es_url %}{{ site.url }}/es/{% unless es_path == '' %}{{ es_path }}{% endunless %}{% endcapture %}
-<link rel="canonical" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
-{% if page.permalink_lang and page.lang %}
-  <link rel="alternate" hreflang="en" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
-  <link rel="alternate" hreflang="es" {% static_href %}href="{{ es_url }}"{% endstatic_href %}>
-  <link rel="alternate" hreflang="x-default" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+  {% assign canonical_path = page.permalink_lang['en'] | default: page.url | remove_first: '/' %}
+  {% capture canonical_url %}{{ site.url }}/{% unless canonical_path == '' %}{{ canonical_path }}{% endunless %}{% endcapture %}
+  {% assign es_path = page.permalink_lang['es'] %}
+  {% if es_path %}
+    {% assign es_path = es_path | remove_first: '/' %}
+  {% else %}
+    {% assign es_path = canonical_path %}
+  {% endif %}
+  {% capture es_url %}{{ site.url }}/es/{% unless es_path == '' %}{{ es_path }}{% endunless %}{% endcapture %}
+  <link rel="canonical" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+  {% if page.permalink_lang and page.lang %}
+    <link rel="alternate" hreflang="en" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+    <link rel="alternate" hreflang="es" {% static_href %}href="{{ es_url }}"{% endstatic_href %}>
+    <link rel="alternate" hreflang="x-default" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+  {% endif %}
 {% endif %}
 
 {% if site.enable_darkmode %}
