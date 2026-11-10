@@ -1,0 +1,17 @@
+NOTICE
+======
+
+This portfolio is an independent reimplementation built with Astro and its own CSS.
+It is not a fork of, and does not use the React components or Next.js application
+code from, Chanh Dai's portfolio (https://github.com/ncdai/chanhdai.com).
+
+Visual ideas and patterns are inspired by that project:
+
+  Chanh Dai — https://chanhdai.com
+  Source: https://github.com/ncdai/chanhdai.com
+  Copyright (c) Chanh Dai
+  Licensed under the MIT License
+
+The patterns in question are the navigation, section rules, project cards, design
+tokens and the theme toggle. The MIT License permits reuse of those ideas with
+attribution; all components and styles here were written for this site.
