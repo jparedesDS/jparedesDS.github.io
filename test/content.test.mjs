@@ -252,6 +252,90 @@ test("every sub-site carries at least one asset next to its index", () => {
 
 // /blog/ is a separate Hugo site deployed to the same origin, not an Astro
 // route, so it is not part of this build output and is not asserted here.
+test("the sitemap and robots exist", () => {
+  assert.ok(fs.existsSync(path.join(dist, "sitemap.xml")));
+  assert.ok(fs.existsSync(path.join(dist, "robots.txt")));
+});
+
+test("the sitemap lists the public routes and no redirects", () => {
+  const xml = read("sitemap.xml");
+  for (const route of [
+    "/",
+    "/work/",
+    "/work/subany-video/",
+    "/work/docflow-saas/",
+    "/work/pro-pov-cs2/",
+    "/work/trtw-tv/",
+    "/work/cleanyourphone/",
+    "/cleanyourmail/",
+    "/cs2pov/",
+    "/murdoku/",
+    "/propovcs2/",
+  ]) {
+    assert.match(xml, new RegExp(`<loc>https://jparedesds\\.github\\.io${route}</loc>`), route);
+  }
+  assert.doesNotMatch(xml, /\/projects\//);
+  assert.doesNotMatch(xml, /\/blog\//);
+});
+
+test("robots.txt points crawlers at the sitemap", () => {
+  assert.equal(
+    read("robots.txt"),
+    "User-agent: *\nAllow: /\nSitemap: https://jparedesds.github.io/sitemap.xml\n",
+  );
+});
+
+test("the home has Person JSON-LD", () => {
+  assert.match(read("index.html"), /"@type": "Person"/);
+});
+
+test("the Person JSON-LD parses and carries the identity links", () => {
+  const html = read("index.html");
+  const match = html.match(
+    /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
+  );
+  assert.ok(match, "JSON-LD script");
+  const data = JSON.parse(match[1]);
+  assert.equal(data["@context"], "https://schema.org");
+  assert.equal(data["@type"], "Person");
+  assert.equal(data.name, "Jose Paredes");
+  assert.match(data.jobTitle, /Data Scientist/);
+  assert.equal(data.url, "https://jparedesds.github.io/");
+  for (const url of [
+    "https://github.com/jparedesDS",
+    "https://www.linkedin.com/in/jparedesDS/",
+    "https://huggingface.co/jparedesDS",
+    "https://www.kaggle.com/joseparedesc",
+  ]) {
+    assert.ok(data.sameAs.includes(url), url);
+  }
+});
+
+test("every page carries Open Graph metadata", () => {
+  for (const [file, title, url] of [
+    ["index.html", "Jose Paredes — Data Scientist &amp; AI Engineer", "https://jparedesds.github.io/"],
+    ["work/index.html", "Work archive — Jose Paredes", "https://jparedesds.github.io/work/"],
+    [
+      "work/docflow-saas/index.html",
+      null,
+      "https://jparedesds.github.io/work/docflow-saas/",
+    ],
+  ]) {
+    const html = read(file);
+    assert.match(html, /<meta property="og:title" content="[^"]+"/, file);
+    assert.match(html, /<meta property="og:description" content="[^"]+"/, file);
+    assert.match(
+      html,
+      /<meta property="og:image" content="https:\/\/jparedesds\.github\.io\/profile\.jpg"/,
+      file,
+    );
+    assert.match(html, new RegExp(`<meta property="og:url" content="${url}"`), file);
+    if (title) {
+      assert.match(html, new RegExp(`<meta property="og:title" content="${title}"`), file);
+    }
+  }
+});
+
 test("the cleanup keeps the legacy pages and the public assets", () => {
   for (const file of [
     "cleanyourmail/index.html",

@@ -14,6 +14,14 @@
     <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
     <link rel="alternate" type="application/rss+xml" title="Jose Paredes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/css/main.css">
+    <style>
+        /* Accessibility: keep prose links distinguishable without relying on colour. */
+        .content p a,
+        .content li a {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+    </style>
     
     
     <!-- Facebook Open Graph -->
@@ -42,7 +50,7 @@
         
         <div class="navbar container">
             
-            <a id="author-name" class="alignable pull-left" href="">Jose Paredes</a>
+            <a id="author-name" class="alignable pull-left" href="/">Jose Paredes</a>
             <ul id="navlist" class="alignable pull-right navbar-ul">
                 
                     <li class="alignable pull-left nav-list"><a href="/#projects">Projects</a></li>

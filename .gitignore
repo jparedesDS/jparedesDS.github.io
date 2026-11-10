@@ -10,3 +10,5 @@ al-folio-upgrade-report.md
 node_modules/
 dist/
 .astro/
+test-results/
+playwright-report/

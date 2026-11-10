@@ -739,11 +739,11 @@ html[data-theme="dark"] .theme-dot {
 
   .header-inner {
     height: 58px;
-    gap: 14px;
+    gap: 10px;
   }
 
   .nav {
-    gap: 14px;
+    gap: 10px;
     font-size: 12.5px;
   }
 
@@ -752,7 +752,7 @@ html[data-theme="dark"] .theme-dot {
   }
 
   .header-actions {
-    padding-left: 12px;
+    padding-left: 10px;
   }
 
   .page > h1 {
