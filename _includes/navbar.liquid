@@ -22,7 +22,7 @@
         </li>
       {% endfor %}
     </ul>
-    <a class="navbar-link navbar-blog" data-nav-link href="{{ '/blog/' | relative_url }}">{{ strings.tabs.blog }}</a>
+    <a class="navbar-link navbar-blog" data-nav-link {% static_href %}href="{{ '/blog/' | relative_url }}"{% endstatic_href %}>{{ strings.tabs.blog }}</a>
   {% else %}
     {% assign items = "about,resume,portfolio,blog,contact" | split: "," %}
     <ul class="navbar-list">
@@ -30,7 +30,7 @@
         {% assign label = strings.tabs[key] %}
         <li class="navbar-item">
           {% if key == "blog" %}
-            <a class="navbar-link" data-nav-link href="{{ '/blog/' | relative_url }}">{{ label }}</a>
+            <a class="navbar-link" data-nav-link {% static_href %}href="{{ '/blog/' | relative_url }}"{% endstatic_href %}>{{ label }}</a>
           {% else %}
             <a class="navbar-link" data-nav-link href="{{ '/#' | append: key | relative_url }}">{{ label }}</a>
           {% endif %}

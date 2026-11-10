@@ -44,7 +44,7 @@
           <div class="icon-box">{% include icon.liquid name=icon_name %}</div>
           <div class="contact-info">
             <p class="contact-title">{{ link.label }}</p>
-            <a class="contact-link" href="{{ link.url }}">{{ link_text }}</a>
+            <a class="contact-link" {% static_href %}href="{{ link.url }}"{% endstatic_href %}>{{ link_text }}</a>
           </div>
         </li>
       {% endfor %}

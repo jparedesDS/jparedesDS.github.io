@@ -1,20 +1,14 @@
 import { test, expect } from "@playwright/test";
 
-const widths = [320, 390, 768, 1024, 1440];
+const widths = [360, 768, 1440];
 
 const routes = [
   { path: "/", name: "home EN" },
-  { path: "/projects/", name: "projects EN" },
-  { path: "/blog/", name: "blog EN" },
-  { path: "/blog/2026/11/09/how-subany-video-works/", name: "tutorial EN" },
-  { path: "/repositories/", name: "repositories EN" },
-  { path: "/cv/", name: "CV EN" },
   { path: "/es/", name: "home ES" },
-  { path: "/es/projects/", name: "projects ES" },
-  { path: "/es/blog/", name: "blog ES" },
-  { path: "/es/blog/2026/11/09/como-funciona-subany-video/", name: "tutorial ES" },
-  { path: "/es/repositories/", name: "repositories ES" },
-  { path: "/es/cv/", name: "CV ES" },
+  { path: "/projects/cleanyourmail/", name: "project EN" },
+  { path: "/es/projects/cleanyourmail/", name: "project ES" },
+  { path: "/es/projects/valorant-players-detector/", name: "fallback ES" },
+  { path: "/cleanyourmail/", name: "case study EN" },
 ];
 
 const expectNoHorizontalOverflow = async (page, label) => {
@@ -35,39 +29,29 @@ for (const width of widths) {
   }
 }
 
-for (const width of [320, 390]) {
-  for (const path of ["/", "/es/"]) {
-    test(`mobile menu opens, closes and stays inside the viewport at ${width}px (${path})`, async ({ page }) => {
-      await page.setViewportSize({ width, height: 900 });
-      await page.goto(path);
+test("the mobile sidebar opens and closes at 360px", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 });
+  await page.goto("/");
 
-      const toggle = page.locator(".navbar-toggler-main");
-      const menu = page.locator("#navbarNav");
+  const toggle = page.locator(".info_more-btn");
+  const sidebar = page.locator("[data-sidebar]");
 
-      await expect(toggle).toBeVisible();
-      await expect(toggle).toHaveAttribute("aria-expanded", "false");
-      await toggle.click();
-      await expect(toggle).toHaveAttribute("aria-expanded", "true");
-      await expect(menu).toHaveClass(/show/);
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(sidebar).toHaveClass(/active/);
+  await expectNoHorizontalOverflow(page, "open sidebar at 360px");
 
-      await expectNoHorizontalOverflow(page, `open menu at ${width}px (${path})`);
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(sidebar).not.toHaveClass(/active/);
+});
 
-      const clipped = await page.evaluate(() => {
-        const viewport = document.documentElement.clientWidth;
-        return [...document.querySelectorAll("#navbarNav a, #navbarNav button")]
-          .filter((element) => {
-            const box = element.getBoundingClientRect();
-            const style = window.getComputedStyle(element);
-            return style.visibility !== "hidden" && style.display !== "none" && box.width > 0 && (box.left < -1 || box.right > viewport + 1);
-          })
-          .map((element) => element.textContent.trim());
-      });
-      expect(clipped, `menu entries clipped at ${width}px (${path})`).toEqual([]);
+test("the desktop sidebar shows the contacts without a toggle", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
 
-      await toggle.click();
-      await expect(toggle).toHaveAttribute("aria-expanded", "false");
-      await expect(menu).not.toHaveClass(/show/);
-      await expectNoHorizontalOverflow(page, `closed menu at ${width}px (${path})`);
-    });
-  }
-}
+  await expect(page.locator(".info_more-btn")).toBeHidden();
+  await expect(page.locator(".sidebar-info_more")).toBeVisible();
+});

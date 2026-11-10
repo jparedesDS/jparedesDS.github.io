@@ -109,7 +109,7 @@ layout: shell
     </ul>
   </section>
 
-  <a class="download-cv" href="{{ '/assets/pdf/resume.pdf' | relative_url }}" download>
+  <a class="download-cv" {% static_href %}href="{{ '/assets/pdf/resume.pdf' | relative_url }}"{% endstatic_href %} download>
     {% include icon.liquid name="download" %}
     {{ strings.cv.download_pdf }}
   </a>

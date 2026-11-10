@@ -122,12 +122,14 @@ tabButtons.forEach(function (button, index) {
 });
 
 const initialTab = window.location.hash.slice(1);
-activateTab(pages.some((page) => page.dataset.page === initialTab) ? initialTab : "about", false);
+if (tabButtons.length) {
+  activateTab(pages.some((page) => page.dataset.page === initialTab) ? initialTab : "about", false);
 
-window.addEventListener("popstate", function () {
-  const name = window.location.hash.slice(1) || "about";
-  activateTab(pages.some((page) => page.dataset.page === name) ? name : "about", false);
-});
+  window.addEventListener("popstate", function () {
+    const name = window.location.hash.slice(1) || "about";
+    activateTab(pages.some((page) => page.dataset.page === name) ? name : "about", false);
+  });
+}
 
 const copyButton = document.querySelector("[data-copy-email]");
 if (copyButton) {

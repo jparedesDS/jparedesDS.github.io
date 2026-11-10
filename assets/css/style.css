@@ -2,6 +2,7 @@
 
 :root {
   color-scheme: dark;
+  --light-gray-70: hsla(0, 0%, 90%, 0.85);
 }
 
 html[data-theme="light"] {
@@ -15,8 +16,8 @@ html[data-theme="light"] {
   --white-2: hsl(0, 0%, 8%);
   --light-gray: hsl(0, 0%, 25%);
   --light-gray-70: hsl(0, 0%, 30%);
-  --orange-yellow-crayola: hsl(35, 90%, 28%);
-  --vegas-gold: hsl(35, 70%, 28%);
+  --orange-yellow-crayola: hsl(35, 90%, 22%);
+  --vegas-gold: hsl(35, 70%, 22%);
   --bg-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 93%), hsl(0, 0%, 87%));
   --bg-gradient-jet: linear-gradient(to bottom right, hsla(0, 0%, 0%, 0.04) 0%, hsla(0, 0%, 0%, 0) 100%), hsl(0, 0%, 98%);
   --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 80%) 0%, hsla(0, 0%, 80%, 0) 50%);

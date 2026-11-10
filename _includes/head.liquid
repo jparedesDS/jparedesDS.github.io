@@ -5,22 +5,22 @@
 <meta name="description" content="{{ page.description | default: site.description }}">
 
 {% assign canonical = site.url | append: page.url %}
-{% assign en_url = site.url | append: page.url | remove_first: '/es' %}
+{% assign en_url = site.url | append: page.url %}
+{% assign es_url = site.url | append: '/es' | append: page.url %}
 
 {% if page.rendered_lang and page.rendered_lang != active_lang %}
   <meta name="robots" content="noindex">
   <link rel="canonical" href="{{ en_url }}">
   <link rel="alternate" hreflang="en" href="{{ en_url }}">
   <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
+{% elsif active_lang == 'en' %}
+  <link rel="canonical" href="{{ en_url }}">
+  <link rel="alternate" hreflang="es" href="{{ es_url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
 {% else %}
-  <link rel="canonical" href="{{ canonical }}">
-  {% if active_lang == 'en' %}
-    <link rel="alternate" hreflang="es" href="{{ site.url }}/es{{ page.url }}">
-    <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ page.url }}">
-  {% else %}
-    <link rel="alternate" hreflang="en" href="{{ en_url }}">
-    <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
-  {% endif %}
+  <link rel="canonical" href="{{ es_url }}">
+  <link rel="alternate" hreflang="en" href="{{ en_url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
 {% endif %}
 
 <meta property="og:title" content="{{ page.title | default: site.title }}">

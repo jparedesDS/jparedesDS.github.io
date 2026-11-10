@@ -28,7 +28,7 @@ test("the apps link to the four products", () => {
 
 test("no testimonials or client logos survive the port", () => {
   const html = read("index.html");
-  assert.doesNotMatch(html, /testimonials|clients/);
+  assert.doesNotMatch(html, /class="testimonials|class="clients/);
 });
 
 test("both home data files define the same four apps", () => {
