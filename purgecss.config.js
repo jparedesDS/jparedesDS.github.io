@@ -15,6 +15,9 @@ module.exports = {
     "table-responsive",
     "af-tooltip",
     "af-popover",
+    // only rendered when a project link defines a `note:`, so it is absent
+    // from the static HTML PurgeCSS scans until such a note is added
+    "project-link-note",
     "font-weight-bold",
     "font-weight-medium",
     "font-weight-lighter",

@@ -38,7 +38,7 @@ jobs:
 
       - name: Purge unused CSS
         run: |
-          npm install -g purgecss
+          npm install -g purgecss@9.1.0
           purgecss -c purgecss.config.js
 
       - name: Add .nojekyll
