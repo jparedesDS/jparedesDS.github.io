@@ -14,7 +14,7 @@ Tailwind, no React and no framework runtime in the browser.
 | `npm run build` | Build the production site into `dist/`. |
 | `npm run preview` | Serve the built `dist/` locally. |
 | `npm test` | Build, then run the content tests in `test/content.test.mjs`. |
-| `npx playwright test --config test/playwright.config.js` | Run the accessibility, responsive and SEO checks. |
+| `npx playwright test --config test/playwright.config.js` | Run the accessibility and responsive checks. |
 | `npm run check` | Type-check the project with `astro check`. |
 
 ## Structure
