@@ -37,7 +37,7 @@
       {% endif %}
       <a
         class="project-link"
-        href="{% if external_link %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}"
+        {% if external_link %}{% static_href %}href="{{ link.url }}"{% endstatic_href %}{% else %}href="{{ link.url | relative_url }}"{% endif %}
         {% if external_link %}target="_blank" rel="noopener noreferrer"{% endif %}
       >
         {{- label -}}
