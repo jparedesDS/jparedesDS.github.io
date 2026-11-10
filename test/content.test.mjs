@@ -40,3 +40,55 @@ test("the home shows experience, writing and contact", () => {
   assert.match(html, /Let’s build/);
   assert.match(html, /jparedescolmenarejo@gmail\.com/);
 });
+
+test("the archive contains the current categories and model releases", () => {
+  const html = read("work/index.html");
+  for (const category of [
+    "AI & Computer Vision",
+    "Data & Automation",
+    "Products & Tools",
+    "Esports & Content",
+    "Model releases",
+  ]) {
+    assert.match(html, new RegExp(category));
+  }
+  assert.match(html, /OCR Weapon Detection/);
+  assert.match(html, /Polymarket/);
+  assert.match(html, /Private project/);
+  assert.doesNotMatch(html, /href="[^"]*polymarket/i);
+});
+
+test("the archive lists every project and model release once", () => {
+  const html = read("work/index.html");
+  assert.equal((html.match(/class="archive-item"/g) || []).length, 27);
+  assert.equal((html.match(/class="model-item"/g) || []).length, 10);
+});
+
+test("the archive exposes the category anchors", () => {
+  const html = read("work/index.html");
+  for (const id of ["ai-vision", "data-automation", "products", "esports"]) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+});
+
+test("the archive only links to /work/ or an existing case page", () => {
+  const html = read("work/index.html");
+  const cases = new Set([
+    "/work/subany-video/",
+    "/work/docflow-saas/",
+    "/work/pro-pov-cs2/",
+    "/work/trtw-tv/",
+    "/work/cleanyourphone/",
+  ]);
+  const hrefs = [...html.matchAll(/href="(\/work\/[^"]*)"/g)].map((match) => match[1]);
+  for (const href of hrefs) {
+    assert.ok(href === "/work/" || cases.has(href), `dead case link: ${href}`);
+  }
+});
+
+test("the archive does not leak the DocFlow client and portal names", () => {
+  const html = read("work/index.html");
+  for (const name of ["AYESA", "SACYR", "Hyundai", "eGesdoc", "Aconex", "Sendoc", "PRODOC"]) {
+    assert.doesNotMatch(html, new RegExp(name, "i"));
+  }
+});

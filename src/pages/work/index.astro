@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import ArchiveGroup from "../../components/ArchiveGroup.astro";
+import { models, projects } from "../../data/projects";
+
+const groups = [
+  { id: "ai-vision", index: "02", label: "AI & Computer Vision" },
+  { id: "data-automation", index: "03", label: "Data & Automation" },
+  { id: "products", index: "04", label: "Products & Tools" },
+  { id: "esports", index: "05", label: "Esports & Content" },
+] as const;
+
+const byCategory = (category: string) => projects.filter((project) => project.category === category);
+---
+
+<BaseLayout
+  title="Work archive — Jose Paredes"
+  description="The complete archive of projects and model releases by Jose Paredes."
+>
+  <div class="page">
+    <header class="archive-hero">
+      <p class="section-kicker">01 / Archive</p>
+      <h1>Archive</h1>
+      <p class="archive-lede">
+        {projects.length} projects across computer vision, data and automation, products and esports — plus
+        {" "}{models.length} standalone model releases.
+      </p>
+      <a class="archive-back" href="/">← Back to home</a>
+    </header>
+
+    {
+      groups.map((group) => (
+        <ArchiveGroup
+          id={group.id}
+          index={group.index}
+          label={group.label}
+          projects={byCategory(group.id)}
+        />
+      ))
+    }
+
+    <section class="archive-section" id="model-releases">
+      <SectionHeader index="06" kicker="Model releases" title="Model releases" />
+      <p class="archive-note">
+        Standalone model cards and versioned releases behind the computer-vision work.
+      </p>
+      <div class="model-list-archive">
+        {
+          models.map((model) => (
+            <article class="model-item">
+              <div class="model-head">
+                <h3>{model.name}</h3>
+                <span class="model-version">
+                  {model.version} · {model.year}
+                </span>
+              </div>
+              <p>{model.description}</p>
+              <div class="archive-links">
+                {model.links.map((link) => (
+                  <a href={link.url} rel="noopener">
+                    {link.label}
+                    <span aria-hidden="true"> ↗</span>
+                  </a>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <p class="archive-foot"><a href="/">← Back to home</a></p>
+  </div>
+</BaseLayout>
