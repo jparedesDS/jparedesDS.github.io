@@ -1,6 +1,14 @@
 import { test, expect } from "@playwright/test";
 
-for (const [width, columns] of [[1440, 4], [768, 2], [360, 1]]) {
+test("the hero is about half its old height", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/");
+  const height = await page.evaluate(() => document.querySelector(".hero").getBoundingClientRect().height);
+  expect(height).toBeGreaterThanOrEqual(280);
+  expect(height).toBeLessThanOrEqual(330);
+});
+
+for (const [width, columns] of [[1440, 3], [768, 2], [360, 1]]) {
   test(`the work grid has ${columns} columns at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
@@ -20,27 +28,15 @@ test("the timeline does not overflow at 360px", async ({ page }) => {
   expect(overflow).toBeLessThanOrEqual(1);
 });
 
-test("the wide project logos are contained, not cropped", async ({ page }) => {
+test("the CleanYourPhone logo is contained, not cropped", async ({ page }) => {
   await page.goto("/");
-  const fits = await page.evaluate(() =>
-    Object.fromEntries(
-      [...document.querySelectorAll(".work-media")].map((media) => [
-        media.dataset.project,
-        getComputedStyle(media.querySelector("img")).objectFit,
-      ]),
-    ),
+  const fit = await page.evaluate(
+    () =>
+      getComputedStyle(
+        document.querySelector('.work-media[data-project="cleanyourphone"] img'),
+      ).objectFit,
   );
-  const expected = {
-    "subany-video": "cover",
-    cleanyourmail: "cover",
-    "docflow-saas": "contain", // SVG marks
-    "pro-pov-cs2": "contain",
-    cleanyourphone: "contain",
-    "dxf-data-extraction": "cover",
-    "welding-defects-detection": "cover",
-    "hltv-scraper": "contain",
-  };
-  expect(fits).toEqual(expected);
+  expect(fit).toBe("contain");
 });
 
 test("the page has no vertical frame and a round portrait", async ({ page }) => {

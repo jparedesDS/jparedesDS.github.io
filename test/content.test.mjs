@@ -15,25 +15,19 @@ test("the build produces the home with the shell", () => {
   assert.match(html, /data-theme/);
 });
 
-test("the home shows the eight selected projects", () => {
+test("the home shows the three selected projects", () => {
   const html = read("index.html");
-  assert.equal((html.match(/class="work-card"/g) || []).length, 8);
-  for (const title of [
-    "subany.video",
-    "CleanYourMail",
-    "DocFlow",
-    "Pro POV CS2",
-    "CleanYourPhone",
-    "HLTV Team &amp; Player Stats Scraper",
-    "Technical Drawing Data Extraction",
-    "Welding Defects Detector",
-  ]) {
+  assert.equal((html.match(/class="work-card"/g) || []).length, 3);
+  for (const title of ["subany.video", "CleanYourPhone", "CleanYourMail"]) {
     assert.ok(html.includes(title), title);
   }
-  assert.doesNotMatch(html, /href="\/work\/trtw-tv\/"/);
-  assert.match(html, /https:\/\/github\.com\/jparedesDS\/hltv-scraper/);
-  assert.match(html, /https:\/\/github\.com\/jparedesDS\/extract-data-dxf/);
-  assert.match(html, /https:\/\/github\.com\/jparedesDS\/welding-defects-detection/);
+  const cards = html.match(/<article class="work-card"[\s\S]*?<\/article>/g) || [];
+  assert.equal(cards.length, 3);
+  assert.ok(cards.every((card) => /subany\.video|CleanYourPhone|CleanYourMail/.test(card)));
+  assert.equal((html.match(/>Web\s*<span/g) || []).length, 3);
+  assert.equal((html.match(/>Skill\s*<span/g) || []).length, 2);
+  assert.doesNotMatch(html, /subtitle\.me/);
+  assert.doesNotMatch(html, /class="chips"/);
 });
 
 test("the home has the hero, the portrait and the contact links", () => {
