@@ -1,220 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Jose Paredes — AI & Data Science</title> 
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Jose Paredes — Data Scientist &amp; AI Engineer</title><meta name="description" content="Data scientist and AI engineer in Madrid."><link rel="canonical" href="https://jparedesds.github.io/"><meta property="og:title" content="Jose Paredes — Data Scientist &amp; AI Engineer"><meta property="og:description" content="Data scientist and AI engineer in Madrid."><meta property="og:image" content="https://jparedesds.github.io/profile.jpg"><meta property="og:url" content="https://jparedesds.github.io/"><meta property="og:type" content="website"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jose Paredes",
+  "jobTitle": "Data Scientist / AI Engineer",
+  "url": "https://jparedesds.github.io/",
+  "sameAs": [
+    "https://github.com/jparedesDS",
+    "https://www.linkedin.com/in/jparedesDS/",
+    "https://huggingface.co/jparedesDS",
+    "https://www.kaggle.com/joseparedesc"
+  ]
+}</script><link rel="icon" href="/profile.jpg"><script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+      })();
+    </script><link rel="stylesheet" href="/_astro/BaseLayout.SNIcr7TB.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="header-inner"><a class="brand" href="/"><img src="/profile.jpg" alt="" width="28" height="28"><span>Jose Paredes</span></a><nav class="nav" aria-label="Primary"><a href="/#work">Work</a><a href="/#experience">Experience</a><a href="/blog/">Writing</a><a href="/#contact">Contact</a></nav><div class="header-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme"><span class="theme-dot"></span></button></div></div></header><script>
+  (function () {
+    var root = document.documentElement;
+    var toggle = document.querySelector("[data-theme-toggle]");
+    if (!toggle) return;
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="blog, accent, , Jose Paredes, jekyll">
-    <meta name="author" content="">
-    
-    
-    
-    <meta name="description" content="Data Scientist building practical AI products, computer vision systems and local-first software.">
-    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-    <link rel="alternate" type="application/rss+xml" title="Jose Paredes RSS" href="/feed.xml" />
-    <link rel="stylesheet" href="/css/main.css">
-    
-    
-    <!-- Facebook Open Graph -->
-    <meta name="og:description" content="Data Scientist building practical AI products, computer vision systems and local-first software.">
-    <meta name="og:title" content="Jose Paredes">
-    <meta name="og:url" content="https://jparedesDS.github.io//">
-    <meta name="og:type" content="article">
-    
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Jose Paredes">
-    <meta name="twitter:description" content="Data Scientist building practical AI products, computer vision systems and local-first software.">
-    <meta name="twitter:url" content="https://jparedesDS.github.io//">
-    
-        <meta name="twitter:image" content="">
-    
-    
-    
-</head>
-<body>
-    <div class="wrapper wide">
-        
-        <div class="navbar container">
-            
-            <a id="author-name" class="alignable pull-left" href="">Jose Paredes</a>
-            <ul id="navlist" class="alignable pull-right navbar-ul">
-                
-                    <li class="alignable pull-left nav-list"><a href="/#projects">Projects</a></li>
-                
-                    <li class="alignable pull-left nav-list"><a href="/#about">About</a></li>
-                
-                    <li class="alignable pull-left nav-list"><a href="resume.pdf" target="_blank" rel="noopener">CV</a></li>
-                
-                    <li class="alignable pull-left nav-list"><a href="https://github.com/jparedesDS" target="_blank" rel="noopener">GitHub</a></li>
-                
-            </ul>
-        </div>
-        <div style="clear:both"></div>
-        <hr>
-        
-            <div class="container content">
-        
-                <div class="home">
-  <header class="profile-header" id="about">
-    <img class="home-profile" src="profile.jpg" alt="Portrait of Jose Paredes" />
-    <div>
-      <p class="home-eyebrow">About</p>
-      <h1>Jose Paredes</h1>
-      <p class="profile-role">Data Scientist · Madrid, Spain</p>
-      <p class="profile-summary">At EIPSA, I build computer-vision systems and automation for engineering and manufacturing. I also develop practical AI products and local-first tools.</p>
-      <nav class="home-contact" aria-label="Contact and professional profiles">
-        <a href="mailto:jparedescolmenarejo@gmail.com">Email</a>
-        <a href="resume.pdf">CV</a>
-        <a href="https://www.linkedin.com/in/jparedesDS/">LinkedIn</a>
-        <a href="https://github.com/jparedesDS">GitHub</a>
-        <a href="https://huggingface.co/jparedesDS">Hugging Face</a>
-        <a href="https://www.kaggle.com/joseparedesc">Kaggle</a>
-      </nav>
-    </div>
-  </header>
+    function sync() {
+      var dark = root.dataset.theme === "dark";
+      toggle.setAttribute("aria-pressed", String(dark));
+      toggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    }
 
-  <main>
-    <section class="hero-project" aria-labelledby="subany-title">
-      <div class="hero-project-copy">
-        <p class="hero-project-label">Featured project · Open source</p>
-        <h2 id="subany-title">subany.video</h2>
-        <p class="hero-project-tagline">Any video, in your language.</p>
-        <p class="hero-project-description">Live subtitles and translation for streams and videos, processed privately in your browser. No account needed.</p>
-        <div class="hero-project-actions">
-          <a class="button button-primary" href="https://subany.video/">Try subany.video <span aria-hidden="true">↗</span></a>
-          <a class="button button-secondary" href="https://github.com/jparedesDS/subtitle.me" aria-label="View subany.video source code">View code</a>
-        </div>
-      </div>
-      <a class="hero-project-preview" href="https://subany.video/" aria-label="Open subany.video">
-        <img class="hero-project-image" src="images/subany-video-thumb.png" alt="subany.video showing a video link ready to be subtitled" />
-      </a>
-    </section>
+    sync();
 
-    <section class="project-index" id="projects" aria-labelledby="projects-title">
-      <div class="section-heading">
-        <h2 id="projects-title">Projects</h2>
-      </div>
-
-      <ul class="project-list">
-        <li>
-          <article class="project-item">
-            <h3>CleanYourMail</h3>
-            <p>Local-first, reversible inbox cleanup for coding agents.</p>
-            <div class="project-links">
-              <a href="/cleanyourmail/">Case study</a>
-              <a href="https://github.com/jparedesDS/cleanyourmail" aria-label="CleanYourMail source code">Source code</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>CleanYourPhone</h3>
-            <p>Safe, reversible Android debloating without root.</p>
-            <div class="project-links">
-              <a href="https://jparedesds.github.io/cleanyourphone-web/" aria-label="CleanYourPhone website">Website</a>
-              <a href="https://github.com/jparedesDS/clean-your-phone" aria-label="CleanYourPhone source code">Source code</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>Pro POV CS2</h3>
-            <p>Autonomous esports content, from professional demos to publication.</p>
-            <div class="project-links">
-              <a href="/propovcs2/" aria-label="Pro POV CS2 website">Website</a>
-              <a href="https://www.youtube.com/@Pro.POV.CS2" aria-label="Pro POV CS2 on YouTube">YouTube</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>trtw.tv</h3>
-            <p>Live Spanish subtitles for Twitch and YouTube, running locally.</p>
-            <div class="project-links">
-              <a href="https://github.com/jparedesDS/trtw-tv" aria-label="trtw.tv source code">Source code</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>DocFlow SaaS</h3>
-            <p>Document control, reporting and automation for engineering projects.</p>
-            <div class="project-links">
-              <a href="https://github.com/jparedesDS/docflow" aria-label="DocFlow SaaS source code">Source code</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>Polymarket Auto-Betting Bot</h3>
-            <p>BTC prediction-market automation with backtesting and Telegram controls.</p>
-            <div class="project-links">
-              <a href="/projects/products/" aria-label="Polymarket Auto-Betting Bot project details">Project details</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>Appointment Management</h3>
-            <p>Scheduling and customer management for auto repair shops.</p>
-            <div class="project-links">
-              <a href="https://github.com/jparedesDS/talleres-ritmo" aria-label="Appointment Management source code">Source code</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>Claude Telegram Bot</h3>
-            <p>Claude-powered assistance, automation and remote control from Telegram.</p>
-            <div class="project-links">
-              <a href="https://github.com/jparedesDS/claude-telegram" aria-label="Claude Telegram Bot source code">Source code</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article class="project-item">
-            <h3>OCR Weapon Detection</h3>
-            <p>Real-time Counter-Strike 2 weapon recognition using OCR.</p>
-            <div class="project-links">
-              <a href="https://github.com/jparedesDS/OCR-Identification-CS2-Weapons" aria-label="OCR Weapon Detection source code">Source code</a>
-            </div>
-          </article>
-        </li>
-      </ul>
-    </section>
-  </main>
-
-  <footer>
-    <nav class="more-work" id="more-work" aria-label="Browse all project categories">
-      <span>Browse all projects</span>
-      <div>
-        <a href="/projects/ai-vision/">AI &amp; Vision</a>
-        <a href="/projects/data-automation/">Data &amp; Automation</a>
-        <a href="/projects/products/">Products &amp; Tools</a>
-        <a href="/projects/esports/">Esports &amp; Content</a>
-      </div>
-    </nav>
-  </footer>
-</div>
-
-                
-                <script src="/js/external-links.js"></script>
-        
-                
-            </div>
-    </div>
-    
-</body>
-<footer>
-</footer>
+    toggle.addEventListener("click", function () {
+      var next = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      localStorage.setItem("theme", next);
+      sync();
+    });
+  })();
+</script><main id="main-content"><div class="page"><section class="hero" id="about"><div class="hero-copy"><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Madrid · Available for select AI work</p><h1>Jose<br>Paredes</h1><p class="hero-role">Data Scientist / AI Engineer</p><p class="hero-intro">I build computer-vision systems and automation for industrial engineering, and local-first AI products. Currently at EIPSA.</p><div class="hero-links" role="group" aria-label="Links"><a href="https://github.com/jparedesDS" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jparedesDS/" target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:jparedescolmenarejo@gmail.com">Email</a><a href="/resume.pdf">CV</a></div></div><aside class="hero-card"><div class="portrait"><img src="/profile.jpg" alt="Pixel-art portrait of Jose Paredes" width="234" height="234"></div><div class="hero-card-row"><span>Madrid, Spain</span><span>Since 2021</span></div><p class="hero-card-note">Currently building inspection models, DocFlow and subany.video.</p></aside></section><span id="projects"></span><section class="section" id="work"><div class="section-head"><div><p class="section-kicker">01 / Selected work</p><h2>Things I’ve built</h2></div><a class="section-link" href="/work/">All projects <span aria-hidden="true">→</span></a></div><div class="work-grid"><a class="work-card" href="/work/subany-video/"><div class="work-media" data-project="subany-video"><img src="/images/subany-video-thumb.png" alt="subany.video interface" width="1200" height="675" loading="lazy"></div><div class="work-body"><div class="work-meta"><span>Product</span><span>2026</span></div><h3>subany.video</h3><p>Live subtitles and translation for streams, processed locally in the browser.</p><div class="chips"><span>TypeScript</span><span>WebGPU</span><span>Whisper</span></div></div></a><a class="work-card" href="/cleanyourmail/"><div class="work-media" data-project="cleanyourmail"><img src="/images/cleanyourmail.png" alt="CleanYourMail interface" width="1200" height="675" loading="lazy"></div><div class="work-body"><div class="work-meta"><span>Product</span><span>2026</span></div><h3>CleanYourMail</h3><p>An agent-native CLI that files mail without reading bodies or deleting anything.</p><div class="chips"><span>Python</span><span>IMAP</span><span>CLI</span></div></div></a><a class="work-card" href="/work/docflow-saas/"><div class="work-media" data-project="docflow-saas"><img src="/images/docflow.svg" alt="DocFlow document control dashboard with project status and revisions" width="1200" height="675" loading="lazy"></div><div class="work-body"><div class="work-meta"><span>Data &amp; Automation</span><span>2024</span></div><h3>DocFlow</h3><p>Multi-tenant document control that keeps project files archived, searchable and auditable.</p><div class="chips"><span>FastAPI</span><span>React</span><span>Docker</span></div></div></a><a class="work-card" href="/work/pro-pov-cs2/"><div class="work-media" data-project="pro-pov-cs2"><img src="/images/propov-cs2.png" alt="Pro POV CS2" width="1200" height="675" loading="lazy"></div><div class="work-body"><div class="work-meta"><span>Esports</span><span>2025</span></div><h3>Pro POV CS2</h3><p>Match discovery, demo parsing, POV recording and publishing, end to end.</p><div class="chips"><span>Python</span><span>CS2</span><span>Automation</span></div></div></a><a class="work-card" href="/work/trtw-tv/"><div class="work-media" data-project="trtw-tv"><img src="/images/trtw-tv.png" alt="trtw.tv live subtitles" width="1200" height="675" loading="lazy"></div><div class="work-body"><div class="work-meta"><span>Product</span><span>2025</span></div><h3>trtw.tv</h3><p>Live Spanish subtitles for Twitch and YouTube, transcribed locally with Whisper.</p><div class="chips"><span>TypeScript</span><span>Whisper</span><span>Chrome</span></div></div></a><a class="work-card" href="/work/cleanyourphone/"><div class="work-media" data-project="cleanyourphone"><img src="/images/cleanyourphone-thumb.png" alt="CleanYourPhone interface" width="1200" height="675" loading="lazy"></div><div class="work-body"><div class="work-meta"><span>Product</span><span>2026</span></div><h3>CleanYourPhone</h3><p>Reversible Android debloating over ADB, with no root and a one-command undo.</p><div class="chips"><span>Python</span><span>ADB</span><span>Android</span></div></div></a></div></section><section class="section" id="experience"><div class="section-head"><div><p class="section-kicker">02 / Experience</p><h2>Where I’ve worked</h2></div></div><div class="experience"><div class="exp-row"><div class="exp-role"><h3>Data Analyst &amp; AI Engineer</h3><p>EIPSA</p></div><p class="exp-text">Computer vision for metallurgy inspection, DocFlow and ERP automation.</p><span class="exp-date">2024 — Now</span></div><div class="exp-row"><div class="exp-role"><h3>Data Management Technician</h3><p>Comunicación Permanente</p></div><p class="exp-text">Customer data, incident reporting and the internal procedures behind them.</p><span class="exp-date">2021 — 2023</span></div><div class="exp-row"><div class="exp-role"><h3>Electronics Lab Technician</h3><p>Grupo ANOVO</p></div><p class="exp-text">Diagnostics, repair and production quality data for consumer devices.</p><span class="exp-date">2015 — 2020</span></div></div></section><section class="section" id="writing"><div class="section-head"><div><p class="section-kicker">03 / Writing</p><h2>Notes on how it works</h2></div><a class="section-link" href="/blog/">All writing <span aria-hidden="true">→</span></a></div><div class="writing"><a class="writing-row" href="https://jparedesds.github.io/blog/2026/11/09/how-subany-video-works/" target="_blank" rel="noreferrer"><span class="writing-date">09 Nov 2026</span><span class="writing-title">How subany.video works: live subtitles in the browser</span><span class="writing-tag">Engineering</span><span class="writing-arrow" aria-hidden="true">↗</span></a><a class="writing-row" href="https://jparedesds.github.io/blog/2026/11/09/como-funciona-subany-video/" target="_blank" rel="noreferrer"><span class="writing-date">09 Nov 2026</span><span class="writing-title">Cómo funciona subany.video: subtítulos en directo</span><span class="writing-tag">Español</span><span class="writing-arrow" aria-hidden="true">↗</span></a></div></section><section class="section stack-section" aria-labelledby="stack-heading"><p class="section-kicker" id="stack-heading">04 / Stack</p><div class="stack"><span>Python</span><span>PyTorch</span><span>YOLO</span><span>OpenCV</span><span>FastAPI</span><span>React</span><span>TypeScript</span><span>Docker</span><span>SQL</span><span>Hugging Face</span></div></section><section class="contact-panel" id="contact"><div><p class="section-kicker">05 / Contact</p><h2>Let’s build<br>something.</h2><a class="contact-email" href="mailto:jparedescolmenarejo@gmail.com">jparedescolmenarejo@gmail.com</a></div><div class="contact-links"><a href="https://github.com/jparedesDS" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/jparedesDS/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://huggingface.co/jparedesDS" target="_blank" rel="noreferrer">Hugging Face <span aria-hidden="true">↗</span></a><a href="https://www.kaggle.com/joseparedesc" target="_blank" rel="noreferrer">Kaggle <span aria-hidden="true">↗</span></a><p>Madrid, Spain · CET</p></div></section></div></main><footer class="site-footer"><span>© 2026 Jose Paredes</span><span>Built with care. No template.</span></footer></body></html>
