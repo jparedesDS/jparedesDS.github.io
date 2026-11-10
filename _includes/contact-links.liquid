@@ -1,0 +1,33 @@
+{% assign email = "" %}
+{% for link in home.contact %}
+  {% if link.url contains "mailto:" %}{% assign email = link.url | remove_first: "mailto:" %}{% endif %}
+{% endfor %}
+
+<ul class="contact-cards">
+  {% for link in home.contact %}
+    {% assign value = link.label %}
+    {% if link.url contains "mailto:" %}{% assign value = email %}{% endif %}
+    <li>
+      <a class="contact-card" href="{{ link.url }}">
+        <span class="contact-label">{{ link.label }}</span>
+        <span class="contact-value">{{ value }}</span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<button
+  class="copy-email"
+  type="button"
+  data-copy-email
+  data-email="{{ email }}"
+  data-copied="{{ strings.contact_actions.copied }}"
+>
+  {% include icon.liquid name="copy" %}
+  <span>{{ strings.contact_actions.copy_email }}</span>
+</button>
+
+<p class="contact-location">
+  {% include icon.liquid name="location" %}
+  {{ cv.location }}
+</p>

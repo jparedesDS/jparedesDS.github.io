@@ -1,14 +1,12 @@
 {% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
 {% assign strings = site.data[active_lang].strings %}
 <nav class="navbar" aria-label="{{ strings.nav_label | default: 'Main navigation' }}">
-  <ul class="navbar-list">
-    {% assign items = "about,resume,portfolio,blog,contact" | split: "," %}
-    {% for key in items %}
-      {% assign label = strings.tabs[key] %}
-      <li class="navbar-item">
-        {% if key == "blog" %}
-          <a class="navbar-link" data-nav-link href="{{ '/blog/' | relative_url }}">{{ label }}</a>
-        {% elsif include.mode == "tabs" %}
+  {% if include.mode == "tabs" %}
+    {% assign items = "about,resume,portfolio,contact" | split: "," %}
+    <ul class="navbar-list" role="tablist" aria-label="{{ strings.nav_label | default: 'Main navigation' }}">
+      {% for key in items %}
+        {% assign label = strings.tabs[key] %}
+        <li class="navbar-item" role="presentation">
           <button
             class="navbar-link{% if key == 'about' %} active{% endif %}"
             type="button"
@@ -21,10 +19,23 @@
           >
             {{ label }}
           </button>
-        {% else %}
-          <a class="navbar-link" data-nav-link href="{{ '/#' | append: key | relative_url }}">{{ label }}</a>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+        </li>
+      {% endfor %}
+    </ul>
+    <a class="navbar-link navbar-blog" data-nav-link href="{{ '/blog/' | relative_url }}">{{ strings.tabs.blog }}</a>
+  {% else %}
+    {% assign items = "about,resume,portfolio,blog,contact" | split: "," %}
+    <ul class="navbar-list">
+      {% for key in items %}
+        {% assign label = strings.tabs[key] %}
+        <li class="navbar-item">
+          {% if key == "blog" %}
+            <a class="navbar-link" data-nav-link href="{{ '/blog/' | relative_url }}">{{ label }}</a>
+          {% else %}
+            <a class="navbar-link" data-nav-link href="{{ '/#' | append: key | relative_url }}">{{ label }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </nav>

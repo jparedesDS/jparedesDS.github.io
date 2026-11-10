@@ -15,6 +15,10 @@ sections:
   apps: Apps
   contact: Contact
   all_posts: All posts
+contact_actions:
+  copy_email: Copy email
+  copied: Copied
+  email: Email
 nav_label: Main navigation
 menu_toggle: Toggle navigation
 theme_toggle: Change color theme

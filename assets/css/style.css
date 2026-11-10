@@ -14,13 +14,13 @@ html[data-theme="light"] {
   --white-1: hsl(0, 0%, 12%);
   --white-2: hsl(0, 0%, 8%);
   --light-gray: hsl(0, 0%, 25%);
-  --light-gray-70: hsla(0, 0%, 25%, 0.7);
-  --orange-yellow-crayola: hsl(35, 90%, 38%);
-  --vegas-gold: hsl(35, 70%, 38%);
+  --light-gray-70: hsl(0, 0%, 30%);
+  --orange-yellow-crayola: hsl(35, 90%, 28%);
+  --vegas-gold: hsl(35, 70%, 28%);
   --bg-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 93%), hsl(0, 0%, 87%));
   --bg-gradient-jet: linear-gradient(to bottom right, hsla(0, 0%, 0%, 0.04) 0%, hsla(0, 0%, 0%, 0) 100%), hsl(0, 0%, 98%);
   --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 80%) 0%, hsla(0, 0%, 80%, 0) 50%);
-  --text-gradient-yellow: linear-gradient(to right, hsl(35, 90%, 35%), hsl(30, 85%, 42%));
+  --text-gradient-yellow: linear-gradient(to right, hsl(35, 90%, 26%), hsl(30, 85%, 30%));
   --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.08);
   --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.08);
   --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.08);
@@ -28,6 +28,16 @@ html[data-theme="light"] {
 
 html[data-theme="light"] .navbar {
   background: hsla(0, 0%, 100%, 0.85);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-blog {
+  padding-inline: 12px;
 }
 
 .icon {
@@ -229,6 +239,71 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   margin-top: 15px;
   color: var(--orange-yellow-crayola);
   font-size: var(--fs-6);
+}
+
+.contact-intro {
+  color: var(--light-gray-70);
+  font-size: var(--fs-6);
+  margin-bottom: 15px;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid var(--jet);
+  border-radius: 10px;
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+  border-color: var(--orange-yellow-crayola);
+}
+
+.contact-label {
+  color: var(--light-gray-70);
+  font-size: var(--fs-8);
+  text-transform: uppercase;
+}
+
+.contact-value {
+  color: var(--white-2);
+  font-size: var(--fs-6);
+  overflow-wrap: anywhere;
+}
+
+.copy-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--jet);
+  border-radius: 8px;
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-6);
+}
+
+.contact-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 15px;
+  color: var(--light-gray-70);
+  font-size: var(--fs-6);
+}
+
+@media (min-width: 580px) {
+  .contact-cards {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .project-page {

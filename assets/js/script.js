@@ -89,7 +89,7 @@ applyFilter(requestedFilter || "all", false);
 const pages = Array.from(document.querySelectorAll("[data-page]"));
 const tabButtons = Array.from(document.querySelectorAll("button[data-nav-link]"));
 
-function activateTab(name) {
+function activateTab(name, push) {
   pages.forEach(function (page) {
     page.classList.toggle("active", page.dataset.page === name);
   });
@@ -99,9 +99,50 @@ function activateTab(name) {
     button.setAttribute("aria-selected", String(active));
     button.tabIndex = active ? 0 : -1;
   });
+  if (push) history.pushState({ tab: name }, "", `#${name}`);
 }
 
+tabButtons.forEach(function (button, index) {
+  button.addEventListener("click", function () {
+    activateTab(button.dataset.target, true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  button.addEventListener("keydown", function (event) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    let next = index;
+    if (event.key === "ArrowLeft") next = (index - 1 + tabButtons.length) % tabButtons.length;
+    if (event.key === "ArrowRight") next = (index + 1) % tabButtons.length;
+    if (event.key === "Home") next = 0;
+    if (event.key === "End") next = tabButtons.length - 1;
+    tabButtons[next].focus();
+    activateTab(tabButtons[next].dataset.target, true);
+  });
+});
+
 const initialTab = window.location.hash.slice(1);
-if (initialTab && pages.some((page) => page.dataset.page === initialTab)) {
-  activateTab(initialTab);
+activateTab(pages.some((page) => page.dataset.page === initialTab) ? initialTab : "about", false);
+
+window.addEventListener("popstate", function () {
+  const name = window.location.hash.slice(1) || "about";
+  activateTab(pages.some((page) => page.dataset.page === name) ? name : "about", false);
+});
+
+const copyButton = document.querySelector("[data-copy-email]");
+if (copyButton) {
+  copyButton.addEventListener("click", async function () {
+    try {
+      await navigator.clipboard.writeText(copyButton.dataset.email);
+      const label = copyButton.querySelector("span");
+      if (!label) return;
+      const original = label.textContent;
+      label.textContent = copyButton.dataset.copied;
+      setTimeout(function () {
+        label.textContent = original;
+      }, 2000);
+    } catch (error) {
+      // Clipboard access can be denied; the mailto link remains available.
+    }
+  });
 }

@@ -15,6 +15,10 @@ sections:
   apps: Apps
   contact: Contacto
   all_posts: Todas las entradas
+contact_actions:
+  copy_email: Copiar correo
+  copied: Copiado
+  email: Correo
 nav_label: Navegación principal
 menu_toggle: Mostrar navegación
 theme_toggle: Cambiar tema

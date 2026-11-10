@@ -2,12 +2,12 @@
 {% if active_lang == 'es' %}
   {% assign target = page.url | remove_first: '/es' %}
   {% if target == '' %}{% assign target = '/' %}{% endif %}
-  <a class="lang-switch" href="{{ target }}" hreflang="en" lang="en" aria-label="View this page in English">EN</a>
+  <a class="lang-switch" href="{{ target }}" hreflang="en" lang="en" aria-label="EN — View this page in English">EN</a>
 {% else %}
   {% if page.lang_switch_fallback %}
     {% assign target = '/es' | append: page.lang_switch_fallback %}
   {% else %}
     {% assign target = '/es' | append: page.url %}
   {% endif %}
-  <a class="lang-switch" href="{{ target }}" hreflang="es" lang="es" aria-label="Ver esta página en español">ES</a>
+  <a class="lang-switch" href="{{ target }}" hreflang="es" lang="es" aria-label="ES — Ver esta página en español">ES</a>
 {% endif %}

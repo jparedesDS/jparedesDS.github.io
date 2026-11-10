@@ -6,7 +6,7 @@ layout: shell
 {% assign home = site.data[active_lang].home %}
 {% assign cv = site.data[active_lang].cv.cv %}
 
-<article class="about active" data-page="about" id="about">
+<article class="about active" data-page="about" id="about" role="tabpanel">
   <header>
     <h2 class="h2 article-title">{{ home.eyebrow }}</h2>
   </header>
@@ -46,7 +46,7 @@ layout: shell
   {% endif %}
 </article>
 
-<article class="resume" data-page="resume" id="resume">
+<article class="resume" data-page="resume" id="resume" role="tabpanel">
   <header>
     <h2 class="h2 article-title">{{ strings.tabs.resume }}</h2>
   </header>
@@ -115,7 +115,7 @@ layout: shell
   </a>
 </article>
 
-<article class="portfolio" data-page="portfolio" id="portfolio">
+<article class="portfolio" data-page="portfolio" id="portfolio" role="tabpanel">
   <header>
     <h2 class="h2 article-title">{{ strings.tabs.portfolio }}</h2>
   </header>
@@ -132,7 +132,7 @@ layout: shell
   </section>
 </article>
 
-<article class="blog" data-page="blog" id="blog">
+<article class="blog" data-page="blog" id="blog" role="tabpanel">
   <header>
     <h2 class="h2 article-title">{{ strings.tabs.blog }}</h2>
   </header>
@@ -140,4 +140,16 @@ layout: shell
   <section class="blog-posts">
     {% include blog-preview.liquid %}
   </section>
+</article>
+
+<article class="contact" data-page="contact" id="contact" role="tabpanel">
+  <header>
+    <h2 class="h2 article-title">{{ strings.sections.contact }}</h2>
+  </header>
+
+  {% if home.availability %}
+    <p class="contact-intro">{{ home.availability }}</p>
+  {% endif %}
+
+  {% include contact-links.liquid %}
 </article>
