@@ -1,24 +1,6 @@
 _site
-.bundle
-.DS_store
-.DS_Store
-.idea
-.jekyll-cache
-.jekyll-metadata
-.ruby-version
 .sass-cache
+.sass-cache/
+.DS_Store
 .superpowers/
-.tweet-cache
-.venv
-assets/libs/
-assets/rendercv/rendercv_output/*.typ
 al-folio-upgrade-report.md
-node_modules/
-output/playwright/
-playwright-report/
-test-results/
-vendor
-
-# Python bytecode from bin/ helper scripts
-__pycache__/
-*.pyc

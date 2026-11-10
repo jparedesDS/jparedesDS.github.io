@@ -1,0 +1,158 @@
+---
+title: Jose Paredes — AI & Data Science
+description: Data Scientist building practical AI products, computer vision systems and local-first software.
+layout: default
+wide: true
+home: true
+---
+
+<div class="home">
+  <header class="profile-header" id="about">
+    <img class="home-profile" src="profile.jpg" alt="Portrait of Jose Paredes">
+    <div>
+      <p class="home-eyebrow">About</p>
+      <h1>Jose Paredes</h1>
+      <p class="profile-role">Data Scientist · Madrid, Spain</p>
+      <p class="profile-summary">At EIPSA, I build computer-vision systems and automation for engineering and manufacturing. I also develop practical AI products and local-first tools.</p>
+      <nav class="home-contact" aria-label="Contact and professional profiles">
+        <a href="mailto:jparedescolmenarejo@gmail.com">Email</a>
+        <a href="resume.pdf">CV</a>
+        <a href="https://www.linkedin.com/in/jparedesDS/">LinkedIn</a>
+        <a href="https://github.com/jparedesDS">GitHub</a>
+        <a href="https://huggingface.co/jparedesDS">Hugging Face</a>
+        <a href="https://www.kaggle.com/joseparedesc">Kaggle</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-project" aria-labelledby="subany-title">
+      <div class="hero-project-copy">
+        <p class="hero-project-label">Featured project · Open source</p>
+        <h2 id="subany-title">subany.video</h2>
+        <p class="hero-project-tagline">Any video, in your language.</p>
+        <p class="hero-project-description">Live subtitles and translation for streams and videos, processed privately in your browser. No account needed.</p>
+        <div class="hero-project-actions">
+          <a class="button button-primary" href="https://subany.video/">Try subany.video <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="https://github.com/jparedesDS/subtitle.me" aria-label="View subany.video source code">View code</a>
+        </div>
+      </div>
+      <a class="hero-project-preview" href="https://subany.video/" aria-label="Open subany.video">
+        <img class="hero-project-image" src="images/subany-video-thumb.png" alt="subany.video showing a video link ready to be subtitled">
+      </a>
+    </section>
+
+    <section class="project-index" id="projects" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <h2 id="projects-title">Projects</h2>
+      </div>
+
+      <ul class="project-list">
+        <li>
+          <article class="project-item">
+            <h3>CleanYourMail</h3>
+            <p>Local-first, reversible inbox cleanup for coding agents.</p>
+            <div class="project-links">
+              <a href="/cleanyourmail/">Case study</a>
+              <a href="https://github.com/jparedesDS/cleanyourmail" aria-label="CleanYourMail source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>CleanYourPhone</h3>
+            <p>Safe, reversible Android debloating without root.</p>
+            <div class="project-links">
+              <a href="https://jparedesds.github.io/cleanyourphone-web/" aria-label="CleanYourPhone website">Website</a>
+              <a href="https://github.com/jparedesDS/clean-your-phone" aria-label="CleanYourPhone source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Pro POV CS2</h3>
+            <p>Autonomous esports content, from professional demos to publication.</p>
+            <div class="project-links">
+              <a href="/propovcs2/" aria-label="Pro POV CS2 website">Website</a>
+              <a href="https://www.youtube.com/@Pro.POV.CS2" aria-label="Pro POV CS2 on YouTube">YouTube</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>trtw.tv</h3>
+            <p>Live Spanish subtitles for Twitch and YouTube, running locally.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/trtw-tv" aria-label="trtw.tv source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>DocFlow SaaS</h3>
+            <p>Document control, reporting and automation for engineering projects.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/docflow" aria-label="DocFlow SaaS source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Polymarket Auto-Betting Bot</h3>
+            <p>BTC prediction-market automation with backtesting and Telegram controls.</p>
+            <div class="project-links">
+              <a href="/projects/products/" aria-label="Polymarket Auto-Betting Bot project details">Project details</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Appointment Management</h3>
+            <p>Scheduling and customer management for auto repair shops.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/talleres-ritmo" aria-label="Appointment Management source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>Claude Telegram Bot</h3>
+            <p>Claude-powered assistance, automation and remote control from Telegram.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/claude-telegram" aria-label="Claude Telegram Bot source code">Source code</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article class="project-item">
+            <h3>OCR Weapon Detection</h3>
+            <p>Real-time Counter-Strike 2 weapon recognition using OCR.</p>
+            <div class="project-links">
+              <a href="https://github.com/jparedesDS/OCR-Identification-CS2-Weapons" aria-label="OCR Weapon Detection source code">Source code</a>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <nav class="more-work" id="more-work" aria-label="Browse all project categories">
+      <span>Browse all projects</span>
+      <div>
+        <a href="/projects/ai-vision/">AI &amp; Vision</a>
+        <a href="/projects/data-automation/">Data &amp; Automation</a>
+        <a href="/projects/products/">Products &amp; Tools</a>
+        <a href="/projects/esports/">Esports &amp; Content</a>
+      </div>
+    </nav>
+  </footer>
+</div>
