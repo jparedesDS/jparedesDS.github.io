@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.active_lang | default: site.lang }}">
+  <!-- Head -->
+  <head>
+    {% if page.redirect %}
+      {% if page.redirect == true %}
+        {% assign redirect = site.baseurl | append: '/' %}
+      {% elsif page.redirect contains '://' %}
+        {% assign redirect = page.redirect %}
+      {% else %}
+        {% assign redirect = page.redirect | relative_url %}
+      {% endif %}
+      <meta http-equiv="refresh" content="3; url={{ redirect }}">
+    {% endif %}
+    {% include head.liquid %}
+  </head>
+
+  <!-- Body -->
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    {% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+    {% assign strings = site.data[active_lang].strings %}
+
+    <!-- Skip link -->
+    <a class="skip-link" href="#main-content">{{ strings.skip_to_content }}</a>
+
+    <!-- Header -->
+    {% include header.liquid %}
+
+    <!-- Content -->
+    <div class="container mt-5{% if page.home %} home-container{% endif %}" id="main-content" role="main">
+      {% comment %}
+        Polyglot renders an untranslated page in Spanish by falling back to the
+        English source. Tell the visitor instead of silently mixing languages.
+      {% endcomment %}
+      {% if page.rendered_lang and page.rendered_lang != active_lang and page.layout != 'archive' %}
+        {% if page.permalink_lang['en'] %}
+          {% assign en_path = page.permalink_lang['en'] | remove_first: '/' %}
+        {% else %}
+          {% assign en_path = page.url | remove_first: '/es/' | remove_first: '/' %}
+        {% endif %}
+        <div class="fallback-notice" role="note">
+          <p>
+            {{ strings.fallback_notice }}
+            <a {% static_href %}href="/{% unless en_path == '' %}{{ en_path }}{% endunless %}"{% endstatic_href %}>{{ strings.fallback_link }}</a>
+          </p>
+        </div>
+      {% endif %}
+
+      {% if page.toc and page.toc.sidebar %}
+        {% assign toc_collapse = page.toc.collapse | default: 'expanded' %}
+        {% assign toc_collapse_depth = page.toc.collapse_depth | default: '' %}
+        {% if page.toc.sidebar == 'right' %}
+          <div class="row">
+            <!-- main content area -->
+            <div class="col-sm-9">{{ content }}</div>
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav
+                id="toc-sidebar"
+                class="sticky-top toc toc-sidebar"
+                aria-label="Table of contents"
+                data-toc-collapse="{{ toc_collapse }}"
+                data-toc-collapse-depth="{{ toc_collapse_depth }}"
+              ></nav>
+            </div>
+          </div>
+        {% else %}
+          <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav
+                id="toc-sidebar"
+                class="sticky-top toc toc-sidebar"
+                aria-label="Table of contents"
+                data-toc-collapse="{{ toc_collapse }}"
+                data-toc-collapse-depth="{{ toc_collapse_depth }}"
+              ></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">{{ content }}</div>
+          </div>
+        {% endif %}
+      {% else %}
+        {{ content }}
+      {% endif %}
+    </div>
+
+    <!-- Footer -->
+    {% include footer.liquid %}
+
+    <!-- JavaScripts -->
+    {% include scripts.liquid %}
+  </body>
+</html>

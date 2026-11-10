@@ -124,7 +124,26 @@
 {% if page.layout == 'cv' and site.plugins contains 'al_folio_cv' and site.al_folio.features.cv.enabled != false %}
   <link rel="stylesheet" href="{{ '/assets/css/al-folio-cv.css' | relative_url | bust_file_cache }}">
 {% endif %}
-<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+{% comment %}
+  Canonical and hreflang follow the English URL, which is the SEO reference.
+  `static_href` keeps Polyglot from prefixing these absolute links with /es on
+  the Spanish pages.
+{% endcomment %}
+{% assign canonical_path = page.permalink_lang['en'] | default: page.url | remove_first: '/' %}
+{% capture canonical_url %}{{ site.url }}/{% unless canonical_path == '' %}{{ canonical_path }}{% endunless %}{% endcapture %}
+{% assign es_path = page.permalink_lang['es'] %}
+{% if es_path %}
+  {% assign es_path = es_path | remove_first: '/' %}
+{% else %}
+  {% assign es_path = canonical_path %}
+{% endif %}
+{% capture es_url %}{{ site.url }}/es/{% unless es_path == '' %}{{ es_path }}{% endunless %}{% endcapture %}
+<link rel="canonical" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+{% if page.permalink_lang and page.lang %}
+  <link rel="alternate" hreflang="en" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+  <link rel="alternate" hreflang="es" {% static_href %}href="{{ es_url }}"{% endstatic_href %}>
+  <link rel="alternate" hreflang="x-default" {% static_href %}href="{{ canonical_url }}"{% endstatic_href %}>
+{% endif %}
 
 {% if site.enable_darkmode %}
   <!-- Dark Mode -->

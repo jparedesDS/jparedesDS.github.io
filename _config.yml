@@ -13,8 +13,38 @@ description: >-
 footer_text: "Data Scientist · AI Engineer · Madrid."
 keywords: data science, computer vision, YOLO, automation, AI engineering, portfolio
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
+
+# -----------------------------------------------------------------------------
+# Languages (jekyll-polyglot)
+# -----------------------------------------------------------------------------
+# English is the canonical language; Spanish is generated under /es/.
+languages: ["en", "es"]
+default_lang: "en"
 # Windows has no fork(), so jekyll-polyglot must localize languages serially.
 parallel_localization: false
+lang_vars: ["lang"]
+# Static assets and the legacy standalone project pages are not duplicated per language.
+exclude_from_localization:
+  - assets
+  - images
+  - css
+  - js
+  - cleanyourmail
+  - propovcs2
+  - cs2pov
+  - murdoku
+  - projects/ai-vision
+  - projects/data-automation
+  - projects/products
+  - projects/esports
+  - google75a8559a473af765.html
+  - tiktoktlkXmcJe9C9XczFLZBDaijGBy6abp0WB.txt
+  - profile.jpg
+  - resume.pdf
+  - LICENSE
+  - README.md
+  - docs
+  - test
 icon: "JP" # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 apple_touch_icon: # image name in /assets/img/ (or a rooted path / absolute URL) used for iOS home-screen bookmarks; needs a real 180x180 PNG, since Safari ignores the emoji favicon above. Left empty, iOS falls back to a screenshot of the page.
 
@@ -246,42 +276,24 @@ plugins:
   - jekyll-3rd-party-libraries
   - jekyll-archives-v2
   - jekyll-cache-bust
-  - jekyll-email-protect
   - jekyll-feed
-  - jekyll-imagemagick
   - jekyll-link-attributes
   - jekyll-minifier
   - jekyll-paginate-v2
-  - jekyll-regex-replace
-  - jekyll/scholar
+  - jekyll-polyglot
   - jekyll-sitemap
   - jekyll-socials
-  - jekyll-tabs
   - jekyll-terser
   - jekyll-toc
-  - jekyll-twitter-plugin
-  - jemoji
 
   # al-folio plugins
   - al_folio_core
   - al_icons
   - al_folio_cv
-  - al_folio_distill
   - al_folio_upgrade
-  - al_folio_bootstrap_compat
-  - al_cookie
-  - al_analytics
-  - al_citations
-  - al_ext_posts
   - al_img_tools
   - al_search
   - al_charts
-  - al_math
-  - al_comments
-  - al_newsletter
-  - al_email_protect
-  - al_marimo
-  - al_rtl
 
 # Sitemap settings
 defaults:

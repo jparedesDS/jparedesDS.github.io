@@ -10,4 +10,4 @@ nav_order: 1
 nav_key: about
 ---
 
-About placeholder.
+{% include home.liquid %}
