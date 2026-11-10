@@ -104,5 +104,5 @@ overrides:
     gem_version: 1.0.15
     upstream_path: assets/js/theme.js
     upstream_sha256: a1a07af6a468a10fc06ff3cf71d30b1b38ae8dc81674e8448c978080bbb78b81
-    local_sha256: 31555b1a91a5a466d8f10524f992c4a2c89b5f242317bdb25296f429770ccc1e
+    local_sha256: bd27247440799c20adeaf53fda0537f822f8af10153255336e454fd49ebc4c14
     acknowledged_at: '2026-11-10'

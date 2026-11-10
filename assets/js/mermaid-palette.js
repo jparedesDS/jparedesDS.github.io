@@ -121,6 +121,14 @@ let initSubanyMermaid = () => {
   if (subanyMermaidRendered || document.readyState !== "complete") {
     return;
   }
+
+  // Non-Mermaid pages (and pages where the library failed to load) must never
+  // reach setMermaidTheme/mermaid.initialize. Leaving the flag unset also lets
+  // the `load` fallback retry if mermaid-setup.js created the nodes late.
+  if (typeof mermaid === "undefined" || document.querySelector(".mermaid") === null) {
+    return;
+  }
+
   subanyMermaidRendered = true;
 
   let theme =

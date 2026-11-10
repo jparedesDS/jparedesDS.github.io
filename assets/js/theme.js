@@ -147,6 +147,11 @@ let addMermaidZoom = () => {
 };
 
 let setMermaidTheme = (theme) => {
+  // Second line of defence: Mermaid is only loaded on pages that enable it.
+  if (typeof mermaid === "undefined") {
+    return;
+  }
+
   // light theme name in mermaid is 'default'
   // https://mermaid.js.org/config/theming.html#available-themes
   let mermaidTheme = theme == "dark" ? "dark" : "default";
