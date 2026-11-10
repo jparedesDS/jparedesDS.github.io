@@ -1,37 +1,43 @@
 /* Jose Paredes — portfolio. Base tokens, shell and shared primitives. */
 
 :root {
-  --bg: #f4f1ea;
-  --surface: #fbfaf7;
-  --surface-2: #ece7dc;
-  --ink: #151412;
-  --muted: #6f6a60;
-  --line: #d8d2c5;
-  --accent: #9a5b06;
-  --accent-soft: #f0dfc0;
-  --panel: #171614;
-  --panel-ink: #f4f1ea;
-  --panel-muted: #a7a195;
+  --bg: #c9ae8c;
+  --surface: #d6bfa0;
+  --surface-2: color-mix(in srgb, var(--surface) 78%, var(--line));
+  --ink: #1c1915;
+  --muted: #3f382f;
+  --marker: #4a4238;
+  --line: #b69a75;
+  --panel: #1c1915;
+  --panel-ink: #d6bfa0;
+  --panel-muted: color-mix(in srgb, var(--panel-ink) 62%, transparent);
+  --focus: #8e0f42;
+  --accent: var(--focus);
+  --accent-soft: color-mix(in srgb, var(--surface) 80%, var(--focus) 20%);
+  --gradient: linear-gradient(90deg, #ff8a00, #ff2d78);
   --shadow: 0 1px 0 rgba(21, 20, 18, 0.04);
   --radius: 18px;
   --max: 1180px;
   --gutter: 34px;
+  --label: "Inter Variable", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
-  --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --sans: "Inter Variable", "Segoe UI", system-ui, sans-serif;
 }
 
 html[data-theme="dark"] {
-  --bg: #10100f;
-  --surface: #181816;
-  --surface-2: #22211e;
-  --ink: #f1eee6;
-  --muted: #a8a195;
-  --line: #2d2b27;
-  --accent: #f0b35a;
-  --accent-soft: #2b2215;
-  --panel: #080807;
-  --panel-ink: #f4f1ea;
-  --panel-muted: #9b9589;
+  --bg: #3a3633;
+  --surface: #45403c;
+  --surface-2: color-mix(in srgb, var(--surface) 78%, var(--line));
+  --ink: #ede3d3;
+  --muted: #c4b9a8;
+  --marker: #c0b5a4;
+  --line: #5a544f;
+  --panel: #1c1915;
+  --panel-ink: #ede3d3;
+  --panel-muted: color-mix(in srgb, var(--panel-ink) 62%, transparent);
+  --focus: #ff5a94;
+  --accent: var(--focus);
+  --accent-soft: color-mix(in srgb, var(--surface) 80%, var(--focus) 20%);
   --shadow: 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
@@ -109,7 +115,7 @@ h3 {
   border-radius: 10px;
   background: var(--ink);
   color: var(--bg);
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 12px;
   transition: top 0.18s ease;
 }
@@ -210,7 +216,6 @@ html[data-theme="dark"] .theme-dot {
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 var(--gutter);
-  border-inline: 1px solid var(--line);
 }
 
 .page > h1 {
@@ -230,7 +235,7 @@ html[data-theme="dark"] .theme-dot {
 .eyebrow,
 .section-kicker {
   margin: 0 0 22px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   line-height: 1.4;
   letter-spacing: 0.12em;
@@ -249,8 +254,8 @@ html[data-theme="dark"] .theme-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #3f8f5a;
-  box-shadow: 0 0 0 3px color-mix(in srgb, #3f8f5a 18%, transparent);
+  background: var(--gradient);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 18%, transparent);
 }
 
 .hero-role {
@@ -273,7 +278,7 @@ html[data-theme="dark"] .theme-dot {
   flex-wrap: wrap;
   gap: 8px 22px;
   margin-top: 34px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 12px;
   letter-spacing: 0.02em;
 }
@@ -301,7 +306,7 @@ html[data-theme="dark"] .theme-dot {
 .portrait {
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 50%;
   background: var(--surface-2);
 }
 
@@ -318,7 +323,7 @@ html[data-theme="dark"] .theme-dot {
   justify-content: space-between;
   gap: 12px;
   padding: 12px 4px 0;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -345,7 +350,7 @@ html[data-theme="dark"] .theme-dot {
 
 .kicker {
   margin: 0;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   line-height: 1.4;
   letter-spacing: 0.12em;
@@ -362,7 +367,7 @@ html[data-theme="dark"] .theme-dot {
 
 .chips span,
 .stack span {
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.03em;
   color: var(--muted);
@@ -392,7 +397,7 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .section-link {
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   letter-spacing: 0.04em;
   color: var(--muted);
@@ -451,7 +456,7 @@ html[data-theme="dark"] .theme-dot {
 
 .work-media img[src$=".svg"] {
   object-fit: contain;
-  background: #0f172a;
+  background: var(--surface-2);
   padding: 18px;
 }
 
@@ -460,11 +465,11 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .work-media[data-project="cleanyourmail"] {
-  background: #0f1512;
+  background: var(--surface-2);
 }
 
 .work-media[data-project="pro-pov-cs2"] {
-  background: #0a0a0a;
+  background: var(--surface-2);
 }
 
 .work-media[data-project="pro-pov-cs2"] img {
@@ -477,11 +482,11 @@ html[data-theme="dark"] .theme-dot {
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--marker);
 }
 
 .work-fallback-initial {
@@ -501,7 +506,7 @@ html[data-theme="dark"] .theme-dot {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -550,7 +555,7 @@ html[data-theme="dark"] .theme-dot {
 
 .exp-role p {
   margin: 3px 0 0;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -566,7 +571,7 @@ html[data-theme="dark"] .theme-dot {
 
 .exp-date {
   justify-self: end;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   color: var(--muted);
   white-space: nowrap;
@@ -594,7 +599,7 @@ html[data-theme="dark"] .theme-dot {
 
 .writing-date,
 .writing-tag {
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -653,8 +658,8 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .contact-email:hover {
-  color: #f0b35a;
-  border-color: #f0b35a;
+  color: color-mix(in srgb, var(--accent) 45%, var(--panel-ink));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--panel-ink));
 }
 
 .contact-links {
@@ -663,7 +668,7 @@ html[data-theme="dark"] .theme-dot {
   align-items: flex-start;
   gap: 8px;
   padding-top: 34px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 12px;
 }
 
@@ -674,11 +679,11 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .contact-links a span {
-  color: #f0b35a;
+  color: color-mix(in srgb, var(--accent) 45%, var(--panel-ink));
 }
 
 .contact-links a:hover {
-  border-color: #f0b35a;
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--panel-ink));
 }
 
 .contact-links p {
@@ -697,7 +702,7 @@ html[data-theme="dark"] .theme-dot {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -731,10 +736,6 @@ html[data-theme="dark"] .theme-dot {
 @media (max-width: 760px) {
   :root {
     --gutter: 20px;
-  }
-
-  .page {
-    border-inline: 0;
   }
 
   .header-inner {
@@ -788,7 +789,7 @@ html[data-theme="dark"] .theme-dot {
   }
 
   .portrait {
-    border-radius: 9px;
+    border-radius: 50%;
   }
 
   .hero-card-row {
@@ -900,7 +901,7 @@ html[data-theme="dark"] .theme-dot {
 .archive-foot a {
   display: inline-block;
   margin-top: 28px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -940,7 +941,7 @@ html[data-theme="dark"] .theme-dot {
 
 .archive-count {
   padding-bottom: 6px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -989,7 +990,7 @@ html[data-theme="dark"] .theme-dot {
 .archive-thumb img[src$=".svg"] {
   object-fit: contain;
   padding: 9px;
-  background: #0f172a;
+  background: var(--surface-2);
 }
 
 .archive-thumb-initial {
@@ -1024,7 +1025,7 @@ html[data-theme="dark"] .theme-dot {
 
 .archive-year {
   flex: none;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.06em;
   color: var(--muted);
@@ -1044,7 +1045,7 @@ html[data-theme="dark"] .theme-dot {
   align-items: center;
   gap: 7px 18px;
   margin-top: 10px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1067,7 +1068,7 @@ html[data-theme="dark"] .theme-dot {
   padding: 3px 9px;
   border: 1px dashed var(--line);
   border-radius: 999px;
-  color: var(--muted);
+  color: var(--marker);
 }
 
 .model-item {
@@ -1088,7 +1089,7 @@ html[data-theme="dark"] .theme-dot {
 
 .model-version {
   flex: none;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1160,7 +1161,7 @@ html[data-theme="dark"] .theme-dot {
 
 .back-link {
   display: inline-block;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1177,7 +1178,7 @@ html[data-theme="dark"] .theme-dot {
 
 .case-kicker {
   margin: 30px 0 14px;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1216,7 +1217,7 @@ html[data-theme="dark"] .theme-dot {
 .case-media img[src$=".svg"] {
   object-fit: contain;
   padding: 28px;
-  background: #0f172a;
+  background: var(--surface-2);
 }
 
 .project-links {
@@ -1234,7 +1235,7 @@ html[data-theme="dark"] .theme-dot {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1297,7 +1298,7 @@ html[data-theme="dark"] .theme-dot {
 
 .case-next-label {
   grid-column: 1;
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1323,7 +1324,7 @@ html[data-theme="dark"] .theme-dot {
 }
 
 .case-foot a {
-  font-family: var(--mono);
+  font-family: var(--label);
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1381,4 +1382,13 @@ html[data-theme="dark"] .theme-dot {
   .case-foot a {
     transition: none;
   }
+}
+
+/* Code stays monospaced; the rest of the interface uses Inter Variable. */
+
+.prose code,
+.prose pre,
+.case code,
+.case pre {
+  font-family: var(--mono);
 }
