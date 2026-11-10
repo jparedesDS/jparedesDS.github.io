@@ -7,7 +7,7 @@
 
   Labels come from `strings.project_links[link.type]`; `link.label` is a
   fallback for links without a known type. Private or URL-less links render as
-  a non-interactive badge. Task 8 refines the markup and styles.
+  a non-interactive badge so that private repositories are never exposed.
 {% endcomment %}
 {% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
 {% assign strings = site.data[active_lang].strings %}
@@ -22,8 +22,13 @@
     {% endunless %}
     {% if link.private or link.url == nil or link.url == '' %}
       <span class="project-link project-link--private">
-        {{- label -}}
-        {%- if link.note %} <small class="project-link-note">{{ link.note }}</small>{% endif -%}
+        <span class="project-link-label">{{ label }}</span>
+        {% if link.private %}
+          <span class="project-link-badge">{{ strings.projects.private_repository }}</span>
+        {% endif %}
+        {% if link.note %}
+          <small class="project-link-note">{{ link.note }}</small>
+        {% endif %}
       </span>
     {% else %}
       {% assign external_link = false %}
