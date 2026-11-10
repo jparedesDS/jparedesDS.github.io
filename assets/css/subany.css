@@ -163,6 +163,17 @@ body {
   font-family: var(--subany-font-sans);
 }
 
+/* Selection and highlight marker share one palette token in both themes. */
+::selection {
+  background: var(--global-marker-color);
+  color: var(--global-bg-color);
+}
+
+mark {
+  background: var(--global-marker-color);
+  color: var(--global-bg-color);
+}
+
 .navbar,
 .post-meta,
 .card,
@@ -995,12 +1006,21 @@ ninja-keys {
 
 .button-primary {
   background: #1c1915;
+  color: #d6bfa0;
+}
+
+html[data-theme="dark"] .button-primary {
   color: #ede3d3;
 }
 
 .button-primary:hover {
-  background: #2b261f;
+  background: color-mix(in srgb, #1c1915 85%, #d6bfa0);
   color: #d6bfa0;
+}
+
+html[data-theme="dark"] .button-primary:hover {
+  background: color-mix(in srgb, #1c1915 85%, #ede3d3);
+  color: #ede3d3;
 }
 
 .button-secondary {
@@ -1245,6 +1265,62 @@ ninja-keys {
   }
 }
 
+/* ---------------------------------------------------------------------------
+ * Dark surfaces
+ *
+ * The dark accent (#ff8a00) reaches AA on the page background (5.06:1) but only
+ * 4.33:1 on the #45403c cards. Inside cards the text keeps the text colour and
+ * the accent is used as an underline or border instead.
+ * ------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .hero-project a:not(.button),
+html[data-theme="dark"] .project-card a:not(.button),
+html[data-theme="dark"] .repository-card a:not(.button),
+html[data-theme="dark"] .tutorial-card a:not(.button),
+html[data-theme="dark"] .repositories-header a:not(.button),
+html[data-theme="dark"] .cv .card a {
+  color: var(--global-text-color);
+  text-decoration: underline;
+  text-decoration-color: var(--global-theme-color);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.15em;
+}
+
+html[data-theme="dark"] .button-secondary {
+  color: var(--global-text-color);
+  border-color: var(--global-theme-color);
+}
+
+html[data-theme="dark"] .button-secondary:hover {
+  background: var(--global-theme-color);
+  color: var(--global-hover-text-color);
+}
+
+html[data-theme="dark"] .project-category,
+html[data-theme="dark"] .project-private,
+html[data-theme="dark"] .project-lang-badge,
+html[data-theme="dark"] .repository-private,
+html[data-theme="dark"] .repository-language,
+html[data-theme="dark"] .repositories-kicker {
+  color: var(--global-text-color);
+}
+
+html[data-theme="dark"] .project-category,
+html[data-theme="dark"] .repositories-kicker {
+  border-bottom: 1.5px solid var(--global-theme-color);
+}
+
+html[data-theme="dark"] .project-private,
+html[data-theme="dark"] .project-lang-badge,
+html[data-theme="dark"] .repository-private {
+  border-color: var(--global-theme-color);
+}
+
+/* The CV badge puts card-coloured text on the accent background. */
+html[data-theme="dark"] .cv .card .list-group-item .badge {
+  color: var(--global-hover-text-color) !important;
+}
+
 /* Accessibility: inline links in body copy need a non-colour affordance
    because the burgundy link colour is close to the dark body text. */
 #main-content p a {
@@ -1252,14 +1328,32 @@ ninja-keys {
   text-underline-offset: 0.15em;
 }
 
-/* Accessibility: the upstream GitHub Pygments palette assumes a white
-   background. On the Subany cream code surface several token colours fall
-   below WCAG AA, so the light theme uses darkened equivalents. The dark theme
-   needs a few lighter equivalents, defined further down. */
+/* Code highlighting: the block always uses the palette code surface and the
+   palette text colour. Token colours below are palette values that pass WCAG AA
+   on that surface. */
+.highlight,
+.highlight pre,
+.highlight code {
+  background-color: var(--global-code-bg-color);
+  color: var(--global-text-color);
+}
+
+/* The bundled native theme hard-codes its own pre background; keep the palette
+   surface in dark mode regardless of stylesheet order. */
+html[data-theme] .highlight pre {
+  background-color: var(--global-code-bg-color);
+}
+
+/* Inline code sits on the code surface, where the accent is below AA in dark
+   mode; the text colour keeps it readable. */
+html[data-theme="dark"] :not(pre) > code {
+  color: var(--global-text-color);
+}
+
 html[data-theme="light"] .highlight .c,
 html[data-theme="light"] .highlight .cm,
 html[data-theme="light"] .highlight .c1 {
-  color: #544c43;
+  color: #3f382f;
 }
 
 html[data-theme="light"] .highlight .m,
@@ -1268,7 +1362,7 @@ html[data-theme="light"] .highlight .mh,
 html[data-theme="light"] .highlight .mi,
 html[data-theme="light"] .highlight .mo,
 html[data-theme="light"] .highlight .il {
-  color: #005757;
+  color: #8e0f42;
 }
 
 html[data-theme="light"] .highlight .s,
@@ -1281,7 +1375,7 @@ html[data-theme="light"] .highlight .sh,
 html[data-theme="light"] .highlight .si,
 html[data-theme="light"] .highlight .sx,
 html[data-theme="light"] .highlight .s1 {
-  color: #9c0b2f;
+  color: #5f092c;
 }
 
 html[data-theme="light"] .highlight .na,
@@ -1290,27 +1384,24 @@ html[data-theme="light"] .highlight .nv,
 html[data-theme="light"] .highlight .vc,
 html[data-theme="light"] .highlight .vg,
 html[data-theme="light"] .highlight .vi {
-  color: #005a5a;
+  color: #1c1915;
 }
 
 html[data-theme="light"] .highlight .nb,
 html[data-theme="light"] .highlight .bp {
-  color: #00546b;
+  color: #4a4238;
 }
 
 html[data-theme="light"] .highlight .nc,
 html[data-theme="light"] .highlight .kt {
-  color: #2b3f6b;
+  color: #7a0c39;
 }
 
-/* Accessibility: the native dark Pygments theme has a few token colours below
-   WCAG AA on its #404040 surface. Override only those families with lighter
-   tones from the same hue. */
 html[data-theme="dark"] .highlight .c,
 html[data-theme="dark"] .highlight .cm,
 html[data-theme="dark"] .highlight .c1,
 html[data-theme="dark"] .highlight .gp {
-  color: #b0b0b0;
+  color: #c4b9a8;
 }
 
 html[data-theme="dark"] .highlight .k,
@@ -1321,25 +1412,41 @@ html[data-theme="dark"] .highlight .kp,
 html[data-theme="dark"] .highlight .kr,
 html[data-theme="dark"] .highlight .kt,
 html[data-theme="dark"] .highlight .ow,
-html[data-theme="dark"] .highlight .nt {
-  color: #7bc93a;
-}
-
+html[data-theme="dark"] .highlight .nt,
 html[data-theme="dark"] .highlight .m,
 html[data-theme="dark"] .highlight .mf,
 html[data-theme="dark"] .highlight .mh,
 html[data-theme="dark"] .highlight .mi,
 html[data-theme="dark"] .highlight .mo,
 html[data-theme="dark"] .highlight .il,
-html[data-theme="dark"] .highlight .nc,
+html[data-theme="dark"] .highlight .s,
+html[data-theme="dark"] .highlight .sb,
+html[data-theme="dark"] .highlight .sc,
+html[data-theme="dark"] .highlight .sd,
+html[data-theme="dark"] .highlight .s2,
+html[data-theme="dark"] .highlight .se,
+html[data-theme="dark"] .highlight .sh,
+html[data-theme="dark"] .highlight .si,
+html[data-theme="dark"] .highlight .sx,
+html[data-theme="dark"] .highlight .s1,
+html[data-theme="dark"] .highlight .nc {
+  color: #ffb35c;
+}
+
+html[data-theme="dark"] .highlight .na,
+html[data-theme="dark"] .highlight .no,
+html[data-theme="dark"] .highlight .nv,
+html[data-theme="dark"] .highlight .vc,
+html[data-theme="dark"] .highlight .vg,
+html[data-theme="dark"] .highlight .vi,
 html[data-theme="dark"] .highlight .nf,
 html[data-theme="dark"] .highlight .nn {
-  color: #86b8ff;
+  color: #ede3d3;
 }
 
 html[data-theme="dark"] .highlight .nb,
 html[data-theme="dark"] .highlight .bp {
-  color: #5fd0dd;
+  color: #c0b5a4;
 }
 
 /* Accessibility/responsive: the CV contact table keeps its content on one line
