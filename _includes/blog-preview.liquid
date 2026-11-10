@@ -1,0 +1,25 @@
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign posts = site.data.blog_preview.posts | where: "lang", active_lang %}
+{% if posts.size == 0 %}{% assign posts = site.data.blog_preview.posts %}{% endif %}
+
+<ul class="blog-posts-list">
+  {% for post in posts limit: 3 %}
+    <li class="blog-post-item">
+      <a href="{{ post.url }}">
+        <div class="blog-content">
+          <div class="blog-meta">
+            <p class="blog-category">{{ post.lang | upcase }}</p>
+            <span class="dot"></span>
+            <time datetime="{{ post.date }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+          </div>
+
+          <h3 class="h3 blog-item-title">{{ post.title }}</h3>
+          <p class="blog-text">{{ post.excerpt }}</p>
+        </div>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a class="blog-all" href="{{ '/blog/' | relative_url }}">{{ strings.sections.all_posts }}</a>

@@ -224,6 +224,13 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   font-size: var(--fs-8);
 }
 
+.blog-all {
+  display: inline-block;
+  margin-top: 15px;
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-6);
+}
+
 .project-page {
   padding: 20px;
 }
