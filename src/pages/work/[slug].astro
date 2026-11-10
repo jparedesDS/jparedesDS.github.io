@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectLinks from "../../components/ProjectLinks.astro";
+
+export async function getStaticPaths() {
+  const cases = await getCollection("cases");
+  return cases.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const cases = await getCollection("cases");
+const ordered = [...cases].sort((a, b) => a.data.order - b.data.order);
+const currentIndex = ordered.findIndex((item) => item.id === entry.id);
+const next = ordered[(currentIndex + 1) % ordered.length];
+---
+
+<BaseLayout title={`${entry.data.title} — Jose Paredes`} description={entry.data.summary}>
+  <article class="case">
+    <a class="back-link" href="/work/">← All work</a>
+
+    <p class="case-kicker">{entry.data.category} · {entry.data.year}</p>
+    <h1>{entry.data.title}</h1>
+    <p class="case-summary">{entry.data.summary}</p>
+
+    {
+      entry.data.image && (
+        <figure class="case-media">
+          <img
+            src={entry.data.image}
+            alt={entry.data.imageAlt ?? entry.data.title}
+            width="1200"
+            height="630"
+          />
+        </figure>
+      )
+    }
+
+    <ProjectLinks links={entry.data.links} />
+
+    <div class="prose"><Content /></div>
+
+    <a class="case-next" href={`/work/${next.id}/`}>
+      <span class="case-next-label">Next project</span>
+      <span class="case-next-title">{next.data.title}</span>
+      <span class="case-next-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <p class="case-foot"><a href="/work/">← Back to the archive</a></p>
+  </article>
+</BaseLayout>

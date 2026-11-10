@@ -98,3 +98,50 @@ test("the archive does not leak the DocFlow client and portal names", () => {
     assert.doesNotMatch(html, new RegExp(name, "i"));
   }
 });
+
+const caseSlugs = ["subany-video", "docflow-saas", "pro-pov-cs2", "trtw-tv", "cleanyourphone"];
+
+test("the five new cases build", () => {
+  for (const slug of caseSlugs) {
+    assert.ok(fs.existsSync(path.join(dist, "work", slug, "index.html")), slug);
+  }
+});
+
+test("the DocFlow case is public-safe", () => {
+  const html = read("work/docflow-saas/index.html");
+  assert.match(html, /DocFlow/);
+  for (const name of [
+    "AYESA",
+    "SACYR",
+    "Hyundai",
+    "eGesdoc",
+    "Aconex",
+    "Sendoc",
+    "PRODOC",
+    "GAIA",
+    "Wood",
+    "Document Space",
+    "DocFlow Lite",
+    "ERP",
+    "DocuSign",
+  ]) {
+    assert.doesNotMatch(html, new RegExp(name, "i"));
+  }
+});
+
+test("every case has a title and a problem, approach and result section", () => {
+  for (const slug of caseSlugs) {
+    const html = read(`work/${slug}/index.html`);
+    assert.match(html, /<h1[^>]*>\s*[^<\s][^<]*<\/h1>/, `${slug} h1`);
+    for (const heading of ["Problem", "Approach", "Result"]) {
+      assert.match(html, new RegExp(`<h2[^>]*>\\s*${heading}\\s*</h2>`), `${slug} ${heading}`);
+    }
+  }
+});
+
+test("the archive links to all five case studies", () => {
+  const html = read("work/index.html");
+  for (const slug of caseSlugs) {
+    assert.match(html, new RegExp(`href="/work/${slug}/"`), slug);
+  }
+});

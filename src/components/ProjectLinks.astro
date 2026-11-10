@@ -1,0 +1,29 @@
+---
+export interface Props {
+  links: { label: string; url: string; external?: boolean }[];
+}
+
+const { links = [] } = Astro.props;
+const isExternalUrl = (url: string) => /^https?:\/\//i.test(url);
+---
+
+{
+  links.length > 0 && (
+    <div class="project-links">
+      {links.map((link) => {
+        const external = link.external ?? isExternalUrl(link.url);
+        return (
+          <a
+            class="project-link"
+            href={link.url}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
+          >
+            {link.label}
+            {external && <span aria-hidden="true"> ↗</span>}
+          </a>
+        );
+      })}
+    </div>
+  )
+}
