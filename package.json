@@ -3,7 +3,7 @@
   "scripts": {
     "lint:prettier": "prettier . --check",
     "sync:blog": "node blog-preview-sync.mjs",
-    "test:content": "node --test test/content/*.test.mjs",
+    "test:content": "bundle exec jekyll build && node --test test/content/*.test.mjs",
     "test:a11y": "playwright test test/a11y",
     "test:responsive": "playwright test test/responsive",
     "test:e2e": "playwright test test/e2e",
