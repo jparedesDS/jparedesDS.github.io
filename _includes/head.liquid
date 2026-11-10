@@ -3,11 +3,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ page.title | default: site.title }}</title>
 <meta name="description" content="{{ page.description | default: site.description }}">
-{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+
+{% assign canonical = site.url | append: page.url %}
+{% assign en_url = site.url | append: page.url | remove_first: '/es' %}
+
 {% if page.rendered_lang and page.rendered_lang != active_lang %}
-<meta name="robots" content="noindex">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="{{ en_url }}">
+  <link rel="alternate" hreflang="en" href="{{ en_url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
+{% else %}
+  <link rel="canonical" href="{{ canonical }}">
+  {% if active_lang == 'en' %}
+    <link rel="alternate" hreflang="es" href="{{ site.url }}/es{{ page.url }}">
+    <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ page.url }}">
+  {% else %}
+    <link rel="alternate" hreflang="en" href="{{ en_url }}">
+    <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
+  {% endif %}
 {% endif %}
-<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+<meta property="og:title" content="{{ page.title | default: site.title }}">
+<meta property="og:description" content="{{ page.description | default: site.description }}">
+<meta property="og:type" content="{% if page.layout == 'project' %}article{% else %}website{% endif %}">
+<meta property="og:url" content="{{ canonical }}">
+{% if page.img %}
+  <meta property="og:image" content="{{ page.img | absolute_url }}">
+{% else %}
+  <meta property="og:image" content="{{ '/profile.jpg' | absolute_url }}">
+{% endif %}
+
+{% if page.layout == "home" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ site.data[active_lang].home.name | jsonify }},
+  "jobTitle": {{ site.data[active_lang].home.role | jsonify }},
+  "url": {{ canonical | jsonify }},
+  "sameAs": [
+    "https://www.linkedin.com/in/jparedesDS/",
+    "https://github.com/jparedesDS",
+    "https://huggingface.co/jparedesDS",
+    "https://www.kaggle.com/joseparedesc"
+  ]
+}
+</script>
+{% endif %}
+
+{% if page.layout == "project" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.description | jsonify }},
+  "url": {{ canonical | jsonify }}
+  {% if page.img %},
+  "image": {{ page.img | absolute_url | jsonify }}
+  {% endif %}
+}
+</script>
+{% endif %}
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">

@@ -16,7 +16,6 @@ collections:
 
 plugins:
   - jekyll-polyglot
-  - jekyll-sitemap
 
 include: ["_pages"]
 
