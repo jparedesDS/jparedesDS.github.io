@@ -1,8 +1,0 @@
-{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
-{% assign strings = site.data[active_lang].strings %}
-<footer class="sticky-bottom mt-5" role="contentinfo">
-  <div class="container footer-content">
-    <p>&copy; {{ site.time | date: '%Y' }} Jose Paredes. {{ strings.footer.tagline }}</p>
-    <p>{{ strings.footer.built_with }}</p>
-  </div>
-</footer>

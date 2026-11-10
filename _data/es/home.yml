@@ -1,10 +1,6 @@
 eyebrow: Sobre mí
 name: Jose Paredes
 role: Científico de Datos · Madrid, España
-summary: >-
-  En EIPSA construyo sistemas de visión por computador y automatización para
-  ingeniería y fabricación. También desarrollo productos de IA prácticos y
-  herramientas local-first.
 profile_alt: Retrato de Jose Paredes
 contact_label: Contacto y perfiles profesionales
 contact:
@@ -26,37 +22,41 @@ contact:
   - label: Kaggle
     url: https://www.kaggle.com/joseparedesc
     external: true
-featured:
-  label: Proyecto destacado
-  title: subany.video
-  tagline: Cualquier vídeo, en tu idioma.
-  description: >-
-    Subtítulos y traducción en directo para directos y vídeos, procesados de
-    forma privada en tu navegador. Sin cuenta.
-  image: /images/subany-video-thumb.png
-  image_alt: "subany.video mostrando un enlace de vídeo listo para subtitular"
-  preview_label: Abrir subany.video
-  links:
-    - label: Probar subany.video
-      url: https://subany.video/
-      style: primary
-    - label: Cómo funciona
-      url: /blog/2026/11/09/como-funciona-subany-video/
-      style: secondary
-projects_title: Proyectos
-projects_all_label: Todos los proyectos
-selected_note: Trabajo seleccionado. Consulta todos los proyectos para ver el archivo completo.
-selected_projects:
-  - cleanyourmail
-  - cleanyourphone
-  - pro-pov-cs2
-  - trtw-tv
-  - docflow-saas
-  - polymarket-autobetting
-  - workshop-scheduler
-  - claude-telegram-bot
-  - ocr-weapon-detection-cs2
-latest_title: Últimos tutoriales
-latest_all_label: Todos los tutoriales
-latest_note: Artículos técnicos sobre cómo funcionan los proyectos.
-latest_limit: 3
+intro:
+  - "En EIPSA construyo sistemas de visión por computador y automatización para ingeniería y fabricación."
+  - "También desarrollo productos de IA prácticos y herramientas local-first."
+availability: "Abierto a trabajo interesante de IA y visión por computador."
+services:
+  - icon: vision
+    title: Visión por computador
+    text: "Detección de defectos, inspección y seguimiento con YOLO en producción."
+  - icon: ai
+    title: Ingeniería de IA
+    text: "Integraciones de LLM, flujos agénticos y desarrollo asistido por IA."
+  - icon: automation
+    title: Automatización
+    text: "Pipelines que eliminan trabajo manual de documentos y datos."
+  - icon: product
+    title: Productos
+    text: "Herramientas local-first y SaaS construidos de principio a fin."
+apps:
+  - name: CleanYourPhone
+    url: /projects/cleanyourphone/
+    image: /images/cleanyourphone-thumb.png
+    alt: "CleanYourPhone"
+    text: "Debloat reversible de Android."
+  - name: CleanYourMail
+    url: /projects/cleanyourmail/
+    image: /images/cleanyourmail-thumb.png
+    alt: "CleanYourMail"
+    text: "Limpieza reversible de la bandeja de entrada."
+  - name: subany.video
+    url: https://subany.video/
+    image: /images/subany-video-thumb.png
+    alt: "subany.video"
+    text: "Subtítulos en directo en el navegador."
+  - name: Pro POV CS2
+    url: /projects/pro-pov-cs2/
+    image: /images/propov-cs2.png
+    alt: "Pro POV CS2"
+    text: "Pipeline autónomo de contenido de esports."

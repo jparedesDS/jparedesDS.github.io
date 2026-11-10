@@ -9,7 +9,7 @@ lang: en
 page_id: project-valorant-players-detector
 permalink: /projects/valorant-players-detector/
 nav_key: projects
-lang_switch_fallback: /projects/
+lang_switch_fallback: /?filter=ai-vision#portfolio
 private: false
 tutorial:
 links:

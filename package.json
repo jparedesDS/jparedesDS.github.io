@@ -2,10 +2,8 @@
   "name": "jparedesds-portfolio",
   "scripts": {
     "lint:prettier": "prettier . --check",
-    "lint:style-contract": "node test/style_contract.js",
-    "test:visual": "playwright test --config test/visual/playwright.config.js",
-    "test:visual:update": "playwright test --config test/visual/playwright.config.js --update-snapshots",
-    "test:content": "node --test test/content/inventory.test.mjs test/content/i18n.test.mjs test/content/content.test.mjs test/content/links.test.mjs test/content/redirects.test.mjs",
+    "sync:blog": "node blog-preview-sync.mjs",
+    "test:content": "node --test test/content/*.test.mjs",
     "test:a11y": "playwright test test/a11y",
     "test:responsive": "playwright test test/responsive",
     "test:e2e": "playwright test test/e2e",

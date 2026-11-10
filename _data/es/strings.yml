@@ -4,6 +4,22 @@ nav:
   projects: Proyectos
   repositories: Repositorios
   cv: CV
+tabs:
+  about: Sobre mí
+  resume: Currículum
+  portfolio: Proyectos
+  blog: Blog
+  contact: Contacto
+sections:
+  services: Lo que hago
+  apps: Apps
+  contact: Contacto
+  all_posts: Todas las entradas
+contact_actions:
+  copy_email: Copiar correo
+  copied: Copiado
+  email: Correo
+contacts_toggle: Mostrar contactos
 nav_label: Navegación principal
 menu_toggle: Mostrar navegación
 theme_toggle: Cambiar tema

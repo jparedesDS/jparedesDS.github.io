@@ -3,20 +3,14 @@ import AxeBuilder from "@axe-core/playwright";
 
 const routes = [
   { path: "/", name: "home EN" },
-  { path: "/projects/", name: "projects EN" },
-  { path: "/blog/", name: "blog EN" },
-  { path: "/blog/2026/11/09/how-subany-video-works/", name: "tutorial EN" },
-  { path: "/repositories/", name: "repositories EN" },
-  { path: "/cv/", name: "CV EN" },
   { path: "/es/", name: "home ES" },
-  { path: "/es/projects/", name: "projects ES" },
-  { path: "/es/blog/", name: "blog ES" },
-  { path: "/es/blog/2026/11/09/como-funciona-subany-video/", name: "tutorial ES" },
-  { path: "/es/repositories/", name: "repositories ES" },
-  { path: "/es/cv/", name: "CV ES" },
+  { path: "/projects/cleanyourmail/", name: "project EN" },
+  { path: "/es/projects/cleanyourmail/", name: "project ES" },
+  { path: "/es/projects/valorant-players-detector/", name: "fallback ES" },
+  { path: "/cleanyourmail/", name: "case study EN" },
 ];
 
-const themedRoutes = routes.filter(({ path }) => ["/", "/projects/", "/blog/2026/11/09/how-subany-video-works/", "/cv/"].includes(path));
+const themedRoutes = routes.filter(({ path }) => ["/", "/projects/cleanyourmail/"].includes(path));
 
 const analyze = async (page, label) => {
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
@@ -40,4 +34,12 @@ for (const theme of ["light", "dark"]) {
       await analyze(page, `${name} (${path}, ${theme})`);
     });
   }
+}
+
+for (const path of ["/", "/es/"]) {
+  test(`${path} has no WCAG 2.1 AA violations at 360px`, async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 900 });
+    await page.goto(path);
+    await analyze(page, `${path} at 360px`);
+  });
 }

@@ -1,60 +1,37 @@
-{% comment %}
-  Project links.
-
-  Interface:
-    include.links  - array of { type, url, private, note, label }
-    include.limit  - optional maximum number of links to render
-
-  Labels come from `strings.project_links[link.type]`; `link.label` is a
-  fallback for links without a known type. Private or URL-less links render as
-  a non-interactive badge so that private repositories are never exposed.
-{% endcomment %}
-{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
-{% assign strings = site.data[active_lang].strings %}
 {% if include.links %}
-  {% for link in include.links %}
-    {% if include.limit and forloop.index > include.limit %}
-      {% break %}
-    {% endif %}
-    {% assign label = strings.project_links[link.type] %}
-    {% unless label %}
-      {% assign label = link.label | default: link.type %}
-    {% endunless %}
-    {% if link.private or link.url == null or link.url == '' %}
-      <span class="project-link project-link--private">
-        <span class="project-link-label">{{ label }}</span>
-        {% if link.private %}
-          <span class="project-link-badge">{{ strings.projects.private_repository }}</span>
-        {% endif %}
-        {% if link.note %}
-          <small class="project-link-note">{{ link.note }}</small>
-        {% endif %}
-      </span>
-    {% else %}
-      {% assign external_link = false %}
-      {% if link.url contains '://' or link.url contains 'mailto:' %}
-        {% assign external_link = true %}
-      {% endif %}
-      <a
-        class="project-link"
-        {% if external_link %}
-          {%- if site.url != '' and link.url contains site.url -%}
-            {%- static_href %}href="{{ link.url }}"{% endstatic_href -%}
-          {%- else -%}
-            href="{{ link.url }}"
-          {%- endif -%}
+  <ul class="project-links">
+    {% for link in include.links %}
+      {% assign label = strings.project_links[link.type] | default: link.label | default: link.type %}
+      <li>
+        {% if link.private or link.url == nil or link.url == "" %}
+          <span class="project-link project-link--private">
+            {{ label }}
+            {% if link.private %}
+              <span class="project-link-badge">{{ strings.projects.private_repository }}</span>
+            {% endif %}
+          </span>
         {% else %}
-          href="{{ link.url | relative_url }}"
+          {% assign url = link.url %}
+          {% assign external = false %}
+          {% if url contains "://" or url contains "mailto:" %}
+            {% assign external = true %}
+          {% endif %}
+          {% assign same_host = false %}
+          {% if url contains site.url %}
+            {% assign same_host = true %}
+            {% assign url = url | remove_first: site.url %}
+          {% endif %}
+          {% if external and same_host == false %}
+            <a class="project-link" href="{{ url }}" target="_blank" rel="noopener noreferrer">
+              {{ label }}
+            </a>
+          {% else %}
+            <a class="project-link" {% static_href %}href="{{ url | relative_url }}"{% endstatic_href %}>
+              {{ label }}
+            </a>
+          {% endif %}
         {% endif %}
-        {% if external_link %}
-          target="_blank" rel="noopener noreferrer"
-        {% endif %}
-      >
-        {{- label -}}
-      </a>
-      {%- if link.note %}
-        <small class="project-link-note">{{ link.note }}</small>
-      {%- endif %}
-    {% endif %}
-  {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
 {% endif %}
