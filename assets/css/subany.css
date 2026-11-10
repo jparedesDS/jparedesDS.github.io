@@ -163,6 +163,12 @@ body {
   font-family: var(--subany-font-sans);
 }
 
+/* Selection and highlight marker share one palette token in both themes. */
+::selection {
+  background: var(--global-marker-color);
+  color: var(--global-bg-color);
+}
+
 .navbar,
 .post-meta,
 .card,
@@ -992,12 +998,21 @@ ninja-keys {
 
 .button-primary {
   background: #1c1915;
+  color: #d6bfa0;
+}
+
+html[data-theme="dark"] .button-primary {
   color: #ede3d3;
 }
 
 .button-primary:hover {
-  background: #2b261f;
+  background: color-mix(in srgb, #1c1915 85%, #d6bfa0);
   color: #d6bfa0;
+}
+
+html[data-theme="dark"] .button-primary:hover {
+  background: color-mix(in srgb, #1c1915 85%, #ede3d3);
+  color: #ede3d3;
 }
 
 .button-secondary {
@@ -1242,6 +1257,62 @@ ninja-keys {
   }
 }
 
+/* ---------------------------------------------------------------------------
+ * Dark surfaces
+ *
+ * The dark accent (#ff8a00) reaches AA on the page background (5.06:1) but only
+ * 4.33:1 on the #45403c cards. Inside cards the text keeps the text colour and
+ * the accent is used as an underline or border instead.
+ * ------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .hero-project a:not(.button),
+html[data-theme="dark"] .project-card a:not(.button),
+html[data-theme="dark"] .repository-card a:not(.button),
+html[data-theme="dark"] .tutorial-card a:not(.button),
+html[data-theme="dark"] .repositories-header a:not(.button),
+html[data-theme="dark"] .cv .card a {
+  color: var(--global-text-color);
+  text-decoration: underline;
+  text-decoration-color: var(--global-theme-color);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.15em;
+}
+
+html[data-theme="dark"] .button-secondary {
+  color: var(--global-text-color);
+  border-color: var(--global-theme-color);
+}
+
+html[data-theme="dark"] .button-secondary:hover {
+  background: var(--global-theme-color);
+  color: var(--global-hover-text-color);
+}
+
+html[data-theme="dark"] .project-category,
+html[data-theme="dark"] .project-private,
+html[data-theme="dark"] .project-lang-badge,
+html[data-theme="dark"] .repository-private,
+html[data-theme="dark"] .repository-language,
+html[data-theme="dark"] .repositories-kicker {
+  color: var(--global-text-color);
+}
+
+html[data-theme="dark"] .project-category,
+html[data-theme="dark"] .repositories-kicker {
+  border-bottom: 1.5px solid var(--global-theme-color);
+}
+
+html[data-theme="dark"] .project-private,
+html[data-theme="dark"] .project-lang-badge,
+html[data-theme="dark"] .repository-private {
+  border-color: var(--global-theme-color);
+}
+
+/* The CV badge puts card-coloured text on the accent background. */
+html[data-theme="dark"] .cv .card .list-group-item .badge {
+  color: var(--global-hover-text-color) !important;
+}
+
 /* Accessibility: inline links in body copy need a non-colour affordance
    because the burgundy link colour is close to the dark body text. */
 #main-content p a {
@@ -1249,72 +1320,168 @@ ninja-keys {
   text-underline-offset: 0.15em;
 }
 
-/* Accessibility: the upstream GitHub Pygments palette assumes a white
-   background. On the Subany cream code surface several token colours fall
-   below WCAG AA, so the light theme uses darkened equivalents. The dark theme
-   needs a few lighter equivalents, defined further down. */
-html[data-theme="light"] .highlight .c,
-html[data-theme="light"] .highlight .cm,
-html[data-theme="light"] .highlight .c1 {
-  color: #544c43;
+/* Code highlighting: the block always uses the palette code surface and the
+   palette text colour. Every Pygments family that the bundled GitHub (light)
+   and native (dark) stylesheets can emit is remapped to an approved palette
+   colour, so no third-party token colour reaches the page. */
+.highlight,
+.highlight pre,
+.highlight code {
+  background-color: var(--global-code-bg-color);
+  color: var(--global-text-color);
 }
 
+/* The bundled native theme hard-codes its own pre background; keep the palette
+   surface in dark mode regardless of stylesheet order. */
+html[data-theme] .highlight pre {
+  background-color: var(--global-code-bg-color);
+}
+
+/* Inline code sits on the code surface, where the accent is below AA in dark
+   mode; the text colour keeps it readable. */
+html[data-theme="dark"] :not(pre) > code {
+  color: var(--global-text-color);
+}
+
+/* Highlighted lines: palette blend background plus the palette text colour. */
+
+/* Light syntax: comments, prompts, generic output and whitespace. */
+html[data-theme="light"] .highlight .c,
+html[data-theme="light"] .highlight .cm,
+html[data-theme="light"] .highlight .c1,
+html[data-theme="light"] .highlight .g,
+html[data-theme="light"] .highlight .go,
+html[data-theme="light"] .highlight .w {
+  color: #3f382f;
+}
+
+/* Light syntax: numbers. */
 html[data-theme="light"] .highlight .m,
 html[data-theme="light"] .highlight .mf,
 html[data-theme="light"] .highlight .mi,
 html[data-theme="light"] .highlight .mo {
-  color: #005757;
+  color: #8e0f42;
 }
 
+/* Light syntax: strings. */
 html[data-theme="light"] .highlight .s,
 html[data-theme="light"] .highlight .s2,
 html[data-theme="light"] .highlight .se,
 html[data-theme="light"] .highlight .si,
+html[data-theme="light"] .highlight .sr,
 html[data-theme="light"] .highlight .s1 {
-  color: #9c0b2f;
+  color: #5f092c;
 }
 
+/* Light syntax: keywords, classes, functions, decorators and tags. */
+html[data-theme="light"] .highlight .k,
+html[data-theme="light"] .highlight .kc,
+html[data-theme="light"] .highlight .kd,
+html[data-theme="light"] .highlight .kr,
+html[data-theme="light"] .highlight .nc,
+html[data-theme="light"] .highlight .nf,
+html[data-theme="light"] .highlight .ne,
+html[data-theme="light"] .highlight .nt {
+  color: #7a0c39;
+}
+
+/* Light syntax: names, attributes, variables, constants and labels. */
+html[data-theme="light"] .highlight .n,
 html[data-theme="light"] .highlight .na,
-html[data-theme="light"] .highlight .no {
-  color: #005a5a;
+html[data-theme="light"] .highlight .no,
+html[data-theme="light"] .highlight .ni,
+html[data-theme="light"] .highlight .nl,
+html[data-theme="light"] .highlight .nx,
+html[data-theme="light"] .highlight .py,
+html[data-theme="light"] .highlight .l,
+html[data-theme="light"] .highlight .ld,
+html[data-theme="light"] .highlight .x {
+  color: #1c1915;
 }
 
+/* Light syntax: builtins. */
 html[data-theme="light"] .highlight .nb {
-  color: #00546b;
+  color: #4a4238;
 }
 
-html[data-theme="light"] .highlight .nc {
-  color: #2b3f6b;
+/* Light syntax: operators, punctuation, emphasis and strong text. */
+html[data-theme="light"] .highlight .o,
+html[data-theme="light"] .highlight .p,
+html[data-theme="light"] .highlight .ge {
+  color: #1c1915;
 }
 
-/* Accessibility: the native dark Pygments theme has a few token colours below
-   WCAG AA on its #404040 surface. Override only those families with lighter
-   tones from the same hue. */
+/* Light syntax: errors and deletions keep a palette tinted background. */
+
+/* Light syntax: tracebacks, inserted lines and diff markers. */
+html[data-theme="light"] .highlight .gr,
+html[data-theme="light"] .highlight .gt {
+  background-color: transparent;
+  color: #4a4238;
+}
+
+/* Dark syntax: comments, prompts, generic output and whitespace. */
 html[data-theme="dark"] .highlight .c,
 html[data-theme="dark"] .highlight .cm,
-html[data-theme="dark"] .highlight .c1 {
-  color: #b0b0b0;
+html[data-theme="dark"] .highlight .c1,
+html[data-theme="dark"] .highlight .g,
+html[data-theme="dark"] .highlight .go,
+html[data-theme="dark"] .highlight .w {
+  color: #c4b9a8;
 }
 
+/* Dark syntax: keywords, classes, functions, decorators, tags, numbers and
+   strings. */
 html[data-theme="dark"] .highlight .k,
 html[data-theme="dark"] .highlight .kc,
 html[data-theme="dark"] .highlight .kd,
 html[data-theme="dark"] .highlight .kr,
-html[data-theme="dark"] .highlight .nt {
-  color: #7bc93a;
-}
-
+html[data-theme="dark"] .highlight .nc,
+html[data-theme="dark"] .highlight .nf,
+html[data-theme="dark"] .highlight .ne,
+html[data-theme="dark"] .highlight .nt,
 html[data-theme="dark"] .highlight .m,
 html[data-theme="dark"] .highlight .mf,
 html[data-theme="dark"] .highlight .mi,
 html[data-theme="dark"] .highlight .mo,
-html[data-theme="dark"] .highlight .nc,
-html[data-theme="dark"] .highlight .nf {
-  color: #86b8ff;
+html[data-theme="dark"] .highlight .s,
+html[data-theme="dark"] .highlight .s2,
+html[data-theme="dark"] .highlight .se,
+html[data-theme="dark"] .highlight .si,
+html[data-theme="dark"] .highlight .sr,
+html[data-theme="dark"] .highlight .s1 {
+  color: #ffb35c;
 }
 
+/* Dark syntax: names, attributes, variables, operators and punctuation. */
+html[data-theme="dark"] .highlight .n,
+html[data-theme="dark"] .highlight .na,
+html[data-theme="dark"] .highlight .no,
+html[data-theme="dark"] .highlight .ni,
+html[data-theme="dark"] .highlight .nl,
+html[data-theme="dark"] .highlight .nx,
+html[data-theme="dark"] .highlight .py,
+html[data-theme="dark"] .highlight .l,
+html[data-theme="dark"] .highlight .ld,
+html[data-theme="dark"] .highlight .x,
+html[data-theme="dark"] .highlight .o,
+html[data-theme="dark"] .highlight .p,
+html[data-theme="dark"] .highlight .ge {
+  color: #ede3d3;
+}
+
+/* Dark syntax: builtins. */
 html[data-theme="dark"] .highlight .nb {
-  color: #5fd0dd;
+  color: #c0b5a4;
+}
+
+/* Dark syntax: errors and deletions keep a palette tinted background. */
+
+/* Dark syntax: tracebacks, inserted lines and diff markers. */
+html[data-theme="dark"] .highlight .gr,
+html[data-theme="dark"] .highlight .gt {
+  background-color: transparent;
+  color: #c0b5a4;
 }
 
 /* Accessibility/responsive: the CV contact table keeps its content on one line
