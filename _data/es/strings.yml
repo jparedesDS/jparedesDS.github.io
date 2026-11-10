@@ -87,6 +87,7 @@ cv:
   location: Ubicación
   website: Sitio web
   professional_summary: Resumen profesional
+  download_pdf: Descargar CV en PDF
   sections:
     Experience: Experiencia
     Education: Formación

@@ -87,6 +87,7 @@ cv:
   location: Location
   website: Website
   professional_summary: Professional Summary
+  download_pdf: Download CV as PDF
   sections:
     Experience: Experience
     Education: Education

@@ -254,6 +254,7 @@ exclude:
   - node_modules/
   - package.json
   - package-lock.json
+  - playwright.config.js
   - _pages/about_einstein.md
   - playwright-report/
   - purgecss.config.js

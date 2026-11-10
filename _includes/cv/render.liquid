@@ -11,6 +11,8 @@
   - A `Location` row is rendered from `cv.location` when `cv.address` is absent.
   - The section dispatch still keys off the canonical RenderCV section names
     (`Experience`, `Education`, `Skills`, …), which are never translated.
+  - The PDF icon link has an accessible name from `strings.cv.download_pdf`; an
+    icon-only link would otherwise be announced without a name.
 {% endcomment %}
 
 {% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
@@ -31,8 +33,9 @@
           target="_blank"
           rel="noopener noreferrer"
           class="float-right"
+          aria-label="{{ strings.cv.download_pdf | default: 'Download CV as PDF' }}"
         >
-          <i class="fa-solid fa-file-pdf"></i>
+          <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
         </a>
       {% endif %}
     </h1>

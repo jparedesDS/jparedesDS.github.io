@@ -531,7 +531,6 @@ ninja-keys {
   }
 }
 
-
 /* Blog index facets and post list additions. */
 .blog-facets {
   display: flex;
@@ -1243,5 +1242,119 @@ ninja-keys {
 
   .button {
     width: 100%;
+  }
+}
+
+/* Accessibility: inline links in body copy need a non-colour affordance
+   because the burgundy link colour is close to the dark body text. */
+#main-content p a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Accessibility: the upstream GitHub Pygments palette assumes a white
+   background. On the Subany cream code surface several token colours fall
+   below WCAG AA, so the light theme uses darkened equivalents. The dark theme
+   needs a few lighter equivalents, defined further down. */
+html[data-theme="light"] .highlight .c,
+html[data-theme="light"] .highlight .cm,
+html[data-theme="light"] .highlight .c1 {
+  color: #544c43;
+}
+
+html[data-theme="light"] .highlight .m,
+html[data-theme="light"] .highlight .mf,
+html[data-theme="light"] .highlight .mh,
+html[data-theme="light"] .highlight .mi,
+html[data-theme="light"] .highlight .mo,
+html[data-theme="light"] .highlight .il {
+  color: #005757;
+}
+
+html[data-theme="light"] .highlight .s,
+html[data-theme="light"] .highlight .sb,
+html[data-theme="light"] .highlight .sc,
+html[data-theme="light"] .highlight .sd,
+html[data-theme="light"] .highlight .s2,
+html[data-theme="light"] .highlight .se,
+html[data-theme="light"] .highlight .sh,
+html[data-theme="light"] .highlight .si,
+html[data-theme="light"] .highlight .sx,
+html[data-theme="light"] .highlight .s1 {
+  color: #9c0b2f;
+}
+
+html[data-theme="light"] .highlight .na,
+html[data-theme="light"] .highlight .no,
+html[data-theme="light"] .highlight .nv,
+html[data-theme="light"] .highlight .vc,
+html[data-theme="light"] .highlight .vg,
+html[data-theme="light"] .highlight .vi {
+  color: #005a5a;
+}
+
+html[data-theme="light"] .highlight .nb,
+html[data-theme="light"] .highlight .bp {
+  color: #00546b;
+}
+
+html[data-theme="light"] .highlight .nc,
+html[data-theme="light"] .highlight .kt {
+  color: #2b3f6b;
+}
+
+/* Accessibility: the native dark Pygments theme has a few token colours below
+   WCAG AA on its #404040 surface. Override only those families with lighter
+   tones from the same hue. */
+html[data-theme="dark"] .highlight .c,
+html[data-theme="dark"] .highlight .cm,
+html[data-theme="dark"] .highlight .c1,
+html[data-theme="dark"] .highlight .gp {
+  color: #b0b0b0;
+}
+
+html[data-theme="dark"] .highlight .k,
+html[data-theme="dark"] .highlight .kc,
+html[data-theme="dark"] .highlight .kd,
+html[data-theme="dark"] .highlight .kn,
+html[data-theme="dark"] .highlight .kp,
+html[data-theme="dark"] .highlight .kr,
+html[data-theme="dark"] .highlight .kt,
+html[data-theme="dark"] .highlight .ow,
+html[data-theme="dark"] .highlight .nt {
+  color: #7bc93a;
+}
+
+html[data-theme="dark"] .highlight .m,
+html[data-theme="dark"] .highlight .mf,
+html[data-theme="dark"] .highlight .mh,
+html[data-theme="dark"] .highlight .mi,
+html[data-theme="dark"] .highlight .mo,
+html[data-theme="dark"] .highlight .il,
+html[data-theme="dark"] .highlight .nc,
+html[data-theme="dark"] .highlight .nf,
+html[data-theme="dark"] .highlight .nn {
+  color: #86b8ff;
+}
+
+html[data-theme="dark"] .highlight .nb,
+html[data-theme="dark"] .highlight .bp {
+  color: #5fd0dd;
+}
+
+/* Accessibility/responsive: the CV contact table keeps its content on one line
+   on narrow screens, which pushes the page wider than the viewport. Let the
+   cells shrink and wrap below the phone breakpoint. */
+@media (max-width: 480px) {
+  .cv table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .cv td,
+  .cv th {
+    overflow-wrap: anywhere;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
   }
 }

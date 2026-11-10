@@ -3,11 +3,19 @@
     "lint:prettier": "prettier . --check",
     "lint:style-contract": "node test/style_contract.js",
     "test:visual": "playwright test --config test/visual/playwright.config.js",
-    "test:visual:update": "playwright test --config test/visual/playwright.config.js --update-snapshots"
+    "test:visual:update": "playwright test --config test/visual/playwright.config.js --update-snapshots",
+    "test:content": "node --test test/content/inventory.test.mjs test/content/i18n.test.mjs test/content/content.test.mjs test/content/links.test.mjs test/content/redirects.test.mjs",
+    "test:a11y": "playwright test test/a11y",
+    "test:responsive": "playwright test test/responsive",
+    "test:e2e": "playwright test test/e2e",
+    "test": "npm run test:content && npm run test:a11y && npm run test:responsive && npm run test:e2e"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.56.1",
     "@shopify/prettier-plugin-liquid": "^1.11.1",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
     "prettier": "^3.9.9"
