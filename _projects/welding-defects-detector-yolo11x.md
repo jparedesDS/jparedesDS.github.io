@@ -9,7 +9,7 @@ lang: en
 page_id: project-welding-defects-detector-yolo11x
 permalink: /projects/welding-defects-detector-yolo11x/
 nav_key: projects
-lang_switch_fallback: /?filter=ai-vision#portfolio
+lang_switch_fallback: /projects/
 private: false
 tutorial:
 links:

@@ -1,0 +1,1670 @@
+/*
+ * Subany site overrides.
+ * Loaded after the theme CSS; palette tokens live in `_sass/_themes.scss`.
+ */
+
+/* CleanYourMail case study (ported from legacy _sass/_cleanyourmail.scss) */
+.case-kicker {
+  margin: 0 0 6px;
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.case-title {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.case-subtitle {
+  margin: 6px 0 0;
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 20px;
+}
+
+.case-lede {
+  margin: 18px 0 0;
+  color: var(--global-text-color);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+
+.case-button {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--global-theme-color);
+  border-radius: 6px;
+  background: var(--global-bg-color);
+  color: var(--global-theme-color);
+  font-weight: 700;
+}
+
+.case-button:hover {
+  background: color-mix(in srgb, var(--global-theme-color) 8%, var(--global-bg-color));
+  text-decoration: none;
+}
+
+.case-button-primary {
+  background: var(--global-theme-color);
+  color: var(--global-bg-color);
+}
+
+.case-button-primary:hover {
+  background: var(--global-theme-color);
+  color: var(--global-bg-color);
+  filter: brightness(0.88);
+}
+
+.case-hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 8px;
+  border: 1px solid var(--global-border-color, currentColor);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.case-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 22px 0 8px;
+}
+
+.case-stat {
+  padding: 14px 8px;
+  border: 1px solid var(--global-border-color, currentColor);
+  border-radius: 10px;
+  background: var(--global-card-bg-color);
+  text-align: center;
+}
+
+.case-stat strong {
+  display: block;
+  color: var(--global-theme-color);
+  font-size: 26px;
+  line-height: 1;
+}
+
+.case-stat span {
+  display: block;
+  margin-top: 5px;
+  color: var(--global-text-color);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.case-page h2 {
+  margin-top: 34px;
+}
+
+.case-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 12px 0 22px;
+  border: 1px solid var(--global-border-color, currentColor);
+  border-radius: 12px;
+}
+
+.case-note {
+  margin: 18px 0;
+  padding: 10px 14px;
+  border-left: 3px solid var(--global-theme-color);
+  background: var(--global-card-bg-color);
+  color: var(--global-text-color);
+}
+
+.case-back {
+  margin-top: 34px;
+  font-weight: 700;
+}
+
+@media (max-width: 500px) {
+  .case-title {
+    font-size: 32px;
+  }
+
+  .case-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .case-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Theme foundation - typography, surfaces, focus and layout shell
+ * ------------------------------------------------------------------------- */
+
+:root {
+  --subany-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --subany-font-serif: "Atkinson Hyperlegible", Georgia, "Times New Roman", serif;
+  --subany-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+body {
+  background-color: var(--global-bg-color);
+  color: var(--global-text-color);
+  font-family: var(--subany-font-sans);
+}
+
+/* Selection and highlight marker share one palette token in both themes. */
+::selection {
+  background: var(--global-marker-color);
+  color: var(--global-bg-color);
+}
+
+mark {
+  background: var(--global-marker-color);
+  color: var(--global-bg-color);
+}
+
+.navbar,
+.post-meta,
+.card,
+.card-title,
+.card-text,
+.form-control,
+.form-select,
+input,
+select,
+textarea,
+button,
+.btn {
+  font-family: var(--subany-font-sans);
+}
+
+.post-meta {
+  color: var(--global-text-soft, var(--global-text-color-light));
+}
+
+.post-content,
+.post-content p,
+.post-content li,
+.post-content blockquote {
+  font-family: var(--subany-font-serif);
+}
+
+code,
+pre,
+kbd,
+samp,
+.post-content code,
+.post-content pre {
+  font-family: var(--subany-font-mono);
+}
+
+/* Keyboard focus must stay visible on the beige and dark surfaces. */
+:focus-visible {
+  outline: 3px solid var(--global-focus-color);
+  outline-offset: 2px;
+}
+
+/* Skip link: off-screen until it receives keyboard focus. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 2000;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 0 6px 6px;
+  background: var(--global-text-color);
+  color: var(--global-bg-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+}
+
+/* Shell shared by the homepage and the index pages (filled in T8/T11/T13). */
+.home-container {
+  width: 100%;
+  max-width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* Cards/surfaces used by projects and blog listings. */
+.card {
+  border: 1px solid var(--global-border-color);
+  border-radius: 12px;
+  background-color: var(--global-card-bg-color);
+}
+
+.card-title {
+  color: var(--global-text-color);
+}
+
+.card-text {
+  color: var(--global-text-soft, var(--global-text-color-light));
+}
+
+/* CV list rendering without Bootstrap compatibility. */
+.cv .list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv .list-group-item {
+  border-bottom: 1px solid var(--global-border-color);
+}
+
+/* Search palette: mirror the site palette. */
+ninja-keys {
+  --ninja-modal-background: var(--global-card-bg-color);
+  --ninja-text-color: var(--global-text-color);
+  --ninja-secondary-text-color: var(--global-text-soft);
+  --ninja-selected-background: color-mix(in srgb, var(--global-theme-color) 18%, var(--global-card-bg-color));
+  --ninja-selected-text-color: var(--global-text-color);
+  --ninja-accent-color: var(--global-theme-color);
+  --ninja-footer-background: var(--global-surface-color);
+  --ninja-separate-border: 1px solid var(--global-border-color);
+  --ninja-font-family: "Inter", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Projects index and project pages (T8). */
+.projects-index {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.featured-project,
+.project-category-section {
+  scroll-margin-top: 5rem;
+  min-width: 0;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--global-border-color);
+  border-radius: 14px;
+  background: var(--global-card-bg-color);
+}
+
+.project-card-image {
+  display: block;
+  background: var(--global-surface-color);
+}
+
+.project-card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.project-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 1.1rem 1.2rem 1.3rem;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  min-width: 0;
+  font-size: 0.75rem;
+}
+
+.project-category {
+  color: var(--global-theme-color);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-private,
+.project-lang-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 999px;
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.project-lang-badge {
+  border-color: var(--global-theme-color);
+  color: var(--global-theme-color);
+}
+
+.project-card-title {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.project-card-title a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.project-card-title a:hover {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+}
+
+.project-card-description {
+  margin: 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.95rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.project-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+.project-card-links .project-link {
+  padding: 0.22rem 0.55rem;
+  font-size: 0.78rem;
+}
+
+.project-card--featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+
+.project-card--featured .project-card-image,
+.project-card--featured .project-card-image img {
+  height: 100%;
+  min-height: 220px;
+}
+
+.project-card--featured .project-card-image img {
+  aspect-ratio: auto;
+}
+
+.project-card--featured .project-card-body {
+  justify-content: center;
+  padding: 1.5rem 1.6rem;
+}
+
+.project-link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--global-theme-color);
+  border-radius: 999px;
+  color: var(--global-theme-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  background: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
+  color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+.project-link--private {
+  border-color: var(--global-border-color);
+  color: var(--global-text-soft, var(--global-text-color));
+}
+
+.project-link--private:hover {
+  background: transparent;
+  color: var(--global-text-soft, var(--global-text-color));
+}
+
+.project-link-badge {
+  padding: 0.05rem 0.35rem;
+  border-radius: 999px;
+  background: var(--global-surface-color);
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.project-link-note {
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+.project-link--tutorial {
+  border-style: dashed;
+}
+
+.project-page {
+  max-width: 900px;
+  margin-inline: auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-page > .project-meta {
+  margin-bottom: 1rem;
+}
+
+.project-hero-image {
+  margin: 0 0 1.5rem;
+}
+
+.project-hero-image figure {
+  margin: 0;
+}
+
+.project-hero-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+.project-page > .project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-tutorial {
+  margin: 0 0 1.5rem;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .project-card--featured {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card--featured .project-card-image,
+  .project-card--featured .project-card-image img {
+    height: auto;
+    min-height: 0;
+  }
+
+  .project-card--featured .project-card-image img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .project-card--featured .project-card-body {
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+}
+
+/* Blog index facets and post list additions. */
+.blog-facets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  padding: 1rem 0 1.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+.blog-facet {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.blog-facet-label {
+  color: var(--global-text-color-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.blog-facet-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.blog-facet-list li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.blog-facet-list a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.blog-facet-list a:hover {
+  color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+.blog-facet-count {
+  color: var(--global-text-color-light);
+  font-size: 0.7rem;
+}
+
+.post-list-item .post-list-title {
+  margin-bottom: 0.35rem;
+}
+
+.post-list-item .post-description {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  .blog-facets {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Repositories page (T11). */
+.repositories-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.repositories-header {
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 14px;
+  background: var(--global-card-bg-color);
+}
+
+.repositories-kicker {
+  margin: 0 0 0.35rem;
+  color: var(--global-theme-color);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.repositories-name {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.repositories-handle {
+  margin: 0.2rem 0 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-family: var(--subany-font-mono);
+  font-size: 0.9rem;
+}
+
+.repositories-description {
+  max-width: 62ch;
+  margin: 0.85rem 0 1.1rem;
+  color: var(--global-text-color);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.repositories-profile-link {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--global-theme-color);
+  border-radius: 999px;
+  background: var(--global-theme-color);
+  color: var(--global-bg-color);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.repositories-profile-link:hover {
+  color: var(--global-bg-color);
+  filter: brightness(0.9);
+  text-decoration: none;
+}
+
+.repositories-count {
+  margin: 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.repositories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 1.25rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repository-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 12px;
+  background: var(--global-card-bg-color);
+}
+
+.repository-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.repository-card-title {
+  min-width: 0;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.repository-card-title a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.repository-card-title a:hover {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+}
+
+.repository-private {
+  flex-shrink: 0;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 999px;
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.repository-card-description {
+  margin: 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.92rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.repository-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  margin-top: auto;
+  padding-top: 0.2rem;
+}
+
+.repository-language {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.repository-language::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--global-theme-color);
+  content: "";
+}
+
+.repositories-footer-link {
+  margin: 0;
+  font-weight: 700;
+}
+
+.repositories-footer-link a {
+  color: var(--global-theme-color);
+}
+
+@media (max-width: 500px) {
+  .repositories-header {
+    padding: 1.15rem 1.2rem;
+  }
+
+  .repositories-name {
+    font-size: 1.6rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Homepage (T13): profile, featured project, selected work and tutorials
+ * ------------------------------------------------------------------------- */
+
+.home {
+  min-width: 0;
+  color: var(--global-text-color);
+}
+
+.profile-header {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  min-width: 0;
+  padding: 3rem 0 2.5rem;
+}
+
+.profile-portrait {
+  min-width: 0;
+}
+
+.profile-portrait img {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border: 1px solid var(--global-border-color);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--global-surface-color);
+}
+
+.profile-header-body {
+  min-width: 0;
+}
+
+.profile-eyebrow {
+  margin: 0 0 0.4rem;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.profile-name {
+  margin: 0;
+  color: var(--global-text-color);
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.profile-role {
+  margin: 0.55rem 0 0;
+  color: var(--global-theme-color);
+  font-size: 1.05rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.profile-summary {
+  max-width: 62ch;
+  margin: 1rem 0 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 1.05rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.profile-contact {
+  margin-top: 1.35rem;
+}
+
+.profile-contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-contact-list a {
+  color: var(--global-text-color);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.profile-contact-list a:hover {
+  border-bottom-color: var(--global-theme-color);
+  color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+.hero-project {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 2.5rem;
+  align-items: center;
+  min-width: 0;
+  margin-top: 1rem;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  overflow: hidden;
+  border: 1px solid var(--global-border-color);
+  border-radius: 18px;
+  background: var(--global-card-bg-color);
+}
+
+.hero-project-copy {
+  min-width: 0;
+}
+
+.hero-project-label {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 1.1rem;
+  padding-bottom: 0.55rem;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.hero-project-label::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2.6rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--global-accent-gradient);
+  content: "";
+}
+
+.hero-project h2 {
+  margin: 0;
+  color: var(--global-text-color);
+  font-size: clamp(2.1rem, 4.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.hero-project-tagline {
+  margin: 0.85rem 0 0;
+  color: var(--global-text-color);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.hero-project-description {
+  max-width: 46ch;
+  margin: 0.75rem 0 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.95rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.hero-project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.6rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 0.65rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.button-primary {
+  background: #1c1915;
+  color: #d6bfa0;
+}
+
+html[data-theme="dark"] .button-primary {
+  color: #ede3d3;
+}
+
+.button-primary:hover {
+  background: color-mix(in srgb, #1c1915 85%, #d6bfa0);
+  color: #d6bfa0;
+}
+
+html[data-theme="dark"] .button-primary:hover {
+  background: color-mix(in srgb, #1c1915 85%, #ede3d3);
+  color: #ede3d3;
+}
+
+.button-secondary {
+  border-color: var(--global-border-color);
+  background: transparent;
+  color: var(--global-text-color);
+}
+
+.button-secondary:hover {
+  border-color: var(--global-theme-color);
+  background: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
+  color: var(--global-theme-color);
+}
+
+.hero-project-preview {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--global-border-color);
+  border-radius: 14px;
+  background: var(--global-surface-color);
+}
+
+.hero-project-preview:hover {
+  text-decoration: none;
+}
+
+.content img.hero-project-image,
+.hero-project-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+}
+
+.home-projects,
+.latest-tutorials {
+  min-width: 0;
+  padding-top: 4rem;
+  scroll-margin-top: 5rem;
+}
+
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: var(--global-text-color);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.section-heading > a {
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.section-heading > a:hover {
+  color: var(--global-theme-color);
+}
+
+.section-note {
+  max-width: 62ch;
+  margin: 0 0 1.5rem;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.92rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.project-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--global-border-color);
+}
+
+.project-list-item {
+  min-width: 0;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--global-border-color);
+}
+
+.project-list-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
+}
+
+.project-list-title a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.project-list-title a:hover {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+}
+
+.project-list-description {
+  margin: 0.35rem 0 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.94rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.project-list-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.project-list-links .project-link {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.78rem;
+}
+
+.tutorial-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tutorial-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 1.2rem 1.25rem 1.35rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 14px;
+  background: var(--global-card-bg-color);
+}
+
+.tutorial-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
+}
+
+.tutorial-card-title a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.tutorial-card-title a:hover {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+}
+
+.tutorial-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.tutorial-card-description {
+  margin: 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.9rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .tutorial-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  .hero-project {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0 1.75rem;
+  }
+
+  .profile-portrait img {
+    width: 72px;
+    height: 72px;
+  }
+
+  .profile-name {
+    font-size: clamp(2rem, 9vw, 2.6rem);
+  }
+
+  .home-projects,
+  .latest-tutorials {
+    padding-top: 3rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-project {
+    padding: 1.35rem 1.2rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .hero-project h2 {
+    font-size: 1.9rem;
+  }
+
+  .hero-project-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Dark surfaces
+ *
+ * The dark accent (#ff8a00) reaches AA on the page background (5.06:1) but only
+ * 4.33:1 on the #45403c cards. Inside cards the text keeps the text colour and
+ * the accent is used as an underline or border instead.
+ * ------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .hero-project a:not(.button),
+html[data-theme="dark"] .project-card a:not(.button),
+html[data-theme="dark"] .repository-card a:not(.button),
+html[data-theme="dark"] .tutorial-card a:not(.button),
+html[data-theme="dark"] .repositories-header a:not(.button),
+html[data-theme="dark"] .cv .card a {
+  color: var(--global-text-color);
+  text-decoration: underline;
+  text-decoration-color: var(--global-theme-color);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.15em;
+}
+
+html[data-theme="dark"] .button-secondary {
+  color: var(--global-text-color);
+  border-color: var(--global-theme-color);
+}
+
+html[data-theme="dark"] .button-secondary:hover {
+  background: var(--global-theme-color);
+  color: var(--global-hover-text-color);
+}
+
+html[data-theme="dark"] .project-category,
+html[data-theme="dark"] .project-private,
+html[data-theme="dark"] .project-lang-badge,
+html[data-theme="dark"] .repository-private,
+html[data-theme="dark"] .repository-language,
+html[data-theme="dark"] .repositories-kicker {
+  color: var(--global-text-color);
+}
+
+html[data-theme="dark"] .project-category,
+html[data-theme="dark"] .repositories-kicker {
+  border-bottom: 1.5px solid var(--global-theme-color);
+}
+
+html[data-theme="dark"] .project-private,
+html[data-theme="dark"] .project-lang-badge,
+html[data-theme="dark"] .repository-private {
+  border-color: var(--global-theme-color);
+}
+
+/* The CV badge puts card-coloured text on the accent background. */
+html[data-theme="dark"] .cv .card .list-group-item .badge {
+  color: var(--global-hover-text-color) !important;
+}
+
+/* Accessibility: inline links in body copy need a non-colour affordance
+   because the burgundy link colour is close to the dark body text. */
+#main-content p a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Tables, navbar chrome and horizontal rules use palette tokens instead of the
+   Tailwind defaults and the UA button colour. */
+.cv table,
+.cv table.table-cv,
+.cv table.table-dark,
+table.table,
+table.table-dark {
+  color: var(--global-text-color);
+}
+
+table.table-dark {
+  background-color: transparent;
+}
+
+table.table th,
+table.table td,
+.cv table th,
+.cv table td {
+  border-color: var(--global-divider-color);
+}
+
+.cv table a {
+  color: var(--global-theme-color);
+}
+
+.navbar-toggler {
+  color: var(--global-text-color);
+  border-color: var(--global-border-color);
+}
+
+.navbar-toggler .icon-bar {
+  background-color: var(--global-text-color);
+}
+
+hr {
+  color: var(--global-divider-color);
+  border-color: var(--global-divider-color);
+}
+
+/* Mermaid: the diagram's own theme is replaced by palette tokens. The
+   `!important` flags are required because Mermaid injects a <style> element
+   inside every generated SVG. */
+.mermaid svg,
+.mermaid g,
+.mermaid foreignObject {
+  color: var(--global-text-color) !important;
+}
+
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .label,
+.mermaid .cluster-label {
+  color: var(--global-text-color) !important;
+}
+
+.mermaid text {
+  fill: var(--global-text-color) !important;
+}
+
+.mermaid .edgePath path,
+.mermaid .flowchart-link {
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .marker,
+.mermaid marker path {
+  fill: var(--global-border-color) !important;
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon,
+.mermaid .node path {
+  fill: var(--global-surface-color) !important;
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .cluster rect {
+  fill: var(--global-bg-color) !important;
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: var(--global-bg-color) !important;
+}
+
+/* Code highlighting: the block always uses the palette code surface and the
+   palette text colour. Every Pygments family that the bundled GitHub (light)
+   and native (dark) stylesheets can emit is remapped to an approved palette
+   colour, so no third-party token colour reaches the page. */
+.highlight,
+.highlight pre,
+.highlight code {
+  background-color: var(--global-code-bg-color);
+  color: var(--global-text-color);
+}
+
+/* The bundled native theme hard-codes its own pre background; keep the palette
+   surface in dark mode regardless of stylesheet order. */
+html[data-theme] .highlight pre {
+  background-color: var(--global-code-bg-color);
+}
+
+/* Inline code sits on the code surface, where the accent is below AA in dark
+   mode; the text colour keeps it readable. */
+html[data-theme="dark"] :not(pre) > code {
+  color: var(--global-text-color);
+}
+
+/* Highlighted lines: palette blend background plus the palette text colour. */
+html[data-theme="light"] .highlight .hll {
+  background-color: color-mix(in srgb, var(--global-theme-color) 18%, var(--global-code-bg-color));
+  color: var(--global-text-color);
+}
+
+html[data-theme="dark"] .highlight .hll {
+  background-color: color-mix(in srgb, var(--global-theme-color) 22%, var(--global-code-bg-color));
+  color: var(--global-text-color);
+}
+
+/* Light syntax: comments, prompts, generic output and whitespace. */
+html[data-theme="light"] .highlight .c,
+html[data-theme="light"] .highlight .ch,
+html[data-theme="light"] .highlight .cm,
+html[data-theme="light"] .highlight .cp,
+html[data-theme="light"] .highlight .c1,
+html[data-theme="light"] .highlight .cs,
+html[data-theme="light"] .highlight .g,
+html[data-theme="light"] .highlight .go,
+html[data-theme="light"] .highlight .gp,
+html[data-theme="light"] .highlight .gh,
+html[data-theme="light"] .highlight .gu,
+html[data-theme="light"] .highlight .w {
+  color: #3f382f;
+}
+
+/* Light syntax: numbers. */
+html[data-theme="light"] .highlight .m,
+html[data-theme="light"] .highlight .mf,
+html[data-theme="light"] .highlight .mh,
+html[data-theme="light"] .highlight .mi,
+html[data-theme="light"] .highlight .mo,
+html[data-theme="light"] .highlight .il {
+  color: #8e0f42;
+}
+
+/* Light syntax: strings. */
+html[data-theme="light"] .highlight .s,
+html[data-theme="light"] .highlight .sb,
+html[data-theme="light"] .highlight .sc,
+html[data-theme="light"] .highlight .sd,
+html[data-theme="light"] .highlight .s2,
+html[data-theme="light"] .highlight .se,
+html[data-theme="light"] .highlight .sh,
+html[data-theme="light"] .highlight .si,
+html[data-theme="light"] .highlight .sx,
+html[data-theme="light"] .highlight .sr,
+html[data-theme="light"] .highlight .s1,
+html[data-theme="light"] .highlight .ss {
+  color: #5f092c;
+}
+
+/* Light syntax: keywords, classes, functions, decorators and tags. */
+html[data-theme="light"] .highlight .k,
+html[data-theme="light"] .highlight .kc,
+html[data-theme="light"] .highlight .kd,
+html[data-theme="light"] .highlight .kn,
+html[data-theme="light"] .highlight .kp,
+html[data-theme="light"] .highlight .kr,
+html[data-theme="light"] .highlight .kt,
+html[data-theme="light"] .highlight .nc,
+html[data-theme="light"] .highlight .nf,
+html[data-theme="light"] .highlight .ne,
+html[data-theme="light"] .highlight .nt,
+html[data-theme="light"] .highlight .nd {
+  color: #7a0c39;
+}
+
+/* Light syntax: names, attributes, variables, constants and labels. */
+html[data-theme="light"] .highlight .n,
+html[data-theme="light"] .highlight .na,
+html[data-theme="light"] .highlight .no,
+html[data-theme="light"] .highlight .ni,
+html[data-theme="light"] .highlight .nl,
+html[data-theme="light"] .highlight .nn,
+html[data-theme="light"] .highlight .nx,
+html[data-theme="light"] .highlight .nv,
+html[data-theme="light"] .highlight .vc,
+html[data-theme="light"] .highlight .vg,
+html[data-theme="light"] .highlight .vi,
+html[data-theme="light"] .highlight .py,
+html[data-theme="light"] .highlight .l,
+html[data-theme="light"] .highlight .ld,
+html[data-theme="light"] .highlight .x {
+  color: #1c1915;
+}
+
+/* Light syntax: builtins. */
+html[data-theme="light"] .highlight .nb,
+html[data-theme="light"] .highlight .bp {
+  color: #4a4238;
+}
+
+/* Light syntax: operators, punctuation, emphasis and strong text. */
+html[data-theme="light"] .highlight .o,
+html[data-theme="light"] .highlight .ow,
+html[data-theme="light"] .highlight .p,
+html[data-theme="light"] .highlight .ge,
+html[data-theme="light"] .highlight .gs {
+  color: #1c1915;
+}
+
+/* Light syntax: errors and deletions keep a palette tinted background. */
+html[data-theme="light"] .highlight .err,
+html[data-theme="light"] .highlight .gd {
+  background-color: color-mix(in srgb, #8e0f42 6%, var(--global-code-bg-color));
+  color: #8e0f42;
+}
+
+/* Light syntax: tracebacks, inserted lines and diff markers. */
+html[data-theme="light"] .highlight .gr,
+html[data-theme="light"] .highlight .gt,
+html[data-theme="light"] .highlight .gi {
+  background-color: transparent;
+  color: #4a4238;
+}
+
+/* Dark syntax: comments, prompts, generic output and whitespace. */
+html[data-theme="dark"] .highlight .c,
+html[data-theme="dark"] .highlight .ch,
+html[data-theme="dark"] .highlight .cm,
+html[data-theme="dark"] .highlight .cp,
+html[data-theme="dark"] .highlight .c1,
+html[data-theme="dark"] .highlight .cs,
+html[data-theme="dark"] .highlight .g,
+html[data-theme="dark"] .highlight .go,
+html[data-theme="dark"] .highlight .gp,
+html[data-theme="dark"] .highlight .gh,
+html[data-theme="dark"] .highlight .gu,
+html[data-theme="dark"] .highlight .w {
+  color: #c4b9a8;
+}
+
+/* Dark syntax: keywords, classes, functions, decorators, tags, numbers and
+   strings. */
+html[data-theme="dark"] .highlight .k,
+html[data-theme="dark"] .highlight .kc,
+html[data-theme="dark"] .highlight .kd,
+html[data-theme="dark"] .highlight .kn,
+html[data-theme="dark"] .highlight .kp,
+html[data-theme="dark"] .highlight .kr,
+html[data-theme="dark"] .highlight .kt,
+html[data-theme="dark"] .highlight .nc,
+html[data-theme="dark"] .highlight .nf,
+html[data-theme="dark"] .highlight .ne,
+html[data-theme="dark"] .highlight .nt,
+html[data-theme="dark"] .highlight .nd,
+html[data-theme="dark"] .highlight .m,
+html[data-theme="dark"] .highlight .mf,
+html[data-theme="dark"] .highlight .mh,
+html[data-theme="dark"] .highlight .mi,
+html[data-theme="dark"] .highlight .mo,
+html[data-theme="dark"] .highlight .il,
+html[data-theme="dark"] .highlight .s,
+html[data-theme="dark"] .highlight .sb,
+html[data-theme="dark"] .highlight .sc,
+html[data-theme="dark"] .highlight .sd,
+html[data-theme="dark"] .highlight .s2,
+html[data-theme="dark"] .highlight .se,
+html[data-theme="dark"] .highlight .sh,
+html[data-theme="dark"] .highlight .si,
+html[data-theme="dark"] .highlight .sx,
+html[data-theme="dark"] .highlight .sr,
+html[data-theme="dark"] .highlight .s1,
+html[data-theme="dark"] .highlight .ss {
+  color: #ffb35c;
+}
+
+/* Dark syntax: names, attributes, variables, operators and punctuation. */
+html[data-theme="dark"] .highlight .n,
+html[data-theme="dark"] .highlight .na,
+html[data-theme="dark"] .highlight .no,
+html[data-theme="dark"] .highlight .ni,
+html[data-theme="dark"] .highlight .nl,
+html[data-theme="dark"] .highlight .nn,
+html[data-theme="dark"] .highlight .nx,
+html[data-theme="dark"] .highlight .nv,
+html[data-theme="dark"] .highlight .vc,
+html[data-theme="dark"] .highlight .vg,
+html[data-theme="dark"] .highlight .vi,
+html[data-theme="dark"] .highlight .py,
+html[data-theme="dark"] .highlight .l,
+html[data-theme="dark"] .highlight .ld,
+html[data-theme="dark"] .highlight .x,
+html[data-theme="dark"] .highlight .o,
+html[data-theme="dark"] .highlight .ow,
+html[data-theme="dark"] .highlight .p,
+html[data-theme="dark"] .highlight .ge,
+html[data-theme="dark"] .highlight .gs {
+  color: #ede3d3;
+}
+
+/* Dark syntax: builtins. */
+html[data-theme="dark"] .highlight .nb,
+html[data-theme="dark"] .highlight .bp {
+  color: #c0b5a4;
+}
+
+/* Dark syntax: errors and deletions keep a palette tinted background. */
+html[data-theme="dark"] .highlight .err,
+html[data-theme="dark"] .highlight .gd {
+  background-color: color-mix(in srgb, #ff5a94 18%, var(--global-code-bg-color));
+  color: #ffb35c;
+}
+
+/* Dark syntax: tracebacks, inserted lines and diff markers. */
+html[data-theme="dark"] .highlight .gr,
+html[data-theme="dark"] .highlight .gt,
+html[data-theme="dark"] .highlight .gi {
+  background-color: transparent;
+  color: #c0b5a4;
+}
+
+/* Accessibility/responsive: the CV contact table keeps its content on one line
+   on narrow screens, which pushes the page wider than the viewport. Let the
+   cells shrink and wrap below the phone breakpoint. */
+@media (max-width: 480px) {
+  .cv table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .cv td,
+  .cv th {
+    overflow-wrap: anywhere;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+}

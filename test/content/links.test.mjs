@@ -14,15 +14,15 @@ const projectFiles = fs.readdirSync(path.join(root, "_projects")).filter((file) 
 const projectLinks = projectFiles.flatMap((file) => (readProject(file).links || []).map((link) => ({ file, link })));
 
 const home = ["en", "es"].map((lang) => yaml.load(fs.readFileSync(path.join(root, `_data/${lang}/home.yml`), "utf8")));
+const repositories = ["en", "es"].map((lang) => yaml.load(fs.readFileSync(path.join(root, `_data/${lang}/repositories.yml`), "utf8")));
 
 const allLinkUrls = [
   ...projectLinks.map(({ link }) => link.url),
   ...home
-    .flatMap((data) => [
-      (data.apps || []).map((app) => app.url),
-      (data.contact || []).map((link) => link.url),
-    ])
-    .flat(),
+    .flatMap((data) => [data.featured?.links || [], data.contact || []])
+    .flat()
+    .map((link) => link.url),
+  ...repositories.flatMap((data) => data.repos.map((repo) => repo.url)),
 ];
 
 test("every internal or external link uses an absolute or root-relative URL", () => {

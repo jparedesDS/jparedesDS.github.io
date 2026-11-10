@@ -1,0 +1,111 @@
+{% comment %}
+  Bilingual search assets.
+
+  Overrides the theme's `plugins/al_search_assets.liquid`, which delegates to
+  the al_search_assets tag: that tag hardcodes the English placeholder and
+  knows nothing about Polyglot. The markup below is the equivalent output with
+  every user-facing label and every URL localized for `site.active_lang`.
+
+  Polyglot does not rewrite strings inside inline `<script>` tags, so result
+  URLs are built from `lang_prefix` instead of relying on the language pass to
+  prefix them. The `contains` guard keeps an already-prefixed URL from turning
+  into `/es/es/...`.
+
+  The inline data uses `jsonify` rather than `escape`: HTML entities are not
+  decoded inside `<script>`, so `escape` would render titles such as
+  "AI &amp; Vision" literally in the search results. `jsonify` emits a valid
+  JS string literal instead.
+{% endcomment %}
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign lang_prefix = '' %}
+{% if active_lang != site.default_lang %}
+  {% assign lang_prefix = '/' | append: active_lang %}
+{% endif %}
+<script type="module" src="{{ '/assets/al_search/js/search/ninja-keys.min.js' | relative_url }}"></script>
+<ninja-keys
+  hideBreadcrumbs
+  noAutoLoadMdIcons
+  placeholder="{{ strings.search.placeholder }}"
+  data-placeholder="{{ strings.search.placeholder }}"
+  data-select="{{ strings.search.select }}"
+  data-navigate="{{ strings.search.navigate }}"
+  data-close="{{ strings.search.close_hint }}"
+></ninja-keys>
+<script src="{{ '/assets/al_search/js/search-setup.js' | relative_url }}"></script>
+<script>
+  const ninja = document.querySelector('ninja-keys');
+  ninja.data = [
+    {
+      id: 'nav-about',
+      title: {{ strings.nav.about | jsonify }},
+      section: {{ strings.search.sections.navigation | jsonify }},
+      handler: () => { window.location.href = '{{ lang_prefix }}/'; },
+    },
+    {
+      id: 'nav-blog',
+      title: {{ strings.nav.blog | jsonify }},
+      section: {{ strings.search.sections.navigation | jsonify }},
+      handler: () => { window.location.href = '{{ lang_prefix }}/blog/'; },
+    },
+    {
+      id: 'nav-projects',
+      title: {{ strings.nav.projects | jsonify }},
+      section: {{ strings.search.sections.navigation | jsonify }},
+      handler: () => { window.location.href = '{{ lang_prefix }}/projects/'; },
+    },
+    {
+      id: 'nav-repositories',
+      title: {{ strings.nav.repositories | jsonify }},
+      section: {{ strings.search.sections.navigation | jsonify }},
+      handler: () => { window.location.href = '{{ lang_prefix }}/repositories/'; },
+    },
+    {
+      id: 'nav-cv',
+      title: {{ strings.nav.cv | jsonify }},
+      section: {{ strings.search.sections.navigation | jsonify }},
+      handler: () => { window.location.href = '{{ lang_prefix }}/cv/'; },
+    },
+    {% assign categories = 'ai-vision,data-automation,products,esports' | split: ',' %}
+    {% for category in categories %}
+      {
+        id: 'category-{{ category }}',
+        title: {{ strings.project_categories[category] | jsonify }},
+        section: {{ strings.search.sections.categories | jsonify }},
+        handler: () => { window.location.href = '{{ lang_prefix }}/projects/#{{ category }}'; },
+      },
+    {% endfor %}
+    {% for post in site.posts %}
+      {% assign item_url = post.url | relative_url %}
+      {% unless active_lang == site.default_lang %}
+        {% unless item_url contains lang_prefix %}
+          {% assign item_url = lang_prefix | append: item_url %}
+        {% endunless %}
+      {% endunless %}
+      {
+        id: 'post-{{ post.url | slugify }}',
+        title: {{ post.title | jsonify }}{% if post.rendered_lang and post.rendered_lang != active_lang %} + ' · EN'{% endif %},
+        description: {{ post.description | strip_html | strip_newlines | jsonify }},
+        section: {{ strings.search.sections.tutorials | jsonify }},
+        handler: () => { window.location.href = '{{ item_url }}'; },
+      },
+    {% endfor %}
+    {% for project in site.projects %}
+      {% assign item_url = project.url | relative_url %}
+      {% unless active_lang == site.default_lang %}
+        {% unless item_url contains lang_prefix %}
+          {% assign item_url = lang_prefix | append: item_url %}
+        {% endunless %}
+      {% endunless %}
+      {
+        id: 'project-{{ project.project_key | slugify }}',
+        title: {{ project.title | jsonify }}{% if project.rendered_lang and project.rendered_lang != active_lang %} + ' · EN'{% endif %},
+        description: {{ project.description | strip_html | strip_newlines | jsonify }},
+        section: {{ strings.search.sections.projects | jsonify }},
+        handler: () => { window.location.href = '{{ item_url }}'; },
+      },
+    {% endfor %}
+  ];
+</script>
+<script src="{{ '/assets/js/search-i18n.js' | relative_url }}"></script>
+<script src="{{ '/assets/al_search/js/shortcut-key.js' | relative_url }}"></script>

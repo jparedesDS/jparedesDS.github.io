@@ -1,31 +1,38 @@
 ---
-layout: null
-title: "Projects"
-lang: en
+layout: page
+title: Projects
 permalink: /projects/
+lang: en
+page_id: projects
+nav: true
+nav_order: 3
+nav_key: projects
+description: "AI, data, products and esports projects built end to end."
 ---
-{% assign is_es = false %}
-{% if site.active_lang == "es" %}{% assign is_es = true %}{% endif %}
-<!doctype html>
-<html lang="{% if is_es %}es{% else %}en{% endif %}">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="1; url={% if is_es %}/es{% endif %}/#portfolio">
-    <link rel="canonical" href="{% if is_es %}/es{% endif %}/#portfolio">
-    <title>{% if is_es %}Redirigiendo a los proyectos{% else %}Redirecting to projects{% endif %}</title>
-    <script>
-      const filter = location.hash.replace("#", "");
-      if (["ai-vision", "data-automation", "products", "esports"].includes(filter)) {
-        location.replace("{% if is_es %}/es{% endif %}/?filter=" + filter + "#portfolio");
-      }
-    </script>
-  </head>
-  <body>
-    <p>
-      <a href="{% if is_es %}/es{% endif %}/#portfolio">
-        {% if is_es %}Continuar a los proyectos{% else %}Continue to projects{% endif %}
-      </a>
-    </p>
-  </body>
-</html>
+
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign featured = site.projects | where: "project_key", "subany-video" | first %}
+<div class="projects-index">
+  {% if featured %}
+    <section class="featured-project" aria-labelledby="featured-project-title">
+      <h2 id="featured-project-title">{{ strings.projects.featured }}</h2>
+      {% include project-card.liquid project=featured featured=true %}
+    </section>
+  {% endif %}
+  {% assign categories = "ai-vision,data-automation,products,esports" | split: "," %}
+  {% for category in categories %}
+    {% assign projects = site.projects | where: "category", category | sort: "importance" %}
+    {% if category == "products" %}
+      {% assign projects = projects | where_exp: "p", "p.project_key != 'subany-video'" %}
+    {% endif %}
+    <section id="{{ category }}" class="project-category-section" aria-labelledby="{{ category }}-title">
+      <h2 id="{{ category }}-title">{{ strings.project_categories[category] }}</h2>
+      <div class="project-grid">
+        {% for project in projects %}
+          {% include project-card.liquid project=project %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
+</div>

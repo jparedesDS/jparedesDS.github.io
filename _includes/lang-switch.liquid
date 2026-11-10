@@ -1,0 +1,36 @@
+{% comment %}
+  Language switch: links to the equivalent page in the other language.
+  The fallback path is un-prefixed (e.g. `/projects/`); the language prefix is
+  added here when the target language is not the default one.
+{% endcomment %}
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign other_lang = 'es' %}
+{% if active_lang == 'es' %}{% assign other_lang = 'en' %}{% endif %}
+{% assign other_path = page.permalink_lang[other_lang] %}
+{% if other_path %}
+  {% assign other_path = other_path | remove_first: '/' %}
+  {% if other_lang == site.default_lang %}
+    {% capture other_url %}/{% unless other_path == '' %}{{ other_path }}{% endunless %}{% endcapture %}
+  {% else %}
+    {% capture other_url %}/{{ other_lang }}/{% unless other_path == '' %}{{ other_path }}{% endunless %}{% endcapture %}
+  {% endif %}
+{% else %}
+  {% assign fallback = page.lang_switch_fallback | default: '/' %}
+  {% if other_lang == site.default_lang %}
+    {% assign other_url = fallback %}
+  {% else %}
+    {% capture other_url %}/{{ other_lang }}{{ fallback }}{% endcapture %}
+  {% endif %}
+{% endif %}
+<a
+  class="nav-link lang-switch"
+  {% static_href -%}
+  href="{{ other_url }}"
+  {% endstatic_href %}
+  hreflang="{{ other_lang }}"
+  lang="{{ other_lang }}"
+  aria-label="{{ other_lang | upcase }} — {{ strings.language_switch_label }}"
+>
+  {{- other_lang | upcase -}}
+</a>

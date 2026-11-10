@@ -10,13 +10,27 @@ const exists = (file) => fs.existsSync(path.join(root, file));
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const config = yaml.load(read("_config.yml"));
 
-test("the index pages and the 404 exist", () => {
-  for (const page of ["_pages/index.md", "_pages/index-es.md", "_pages/404.md"]) {
+test("the EN and ES pages exist", () => {
+  const pages = [
+    "_pages/about.md",
+    "_pages/about-es.md",
+    "_pages/blog.md",
+    "_pages/blog-es.md",
+    "_pages/projects.md",
+    "_pages/projects-es.md",
+    "_pages/repositories.md",
+    "_pages/repositories-es.md",
+    "_pages/cv.md",
+    "_pages/cv-es.md",
+  ];
+  for (const page of pages) {
     assert.ok(exists(page), `${page} must exist`);
   }
 });
 
-test("the four legacy category redirects exist", () => {
+test("the two tutorials and the four legacy redirects exist", () => {
+  assert.ok(exists("_posts/2026-11-09-how-subany-video-works-en.md"));
+  assert.ok(exists("_posts/2026-11-09-como-funciona-subany-video-es.md"));
   for (const category of ["ai-vision", "data-automation", "products", "esports"]) {
     assert.ok(exists(`projects/${category}/index.html`), `projects/${category}/index.html must exist`);
   }
@@ -30,42 +44,30 @@ test("the standalone product pages ship their index.html", () => {
 });
 
 test("the legacy al-folio files are gone", () => {
-  for (const file of ["_sass", "_posts", ".al-folio-overrides.yml", "purgecss.config.js"]) {
+  for (const file of ["_sass/_style.scss", "_sass/_portfolio.scss", "_sass/_vars.scss", "_layouts/default.html", "_includes/header.html"]) {
     assert.equal(exists(file), false, `${file} must not exist`);
   }
 });
 
-test("_config.yml keeps the multilingual Jekyll settings", () => {
+test("_config.yml keeps the migration settings", () => {
   assert.equal(config.baseurl, "");
   assert.equal(config.url, "https://jparedesds.github.io");
   assert.deepEqual(config.languages, ["en", "es"]);
   assert.equal(config.default_lang, "en");
   assert.equal(config.parallel_localization, false);
   assert.deepEqual(config.lang_vars, ["lang"]);
-  assert.deepEqual(config.plugins, ["jekyll-polyglot"]);
-  assert.equal(config.theme, undefined);
-  assert.equal(config.al_folio, undefined);
+  assert.equal(config.imagemagick.enabled, false);
+  assert.equal(config.al_folio.compat.bootstrap.enabled, false);
+  assert.equal(config.search_enabled, true);
+  assert.equal(config.posts_in_search, true);
+  assert.equal(config.bib_search, false);
+  assert.equal(config.max_width, "1100px");
+  assert.equal(config.footer_fixed, false);
+  assert.equal(config.enable_darkmode, true);
 });
 
-test("the Gemfile uses Jekyll and polyglot only", () => {
-  const gemfile = read("Gemfile");
-  assert.ok(gemfile.includes("jekyll-polyglot"));
-  assert.equal(gemfile.includes("al_folio"), false);
-});
-
-test("the main landmark is the skip-link target", () => {
-  const html = read("_site/index.html");
-  assert.match(html, /<main id="main-content"/);
-});
-
-test("the lockfile includes linux for CI", () => {
-  assert.match(read("Gemfile.lock"), /x86_64-linux/);
-});
-
-test("the vCard MIT notice is present", () => {
-  const notice = read("NOTICE");
-  assert.ok(notice.includes("codewithsadee"));
-  assert.ok(notice.includes("MIT"));
+test("the Gemfile includes jekyll-polyglot", () => {
+  assert.ok(read("Gemfile").includes("jekyll-polyglot"));
 });
 
 test("no demo or placeholder content remains in the site sources", () => {
@@ -81,9 +83,10 @@ test("no demo or placeholder content remains in the site sources", () => {
       }
     }
   };
-  for (const dir of ["_pages", "_data", "_projects", "_includes", "_layouts", "_plugins", "assets/js"]) {
+  for (const dir of ["_pages", "_posts", "_data", "_projects", "_includes", "_layouts", "_sass"]) {
     walk(dir);
   }
+  if (exists("index.html")) sourceFiles.push("index.html");
   sourceFiles.push("_config.yml");
 
   for (const file of sourceFiles) {

@@ -1,0 +1,49 @@
+module.exports = {
+  content: ["_site/**/*.html", "_site/**/*.js"],
+  css: ["_site/assets/css/*.css"],
+  output: "_site/assets/css/",
+  skippedContentGlobs: ["_site/assets/**/*.html"],
+  safelist: [
+    "collapse",
+    "collapsing",
+    "show",
+    "dropdown-menu",
+    "dropdown-item",
+    "table",
+    "table-dark",
+    "table-hover",
+    "table-responsive",
+    "af-tooltip",
+    "af-popover",
+    // only rendered when a project link defines a `note:`, so it is absent
+    // from the static HTML PurgeCSS scans until such a note is added
+    "project-link-note",
+    "font-weight-bold",
+    "font-weight-medium",
+    "font-weight-lighter",
+    // medium-zoom injects these at runtime, so they never appear in the static
+    // HTML PurgeCSS scans; without them the zoom overlay's z-index rule is purged
+    // and page chrome (scroll-progress bar, ToC) bleeds through a zoomed image.
+    "medium-zoom-overlay",
+    "medium-zoom-image--opened",
+    // Mermaid emits these classes only after the SVG is rendered in the browser,
+    // so subany.css rules for them would otherwise be purged.
+    "mermaid",
+    "nodeLabel",
+    "edgeLabel",
+    "label",
+    "cluster",
+    "cluster-label",
+    "node",
+    "edgePath",
+    "flowchart-link",
+    "marker",
+    "arrowheadPath",
+    "edgeLabelBackground",
+    "note",
+    "actor",
+    "labelBox",
+    "activation",
+    "sequenceNumber",
+  ],
+};

@@ -9,7 +9,7 @@ lang: en
 page_id: project-overwatch-2-players-detector
 permalink: /projects/overwatch-2-players-detector/
 nav_key: projects
-lang_switch_fallback: /?filter=ai-vision#portfolio
+lang_switch_fallback: /projects/
 private: false
 tutorial:
 links:

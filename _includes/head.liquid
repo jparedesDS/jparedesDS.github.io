@@ -1,85 +1,245 @@
-{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ page.title | default: site.title }}</title>
-<meta name="description" content="{{ page.description | default: site.description }}">
+<!-- Metadata, OpenGraph and Schema.org -->
+{% include metadata.liquid %}
 
-{% assign canonical = site.url | append: page.url %}
-{% assign en_url = site.url | append: page.url %}
-{% assign es_url = site.url | append: '/es' | append: page.url %}
+<!-- Security: Content Security Policy -->
+<!-- Permissive CSP suitable for academic websites. Allows external images, videos, and common embed services. -->
+<!-- To customize for your needs, see: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"
+>
+<style>
+  :root {
+    --max-content-width: {{ site.max_width | default: '930px' }};
+  }
+</style>
 
-{% if page.rendered_lang and page.rendered_lang != active_lang %}
-  <meta name="robots" content="noindex">
-  <link rel="canonical" href="{{ en_url }}">
-  <link rel="alternate" hreflang="en" href="{{ en_url }}">
-  <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
-{% elsif active_lang == 'en' %}
-  <link rel="canonical" href="{{ en_url }}">
-  <link rel="alternate" hreflang="en" href="{{ en_url }}">
-  {% unless page.lang_switch_fallback %}
-    <link rel="alternate" hreflang="es" href="{{ es_url }}">
-  {% endunless %}
-  <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
-{% else %}
-  <link rel="canonical" href="{{ es_url }}">
-  <link rel="alternate" hreflang="es" href="{{ es_url }}">
-  <link rel="alternate" hreflang="en" href="{{ en_url }}">
-  <link rel="alternate" hreflang="x-default" href="{{ en_url }}">
+<!-- Tailwind-first core styles -->
+<link rel="stylesheet" href="{{ '/assets/css/tailwind.css' | relative_url | bust_file_cache }}">
+
+{% if site.al_folio.compat.bootstrap.enabled %}
+  <!-- Optional Bootstrap compatibility layer -->
+  <link rel="stylesheet" href="{{ '/assets/css/bootstrap-compat.css' | relative_url | bust_file_cache }}">
 {% endif %}
 
-<meta property="og:title" content="{{ page.title | default: site.title }}">
-<meta property="og:description" content="{{ page.description | default: site.description }}">
-<meta property="og:type" content="{% if page.layout == 'project' %}article{% else %}website{% endif %}">
-<meta property="og:url" content="{{ canonical }}">
-{% if page.img %}
-  <meta property="og:image" content="{{ page.img | absolute_url }}">
-{% else %}
-  <meta property="og:image" content="{{ '/profile.jpg' | absolute_url }}">
+{% if page.pretty_table and site.al_folio.compat.bootstrap.enabled %}
+  <!-- Bootstrap Table -->
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.bootstrap-table.url.css }}"
+    integrity="{{ site.third_party_libraries.bootstrap-table.integrity.css }}"
+    crossorigin="anonymous"
+  >
 {% endif %}
 
-{% if page.layout == "home" %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": {{ site.data[active_lang].home.name | jsonify }},
-  "jobTitle": {{ site.data[active_lang].home.role | jsonify }},
-  "url": {{ canonical | jsonify }},
-  "sameAs": [
-    "https://www.linkedin.com/in/jparedesDS/",
-    "https://github.com/jparedesDS",
-    "https://huggingface.co/jparedesDS",
-    "https://www.kaggle.com/joseparedesc"
-  ]
-}
-</script>
+{% if page.toc and page.toc.sidebar %}
+  <!-- Tocbot -->
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.tocbot.url.css }}"
+    integrity="{{ site.third_party_libraries.tocbot.integrity.css }}"
+    crossorigin="anonymous"
+  >
 {% endif %}
 
-{% if page.layout == "project" %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": {{ page.title | jsonify }},
-  "description": {{ page.description | jsonify }},
-  "url": {{ canonical | jsonify }}
-  {% if page.img %},
-  "image": {{ page.img | absolute_url | jsonify }}
+<!-- Icons -->
+{% if site.plugins contains 'al_icons' %}
+  {% include plugins/al_icons_styles.liquid %}
+{% endif %}
+<link
+  defer
+  rel="stylesheet"
+  type="text/css"
+  href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
+>
+
+<!-- Code Syntax Highlighting -->
+<link
+  defer
+  rel="stylesheet"
+  href="{{ '/assets/css/jekyll-pygments-themes-github.css' | relative_url | bust_file_cache }}"
+  media=""
+  id="highlight_theme_light"
+>
+
+<!-- Styles -->
+
+{% if page.pseudocode %}
+  <!-- pseudocode -->
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.pseudocode.url.css }}"
+    integrity="{{ site.third_party_libraries.pseudocode.integrity.css }}"
+    crossorigin="anonymous"
+  >
+{% endif %}
+
+{% comment %}
+  Note: `x != blank` is unreliable here - Liquid's `blank` literal compares by calling
+  `blank?` on the other operand, and plain Ruby's NilClass/String have no `blank?`, so
+  the comparison yields nil and `!=` is therefore always true. An unset `site.icon`
+  used to fall through to the `elsif` below and emit `href="/assets/img/"`. Truthiness
+  plus an explicit empty-string check behaves correctly with or without ActiveSupport.
+{% endcomment %}
+{% if site.icon.size <= 4 %}
+  <link
+    rel="shortcut icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>{{ site.icon }}</text></svg>"
+  >
+{% elsif site.icon and site.icon != '' %}
+  <link rel="shortcut icon" href="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache}}">
+{% endif %}
+{% comment %}
+  iOS home-screen bookmarks need `rel="apple-touch-icon"` pointing at a real raster
+  image; Safari ignores the inline SVG data URI used for the emoji favicon above and
+  falls back to a screenshot of the page. So the tag is emitted only when a usable
+  asset actually exists - an explicit `apple_touch_icon` (a 180x180 PNG is what Apple
+  recommends), or an `icon` that is already a raster image file. When `icon` is an
+  emoji, nothing is emitted rather than a link that would 404.
+  See alshedivat/al-folio#2774.
+{% endcomment %}
+{% if site.apple_touch_icon and site.apple_touch_icon != '' %}
+  {% assign apple_touch_icon = site.apple_touch_icon %}
+{% elsif site.icon and site.icon.size > 4 %}
+  {% assign icon_extension = site.icon | split: '.' | last | split: '?' | first | downcase %}
+  {% if icon_extension == 'png' or icon_extension == 'jpg' or icon_extension == 'jpeg' %}
+    {% assign apple_touch_icon = site.icon %}
   {% endif %}
-}
-</script>
+{% endif %}
+{% if apple_touch_icon %}
+  {% if apple_touch_icon contains '://' %}
+    {% assign apple_touch_icon_url = apple_touch_icon %}
+  {% elsif apple_touch_icon contains '/' %}
+    {% assign apple_touch_icon_url = apple_touch_icon | relative_url | bust_file_cache %}
+  {% else %}
+    {% assign apple_touch_icon_url = apple_touch_icon | prepend: '/assets/img/' | relative_url | bust_file_cache %}
+  {% endif %}
+  <link rel="apple-touch-icon" href="{{ apple_touch_icon_url }}">
+{% endif %}
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url | bust_css_cache }}">
+<link rel="stylesheet" href="{{ '/assets/css/subany.css' | relative_url | bust_file_cache }}">
+{% if page.layout == 'cv' and site.plugins contains 'al_folio_cv' and site.al_folio.features.cv.enabled != false %}
+  <link rel="stylesheet" href="{{ '/assets/css/al-folio-cv.css' | relative_url | bust_file_cache }}">
+{% endif %}
+{% comment %}
+  Canonical and hreflang follow the English URL, which is the SEO reference.
+  `static_href` keeps Polyglot from prefixing these absolute links with /es on
+  the Spanish pages.
+
+  Archives are language-specific listings rather than translation pairs: each
+  archive canonicalises to itself and emits no hreflang.
+{% endcomment %}
+{% if page.layout == 'archive' %}
+  {% comment %}
+    Polyglot keeps the un-prefixed `page.url` for Spanish pages and only
+    changes the output directory, so the language prefix has to be added here.
+  {% endcomment %}
+  {% assign archive_lang = site.active_lang | default: site.lang | default: 'en' %}
+  {% if archive_lang == site.default_lang %}
+    {% assign archive_path = page.url %}
+  {% else %}
+    {% capture archive_path %}/{{ archive_lang }}{{ page.url }}{% endcapture %}
+  {% endif %}
+  <link rel="canonical" {% static_href %} href="{{ archive_path | absolute_url }}" {% endstatic_href %}>
+{% else %}
+  {% assign canonical_path = page.permalink_lang.en | default: page.url | remove_first: '/' %}
+  {% capture canonical_url %}{{ site.url }}/{% unless canonical_path == '' %}{{ canonical_path }}{% endunless %}{% endcapture %}
+  {% assign es_path = page.permalink_lang.es %}
+  {% if es_path %}
+    {% assign es_path = es_path | remove_first: '/' %}
+  {% else %}
+    {% assign es_path = canonical_path %}
+  {% endif %}
+  {% capture es_url %}{{ site.url }}/es/{% unless es_path == '' %}{{ es_path }}{% endunless %}{% endcapture %}
+  <link rel="canonical" {% static_href %} href="{{ canonical_url }}" {% endstatic_href %}>
+  {% if page.permalink_lang and page.lang %}
+    <link rel="alternate" hreflang="en" {% static_href %} href="{{ canonical_url }}" {% endstatic_href %}>
+    <link rel="alternate" hreflang="es" {% static_href %} href="{{ es_url }}" {% endstatic_href %}>
+    <link rel="alternate" hreflang="x-default" {% static_href %} href="{{ canonical_url }}" {% endstatic_href %}>
+  {% endif %}
 {% endif %}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ '/assets/css/vcard.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-<script>
-  (function () {
-    var saved = localStorage.getItem("theme");
-    var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.documentElement.dataset.theme = dark ? "dark" : "light";
-    document.documentElement.classList.add("js");
-  })();
-</script>
+{% if site.enable_darkmode %}
+  <!-- Dark Mode -->
+  <script src="{{ '/assets/js/theme.js' | relative_url | bust_file_cache }}"></script>
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ '/assets/css/jekyll-pygments-themes-native.css' | relative_url | bust_file_cache }}"
+    media="none"
+    id="highlight_theme_dark"
+  >
+  <script>
+    initTheme();
+  </script>
+{% endif %}
+
+{% if page.map %}
+  <!-- GeoJSON support via Leaflet -->
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.leaflet.url.css }}"
+    integrity="{{ site.third_party_libraries.leaflet.integrity.css }}"
+    crossorigin="anonymous"
+  >
+{% endif %}
+
+{% if page.code_diff %}
+  <!-- diff2html -->
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.highlightjs.url.css.light }}"
+    integrity="{{ site.third_party_libraries.highlightjs.integrity.css.light }}"
+    crossorigin="anonymous"
+    media="screen and (prefers-color-scheme: light)"
+  >
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.highlightjs.url.css.dark }}"
+    integrity="{{ site.third_party_libraries.highlightjs.integrity.css.dark }}"
+    crossorigin="anonymous"
+    media="screen and (prefers-color-scheme: dark)"
+  >
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.diff2html.url.css }}"
+    integrity="{{ site.third_party_libraries.diff2html.integrity.css }}"
+    crossorigin="anonymous"
+  >
+{% endif %}
+
+{% if site.plugins contains 'al_img_tools' %}
+  <!-- Image Features -->
+  {% include plugins/al_img_tools_styles.liquid %}
+{% endif %}
+
+{% if site.plugins contains 'al_math' %}
+  {% include plugins/al_math_styles.liquid %}
+{% endif %}
+
+{% if site.enable_cookie_consent and site.plugins contains 'al_cookie' %}
+  <!-- Cookie Consent -->
+  {% include plugins/al_cookie_styles.liquid %}
+{% endif %}
+
+{% if site.plugins contains 'al_rtl' %}
+  <!-- Right-to-left support -->
+  {% include plugins/al_rtl_styles.liquid %}
+{% endif %}
+
+{% if site.protect_email and site.plugins contains 'al_email_protect' %}
+  <!-- Email obfuscation -->
+  {% include plugins/al_email_protect_styles.liquid %}
+{% endif %}
+
+{% if page.marimo and site.plugins contains 'al_marimo' %}
+  <!-- Marimo notebooks -->
+  {% include plugins/al_marimo_styles.liquid %}
+{% endif %}

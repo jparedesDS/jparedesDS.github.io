@@ -9,7 +9,7 @@ lang: en
 page_id: project-fortnite-players-detector
 permalink: /projects/fortnite-players-detector/
 nav_key: projects
-lang_switch_fallback: /?filter=ai-vision#portfolio
+lang_switch_fallback: /projects/
 private: false
 tutorial:
 links:

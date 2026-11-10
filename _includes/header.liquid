@@ -1,0 +1,150 @@
+{% comment %}
+  Main navigation. The links are declared explicitly (never by looping over
+  `site.pages`) so the English and Spanish versions of a page cannot both show
+  up in the menu. Polyglot adds the `/es` prefix to these URLs on Spanish pages.
+{% endcomment %}
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+<header>
+  <!-- Nav Bar -->
+  <nav
+    id="navbar"
+    class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}"
+    role="navigation"
+    aria-label="{{ strings.nav_label }}"
+  >
+    <div class="container">
+      <a class="navbar-brand title font-weight-lighter" href="{{ '/' | relative_url }}">
+        {% if site.title == 'blank' %}
+          {% if site.first_name %}
+            <span class="font-weight-bold">
+              {{- site.first_name -}}
+            </span>
+          {% endif %}
+          {% if site.middle_name %}
+            {{- site.middle_name -}}
+          {% endif %}
+          {% if site.last_name %}
+            {{- site.last_name -}}
+          {% endif %}
+        {% else %}
+          {{- site.title -}}
+        {% endif %}
+      </a>
+
+      <!-- Navbar Toggle -->
+      <button
+        class="navbar-toggler collapsed navbar-toggler-main"
+        type="button"
+        data-nav-toggle="navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="{{ strings.menu_toggle }}"
+      >
+        <span class="sr-only">{{ strings.menu_toggle }}</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav">
+        <ul class="navbar-nav navbar-menu-list flex-nowrap">
+          <!-- About -->
+          <li class="nav-item{% if page.nav_key == 'about' %} active{% endif %}">
+            <a
+              class="nav-link"
+              href="{{ '/' | relative_url }}"
+              {% if page.nav_key == 'about' %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- strings.nav.about -}}
+            </a>
+          </li>
+
+          <!-- Blog -->
+          <li class="nav-item{% if page.nav_key == 'blog' %} active{% endif %}">
+            <a
+              class="nav-link"
+              href="{{ '/blog/' | relative_url }}"
+              {% if page.nav_key == 'blog' %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- strings.nav.blog -}}
+            </a>
+          </li>
+
+          <!-- Projects -->
+          <li class="nav-item{% if page.nav_key == 'projects' %} active{% endif %}">
+            <a
+              class="nav-link"
+              href="{{ '/projects/' | relative_url }}"
+              {% if page.nav_key == 'projects' %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- strings.nav.projects -}}
+            </a>
+          </li>
+
+          <!-- Repositories -->
+          <li class="nav-item{% if page.nav_key == 'repositories' %} active{% endif %}">
+            <a
+              class="nav-link"
+              href="{{ '/repositories/' | relative_url }}"
+              {% if page.nav_key == 'repositories' %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- strings.nav.repositories -}}
+            </a>
+          </li>
+
+          <!-- CV -->
+          <li class="nav-item{% if page.nav_key == 'cv' %} active{% endif %}">
+            <a
+              class="nav-link"
+              href="{{ '/cv/' | relative_url }}"
+              {% if page.nav_key == 'cv' %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- strings.nav.cv -}}
+            </a>
+          </li>
+
+          {% if site.search_enabled %}
+            <!-- Search -->
+            <li class="nav-item">
+              <button id="search-toggle" type="button" title="{{ strings.search.open }}" aria-label="{{ strings.search.open }} ctrl k">
+                <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
+              </button>
+            </li>
+          {% endif %}
+
+          <!-- Language switch: independent from the theme toggle -->
+          <li class="nav-item lang-switch-container">{% include lang-switch.liquid %}</li>
+
+          {% if site.enable_darkmode %}
+            <!-- Toggle theme mode -->
+            <li class="toggle-container">
+              <button id="light-toggle" type="button" title="{{ strings.theme_toggle }}" aria-label="{{ strings.theme_toggle }}">
+                <i class="fa-solid fa-sun" id="light-toggle-light" aria-hidden="true"></i>
+                <i class="fa-solid fa-moon" id="light-toggle-dark" aria-hidden="true"></i>
+              </button>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% if site.enable_progressbar %}
+    <!-- Scrolling Progress Bar -->
+    <progress id="progress" value="0">
+      <div class="progress-container">
+        <span class="progress-bar"></span>
+      </div>
+    </progress>
+  {% endif %}
+</header>
