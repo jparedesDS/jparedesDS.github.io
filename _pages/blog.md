@@ -16,4 +16,12 @@ pagination:
   sort_reverse: true
 ---
 
-<div class="post"><h1>{{ page.title }}</h1></div>
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-description">{{ strings.blog.description }}</p>
+  </header>
+  {% include blog-list.liquid %}
+</div>

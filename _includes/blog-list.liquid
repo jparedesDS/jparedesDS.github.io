@@ -1,0 +1,28 @@
+{% comment %}
+  Blog post list.
+
+  Minimal shell: lists the paginated posts (or all posts) with title and date.
+  Task 9 adds tags, categories, years and pagination.
+{% endcomment %}
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign posts = site.posts %}
+{% if paginator and paginator.posts %}
+  {% assign posts = paginator.posts %}
+{% endif %}
+{% if posts.size > 0 %}
+  <ul class="post-list">
+    {% for post in posts %}
+      <li class="post-list-item">
+        <h2 class="post-list-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h2>
+        <p class="post-list-date">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: strings.blog.date_format }}</time>
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="post-list-empty">{{ strings.blog.no_posts }}</p>
+{% endif %}

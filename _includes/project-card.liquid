@@ -1,0 +1,55 @@
+{% comment %}
+  Project card.
+
+  Interface:
+    include.project   - project document (collection `projects`)
+    include.featured  - optional; renders the featured variant and every link
+
+  Task 8 refines the markup and styles.
+{% endcomment %}
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign project = include.project %}
+{% if project %}
+  <article class="project-card{% if include.featured %} project-card--featured{% endif %}">
+    {% if project.img %}
+      <a class="project-card-image" href="{{ project.url | relative_url }}" tabindex="-1" aria-hidden="true">
+        <img
+          src="{{ project.img | relative_url }}"
+          alt="{{ project.img_alt | default: project.title }}"
+          loading="lazy"
+          width="100%"
+          height="auto"
+        >
+      </a>
+    {% endif %}
+    <div class="project-card-body">
+      <div class="project-meta">
+        {% if project.category %}
+          <span class="project-category">{{ strings.project_categories[project.category] | default: project.category }}</span>
+        {% endif %}
+        {% if project.private %}
+          <span class="project-private">{{ strings.projects.private_repository }}</span>
+        {% endif %}
+        {% if project.rendered_lang and project.rendered_lang != active_lang %}
+          <span class="project-lang-badge">EN</span>
+        {% endif %}
+      </div>
+      <h3 class="project-card-title">
+        <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+      </h3>
+      {% if project.description %}
+        <p class="project-card-description">{{ project.description }}</p>
+      {% endif %}
+      {% if project.links %}
+        <div class="project-card-links">
+          {% if include.featured %}
+            {% include project-links.liquid links=project.links %}
+          {% else %}
+            {% include project-links.liquid links=project.links limit=2 %}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+{% endif %}

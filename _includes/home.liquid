@@ -1,7 +1,45 @@
 {% comment %}
-  Homepage section placeholder.
+  Homepage shell.
 
-  Task 4 only needs the bilingual shell to build, so this include renders
-  nothing yet. Task 5 adds `_data/en/home.yml` and `_data/es/home.yml`; Task 13
-  replaces this file with the real homepage markup.
+  Minimal render of the bilingual `home.yml` contract: name, role, summary and
+  the titles of the selected projects. Task 13 replaces this with the complete
+  hero, featured project and latest tutorials sections.
 {% endcomment %}
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign home = site.data[active_lang].home %}
+{% if home %}
+  <header class="profile-header" id="about">
+    <div class="profile-header-body">
+      {% if home.eyebrow %}
+        <p class="profile-eyebrow">{{ home.eyebrow }}</p>
+      {% endif %}
+      <h1 class="profile-name">{{ home.name }}</h1>
+      {% if home.role %}
+        <p class="profile-role">{{ home.role }}</p>
+      {% endif %}
+      {% if home.summary %}
+        <p class="profile-summary">{{ home.summary }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if home.selected_projects %}
+    <section class="home-projects" aria-labelledby="home-projects-title">
+      <div class="section-heading">
+        <h2 id="home-projects-title">{{ home.projects_title }}</h2>
+        <a href="{{ '/projects/' | relative_url }}">{{ home.projects_all_label }}</a>
+      </div>
+      <ul class="project-list">
+        {% for key in home.selected_projects %}
+          {% assign project = site.projects | where: 'project_key', key | first %}
+          {% if project %}
+            <li class="project-list-item">
+              <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endif %}
