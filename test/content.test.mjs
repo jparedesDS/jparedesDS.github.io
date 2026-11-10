@@ -53,15 +53,21 @@ test("the archive contains the current categories and model releases", () => {
     assert.match(html, new RegExp(category));
   }
   assert.match(html, /OCR Weapon Detection/);
+  assert.match(html, /LoL Map Tracking Object Detection/);
   assert.match(html, /Polymarket/);
   assert.match(html, /Private project/);
+  assert.match(html, /Private source/);
   assert.doesNotMatch(html, /href="[^"]*polymarket/i);
 });
 
 test("the archive lists every project and model release once", () => {
   const html = read("work/index.html");
-  assert.equal((html.match(/class="archive-item"/g) || []).length, 27);
+  assert.equal((html.match(/class="archive-item"/g) || []).length, 28);
   assert.equal((html.match(/class="model-item"/g) || []).length, 10);
+
+  const slugs = [...html.matchAll(/data-slug="([^"]+)"/g)].map((match) => match[1]);
+  assert.equal(slugs.length, 28);
+  assert.equal(new Set(slugs).size, 28, `duplicate archive slug in: ${slugs.join(", ")}`);
 });
 
 test("the archive exposes the category anchors", () => {

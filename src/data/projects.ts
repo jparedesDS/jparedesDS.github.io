@@ -226,6 +226,20 @@ export const projects: Project[] = [
     links: [{ label: "Code", url: "https://github.com/jparedesDS/AI-YOLO", external: true }],
   },
   {
+    slug: "lol-map-tracking",
+    title: "LoL Map Tracking Object Detection",
+    summary: "Object detection and minimap tracking for League of Legends.",
+    category: "ai-vision",
+    year: "2024",
+    links: [
+      {
+        label: "Code",
+        url: "https://github.com/jparedesDS/lol-map-tracking-object-detection",
+        external: true,
+      },
+    ],
+  },
+  {
     slug: "tableau-documentation-dashboard",
     title: "Documentation Flow Dashboard",
     summary: "A Tableau Public dashboard that tracks document inflow, processing and delivery across projects.",

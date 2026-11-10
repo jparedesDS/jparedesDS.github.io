@@ -11,7 +11,11 @@ interface Props {
 const { id, index, label, projects } = Astro.props;
 
 const visibleLinks = (project: Project) =>
-  project.private ? project.links.filter((link) => link.label !== "Code") : project.links;
+  project.private
+    ? project.links.filter((link) => !link.url.toLowerCase().includes("github.com"))
+    : project.links;
+
+const privateLabel = (project: Project) => (project.detail ? "Private source" : "Private project");
 ---
 
 <section class="archive-section" id={id}>
@@ -23,7 +27,11 @@ const visibleLinks = (project: Project) =>
   <div class="archive-list">
     {
       projects.map((project) => (
-        <article class="archive-item" data-private={project.private ? "true" : undefined}>
+        <article
+          class="archive-item"
+          data-slug={project.slug}
+          data-private={project.private ? "true" : undefined}
+        >
           <div class="archive-thumb" aria-hidden="true">
             {project.image ? (
               <img src={project.image} alt="" width="112" height="112" loading="lazy" />
@@ -40,7 +48,7 @@ const visibleLinks = (project: Project) =>
             </div>
             <p>{project.summary}</p>
             <div class="archive-links">
-              {project.private && <span class="archive-private">Private project</span>}
+              {project.private && <span class="archive-private">{privateLabel(project)}</span>}
               {visibleLinks(project).map((link) => (
                 <a href={link.url} rel={link.external ? "noopener" : undefined}>
                   {link.label}
