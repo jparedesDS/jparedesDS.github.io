@@ -78,7 +78,7 @@
 {% endif %}
 
 {% comment %}
-  Note: `x != blank` is unreliable here — Liquid's `blank` literal compares by calling
+  Note: `x != blank` is unreliable here - Liquid's `blank` literal compares by calling
   `blank?` on the other operand, and plain Ruby's NilClass/String have no `blank?`, so
   the comparison yields nil and `!=` is therefore always true. An unset `site.icon`
   used to fall through to the `elsif` below and emit `href="/assets/img/"`. Truthiness
@@ -96,7 +96,7 @@
   iOS home-screen bookmarks need `rel="apple-touch-icon"` pointing at a real raster
   image; Safari ignores the inline SVG data URI used for the emoji favicon above and
   falls back to a screenshot of the page. So the tag is emitted only when a usable
-  asset actually exists — an explicit `apple_touch_icon` (a 180x180 PNG is what Apple
+  asset actually exists - an explicit `apple_touch_icon` (a 180x180 PNG is what Apple
   recommends), or an `icon` that is already a raster image file. When `icon` is an
   emoji, nothing is emitted rather than a link that would 404.
   See alshedivat/al-folio#2774.

@@ -10,8 +10,7 @@ contact_note: >
   You can even add a little note about which of these is the best way to reach you.
 description: >-
   Data Scientist and AI Engineer building computer-vision systems, automation and local-first products.
-footer_text: >-
-  Data Scientist · AI Engineer · Madrid.
+footer_text: "Data Scientist · AI Engineer · Madrid."
 keywords: data science, computer vision, YOLO, automation, AI engineering, portfolio
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 # Windows has no fork(), so jekyll-polyglot must localize languages serially.
@@ -40,7 +39,7 @@ protect_email: false
 
 # Off by default: the free public github-profile-trophy instance is disabled
 # (its Vercel deployment answers HTTP 402 / DEPLOYMENT_DISABLED), so every trophy
-# image 404s. The project itself is still open source and free — self-host it and
+# image 404s. The project itself is still open source and free - self-host it and
 # point external_services.github_profile_trophy_url at your instance, then set
 # enabled: true. See docs/CUSTOMIZE.md.
 repo_trophies:
@@ -249,9 +248,7 @@ plugins:
   - jekyll-cache-bust
   - jekyll-email-protect
   - jekyll-feed
-  - jekyll-get-json
   - jekyll-imagemagick
-  - jekyll-jupyter-notebook
   - jekyll-link-attributes
   - jekyll-minifier
   - jekyll-paginate-v2
