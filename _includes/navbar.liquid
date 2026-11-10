@@ -1,0 +1,30 @@
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+<nav class="navbar" aria-label="{{ strings.nav_label | default: 'Main navigation' }}">
+  <ul class="navbar-list">
+    {% assign items = "about,resume,portfolio,blog,contact" | split: "," %}
+    {% for key in items %}
+      {% assign label = strings.tabs[key] %}
+      <li class="navbar-item">
+        {% if key == "blog" %}
+          <a class="navbar-link" data-nav-link href="{{ '/blog/' | relative_url }}">{{ label }}</a>
+        {% elsif include.mode == "tabs" %}
+          <button
+            class="navbar-link{% if key == 'about' %} active{% endif %}"
+            type="button"
+            role="tab"
+            data-nav-link
+            data-target="{{ key }}"
+            aria-controls="{{ key }}"
+            aria-selected="{% if key == 'about' %}true{% else %}false{% endif %}"
+            tabindex="{% if key == 'about' %}0{% else %}-1{% endif %}"
+          >
+            {{ label }}
+          </button>
+        {% else %}
+          <a class="navbar-link" data-nav-link href="{{ '/#' | append: key | relative_url }}">{{ label }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

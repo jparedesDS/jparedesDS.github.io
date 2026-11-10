@@ -4,6 +4,12 @@ nav:
   projects: Proyectos
   repositories: Repositorios
   cv: CV
+tabs:
+  about: Sobre mí
+  resume: Currículum
+  portfolio: Proyectos
+  blog: Blog
+  contact: Contacto
 nav_label: Navegación principal
 menu_toggle: Mostrar navegación
 theme_toggle: Cambiar tema

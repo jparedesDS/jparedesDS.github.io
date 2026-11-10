@@ -1,14 +1,116 @@
-body {
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+/* Site overrides on top of the vCard base styles. */
+
+:root {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --smoky-black: hsl(0, 0%, 96%);
+  --eerie-black-1: hsl(0, 0%, 100%);
+  --eerie-black-2: hsl(0, 0%, 100%);
+  --onyx: hsl(0, 0%, 91%);
+  --jet: hsl(0, 0%, 86%);
+  --white-1: hsl(0, 0%, 12%);
+  --white-2: hsl(0, 0%, 8%);
+  --light-gray: hsl(0, 0%, 25%);
+  --light-gray-70: hsla(0, 0%, 25%, 0.7);
+  --orange-yellow-crayola: hsl(35, 90%, 38%);
+  --vegas-gold: hsl(35, 70%, 38%);
+  --bg-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 93%), hsl(0, 0%, 87%));
+  --bg-gradient-jet: linear-gradient(to bottom right, hsla(0, 0%, 0%, 0.04) 0%, hsla(0, 0%, 0%, 0) 100%), hsl(0, 0%, 98%);
+  --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 80%) 0%, hsla(0, 0%, 80%, 0) 50%);
+  --text-gradient-yellow: linear-gradient(to right, hsl(35, 90%, 35%), hsl(30, 85%, 42%));
+  --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.08);
+  --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.08);
+  --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.08);
+}
+
+html[data-theme="light"] .navbar {
+  background: hsla(0, 0%, 100%, 0.85);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+.theme-toggle,
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 34px;
+  min-height: 34px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--orange-yellow-crayola);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.theme-toggle {
+  border: 1px solid var(--jet);
+}
+
+.theme-toggle .icon-moon,
+html[data-theme="dark"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle .icon-moon {
+  display: block;
+}
+
+.sidebar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 7px 4px;
 }
 
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
+  z-index: 100;
+  background: var(--eerie-black-2);
+  color: var(--white-2);
+  padding: 0.5rem 0.75rem;
 }
 
 .skip-link:focus {
   left: 0.5rem;
-  z-index: 10;
+}
+
+/* Progressive enhancement: without JS every tab stays visible. */
+html:not(.js) article[data-page] {
+  display: block;
+}
+
+html:not(.js) .sidebar {
+  max-height: none;
+}
+
+html:not(.js) .info_more-btn,
+html:not(.js) .theme-toggle {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

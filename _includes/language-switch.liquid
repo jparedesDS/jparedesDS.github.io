@@ -1,0 +1,6 @@
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% if active_lang == 'es' %}
+  <a class="lang-switch" href="{{ '/' | relative_url }}" hreflang="en" lang="en" aria-label="View this page in English">EN</a>
+{% else %}
+  <a class="lang-switch" href="{{ '/es/' | relative_url }}" hreflang="es" lang="es" aria-label="Ver esta página en español">ES</a>
+{% endif %}
