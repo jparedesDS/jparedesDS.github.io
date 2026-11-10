@@ -1,0 +1,28 @@
+---
+import { site } from "../data/site";
+
+const links = [
+  { label: "GitHub", url: "https://github.com/jparedesDS" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/jparedesDS/" },
+  { label: "Hugging Face", url: "https://huggingface.co/jparedesDS" },
+  { label: "Kaggle", url: "https://www.kaggle.com/joseparedesc" },
+];
+---
+
+<section class="contact-panel" id="contact">
+  <div>
+    <p class="section-kicker">05 / Contact</p>
+    <h2>Let’s build<br />something.</h2>
+    <a class="contact-email" href={`mailto:${site.email}`}>{site.email}</a>
+  </div>
+  <div class="contact-links">
+    {
+      links.map((link) => (
+        <a href={link.url} target="_blank" rel="noreferrer">
+          {link.label} <span aria-hidden="true">↗</span>
+        </a>
+      ))
+    }
+    <p>{site.location} · CET</p>
+  </div>
+</section>

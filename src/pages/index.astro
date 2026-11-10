@@ -3,6 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import WorkCard from "../components/WorkCard.astro";
+import Experience from "../components/Experience.astro";
+import WritingList from "../components/WritingList.astro";
+import Stack from "../components/Stack.astro";
+import ContactPanel from "../components/ContactPanel.astro";
 import { projects } from "../data/projects";
 
 const featured = projects.filter((project) => project.featured);
@@ -23,5 +27,24 @@ const featured = projects.filter((project) => project.featured);
         {featured.map((project) => <WorkCard project={project} />)}
       </div>
     </section>
+
+    <section class="section" id="experience">
+      <SectionHeader index="02" kicker="Experience" title="Where I’ve worked" />
+      <Experience />
+    </section>
+
+    <section class="section" id="writing">
+      <SectionHeader
+        index="03"
+        kicker="Writing"
+        title="Notes on how it works"
+        href="/blog/"
+        linkLabel="All writing"
+      />
+      <WritingList />
+    </section>
+
+    <Stack />
+    <ContactPanel />
   </div>
 </BaseLayout>

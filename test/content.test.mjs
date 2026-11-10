@@ -30,3 +30,13 @@ test("the home has the hero, the portrait and the contact links", () => {
   assert.match(html, /github\.com\/jparedesDS/);
   assert.match(html, /mailto:jparedescolmenarejo@gmail\.com/);
 });
+
+test("the home shows experience, writing and contact", () => {
+  const html = read("index.html");
+  assert.match(html, /EIPSA/);
+  assert.match(html, /Comunicación Permanente/);
+  assert.match(html, /How subany\.video works/);
+  assert.match(html, /href="\/blog\/"/);
+  assert.match(html, /Let’s build/);
+  assert.match(html, /jparedescolmenarejo@gmail\.com/);
+});

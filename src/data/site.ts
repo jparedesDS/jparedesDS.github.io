@@ -51,7 +51,53 @@ export const site: Site = {
     "I build computer-vision systems and automation for industrial engineering, and local-first AI products. Currently at EIPSA.",
   availability: "Available for select AI work",
   currentNote: "Currently building inspection models, DocFlow and subany.video.",
-  experience: [],
-  writing: [],
-  stack: [],
+  experience: [
+    {
+      role: "Data Analyst & AI Engineer",
+      company: "EIPSA",
+      description:
+        "Computer vision for metallurgy inspection, DocFlow and ERP automation.",
+      period: "2024 — Now",
+    },
+    {
+      role: "Data Management Technician",
+      company: "Comunicación Permanente",
+      description:
+        "Customer data, incident reporting and the internal procedures behind them.",
+      period: "2021 — 2023",
+    },
+    {
+      role: "Electronics Lab Technician",
+      company: "Grupo ANOVO",
+      description:
+        "Diagnostics, repair and production quality data for consumer devices.",
+      period: "2015 — 2020",
+    },
+  ],
+  writing: [
+    {
+      date: "09 Nov 2026",
+      title: "How subany.video works: live subtitles in the browser",
+      tag: "Engineering",
+      href: "https://jparedesds.github.io/blog/2026/11/09/how-subany-video-works/",
+    },
+    {
+      date: "09 Nov 2026",
+      title: "Cómo funciona subany.video: subtítulos en directo",
+      tag: "Español",
+      href: "https://jparedesds.github.io/blog/2026/11/09/como-funciona-subany-video/",
+    },
+  ],
+  stack: [
+    "Python",
+    "PyTorch",
+    "YOLO",
+    "OpenCV",
+    "FastAPI",
+    "React",
+    "TypeScript",
+    "Docker",
+    "SQL",
+    "Hugging Face",
+  ],
 };
