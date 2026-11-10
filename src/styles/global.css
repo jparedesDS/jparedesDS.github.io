@@ -446,6 +446,11 @@ html[data-theme="dark"] .theme-dot {
   border-color: color-mix(in srgb, var(--ink) 35%, var(--line));
 }
 
+.work-card:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .work-media {
   aspect-ratio: 16 / 9;
   overflow: hidden;

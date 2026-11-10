@@ -39,6 +39,23 @@ test("the CleanYourPhone logo is contained, not cropped", async ({ page }) => {
   expect(fit).toBe("contain");
 });
 
+test("focusing a card link shows a ring on the card", async ({ page }) => {
+  await page.goto("/");
+  await page.locator(".work-card .work-media-link").first().focus();
+  const outline = await page.evaluate(() => {
+    const card = document.querySelector(".work-card");
+    const styles = getComputedStyle(card);
+    return {
+      style: styles.outlineStyle,
+      width: styles.outlineWidth,
+      offset: styles.outlineOffset,
+    };
+  });
+  expect(outline.style).toBe("solid");
+  expect(outline.width).toBe("2px");
+  expect(outline.offset).toBe("3px");
+});
+
 test("the page has no vertical frame and a round portrait", async ({ page }) => {
   await page.goto("/");
   const s = await page.evaluate(() => {
