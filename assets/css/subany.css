@@ -1328,6 +1328,93 @@ html[data-theme="dark"] .cv .card .list-group-item .badge {
   text-underline-offset: 0.15em;
 }
 
+/* Tables, navbar chrome and horizontal rules use palette tokens instead of the
+   Tailwind defaults and the UA button colour. */
+.cv table,
+.cv table.table-cv,
+.cv table.table-dark,
+table.table,
+table.table-dark {
+  color: var(--global-text-color);
+}
+
+table.table-dark {
+  background-color: transparent;
+}
+
+table.table th,
+table.table td,
+.cv table th,
+.cv table td {
+  border-color: var(--global-divider-color);
+}
+
+.cv table a {
+  color: var(--global-theme-color);
+}
+
+.navbar-toggler {
+  color: var(--global-text-color);
+  border-color: var(--global-border-color);
+}
+
+.navbar-toggler .icon-bar {
+  background-color: var(--global-text-color);
+}
+
+hr {
+  color: var(--global-divider-color);
+  border-color: var(--global-divider-color);
+}
+
+/* Mermaid: the diagram's own theme is replaced by palette tokens. The
+   `!important` flags are required because Mermaid injects a <style> element
+   inside every generated SVG. */
+.mermaid svg,
+.mermaid g,
+.mermaid foreignObject {
+  color: var(--global-text-color) !important;
+}
+
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .label,
+.mermaid .cluster-label {
+  color: var(--global-text-color) !important;
+}
+
+.mermaid text {
+  fill: var(--global-text-color) !important;
+}
+
+.mermaid .edgePath path,
+.mermaid .flowchart-link {
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .marker,
+.mermaid marker path {
+  fill: var(--global-border-color) !important;
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon,
+.mermaid .node path {
+  fill: var(--global-surface-color) !important;
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .cluster rect {
+  fill: var(--global-bg-color) !important;
+  stroke: var(--global-border-color) !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: var(--global-bg-color) !important;
+}
+
 /* Code highlighting: the block always uses the palette code surface and the
    palette text colour. Every Pygments family that the bundled GitHub (light)
    and native (dark) stylesheets can emit is remapped to an approved palette

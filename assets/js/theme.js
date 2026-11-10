@@ -139,11 +139,13 @@ let addMermaidZoom = (records, observer) => {
 };
 
 let setMermaidTheme = (theme) => {
-  if (theme == "light") {
-    // light theme name in mermaid is 'default'
-    // https://mermaid.js.org/config/theming.html#available-themes
-    theme = "default";
-  }
+  // light theme name in mermaid is 'default'
+  // https://mermaid.js.org/config/theming.html#available-themes
+  let mermaidTheme = theme == "dark" ? "dark" : "default";
+
+  // mermaid-palette.js supplies the site palette. When it has not loaded, fall
+  // back to the built-in theme, as before.
+  let themeVariables = typeof window.getSubanyMermaidThemeVariables === "function" ? window.getSubanyMermaidThemeVariables(theme) : undefined;
 
   /* Re-render the SVG, based on https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/_includes/mermaid.html */
   document.querySelectorAll(".mermaid").forEach((elem) => {
@@ -153,7 +155,11 @@ let setMermaidTheme = (theme) => {
     elem.innerHTML = svgCode;
   });
 
-  mermaid.initialize({ theme: theme });
+  let mermaidConfig = { theme: mermaidTheme };
+  if (themeVariables) {
+    mermaidConfig.themeVariables = themeVariables;
+  }
+  mermaid.initialize(mermaidConfig);
   window.mermaid.init(undefined, document.querySelectorAll(".mermaid"));
 
   const observable = document.querySelector(".mermaid svg");

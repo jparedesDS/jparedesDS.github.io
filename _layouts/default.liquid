@@ -90,6 +90,7 @@
 
     <!-- JavaScripts -->
     {% include scripts.liquid %}
+    <script src="{{ '/assets/js/mermaid-palette.js' | relative_url | bust_file_cache }}" defer></script>
     <script src="{{ '/assets/js/code-scroll.js' | relative_url }}" defer></script>
   </body>
 </html>
