@@ -114,3 +114,20 @@ layout: shell
     {{ strings.cv.download_pdf }}
   </a>
 </article>
+
+<article class="portfolio" data-page="portfolio" id="portfolio">
+  <header>
+    <h2 class="h2 article-title">{{ strings.tabs.portfolio }}</h2>
+  </header>
+
+  <section class="projects">
+    {% include project-filter.liquid %}
+
+    <ul class="project-list">
+      {% assign projects = site.projects | sort: "importance" %}
+      {% for project in projects %}
+        {% include project-card.liquid project=project %}
+      {% endfor %}
+    </ul>
+  </section>
+</article>

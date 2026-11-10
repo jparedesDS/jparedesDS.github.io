@@ -196,6 +196,34 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   font-size: var(--fs-6);
 }
 
+.project-img--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-gradient-onyx);
+}
+
+.project-img--fallback span {
+  font-size: 2.5rem;
+  color: var(--orange-yellow-crayola);
+}
+
+.project-text {
+  margin: 6px 10px 0;
+  color: var(--light-gray-70);
+  font-size: var(--fs-6);
+}
+
+.lang-badge {
+  display: inline-block;
+  margin: 6px 10px 0;
+  padding: 1px 7px;
+  border: 1px solid var(--jet);
+  border-radius: 999px;
+  color: var(--light-gray-70);
+  font-size: var(--fs-8);
+}
+
 @media (min-width: 580px) {
   .apps-list {
     grid-template-columns: repeat(4, minmax(0, 1fr));

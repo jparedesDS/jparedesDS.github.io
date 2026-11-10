@@ -1,0 +1,31 @@
+<li class="project-item active" data-filter-item data-category="{{ include.project.category }}">
+  <a href="{{ include.project.url | relative_url }}">
+    {% if include.project.img %}
+      <figure class="project-img">
+        <div class="project-item-icon-box">
+          {% include icon.liquid name="eye" %}
+        </div>
+        <img
+          src="{{ include.project.img | relative_url }}"
+          alt="{{ include.project.img_alt }}"
+          width="480"
+          height="300"
+          loading="lazy"
+        >
+      </figure>
+    {% else %}
+      <figure class="project-img project-img--fallback" aria-hidden="true">
+        <span>{{ include.project.title | slice: 0 }}</span>
+      </figure>
+    {% endif %}
+
+    <h3 class="project-title">{{ include.project.title }}</h3>
+    <p class="project-category">
+      {{ strings.project_categories[include.project.category] | default: include.project.category }}
+    </p>
+    <p class="project-text">{{ include.project.description }}</p>
+    {% if include.project.rendered_lang and include.project.rendered_lang != site.active_lang %}
+      <span class="lang-badge">EN</span>
+    {% endif %}
+  </a>
+</li>
