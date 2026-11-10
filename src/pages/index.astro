@@ -1,8 +1,27 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import WorkCard from "../components/WorkCard.astro";
+import { projects } from "../data/projects";
+
+const featured = projects.filter((project) => project.featured);
 ---
+
 <BaseLayout>
   <div class="page">
-    <h1>Jose Paredes</h1>
+    <Hero />
+    <section class="section" id="work">
+      <SectionHeader
+        index="01"
+        kicker="Selected work"
+        title="Things I’ve built"
+        href="/work/"
+        linkLabel="All projects"
+      />
+      <div class="work-grid">
+        {featured.map((project) => <WorkCard project={project} />)}
+      </div>
+    </section>
   </div>
 </BaseLayout>
