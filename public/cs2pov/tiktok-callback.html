@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TikTok Login | Pro POV CS2</title>
+<meta name="description" content="Return page of the TikTok login of cs2pov: shows the code to paste in the terminal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="avatar.png">
+</head>
+<body>
+<header>
+  <a class="brand" href="../propovcs2/" aria-label="Pro POV CS2"><span class="slab"><span>PRO POV</span></span><span class="cs2">CS2</span></a>
+  <nav>
+    <a href="../propovcs2/">Live &amp; videos</a>
+    <a href="./">App</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+</header>
+<main>
+  <h1>TikTok <b>login</b></h1>
+  <p id="intro">Copy this text and paste it in the terminal where <code>cs2pov tiktok-auth</code> is waiting.</p>
+  <div class="code" id="box"><code id="value"></code><button id="copy" type="button">Copy</button></div>
+  <p class="meta">The code works once and for a few minutes. This page sends nothing anywhere: the code
+  stays in your browser until you paste it.</p>
+</main>
+<footer>
+  Pro POV CS2 &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a>
+</footer>
+<script>
+  // What the terminal needs: the code and the state (checked against the one it sent).
+  var query = new URLSearchParams(location.search);
+  var code = query.get("code"), state = query.get("state") || "", error = query.get("error");
+  var value = document.getElementById("value");
+  if (code) {
+    value.textContent = code + (state ? " " + state : "");
+  } else {
+    document.getElementById("intro").textContent = "TikTok did not authorize cs2pov.";
+    value.textContent = error ? error + ": " + (query.get("error_description") || "") : "No code in this address.";
+    value.className = "error";
+    document.getElementById("copy").hidden = true;
+  }
+  document.getElementById("copy").onclick = function () {
+    navigator.clipboard.writeText(value.textContent).then(function () {
+      document.getElementById("copy").textContent = "Copied";
+    });
+  };
+</script>
+</body>
+</html>

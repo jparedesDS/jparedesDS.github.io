@@ -145,3 +145,64 @@ test("the archive links to all five case studies", () => {
     assert.match(html, new RegExp(`href="/work/${slug}/"`), slug);
   }
 });
+
+const walk = (dir) =>
+  fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    return entry.isDirectory() ? walk(full) : [full];
+  });
+
+test("the legacy case and the sub-sites are preserved", () => {
+  assert.ok(fs.existsSync(path.join(dist, "cleanyourmail/index.html")));
+  assert.ok(fs.existsSync(path.join(dist, "css/main.css")));
+  assert.match(read("cleanyourmail/index.html"), /CleanYourMail/);
+  for (const sub of ["cs2pov", "murdoku", "propovcs2"]) {
+    assert.ok(fs.existsSync(path.join(dist, sub, "index.html")), sub);
+  }
+});
+
+test("the legacy page ships its stylesheet, scripts and images", () => {
+  const html = read("cleanyourmail/index.html");
+  const assets = [
+    ...html.matchAll(/<link[^>]+href="(\/[^"]*\.css)"/g),
+    ...html.matchAll(/<script[^>]+src="(\/[^"]*\.js)"/g),
+    ...html.matchAll(/<img[^>]+src="(\/[^"]+)"/g),
+  ].map((match) => match[1]);
+  assert.ok(assets.includes("/css/main.css"), "stylesheet reference");
+  assert.ok(assets.includes("/js/GridWorld.js"), "GridWorld reference");
+  for (const asset of assets) {
+    assert.ok(fs.existsSync(path.join(dist, asset)), `missing asset: ${asset}`);
+  }
+  for (const file of [
+    "css/main.css",
+    "js/GridWorld.js",
+    "images/cleanyourmail.png",
+    "profile.jpg",
+    "resume.pdf",
+  ]) {
+    assert.ok(fs.existsSync(path.join(dist, file)), file);
+  }
+});
+
+test("the legacy page CV link resolves from the site root", () => {
+  assert.match(read("cleanyourmail/index.html"), /href="\/resume\.pdf"/);
+});
+
+test("the search-console and TikTok verification files are served", () => {
+  for (const file of [
+    "google75a8559a473af765.html",
+    "tiktoktlkXmcJe9C9XczFLZBDaijGBy6abp0WB.txt",
+  ]) {
+    assert.ok(fs.existsSync(path.join(dist, file)), file);
+  }
+  assert.match(read("google75a8559a473af765.html"), /google-site-verification/);
+});
+
+test("every sub-site carries at least one asset next to its index", () => {
+  for (const sub of ["cs2pov", "murdoku", "propovcs2"]) {
+    const files = walk(path.join(dist, sub)).filter(
+      (file) => path.basename(file) !== "index.html",
+    );
+    assert.ok(files.length > 0, `${sub} only contains index.html`);
+  }
+});
