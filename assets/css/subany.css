@@ -1,6 +1,6 @@
 /*
  * Subany site overrides.
- * Palette/tokens are defined in T3; this file is loaded after the theme CSS.
+ * Loaded after the theme CSS; palette tokens live in `_sass/_themes.scss`.
  */
 
 /* CleanYourMail case study (ported from legacy _sass/_cleanyourmail.scss) */
@@ -146,3 +146,137 @@
     align-items: flex-start;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Theme foundation — typography, surfaces, focus and layout shell
+ * ------------------------------------------------------------------------- */
+
+:root {
+  --subany-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --subany-font-serif: "Atkinson Hyperlegible", Georgia, "Times New Roman", serif;
+  --subany-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+body {
+  background-color: var(--global-bg-color);
+  color: var(--global-text-color);
+  font-family: var(--subany-font-sans);
+}
+
+.navbar,
+.post-meta,
+.card,
+.card-title,
+.card-text,
+.form-control,
+.form-select,
+input,
+select,
+textarea,
+button,
+.btn {
+  font-family: var(--subany-font-sans);
+}
+
+.post-meta {
+  color: var(--global-text-soft, var(--global-text-color-light));
+}
+
+.post-content,
+.post-content p,
+.post-content li,
+.post-content blockquote {
+  font-family: var(--subany-font-serif);
+}
+
+code,
+pre,
+kbd,
+samp,
+.post-content code,
+.post-content pre {
+  font-family: var(--subany-font-mono);
+}
+
+/* Keyboard focus must stay visible on the beige and dark surfaces. */
+:focus-visible {
+  outline: 3px solid var(--global-focus-color);
+  outline-offset: 2px;
+}
+
+/* Skip link: off-screen until it receives keyboard focus. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 2000;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 0 6px 6px;
+  background: var(--global-text-color);
+  color: var(--global-bg-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+}
+
+/* Shell shared by the homepage and the index pages (filled in T8/T11/T13). */
+.home-container {
+  width: 100%;
+  max-width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* Cards/surfaces used by projects and blog listings. */
+.card {
+  border: 1px solid var(--global-border-color);
+  border-radius: 12px;
+  background-color: var(--global-card-bg-color);
+}
+
+.card-title {
+  color: var(--global-text-color);
+}
+
+.card-text {
+  color: var(--global-text-soft, var(--global-text-color-light));
+}
+
+/* CV list rendering without Bootstrap compatibility. */
+.cv .list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv .list-group-item {
+  border-bottom: 1px solid var(--global-border-color);
+}
+
+/* Search palette: mirror the site palette. */
+ninja-keys {
+  --ninja-modal-background: var(--global-card-bg-color);
+  --ninja-text-color: var(--global-text-color);
+  --ninja-secondary-text-color: var(--global-text-soft);
+  --ninja-selected-background: color-mix(in srgb, var(--global-theme-color) 18%, var(--global-card-bg-color));
+  --ninja-selected-text-color: var(--global-text-color);
+  --ninja-accent-color: var(--global-theme-color);
+  --ninja-footer-background: var(--global-surface-color);
+  --ninja-separate-border: 1px solid var(--global-border-color);
+  --ninja-font-family: "Inter", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
