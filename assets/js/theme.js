@@ -124,9 +124,18 @@ let setGiscusTheme = (theme) => {
   });
 };
 
-let addMermaidZoom = (records, observer) => {
+let mermaidZoomObserver = null;
+
+let addMermaidZoom = () => {
+  if (typeof d3 === "undefined") {
+    return;
+  }
   var svgs = d3.selectAll(".mermaid svg");
   svgs.each(function () {
+    // Zoom is applied once per SVG node; re-attaching would nest the <g> wrapper.
+    if (this.__zoom) {
+      return;
+    }
     var svg = d3.select(this);
     svg.html("<g>" + svg.html() + "</g>");
     var inner = svg.select("g");
@@ -135,7 +144,6 @@ let addMermaidZoom = (records, observer) => {
     });
     svg.call(zoom);
   });
-  observer.disconnect();
 };
 
 let setMermaidTheme = (theme) => {
@@ -155,6 +163,17 @@ let setMermaidTheme = (theme) => {
     elem.innerHTML = svgCode;
   });
 
+  // Watch the diagram container before rendering: Mermaid may replace the SVG
+  // synchronously or asynchronously, and the observer must see the final node.
+  if (mermaidZoomObserver !== null) {
+    mermaidZoomObserver.disconnect();
+  }
+  const mermaidContainer = document.querySelector(".mermaid");
+  if (mermaidContainer !== null) {
+    mermaidZoomObserver = new MutationObserver(addMermaidZoom);
+    mermaidZoomObserver.observe(mermaidContainer, { childList: true, subtree: true });
+  }
+
   let mermaidConfig = { theme: mermaidTheme };
   if (themeVariables) {
     mermaidConfig.themeVariables = themeVariables;
@@ -162,12 +181,8 @@ let setMermaidTheme = (theme) => {
   mermaid.initialize(mermaidConfig);
   window.mermaid.init(undefined, document.querySelectorAll(".mermaid"));
 
-  const observable = document.querySelector(".mermaid svg");
-  if (observable !== null) {
-    var observer = new MutationObserver(addMermaidZoom);
-    const observerOptions = { childList: true };
-    observer.observe(observable, observerOptions);
-  }
+  // Covers synchronous renders that leave no later mutation for the observer.
+  window.setTimeout(addMermaidZoom, 0);
 };
 
 let setDiff2htmlTheme = (theme) => {

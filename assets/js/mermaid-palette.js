@@ -125,7 +125,15 @@ let initSubanyMermaid = () => {
 
   let theme =
     document.documentElement.getAttribute("data-theme") || (typeof determineComputedTheme === "function" ? determineComputedTheme() : "light");
-  renderSubanyMermaid(theme);
+
+  // setMermaidTheme() re-renders with the same palette variables and also
+  // attaches the d3 zoom observer to the final SVG. Only fall back to the
+  // direct render when theme.js did not provide it.
+  if (typeof setMermaidTheme === "function") {
+    setMermaidTheme(theme);
+  } else {
+    renderSubanyMermaid(theme);
+  }
 };
 
 // mermaid-setup.js registers its own `readystatechange` handler first, so this
