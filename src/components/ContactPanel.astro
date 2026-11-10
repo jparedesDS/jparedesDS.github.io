@@ -1,28 +1,44 @@
 ---
 import { site } from "../data/site";
 
-const links = [
+const personal = [
   { label: "GitHub", url: "https://github.com/jparedesDS" },
   { label: "LinkedIn", url: "https://www.linkedin.com/in/jparedesDS/" },
   { label: "Hugging Face", url: "https://huggingface.co/jparedesDS" },
   { label: "Kaggle", url: "https://www.kaggle.com/joseparedesc" },
+  ...site.personalSocials,
 ];
 ---
 
 <section class="contact-panel" id="contact">
-  <div>
+  <div class="contact-intro">
     <p class="section-kicker">05 / Contact</p>
     <h2>Let’s build<br />something.</h2>
     <a class="contact-email" href={`mailto:${site.email}`}>{site.email}</a>
   </div>
-  <div class="contact-links">
-    {
-      links.map((link) => (
-        <a href={link.url} target="_blank" rel="noreferrer">
-          {link.label} <span aria-hidden="true">↗</span>
-        </a>
-      ))
-    }
-    <p>{site.location} · CET</p>
+  <div class="contact-block">
+    <h3 class="contact-label">Personal</h3>
+    <div class="contact-links">
+      {
+        personal.map((link) => (
+          <a href={link.url} target="_blank" rel="noreferrer">
+            {link.label} <span aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+      <p>{site.location} · CET</p>
+    </div>
+  </div>
+  <div class="contact-block">
+    <h3 class="contact-label">Pro POV CS2</h3>
+    <div class="contact-links">
+      {
+        site.propovSocials.map((link) => (
+          <a href={link.url} target="_blank" rel="noreferrer">
+            {link.label} <span aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+    </div>
   </div>
 </section>

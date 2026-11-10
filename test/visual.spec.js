@@ -19,6 +19,64 @@ for (const [width, columns] of [[1440, 3], [768, 2], [360, 1]]) {
   });
 }
 
+test("experience and writing are side by side at 1440", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/");
+  const boxes = await page.evaluate(() => {
+    const e = document.querySelector("#experience").getBoundingClientRect();
+    const w = document.querySelector("#writing").getBoundingClientRect();
+    return { eTop: e.top, wTop: w.top, eLeft: e.left, wLeft: w.left };
+  });
+  expect(Math.abs(boxes.eTop - boxes.wTop)).toBeLessThan(2);
+  expect(boxes.wLeft).toBeGreaterThan(boxes.eLeft);
+});
+
+test("experience and writing stack at 980", async ({ page }) => {
+  await page.setViewportSize({ width: 980, height: 1000 });
+  await page.goto("/");
+  const boxes = await page.evaluate(() => {
+    const e = document.querySelector("#experience").getBoundingClientRect();
+    const w = document.querySelector("#writing").getBoundingClientRect();
+    return { eBottom: e.bottom, wTop: w.top };
+  });
+  expect(boxes.wTop).toBeGreaterThanOrEqual(boxes.eBottom - 2);
+});
+
+test("experience and writing stack at 360 without overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 });
+  await page.goto("/");
+  const boxes = await page.evaluate(() => {
+    const e = document.querySelector("#experience").getBoundingClientRect();
+    const w = document.querySelector("#writing").getBoundingClientRect();
+    return {
+      eBottom: e.bottom,
+      wTop: w.top,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    };
+  });
+  expect(boxes.wTop).toBeGreaterThanOrEqual(boxes.eBottom - 2);
+  expect(boxes.overflow).toBeLessThanOrEqual(1);
+});
+
+for (const [width, columns] of [[1440, 3], [980, 1], [360, 1]]) {
+  test(`the contact panel has ${columns} columns at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto("/");
+    const count = await page.evaluate(
+      () =>
+        getComputedStyle(document.querySelector(".contact-panel"))
+          .gridTemplateColumns.split(" ").length,
+    );
+    expect(count).toBe(columns);
+  });
+}
+
+test("the contact panel names the personal and Pro POV blocks", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".contact-panel")).toContainText("Personal");
+  await expect(page.locator(".contact-panel")).toContainText("Pro POV CS2");
+});
+
 test("the timeline does not overflow at 360px", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 900 });
   await page.goto("/");
