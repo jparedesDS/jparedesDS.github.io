@@ -1,28 +1,94 @@
 {% comment %}
-  Blog post list.
+  Blog index: years, tags, categories and the paginated post list.
 
-  Minimal shell: lists the paginated posts (or all posts) with title and date.
-  Task 9 adds tags, categories, years and pagination.
+  Uses `paginator.posts` when pagination is enabled on the page and falls back
+  to `site.posts` for non-paginated contexts. All labels come from
+  `site.data[active_lang].strings.blog`.
 {% endcomment %}
 {% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
 {% assign strings = site.data[active_lang].strings %}
-{% assign posts = site.posts %}
-{% if paginator and paginator.posts %}
+{% assign all_posts = site.posts %}
+{% assign posts = all_posts %}
+{% if page.pagination.enabled and paginator and paginator.posts %}
   {% assign posts = paginator.posts %}
 {% endif %}
-{% if posts.size > 0 %}
+
+{% if all_posts.size > 0 %}
+  <section class="blog-facets" aria-label="{{ strings.blog.title }}">
+    {% assign years = all_posts | group_by_exp: 'post', "post.date | date: '%Y'" %}
+    {% if years.size > 0 %}
+      <div class="blog-facet">
+        <span class="blog-facet-label">{{ strings.blog.years }}</span>
+        <ul class="blog-facet-list">
+          {% for year in years %}
+            <li>
+              <a href="{{ year.name | prepend: '/blog/' | append: '/' | relative_url }}">{{ year.name }}</a>
+              <span class="blog-facet-count">{{ year.items | size }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% assign tags = site.tags | sort %}
+    {% if tags.size > 0 %}
+      <div class="blog-facet">
+        <span class="blog-facet-label">{{ strings.blog.tags }}</span>
+        <ul class="blog-facet-list">
+          {% for tag in tags %}
+            <li>
+              <a href="{{ tag[0] | slugify | prepend: '/blog/tag/' | append: '/' | relative_url }}">{{ tag[0] }}</a>
+              <span class="blog-facet-count">{{ tag[1] | size }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% assign categories = site.categories | sort %}
+    {% if categories.size > 0 %}
+      <div class="blog-facet">
+        <span class="blog-facet-label">{{ strings.blog.categories }}</span>
+        <ul class="blog-facet-list">
+          {% for category in categories %}
+            <li>
+              <a href="{{ category[0] | slugify | prepend: '/blog/category/' | append: '/' | relative_url }}">{{ category[0] }}</a>
+              <span class="blog-facet-count">{{ category[1] | size }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </section>
+
   <ul class="post-list">
     {% for post in posts %}
+      {% assign reading_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
       <li class="post-list-item">
         <h2 class="post-list-title">
           <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
         </h2>
-        <p class="post-list-date">
+        <p class="post-meta">
           <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: strings.blog.date_format }}</time>
+          &middot;
+          {{ reading_time }} {{ strings.blog.min_read }}
         </p>
+        {% if post.description and post.description != '' %}
+          <p class="post-description">{{ post.description }}</p>
+        {% endif %}
+        {% if post.tags.size > 0 %}
+          <p class="post-tags">
+            {% for tag in post.tags %}
+              <a href="{{ tag | slugify | prepend: '/blog/tag/' | append: '/' | relative_url }}"><i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
+              {% unless forloop.last %}&nbsp;{% endunless %}
+            {% endfor %}
+          </p>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>
+
+  {% include pagination.liquid %}
 {% else %}
   <p class="post-list-empty">{{ strings.blog.no_posts }}</p>
 {% endif %}
