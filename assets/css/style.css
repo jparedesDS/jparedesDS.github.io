@@ -91,6 +91,73 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   left: 0.5rem;
 }
 
+.apps {
+  margin-bottom: 30px;
+}
+
+.apps-title {
+  margin-bottom: 20px;
+}
+
+.apps-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.app-item > a {
+  display: block;
+  height: 100%;
+  padding: 15px;
+  background: var(--eerie-black-1);
+  border: 1px solid var(--jet);
+  border-radius: 14px;
+}
+
+.app-item > a:hover,
+.app-item > a:focus-visible {
+  border-color: var(--orange-yellow-crayola);
+}
+
+.app-img {
+  height: 80px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-img img {
+  max-width: 100%;
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+.app-title {
+  color: var(--white-2);
+  font-size: var(--fs-5);
+  margin-bottom: 5px;
+}
+
+.app-text {
+  color: var(--light-gray-70);
+  font-size: var(--fs-6);
+}
+
+.availability {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  border-left: 3px solid var(--orange-yellow-crayola);
+  padding-left: 10px;
+}
+
+@media (min-width: 580px) {
+  .apps-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 /* Progressive enhancement: without JS every tab stays visible. */
 html:not(.js) article[data-page] {
   display: block;

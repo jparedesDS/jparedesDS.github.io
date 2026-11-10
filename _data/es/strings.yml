@@ -10,6 +10,11 @@ tabs:
   portfolio: Proyectos
   blog: Blog
   contact: Contacto
+sections:
+  services: Lo que hago
+  apps: Apps
+  contact: Contacto
+  all_posts: Todas las entradas
 nav_label: Navegación principal
 menu_toggle: Mostrar navegación
 theme_toggle: Cambiar tema

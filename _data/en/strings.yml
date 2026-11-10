@@ -10,6 +10,11 @@ tabs:
   portfolio: Portfolio
   blog: Blog
   contact: Contact
+sections:
+  services: What I'm doing
+  apps: Apps
+  contact: Contact
+  all_posts: All posts
 nav_label: Main navigation
 menu_toggle: Toggle navigation
 theme_toggle: Change color theme

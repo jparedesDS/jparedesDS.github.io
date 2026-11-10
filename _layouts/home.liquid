@@ -1,6 +1,46 @@
 ---
 layout: shell
 ---
-<main id="main-content">
-  <h1>{{ site.data[site.active_lang].home.name }}</h1>
-</main>
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+{% assign home = site.data[active_lang].home %}
+
+<article class="about active" data-page="about" id="about">
+  <header>
+    <h2 class="h2 article-title">{{ home.eyebrow }}</h2>
+  </header>
+
+  <section class="about-text">
+    {% for paragraph in home.intro %}
+      <p>{{ paragraph }}</p>
+    {% endfor %}
+  </section>
+
+  <section class="service">
+    <h3 class="h3 service-title">{{ strings.sections.services }}</h3>
+
+    <ul class="service-list">
+      {% for service in home.services %}
+        <li class="service-item">
+          <div class="service-icon-box">
+            {% include icon.liquid name=service.icon %}
+          </div>
+
+          <div class="service-content-box">
+            <h4 class="h4 service-item-title">{{ service.title }}</h4>
+            <p class="service-item-text">{{ service.text }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="apps">
+    <h3 class="h3 apps-title">{{ strings.sections.apps }}</h3>
+    {% include apps-strip.liquid apps=home.apps %}
+  </section>
+
+  {% if home.availability %}
+    <p class="availability">{{ home.availability }}</p>
+  {% endif %}
+</article>
