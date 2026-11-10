@@ -747,7 +747,8 @@ html[data-theme="dark"] .theme-dot {
     font-size: 12.5px;
   }
 
-  .nav a:nth-child(3) {
+  .nav a:nth-child(1),
+  .nav a:nth-child(2) {
     display: none;
   }
 
