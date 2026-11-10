@@ -50,6 +50,10 @@ projects:
   read_tutorial: Leer el tutorial
   private_repository: Repositorio privado
   private_note: Repositorio privado. Los detalles de implementación no se divulgan.
+repositories:
+  view_profile: Ver perfil de GitHub
+  private: Repositorio privado
+  repo_count: repositorios
 blog:
   title: Tutoriales
   description: Artículos técnicos sobre cómo funcionan los proyectos.

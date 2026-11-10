@@ -606,3 +606,187 @@ ninja-keys {
     gap: 0.75rem;
   }
 }
+
+/* Repositories page (T11). */
+.repositories-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.repositories-header {
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 14px;
+  background: var(--global-card-bg-color);
+}
+
+.repositories-kicker {
+  margin: 0 0 0.35rem;
+  color: var(--global-theme-color);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.repositories-name {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.repositories-handle {
+  margin: 0.2rem 0 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-family: var(--subany-font-mono);
+  font-size: 0.9rem;
+}
+
+.repositories-description {
+  max-width: 62ch;
+  margin: 0.85rem 0 1.1rem;
+  color: var(--global-text-color);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.repositories-profile-link {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--global-theme-color);
+  border-radius: 999px;
+  background: var(--global-theme-color);
+  color: var(--global-bg-color);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.repositories-profile-link:hover {
+  color: var(--global-bg-color);
+  filter: brightness(0.9);
+  text-decoration: none;
+}
+
+.repositories-count {
+  margin: 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.repositories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 1.25rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repository-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 12px;
+  background: var(--global-card-bg-color);
+}
+
+.repository-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.repository-card-title {
+  min-width: 0;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.repository-card-title a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.repository-card-title a:hover {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+}
+
+.repository-private {
+  flex-shrink: 0;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--global-border-color);
+  border-radius: 999px;
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.repository-card-description {
+  margin: 0;
+  color: var(--global-text-soft, var(--global-text-color-light));
+  font-size: 0.92rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.repository-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  margin-top: auto;
+  padding-top: 0.2rem;
+}
+
+.repository-language {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--global-text-soft, var(--global-text-color));
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.repository-language::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--global-theme-color);
+  content: "";
+}
+
+.repositories-footer-link {
+  margin: 0;
+  font-weight: 700;
+}
+
+.repositories-footer-link a {
+  color: var(--global-theme-color);
+}
+
+@media (max-width: 500px) {
+  .repositories-header {
+    padding: 1.15rem 1.2rem;
+  }
+
+  .repositories-name {
+    font-size: 1.6rem;
+  }
+}

@@ -50,6 +50,10 @@ projects:
   read_tutorial: Read the tutorial
   private_repository: Private repository
   private_note: Private repository. Implementation details are not disclosed.
+repositories:
+  view_profile: View GitHub profile
+  private: Private repository
+  repo_count: repositories
 blog:
   title: Tutorials
   description: Technical write-ups on how the projects work.
