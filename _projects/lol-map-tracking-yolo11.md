@@ -9,7 +9,7 @@ lang: en
 page_id: project-lol-map-tracking-yolo11
 permalink: /projects/lol-map-tracking-yolo11/
 nav_key: projects
-lang_switch_fallback: /projects/
+lang_switch_fallback: /?filter=ai-vision#portfolio
 private: false
 tutorial:
 links:

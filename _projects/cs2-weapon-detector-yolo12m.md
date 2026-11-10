@@ -9,7 +9,7 @@ lang: en
 page_id: project-cs2-weapon-detector-yolo12m
 permalink: /projects/cs2-weapon-detector-yolo12m/
 nav_key: projects
-lang_switch_fallback: /projects/
+lang_switch_fallback: /?filter=ai-vision#portfolio
 private: false
 tutorial:
 links:

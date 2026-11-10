@@ -1,0 +1,58 @@
+---
+layout: shell
+---
+{% assign active_lang = site.active_lang | default: site.lang | default: 'en' %}
+{% assign strings = site.data[active_lang].strings %}
+
+<article class="project-page active" data-page="project">
+  <a class="back-link" href="{{ '/#portfolio' | relative_url }}">
+    {% include icon.liquid name="arrow-left" %}
+    {{ strings.tabs.portfolio }}
+  </a>
+
+  {% if page.rendered_lang and page.rendered_lang != active_lang %}
+    <p class="fallback-notice">{{ strings.fallback_notice }}</p>
+  {% endif %}
+
+  <p class="project-category">
+    {{ strings.project_categories[page.category] | default: page.category }}
+  </p>
+  <h1 class="h1 project-title">{{ page.title }}</h1>
+  <p class="project-summary">{{ page.description }}</p>
+
+  {% if page.private %}
+    <span class="project-private">{{ strings.projects.private_repository }}</span>
+  {% endif %}
+
+  {% if page.img %}
+    <figure class="project-hero">
+      <img
+        src="{{ page.img | relative_url }}"
+        alt="{{ page.img_alt }}"
+        width="1200"
+        height="630"
+        loading="eager"
+      >
+    </figure>
+  {% endif %}
+
+  {% include project-links.liquid links=page.links %}
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  {% assign same = site.projects | where: "category", page.category | sort: "importance" %}
+  {% assign current_index = 0 %}
+  {% for item in same %}
+    {% if item.url == page.url %}{% assign current_index = forloop.index0 %}{% endif %}
+  {% endfor %}
+  {% assign next_index = current_index | plus: 1 | modulo: same.size %}
+  {% assign next_project = same[next_index] %}
+  {% if next_project and next_project.url != page.url %}
+    <a class="next-project" href="{{ next_project.url | relative_url }}">
+      {{ strings.tabs.portfolio }} → {{ next_project.title }}
+      {% include icon.liquid name="arrow-right" %}
+    </a>
+  {% endif %}
+</article>

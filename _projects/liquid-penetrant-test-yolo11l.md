@@ -9,7 +9,7 @@ lang: en
 page_id: project-liquid-penetrant-test-yolo11l
 permalink: /projects/liquid-penetrant-test-yolo11l/
 nav_key: projects
-lang_switch_fallback: /projects/
+lang_switch_fallback: /?filter=ai-vision#portfolio
 private: false
 tutorial:
 links:

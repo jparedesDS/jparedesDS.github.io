@@ -9,7 +9,7 @@ lang: en
 page_id: project-cs2-players-detector-yolo12s
 permalink: /projects/cs2-players-detector-yolo12s/
 nav_key: projects
-lang_switch_fallback: /projects/
+lang_switch_fallback: /?filter=ai-vision#portfolio
 private: false
 tutorial:
 links:

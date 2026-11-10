@@ -9,7 +9,7 @@ lang: en
 page_id: project-deadlock-players-detector
 permalink: /projects/deadlock-players-detector/
 nav_key: projects
-lang_switch_fallback: /projects/
+lang_switch_fallback: /?filter=ai-vision#portfolio
 private: false
 tutorial:
 links:

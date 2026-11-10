@@ -1,0 +1,29 @@
+{% if include.links %}
+  <ul class="project-links">
+    {% for link in include.links %}
+      {% assign label = strings.project_links[link.type] | default: link.label | default: link.type %}
+      <li>
+        {% if link.private or link.url == nil or link.url == "" %}
+          <span class="project-link project-link--private">
+            {{ label }}
+            {% if link.private %}
+              <span class="project-link-badge">{{ strings.projects.private_repository }}</span>
+            {% endif %}
+          </span>
+        {% else %}
+          {% assign external = false %}
+          {% if link.url contains "://" or link.url contains "mailto:" %}
+            {% assign external = true %}
+          {% endif %}
+          <a
+            class="project-link"
+            href="{% if external %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}"
+            {% if external %}target="_blank" rel="noopener noreferrer"{% endif %}
+          >
+            {{ label }}
+          </a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
