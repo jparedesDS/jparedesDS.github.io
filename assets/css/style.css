@@ -1,0 +1,14 @@
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  z-index: 10;
+}
