@@ -13,3 +13,12 @@ for (const width of [360, 768, 1440]) {
     });
   }
 }
+
+test("the mobile header keeps Writing and Contact visible", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 844 });
+  await page.goto("/");
+  await expect(page.locator('.nav a[href="/blog/"]')).toBeVisible();
+  await expect(page.locator('.nav a[href="/#contact"]')).toBeVisible();
+  await expect(page.locator('.nav a[href="/#work"]')).toBeHidden();
+  await expect(page.locator('.nav a[href="/#experience"]')).toBeHidden();
+});
