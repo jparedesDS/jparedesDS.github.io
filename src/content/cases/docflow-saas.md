@@ -18,7 +18,7 @@ A large engineering project order can generate hundreds of documents, and each o
 
 ## Approach
 
-DocFlow is multi-tenant document control built around engineering project orders. It reads the project data it needs in read-only mode and ingests returned documents from client portals. Every revision is archived beside its previous versions instead of replacing them, so the history stays intact. From the same data it generates cover sheets and progress reports, tracks claim escalation, and gives each department its own view. Optional AI summaries condense long documents for people who need the gist before opening the file.
+DocFlow is multi-tenant document control built around engineering project orders. It reads the project data it needs in read-only mode and ingests returned documents from external systems. Every revision is archived beside its previous versions instead of replacing them, so the history stays intact. From the same data it generates cover sheets and progress reports, tracks claim escalation, and gives each department its own view. Optional AI summaries condense long documents for people who need the gist before opening the file.
 
 ## Result
 

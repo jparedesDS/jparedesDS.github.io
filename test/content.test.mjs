@@ -124,9 +124,16 @@ test("the DocFlow case is public-safe", () => {
     "DocFlow Lite",
     "ERP",
     "DocuSign",
+    "portal",
   ]) {
     assert.doesNotMatch(html, new RegExp(name, "i"));
   }
+});
+
+test("the subany.video case does not advertise the private repository", () => {
+  const html = read("work/subany-video/index.html");
+  assert.doesNotMatch(html, /subtitle\.me/i);
+  assert.doesNotMatch(html, /open source/i);
 });
 
 test("every case has a title and a problem, approach and result section", () => {

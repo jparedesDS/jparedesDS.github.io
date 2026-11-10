@@ -37,7 +37,6 @@ export const projects: Project[] = [
     imageAlt: "subany.video interface",
     links: [
       { label: "Website", url: "https://subany.video/", external: true },
-      { label: "Code", url: "https://github.com/jparedesDS/subtitle.me", external: true },
     ],
     href: "/work/subany-video/",
     featured: true,

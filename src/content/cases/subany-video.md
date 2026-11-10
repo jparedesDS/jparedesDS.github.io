@@ -9,9 +9,6 @@ links:
   - label: "Website"
     url: "https://subany.video/"
     external: true
-  - label: "Code"
-    url: "https://github.com/jparedesDS/subtitle.me"
-    external: true
   - label: "How it works"
     url: "/blog/2026/11/09/how-subany-video-works/"
     external: false
@@ -28,4 +25,4 @@ subany.video adds subtitles and translation directly in the browser. A speech-re
 
 ## Result
 
-Viewers get live subtitles and translation while the media stays local to their device. The project is open source, and the step-by-step explanation of how the pipeline works is available as a separate article for anyone who wants the technical detail.
+Viewers get live subtitles and translation while the media stays local to their device. The implementation is private, and the step-by-step explanation of how the pipeline works is available as a separate article for anyone who wants the technical detail.
