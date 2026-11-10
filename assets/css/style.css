@@ -152,6 +152,50 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   padding-left: 10px;
 }
 
+.timeline-highlights {
+  margin: 8px 0 0 16px;
+}
+
+.timeline-highlights li {
+  list-style: disc;
+  color: var(--light-gray-70);
+  font-size: var(--fs-6);
+  margin-bottom: 4px;
+}
+
+.skill-group + .skill-group {
+  margin-top: 15px;
+}
+
+.skill-group-title {
+  color: var(--white-2);
+  font-size: var(--fs-6);
+  margin-bottom: 8px;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  background: var(--onyx);
+  color: var(--light-gray);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: var(--fs-7);
+}
+
+.download-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-6);
+}
+
 @media (min-width: 580px) {
   .apps-list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
