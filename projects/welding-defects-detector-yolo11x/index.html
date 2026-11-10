@@ -1,0 +1,486 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Welding Defects Detector (YOLO11x, 2024) | Jose Paredes </title> <meta name="author" content="Jose Paredes"> <meta name="description" content="Welding-defect detection in metallurgy images with a YOLO11x model released in 2024."> <meta name="keywords" content="data science, computer vision, YOLO, automation, AI engineering, portfolio"> <meta property="og:site_name" content="Jose Paredes"> <meta property="og:type" content="website"> <meta property="og:title" content="Jose Paredes | Welding Defects Detector (YOLO11x, 2024)"> <meta property="og:url" content="https://jparedesds.github.io/projects/welding-defects-detector-yolo11x/"> <meta property="og:description" content="Welding-defect detection in metallurgy images with a YOLO11x model released in 2024."> <meta property="og:image" content="https://jparedesds.github.io/profile.jpg"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="Welding Defects Detector (YOLO11x, 2024)"> <meta name="twitter:description" content="Welding-defect detection in metallurgy images with a YOLO11x model released in 2024."> <meta name="twitter:image" content="https://jparedesds.github.io/profile.jpg"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Jose Paredes"
+        },
+        "url": "https://jparedesds.github.io/projects/welding-defects-detector-yolo11x/",
+        "@type": "WebSite",
+        "description": "Welding-defect detection in metallurgy images with a YOLO11x model released in 2024.",
+        "headline": "Welding Defects Detector (YOLO11x, 2024)",
+        
+        "sameAs": ["https://github.com/jparedesDS","https://www.linkedin.com/in/jparedesDS","https://www.kaggle.com/joseparedesc"],
+        
+        "name": "Jose Paredes",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 1100px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;family=Inter:wght@400;500;600;700&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;JP&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="stylesheet" href="/assets/css/subany.css?v=c2b6683560e36b01f256d3b998f491bc"> <link rel="canonical" href="https://jparedesds.github.io/projects/welding-defects-detector-yolo11x/"> <link rel="alternate" hreflang="en" href="https://jparedesds.github.io/projects/welding-defects-detector-yolo11x/"> <link rel="alternate" hreflang="es" href="https://jparedesds.github.io/es/projects/welding-defects-detector-yolo11x/"> <link rel="alternate" hreflang="x-default" href="https://jparedesds.github.io/projects/welding-defects-detector-yolo11x/"> <script src="/assets/js/theme.js?v=b78d352c1c92c49375c50b904155669a"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <a class="skip-link" href="#main-content">Skip to content</a> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation" aria-label="Main navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Jose</span> Paredes </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item"> <a class="nav-link" href="/">About</a> </li> <li class="nav-item"> <a class="nav-link" href="/blog/">Blog</a> </li> <li class="nav-item active"> <a class="nav-link" href="/projects/" aria-current="page">Projects</a> </li> <li class="nav-item"> <a class="nav-link" href="/repositories/">Repositories</a> </li> <li class="nav-item"> <a class="nav-link" href="/cv/">CV</a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Open search" aria-label="Open search ctrl k"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span> </button> </li> <li class="nav-item lang-switch-container"> <a class="nav-link lang-switch" href="/es/projects/" hreflang="es" lang="es" aria-label="ES — View this page in Spanish">ES</a> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change color theme" aria-label="Change color theme"> <i class="fa-solid fa-sun" id="light-toggle-light" aria-hidden="true"></i> <i class="fa-solid fa-moon" id="light-toggle-dark" aria-hidden="true"></i> </button> </li> </ul> </div> </div> </nav> </header> <div class="container mt-5" id="main-content" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Welding Defects Detector (YOLO11x, 2024)</h1> <p class="post-description">Welding-defect detection in metallurgy images with a YOLO11x model released in 2024.</p> </header> <article> <div class="project-page"> <div class="project-meta"> <span class="project-category">AI &amp; Vision</span> </div> <div class="project-links"> <a class="project-link" href="https://huggingface.co/jparedesDS/welding-defects-detection" target="_blank" rel="noopener noreferrer">Model</a> <a class="project-link" href="https://github.com/jparedesDS/welding-defects-detection" target="_blank" rel="noopener noreferrer">GitHub</a> </div> <h2 id="model-release">Model release</h2> <p>Detection of welding defects in metallurgy images with a YOLO11x model, released in 2024.</p> <p>This page indexes the model card and the repository for this release.</p> </div> </article> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container footer-content"> <p>© 2026 Jose Paredes. Data Scientist · AI Engineer · Madrid.</p> <p>Built with al-folio.</p> </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching" data-placeholder="Type to start searching" data-select="to select" data-navigate="to navigate" data-close="to close"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+  const ninja = document.querySelector('ninja-keys');
+  ninja.data = [
+    {
+      id: 'nav-about',
+      title: "About",
+      section: "Navigation",
+      handler: () => { window.location.href = '/'; },
+    },
+    {
+      id: 'nav-blog',
+      title: "Blog",
+      section: "Navigation",
+      handler: () => { window.location.href = '/blog/'; },
+    },
+    {
+      id: 'nav-projects',
+      title: "Projects",
+      section: "Navigation",
+      handler: () => { window.location.href = '/projects/'; },
+    },
+    {
+      id: 'nav-repositories',
+      title: "Repositories",
+      section: "Navigation",
+      handler: () => { window.location.href = '/repositories/'; },
+    },
+    {
+      id: 'nav-cv',
+      title: "CV",
+      section: "Navigation",
+      handler: () => { window.location.href = '/cv/'; },
+    },
+    
+    
+      {
+        id: 'category-ai-vision',
+        title: "AI & Vision",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#ai-vision'; },
+      },
+    
+      {
+        id: 'category-data-automation',
+        title: "Data & Automation",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#data-automation'; },
+      },
+    
+      {
+        id: 'category-products',
+        title: "Products & Tools",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#products'; },
+      },
+    
+      {
+        id: 'category-esports',
+        title: "Esports & Content",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#esports'; },
+      },
+    
+    
+      
+      
+      {
+        id: 'post-blog-2026-11-09-how-subany-video-works',
+        title: "How subany.video works: live subtitles in the browser",
+        description: "A technical tour of the fixed-delay player, in-browser speech recognition, translation and subtitle timing behind subany.video.",
+        section: "Tutorials",
+        handler: () => { window.location.href = '/blog/2026/11/09/how-subany-video-works/'; },
+      },
+    
+    
+      
+      
+      {
+        id: 'project-ai-yolo-object-detection',
+        title: "AI-YOLO Object Detection",
+        description: "An index of YOLO object-detection models for industrial inspection and video-game computer vision.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/ai-yolo-object-detection/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-claude-telegram-bot',
+        title: "Claude Telegram Bot",
+        description: "Telegram bridge for Claude Code: notifications, approvals and remote control from your phone.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/claude-telegram-bot/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cleanyourmail',
+        title: "CleanYourMail — Reversible Inbox Cleanup for Coding Agents",
+        description: "A local, agent-native skill that files newsletters, promotions and spam reversibly — nothing is permanently deleted.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cleanyourmail/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cleanyourphone',
+        title: "CleanYourPhone — Reversible Android Debloat for Coding Agents",
+        description: "An open-source, reversible Android debloat skill that disables preinstalled apps over ADB without root.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cleanyourphone/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-clutchbot-ai',
+        title: "ClutchBot.ai (CS2AI)",
+        description: "Conversational AI assistant for Counter-Strike 2 players with chat-based tactical guidance and match insights.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/clutchbot-ai/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-players-detector-yolo12s',
+        title: "Counter Strike 2 Players Detector (YOLO12s, 2025)",
+        description: "Player identification in Counter-Strike 2 with a YOLO12s model released in 2025.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-players-detector-yolo12s/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-players-detector-yolov9-v10-v11',
+        title: "Counter Strike 2 Players Detector (YOLOv9/v10/v11, 2024)",
+        description: "Player identification in Counter-Strike 2 with YOLOv9, YOLOv10 and YOLO11 models released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-players-detector-yolov9-v10-v11/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-vrs-predictions',
+        title: "CS2 VRS Predictions",
+        description: "Predictive modelling pipeline that forecasts Counter-Strike 2 team standings and tournament outcomes.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-vrs-predictions/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-weapon-detector-yolo12m',
+        title: "Counter Strike 2 Weapon Detector (YOLO12m, 2025)",
+        description: "Weapon identification in Counter-Strike 2 with a YOLO12m model released in 2025.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-weapon-detector-yolo12m/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-data-wrangling-titanic',
+        title: "Data Wrangling Titanic",
+        description: "Complete cleaning and analysis of the Titanic dataset with pandas and a logistic-regression model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/data-wrangling-titanic/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-deadlock-players-detector',
+        title: "Deadlock Players Detector (YOLO11, 2024)",
+        description: "Player identification in Deadlock with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/deadlock-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-docflow-saas',
+        title: "DocFlow SaaS",
+        description: "End-to-end document control for engineering project orders, reading the ERP in read-only mode and archiving every returned PDF.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/docflow-saas/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-docucontrol',
+        title: "DocuControl",
+        description: "Automation of reports and document control, analysing ERP exports and generating advanced visual reports.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/docucontrol/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-dxf-data-extraction',
+        title: "Data Extraction from DXF Files",
+        description: "Extracts entities from DXF technical drawings and regenerates them in a user-defined format for automated documentation.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/dxf-data-extraction/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-eipsa-erp',
+        title: "EIPSA ERP",
+        description: "Role-based ERP desktop application that unifies the daily activities of an industrial company's departments.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/eipsa-erp/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-email-mapi-automation',
+        title: "Email MAPI Tools Automation",
+        description: "Automates documentation entry from Outlook emails into Excel and the ERP database, then sends the processed data back.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/email-mapi-automation/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-fluorescent-penetrant-inspection',
+        title: "Fluorescent Penetrant Inspection Test",
+        description: "Detects liquid penetrant test indications in metallurgy components with a YOLO11l object-detection model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/fluorescent-penetrant-inspection/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-fortnite-players-detector',
+        title: "Fortnite Players Detector (YOLO11, 2024)",
+        description: "Player identification in Fortnite with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/fortnite-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-futurama-image-classification',
+        title: "Image & Vision Classification of Futurama Frames",
+        description: "Multi-label classification of Futurama characters in video frames, 2nd public and 3rd private in a Kaggle competition.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/futurama-image-classification/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-hltv-scraper',
+        title: "HLTV Team and Player Stats Scraper",
+        description: "Scrapes HLTV team and player statistics and computes a weighted performance score for Counter-Strike 2.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/hltv-scraper/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-liquid-penetrant-test-yolo11l',
+        title: "Liquid Penetrant Test (DP, LPI, PT) (YOLO11l, 2024)",
+        description: "Liquid penetrant test (DP, LPI, PT) detection with a YOLO11l model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/liquid-penetrant-test-yolo11l/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-lol-map-tracking',
+        title: "LoL Map Tracking Object Detection",
+        description: "Tracks League of Legends champions on the minimap with a YOLO11m object-detection model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/lol-map-tracking/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-lol-map-tracking-yolo11',
+        title: "League of Legends Map Tracking (YOLO11, 2024)",
+        description: "Champion and map tracking in League of Legends with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/lol-map-tracking-yolo11/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-monitoring-report-automation',
+        title: "Monitoring Report Automation",
+        description: "Reduces report generation time and manual data-entry errors by turning ERP exports into styled Excel reports.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/monitoring-report-automation/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-ocr-weapon-detection-cs2',
+        title: "OCR Weapon Detection in Counter-Strike 2",
+        description: "Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/ocr-weapon-detection-cs2/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-overwatch-2-players-detector',
+        title: "OverWatch 2 Players Detector (YOLO11, 2024)",
+        description: "Player identification in OverWatch 2 with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/overwatch-2-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-polymarket-autobetting',
+        title: "Polymarket Auto-Betting Bot",
+        description: "Automated trading bot for BTC prediction markets on Polymarket with limit orders and Telegram controls.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/polymarket-autobetting/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-pro-pov-cs2',
+        title: "Pro POV CS2 — Autonomous Esports Content Pipeline",
+        description: "The autonomous engine behind the Pro POV CS2 channel: match discovery, demo parsing, POV recording and publishing.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/pro-pov-cs2/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-subany-video',
+        title: "subany.video",
+        description: "Live subtitles and translation for streams and videos, processed privately in your browser.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/subany-video/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-tableau-documentation-flow',
+        title: "TABLEAU, Documentation Flow Dashboard",
+        description: "A visual progress report to monitor document inflow, processing and delivery across engineering projects.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/tableau-documentation-flow/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-traffic-accidents-madrid',
+        title: "Analysis of Traffic Accidents",
+        description: "Analysis and prediction of traffic accidents in the city of Madrid.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/traffic-accidents-madrid/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-trtw-tv',
+        title: "trtw.tv — Live Spanish Subtitles for Twitch & YouTube",
+        description: "Chrome extension that transcribes English streams locally and overlays Spanish subtitles on Twitch and YouTube.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/trtw-tv/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-twitter-sentiment-analysis',
+        title: "Twitter Sentiment Analysis",
+        description: "Identifies positive and negative sentiment in tweets and explores their natural-language characteristics.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/twitter-sentiment-analysis/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-twitter-sentiment-emojis',
+        title: "Twitter - Sentiment Analysis with Emojis",
+        description: "Classifies the emotional tone of tweets from their emoji usage with natural language processing.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/twitter-sentiment-emojis/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-valorant-players-detector',
+        title: "Valorant Players Detector (YOLOv10/v11, 2024)",
+        description: "Player identification in Valorant with YOLOv10 and YOLO11 models released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/valorant-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-welding-defects-detector',
+        title: "Welding Defects Detector",
+        description: "Detects welding defects in metallurgy inspection images with a YOLO11x object-detection model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/welding-defects-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-welding-defects-detector-yolo11x',
+        title: "Welding Defects Detector (YOLO11x, 2024)",
+        description: "Welding-defect detection in metallurgy images with a YOLO11x model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/welding-defects-detector-yolo11x/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-workshop-scheduler',
+        title: "Appointment Management for Auto Repair Shops",
+        description: "Self-hosted appointment and customer management for auto repair shops, running on the local network.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/workshop-scheduler/'; },
+      },
+    
+  ];
+</script> <script src="/assets/js/search-i18n.js"></script> <script src="/assets/al_search/js/shortcut-key.js"></script> <script src="/assets/js/code-scroll.js" defer></script> </body> </html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> How subany.video works: live subtitles in the browser | Jose Paredes </title> <meta name="author" content="Jose Paredes"> <meta name="description" content="A technical tour of the fixed-delay player, in-browser speech recognition, translation and subtitle timing behind subany.video."> <meta name="keywords" content="data science, computer vision, YOLO, automation, AI engineering, portfolio"> <meta property="og:site_name" content="Jose Paredes"> <meta property="og:type" content="article"> <meta property="og:title" content="Jose Paredes | How subany.video works: live subtitles in the browser"> <meta property="og:url" content="https://jparedesds.github.io/blog/2026/11/09/how-subany-video-works/"> <meta property="og:description" content="A technical tour of the fixed-delay player, in-browser speech recognition, translation and subtitle timing behind subany.video."> <meta property="og:image" content="https://jparedesds.github.io/profile.jpg"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="How subany.video works: live subtitles in the browser"> <meta name="twitter:description" content="A technical tour of the fixed-delay player, in-browser speech recognition, translation and subtitle timing behind subany.video."> <meta name="twitter:image" content="https://jparedesds.github.io/profile.jpg"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Jose Paredes"
+        },
+        "url": "https://jparedesds.github.io/blog/2026/11/09/how-subany-video-works/",
+        "@type": "BlogPosting",
+        "description": "A technical tour of the fixed-delay player, in-browser speech recognition, translation and subtitle timing behind subany.video.",
+        "headline": "How subany.video works: live subtitles in the browser",
+        
+        "sameAs": ["https://github.com/jparedesDS","https://www.linkedin.com/in/jparedesDS","https://www.kaggle.com/joseparedesc"],
+        
+        "name": "Jose Paredes",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 1100px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;family=Inter:wght@400;500;600;700&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;JP&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="stylesheet" href="/assets/css/subany.css?v=c2b6683560e36b01f256d3b998f491bc"> <link rel="canonical" href="https://jparedesds.github.io/blog/2026/11/09/how-subany-video-works/"> <link rel="alternate" hreflang="en" href="https://jparedesds.github.io/blog/2026/11/09/how-subany-video-works/"> <link rel="alternate" hreflang="es" href="https://jparedesds.github.io/es/blog/2026/11/09/como-funciona-subany-video/"> <link rel="alternate" hreflang="x-default" href="https://jparedesds.github.io/blog/2026/11/09/how-subany-video-works/"> <script src="/assets/js/theme.js?v=b78d352c1c92c49375c50b904155669a"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <a class="skip-link" href="#main-content">Skip to content</a> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation" aria-label="Main navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Jose</span> Paredes </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item"> <a class="nav-link" href="/">About</a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/" aria-current="page">Blog</a> </li> <li class="nav-item"> <a class="nav-link" href="/projects/">Projects</a> </li> <li class="nav-item"> <a class="nav-link" href="/repositories/">Repositories</a> </li> <li class="nav-item"> <a class="nav-link" href="/cv/">CV</a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Open search" aria-label="Open search ctrl k"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span> </button> </li> <li class="nav-item lang-switch-container"> <a class="nav-link lang-switch" href="/es/blog/2026/11/09/como-funciona-subany-video/" hreflang="es" lang="es" aria-label="ES — View this page in Spanish">ES</a> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change color theme" aria-label="Change color theme"> <i class="fa-solid fa-sun" id="light-toggle-light" aria-hidden="true"></i> <i class="fa-solid fa-moon" id="light-toggle-dark" aria-hidden="true"></i> </button> </li> </ul> </div> </div> </nav> </header> <div class="container mt-5" id="main-content" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">How subany.video works: live subtitles in the browser</h1> <p class="post-meta"> Published on November 09, 2026 by Jose Paredes </p> <p class="post-tags"> <a href="/blog/2026/"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/subany/"> <i class="fa-solid fa-hashtag fa-sm"></i> subany</a>   <a href="/blog/tag/hls/"> <i class="fa-solid fa-hashtag fa-sm"></i> hls</a>   <a href="/blog/tag/whisper/"> <i class="fa-solid fa-hashtag fa-sm"></i> whisper</a>   <a href="/blog/tag/onnx/"> <i class="fa-solid fa-hashtag fa-sm"></i> onnx</a>   <a href="/blog/tag/webgpu/"> <i class="fa-solid fa-hashtag fa-sm"></i> webgpu</a>   <a href="/blog/tag/translation/"> <i class="fa-solid fa-hashtag fa-sm"></i> translation</a>   ·   <a href="/blog/category/tutorials/"> <i class="fa-solid fa-tag fa-sm"></i> tutorials</a> </p> </header> <article class="post-content"> <div id="table-of-contents"> <ul id="toc" class="section-nav"> <li class="toc-entry toc-h2"><a href="#what-it-is-and-what-constraint-rules">What it is and what constraint rules</a></li> <li class="toc-entry toc-h2"><a href="#architecture-at-a-glance">Architecture at a glance</a></li> <li class="toc-entry toc-h2"><a href="#the-fixed-delay-player">The fixed-delay player</a></li> <li class="toc-entry toc-h2"><a href="#getting-access-to-a-twitch-live-stream">Getting access to a Twitch live stream</a></li> <li class="toc-entry toc-h2"><a href="#voice-to-phrases-silero-vad">Voice to phrases: Silero VAD</a></li> <li class="toc-entry toc-h2"><a href="#whisper-in-the-browser">Whisper in the browser</a></li> <li class="toc-entry toc-h2"><a href="#translation">Translation</a></li> <li class="toc-entry toc-h2"><a href="#subtitle-timing">Subtitle timing</a></li> <li class="toc-entry toc-h2"><a href="#privacy-and-resources">Privacy and resources</a></li> <li class="toc-entry toc-h2"><a href="#real-measurements">Real measurements</a></li> <li class="toc-entry toc-h2"><a href="#limits-and-next-steps">Limits and next steps</a></li> <li class="toc-entry toc-h2"><a href="#try-it">Try it</a></li> </ul> </div> <hr> <div id="markdown-content"> <p>subany.video is a small experiment with a deliberately narrow promise: paste a Twitch link and watch the stream with translated subtitles. No account, no installation, no extension. The video, the speech recognition and the translation all run in the browser.</p> <p>That promise is also the design constraint. Every technical decision below is subordinate to it: if a feature made the “paste and watch” path slower or more fragile, it stayed out. The result is not a general-purpose transcription platform. It is a player that deliberately runs a few seconds behind the live edge so that it has enough audio to recognise, translate and display complete phrases.</p> <p>This article walks through the parts that make that work. The code excerpts come from the phase-0 prototype, which lives in a private repository at the time of writing.</p> <h2 id="what-it-is-and-what-constraint-rules">What it is and what constraint rules</h2> <p>The input is a Twitch channel URL. The output is the same stream in a custom HLS player, with subtitles in the viewer’s language.</p> <p>Three properties matter more than anything else:</p> <ul> <li> <strong>No account.</strong> The viewer never signs in, and the product never asks for one.</li> <li> <strong>No install.</strong> Everything ships as a web page.</li> <li> <strong>Local processing.</strong> Audio is transcribed and translated on the viewer’s machine, using WebGPU when it is available and the CPU otherwise.</li> </ul> <p>The prototype supports a fixed delay of 10, 15 or 20 seconds, with 15 seconds as the default. That delay is the central trade-off: it is the room the system needs to turn a live audio stream into readable, synchronised text.</p> <h2 id="architecture-at-a-glance">Architecture at a glance</h2> <p>The pipeline has two halves. One half keeps a delayed HLS stream playing; the other turns the audio that has already been buffered into subtitles and feeds them back to the player.</p> <pre><code class="language-mermaid">flowchart LR
+  A[Twitch URL] --&gt; B[PlaybackAccessToken]
+  B --&gt; C[HLS playlist]
+  C --&gt; D[Fixed-delay player]
+  D --&gt; E[Audio 16 kHz]
+  E --&gt; F[Silero VAD]
+  F --&gt; G[Phrase segments]
+  G --&gt; H[Whisper via Transformers.js]
+  H --&gt; I[Hallucination filter]
+  I --&gt; J[Translation]
+  J --&gt; K[Subtitle queue]
+  K --&gt; D
+</code></pre> <p>The player and the worker are intentionally separate. The player owns video timing; the worker owns the audio pipeline. A subtitle is created with the real start and end time of its phrase, so it can be shown against the delayed video without a second clock.</p> <h2 id="the-fixed-delay-player">The fixed-delay player</h2> <p>A live HLS playlist does not keep the whole stream. In the phase-0 measurements, Twitch kept roughly <strong>28–30 seconds</strong> of video available. Waiting for a 15-second delay would waste most of that window and make startup slow, so the player normally jumps backwards as soon as it has enough buffer. If the available window is too short for that jump, it falls back to pausing and accumulating the delay.</p> <p>The hls.js configuration follows the target delay directly:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/reproductor/retraso.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">configHls</span><span class="p">(</span><span class="nx">objetivoSeg</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">liveSyncDuration</span><span class="p">:</span> <span class="nx">objetivoSeg</span><span class="p">,</span>
+    <span class="na">liveMaxLatencyDuration</span><span class="p">:</span> <span class="nx">objetivoSeg</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="na">maxLiveSyncPlaybackRate</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// never speed up to catch the live edge</span>
+    <span class="na">maxBufferLength</span><span class="p">:</span> <span class="nx">objetivoSeg</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">lowLatencyMode</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div> <p><code class="language-plaintext highlighter-rouge">maxLiveSyncPlaybackRate: 1</code> is deliberate. hls.js can normally play slightly faster to recover from latency, but speeding up the video would break the relationship between the audio and the subtitles that were timed against it. The player stays at normal speed and corrects its position in jumps instead.</p> <p>A jump is only allowed when the delay has drifted more than two seconds past the target:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/reproductor/retraso.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">debeResincronizar</span><span class="p">(</span><span class="nx">latenciaSeg</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">objetivoSeg</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">margenSeg</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span> <span class="nx">boolean</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">latenciaSeg</span> <span class="o">&gt;</span> <span class="nx">objetivoSeg</span> <span class="o">+</span> <span class="nx">margenSeg</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>The controller samples the latency every five seconds. If the tab is hidden and Chrome pauses a muted video, the delay can grow to 29–31 seconds; when the viewer comes back, the player seeks to the live edge minus the target delay. The check is skipped while the tab is hidden so the player does not fight the browser’s pause behaviour.</p> <p>At startup there are two modes. <code class="language-plaintext highlighter-rouge">saltar</code> is the fast path described above: enough history exists, so the player seeks back immediately. <code class="language-plaintext highlighter-rouge">acumular</code> pauses playback while hls.js keeps loading until the target latency is reached. The choice is a one-line decision:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/reproductor/retraso.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">planificarRetraso</span><span class="p">(</span><span class="nx">ventanaSeg</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">objetivoSeg</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">margenSeg</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span> <span class="dl">"</span><span class="s2">saltar</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">acumular</span><span class="dl">"</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">ventanaSeg</span> <span class="o">&gt;=</span> <span class="nx">objetivoSeg</span> <span class="o">+</span> <span class="nx">margenSeg</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">saltar</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">acumular</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div> <h2 id="getting-access-to-a-twitch-live-stream">Getting access to a Twitch live stream</h2> <p>Twitch does not expose a simple public playback URL. The prototype follows the same path as the official web player:</p> <ol> <li>Request a <code class="language-plaintext highlighter-rouge">PlaybackAccessToken</code> from Twitch’s GQL endpoint.</li> <li>Build an HLS master playlist URL on <code class="language-plaintext highlighter-rouge">usher.ttvnw.net</code> with that token.</li> <li>Read the variant playlists and media segments from Twitch’s CDN.</li> </ol> <p>The token request uses the public web Client-ID and a persisted GQL query. This part works from any origin because GQL returns permissive CORS headers. The master playlist is different: <code class="language-plaintext highlighter-rouge">usher.ttvnw.net</code> only allows <code class="language-plaintext highlighter-rouge">twitch.tv</code>, and the audio/video variant playlists return <strong>403</strong> to a public third-party origin. Media segments, on the other hand, are downloadable with CORS <code class="language-plaintext highlighter-rouge">*</code>.</p> <p>That asymmetry motivates the minimal proxy. It only forwards text playlists — a few kilobytes every couple of seconds per viewer. Video and audio never pass through it. The prototype has three access modes: <code class="language-plaintext highlighter-rouge">directo</code> when the browser can reach everything, <code class="language-plaintext highlighter-rouge">proxy-listas</code> when only the lists need the intermediary, and <code class="language-plaintext highlighter-rouge">proxy-todo</code> when the token request also has to go through it.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/twitch/acceso.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">urlMaestra</span><span class="p">(</span><span class="nx">canal</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">token</span><span class="p">:</span> <span class="p">{</span> <span class="nl">valor</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span> <span class="nl">firma</span><span class="p">:</span> <span class="kr">string</span> <span class="p">},</span> <span class="nx">via</span><span class="p">:</span> <span class="nx">ViaAcceso</span><span class="p">):</span> <span class="kr">string</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">u</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">URL</span><span class="p">(</span><span class="s2">`https://usher.ttvnw.net/api/v2/channel/hls/</span><span class="p">${</span><span class="nx">canal</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">()}</span><span class="s2">.m3u8`</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">p</span><span class="p">:</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="kr">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">platform</span><span class="p">:</span> <span class="dl">"</span><span class="s2">web</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">p</span><span class="p">:</span> <span class="nc">String</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">999999</span><span class="p">)),</span>
+    <span class="na">allow_source</span><span class="p">:</span> <span class="dl">"</span><span class="s2">true</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">allow_audio_only</span><span class="p">:</span> <span class="dl">"</span><span class="s2">true</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">playlist_include_framerate</span><span class="p">:</span> <span class="dl">"</span><span class="s2">true</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">multigroup_video</span><span class="p">:</span> <span class="dl">"</span><span class="s2">true</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">supported_codecs</span><span class="p">:</span> <span class="dl">"</span><span class="s2">h264</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">sig</span><span class="p">:</span> <span class="nx">token</span><span class="p">.</span><span class="nx">firma</span><span class="p">,</span>
+    <span class="na">token</span><span class="p">:</span> <span class="nx">token</span><span class="p">.</span><span class="nx">valor</span><span class="p">,</span>
+    <span class="na">fast_bread</span><span class="p">:</span> <span class="dl">"</span><span class="s2">true</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">};</span>
+  <span class="k">for </span><span class="p">(</span><span class="kd">const</span> <span class="p">[</span><span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">]</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nf">entries</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span> <span class="nx">u</span><span class="p">.</span><span class="nx">searchParams</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">via</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">directo</span><span class="dl">"</span> <span class="p">?</span> <span class="nx">u</span><span class="p">.</span><span class="nx">href</span> <span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">PROXY</span><span class="p">}</span><span class="s2">/hls?u=</span><span class="p">${</span><span class="nf">encodeURIComponent</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">href</span><span class="p">)}</span><span class="s2">`</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>The playlists contain the viewer’s IP and the token is signed, so the prototype never stores either. The proxy exists to satisfy CORS, not to become a media server.</p> <p>This is also the most fragile part of the product. During phase 0, Twitch changed the master playlist format (the <code class="language-plaintext highlighter-rouge">STABLE-VARIANT-ID</code> / <code class="language-plaintext highlighter-rouge">IVS-NAME</code> fields), and two of twenty tested channels already served audio as fMP4/CMAF. Any production version has to treat the Twitch adapter as a moving target.</p> <h2 id="voice-to-phrases-silero-vad">Voice to phrases: Silero VAD</h2> <p>Whisper works best on complete phrases, not on an endless stream. The first job is therefore to find speech and cut it into phrases.</p> <p>Audio is resampled to <strong>16 kHz</strong>. The voice activity detector is <strong>Silero VAD v5</strong>, running as an ONNX model through <code class="language-plaintext highlighter-rouge">onnxruntime-web</code> on the CPU. Each inference consumes a frame of <strong>512 samples</strong>, which is <strong>32 ms</strong> at 16 kHz, and carries a recurrent state of shape <code class="language-plaintext highlighter-rouge">[2, 1, 128]</code>:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/directo/vad.ts</span>
+<span class="k">async</span> <span class="nf">probabilidad</span><span class="p">(</span><span class="nx">trama</span><span class="p">:</span> <span class="nb">Float32Array</span> <span class="cm">/* 512 samples at 16 kHz */</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">sesion</span><span class="o">!</span><span class="p">.</span><span class="nf">run</span><span class="p">({</span>
+    <span class="na">input</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ort</span><span class="p">.</span><span class="nc">Tensor</span><span class="p">(</span><span class="dl">'</span><span class="s1">float32</span><span class="dl">'</span><span class="p">,</span> <span class="nx">trama</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="p">]),</span>
+    <span class="na">state</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ort</span><span class="p">.</span><span class="nc">Tensor</span><span class="p">(</span><span class="dl">'</span><span class="s1">float32</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">estado</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">]),</span>
+    <span class="na">sr</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">sr</span><span class="p">,</span>
+  <span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">estado</span> <span class="o">=</span> <span class="nb">Float32Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">stateN</span><span class="p">.</span><span class="nx">data</span> <span class="kd">as </span><span class="nb">Float32Array</span><span class="p">);</span>
+  <span class="k">return </span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">data</span> <span class="kd">as </span><span class="nb">Float32Array</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>The VAD only produces a probability per frame. The segmenter turns that sequence into phrases with a small state machine:</p> <ul> <li>A phrase starts when the probability reaches <strong>0.5</strong>.</li> <li>It closes after <strong>500 ms</strong> of consecutive frames below <strong>0.35</strong>.</li> <li>The end is the last frame that still had voice, not the end of the silence.</li> <li>Phrases shorter than <strong>250 ms</strong> are dropped.</li> <li>A phrase that reaches <strong>8 seconds</strong> is cut at the lowest-probability frame in the last <strong>3 seconds</strong>, provided that frame is below 0.35; otherwise it is cut at exactly 8 seconds.</li> </ul> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/directo/segmentador.ts</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">TRAMA_MS</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+  <span class="nx">UMBRAL_INICIO</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+  <span class="nx">UMBRAL_FIN</span> <span class="o">=</span> <span class="mf">0.35</span><span class="p">,</span>
+  <span class="nx">SILENCIO_FIN_MS</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+  <span class="nx">MIN_FRASE_MS</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span>
+  <span class="nx">MAX_FRASE_MS</span> <span class="o">=</span> <span class="mi">8000</span><span class="p">,</span>
+  <span class="nx">VENTANA_PAUSA_MS</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
+
+<span class="c1">// A phrase opens at &gt;= 0.5 and closes after 500 ms below 0.35.</span>
+<span class="c1">// At 8 s it is cut at the quietest frame of the last 3 s, or at 8 s exactly.</span>
+</code></pre></div></div> <p>This is a simple design on purpose. It does not try to identify sentences semantically; it finds pauses. The 8-second ceiling keeps the later Whisper step inside its latency budget, and the quietest-frame cut avoids slicing in the middle of a loud syllable whenever the audio offers a better boundary.</p> <h2 id="whisper-in-the-browser">Whisper in the browser</h2> <p>Transcription uses <strong>Transformers.js</strong> with ONNX versions of Whisper. The catalogue covers five sizes: <code class="language-plaintext highlighter-rouge">whisper-tiny</code>, <code class="language-plaintext highlighter-rouge">whisper-base</code>, <code class="language-plaintext highlighter-rouge">whisper-small</code>, <code class="language-plaintext highlighter-rouge">whisper-large-v3-turbo</code> and <code class="language-plaintext highlighter-rouge">whisper-large-v3</code>. On WebGPU the encoder runs in <strong>fp16</strong> and the decoder in <strong>q4</strong> (if the GPU does not expose shader-f16, the encoder falls back to fp32). On the CPU path the models run in <strong>q8</strong>.</p> <p>Live phrases are short, so the transcriptor caps output tokens according to duration:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/modelos/transcriptor.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">maxTokensPara</span><span class="p">(</span><span class="nx">muestras</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="mi">440</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">((</span><span class="nx">muestras</span> <span class="o">/</span> <span class="mi">16000</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)));</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>Ten tokens per second is roughly three times the normal speech rate. A real phrase fits comfortably, while a Whisper loop — the classic “hola hola hola…” — is cut before it reaches the 448-token ceiling and ruins the latency. The same function is applied to short clips in the collection benchmark.</p> <p>Longer audio takes a different path. Anything over 30 seconds is transcribed with a <strong>30-second chunk</strong> and a <strong>5-second stride</strong>, so the model sees overlapping context instead of one endless window:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/modelos/transcriptor.ts</span>
+<span class="k">if </span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">16000</span><span class="p">)</span> <span class="nb">Object</span><span class="p">.</span><span class="nf">assign</span><span class="p">(</span><span class="nx">opciones</span><span class="p">,</span> <span class="p">{</span> <span class="na">chunk_length_s</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="na">stride_length_s</span><span class="p">:</span> <span class="mi">5</span> <span class="p">});</span>
+<span class="k">else</span> <span class="nx">opciones</span><span class="p">.</span><span class="nx">max_new_tokens</span> <span class="o">=</span> <span class="nf">maxTokensPara</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+</code></pre></div></div> <p>Two safeguards sit around the model. First, the worker drops empty output and text rejected by a hallucination filter. Second, the worker <strong>warms up</strong> the model before announcing that it is ready: it transcribes one second of silence, so the first real phrase does not pay the cost of compiling GPU shaders. When an external translator is used, it is warmed up with a short translation as well.</p> <h2 id="translation">Translation</h2> <p>Translation is pluggable because no single option fits every browser and every machine. The prototype supports four families:</p> <ul> <li> <strong>The browser’s built-in Translator API.</strong> Fast (around 30 ms per phrase in the phase-0 tests) and available in Chrome, Brave and Opera GX, but not Firefox. It does not exist inside Web Workers, so the worker sends the text to the page, the page translates it, and the result comes back.</li> <li> <strong>Opus-MT.</strong> Commercial (CC-BY-4.0), around 450 MB in fp32 or 230 MB in q8. A direct source-to-target pair is used when an ONNX model exists; otherwise the text is pivoted through English.</li> <li> <strong>NLLB-600M.</strong> Good quality in the blind comparison, but <strong>non-commercial</strong> (CC-BY-NC-4.0), so it is a research option rather than a product option.</li> <li> <strong>Qwen3 0.6B, 1.7B and 4B.</strong> Commercial (Apache-2.0). The 4B model scored slightly better than the others but takes about 1.3 seconds per phrase and occasionally emitted Chinese characters; the 1.7B model did not load on the test laptop.</li> </ul> <p>The pivot through English is explicit in the catalogue. If a direct Opus-MT model for the source language is missing, the translator loads two pipelines and runs the text through both:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/modelos/catalogo.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">candidatoOpus</span><span class="p">(</span><span class="nx">origen</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">CandidatoTraduccion</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">directa</span> <span class="o">=</span> <span class="s2">`Xenova/opus-mt-</span><span class="p">${</span><span class="nx">origen</span><span class="p">}</span><span class="s2">-es`</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">modelos</span> <span class="o">=</span> <span class="nx">CATALOGO</span><span class="p">.</span><span class="nf">some</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">directa</span><span class="p">)</span> <span class="p">?</span> <span class="p">[</span><span class="nx">directa</span><span class="p">]</span> <span class="p">:</span> <span class="p">[</span><span class="s2">`Xenova/opus-mt-</span><span class="p">${</span><span class="nx">origen</span><span class="p">}</span><span class="s2">-en`</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Xenova/opus-mt-en-es</span><span class="dl">"</span><span class="p">];</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">opus-mt</span><span class="dl">"</span><span class="p">,</span> <span class="na">tipo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">opus</span><span class="dl">"</span><span class="p">,</span> <span class="nx">modelos</span><span class="p">,</span> <span class="na">licencia</span><span class="p">:</span> <span class="dl">"</span><span class="s2">comercial</span><span class="dl">"</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>In the phase-0 blind comparison (scored 0–1 by Claude, not by human reviewers), the built-in translator and NLLB-600M both scored <strong>0.57</strong>, Qwen3-4B scored <strong>0.59</strong>, and Opus-MT scored <strong>0.44</strong>. Those numbers are useful for choosing a default, not for claiming human-level translation quality.</p> <h2 id="subtitle-timing">Subtitle timing</h2> <p>Once a phrase has text and a translation, the worker builds a subtitle with the phrase’s original start and end times. The player can then display it at the right moment against the delayed video.</p> <p>Admission is a three-way decision based on when the subtitle became ready:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/directo/subtitulos.ts</span>
+<span class="k">export</span> <span class="kd">type</span> <span class="nx">Admision</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">a-tiempo</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">tarde-mostrado</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">tarde-descartado</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">admitirSubtitulo</span><span class="p">(</span><span class="nx">s</span><span class="p">:</span> <span class="nx">Subtitulo</span><span class="p">,</span> <span class="nx">ahoraMs</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">Admision</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">ahoraMs</span> <span class="o">&lt;=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">inicio</span><span class="p">)</span> <span class="k">return</span> <span class="dl">"</span><span class="s2">a-tiempo</span><span class="dl">"</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nx">fin</span> <span class="o">-</span> <span class="nx">ahoraMs</span> <span class="o">&gt;=</span> <span class="mi">1000</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">tarde-mostrado</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">tarde-descartado</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>If the subtitle is ready before its phrase starts, it is on time. If it is late but at least one second of the phrase remains, it is shown late. If less than a second remains, it is discarded rather than flashed on screen. A counter records the three outcomes and reports the proportion that arrived on time.</p> <p>Lines are wrapped at <strong>42 characters</strong>, without summarising or rewriting the translation:</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/directo/subtitulos.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">partirLineas</span><span class="p">(</span><span class="nx">texto</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">maxCaracteres</span> <span class="o">=</span> <span class="mi">42</span><span class="p">):</span> <span class="kr">string</span><span class="p">[]</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">lineas</span><span class="p">:</span> <span class="kr">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">let</span> <span class="nx">actual</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
+  <span class="k">for </span><span class="p">(</span><span class="kd">const</span> <span class="nx">p</span> <span class="k">of</span> <span class="nx">texto</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sr">/</span><span class="se">\s</span><span class="sr">+/</span><span class="p">).</span><span class="nf">filter</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">actual</span> <span class="o">&amp;&amp;</span> <span class="nx">actual</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="nx">p</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">maxCaracteres</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">lineas</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">actual</span><span class="p">);</span>
+      <span class="nx">actual</span> <span class="o">=</span> <span class="nx">p</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="nx">actual</span> <span class="o">=</span> <span class="nx">actual</span> <span class="p">?</span> <span class="s2">`</span><span class="p">${</span><span class="nx">actual</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">p</span><span class="p">}</span><span class="s2">`</span> <span class="p">:</span> <span class="nx">p</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">actual</span><span class="p">)</span> <span class="nx">lineas</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">actual</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">lineas</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>The worker is a single loop: VAD frames become phrases, phrases are transcribed, hallucinated output is dropped, the rest is translated, and a subtitle is posted back to the page. The page never blocks on transcription; it keeps playing video while the worker catches up.</p> <h2 id="privacy-and-resources">Privacy and resources</h2> <p>The privacy story is simple because the architecture is local. Audio is decoded and resampled in the browser, the VAD runs in WASM, Whisper runs in WebGPU or WASM, and translation runs either in the browser’s own translator or in a local ONNX model. Audio never leaves the machine. The browser still talks to Twitch for the token and playlists — directly or through the minimal proxy — and downloads model files from Hugging Face on first use.</p> <p>Models are downloaded from Hugging Face on first use and cached by the browser. That cache explains the two very different startup numbers: with the models already present, the first subtitle appeared <strong>11–13 seconds</strong> after pressing play; on a cold profile, the first visit took <strong>66–108 seconds</strong> because the models had to download.</p> <p>The compute path matters as much as the network. WebGPU handles the larger models comfortably on a dedicated GPU. WASM is the fallback, and it is slower: Firefox’s WebGPU implementation measured <strong>4–8 times slower</strong> than Chrome’s in phase 0, which is why the basic tier uses <code class="language-plaintext highlighter-rouge">whisper-base</code> on the CPU rather than pretending the GPU path is universal. Firefox with the CPU path still delivered 100% of subtitles on time in the phase-0 test.</p> <p>There is no account system, so there is no server-side profile, history or identity to protect. The trade-off is that the product cannot sync settings across devices, and any future multi-user feature would need a separate design.</p> <h2 id="real-measurements">Real measurements</h2> <p>The phase-0 report measured the prototype on a Windows laptop with a Ryzen CPU, 16 GB of RAM and an AMD RX 5600M GPU. These are the numbers that decided whether the project continued:</p> <table> <thead> <tr> <th>Metric</th> <th>Result</th> </tr> </thead> <tbody> <tr> <td>Fixed delay</td> <td>15.27–15.62 s with a 15 s target</td> </tr> <tr> <td>HLS window</td> <td>28–30 s</td> </tr> <tr> <td>Median subtitle offset</td> <td>0–40 ms</td> </tr> <tr> <td>High tier on time</td> <td>99.0%, 100%, 100% across three channels</td> </tr> <tr> <td>First subtitle</td> <td>11–13 s with cache; 66–108 s on a first visit</td> </tr> <tr> <td>Speaker-turn accuracy</td> <td>56%</td> </tr> </tbody> </table> <p>The delay stayed inside ±1 second across ten-minute runs at 10, 15 and 20 seconds. The subtitle offset is the difference between the audio being heard and the timestamp of the phrase it belongs to; a deliberately injected 300 ms offset was detected exactly. The on-time percentages come from three channels at the high tier and cleared the 95% target.</p> <h2 id="limits-and-next-steps">Limits and next steps</h2> <p>The honest list is longer than the feature list:</p> <ul> <li> <strong>Speaker diarisation is not solved.</strong> The prototype identifies who is speaking correctly in <strong>56%</strong> of turns, against an 85% target. Voice fingerprints separate speakers well enough to be a foundation, but the live product does not yet use them to label subtitles.</li> <li> <strong>The first visit is slow.</strong> Downloading models takes 66–108 seconds. Starting with a small model and switching to a larger one when it arrives is the obvious next step.</li> <li> <strong>Mobile is unmeasured.</strong> The phase-0 benchmark was a Windows laptop; mobile browsers and their thermal limits were not part of it.</li> <li> <strong>NLLB is non-commercial.</strong> It stays out of the public product unless the licence changes or a commercial alternative reaches the same quality.</li> <li> <strong>Twitch access is fragile.</strong> The master playlist format changed during phase 0, and fMP4/CMAF audio is already appearing on some channels.</li> <li> <strong>There are no accounts by design.</strong> That keeps the product simple, but it also means no saved preferences and no cross-device continuity.</li> </ul> <p>None of these invalidate the core result: a browser can keep a delayed live stream stable, transcribe it locally, translate it, and show subtitles on time without a server-side GPU.</p> <h2 id="try-it">Try it</h2> <p>The public entry point is <a href="https://subany.video/" rel="external nofollow noopener" target="_blank">subany.video</a>. There is also a project page with the short version: <a href="/projects/subany-video/">subany.video project page</a>.</p> <p>Paste a Twitch link, pick a delay, and watch the first subtitles arrive. If the models are not cached yet, the first minute is the download; after that, the browser is doing the work.</p> </div> </article> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container footer-content"> <p>© 2026 Jose Paredes. Data Scientist · AI Engineer · Madrid.</p> <p>Built with al-folio.</p> </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.7.0/dist/mermaid.min.js" integrity="sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A=" crossorigin="anonymous"></script> <script defer src="/assets/al_charts/js/mermaid-setup.js" type="text/javascript"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching" data-placeholder="Type to start searching" data-select="to select" data-navigate="to navigate" data-close="to close"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+  const ninja = document.querySelector('ninja-keys');
+  ninja.data = [
+    {
+      id: 'nav-about',
+      title: "About",
+      section: "Navigation",
+      handler: () => { window.location.href = '/'; },
+    },
+    {
+      id: 'nav-blog',
+      title: "Blog",
+      section: "Navigation",
+      handler: () => { window.location.href = '/blog/'; },
+    },
+    {
+      id: 'nav-projects',
+      title: "Projects",
+      section: "Navigation",
+      handler: () => { window.location.href = '/projects/'; },
+    },
+    {
+      id: 'nav-repositories',
+      title: "Repositories",
+      section: "Navigation",
+      handler: () => { window.location.href = '/repositories/'; },
+    },
+    {
+      id: 'nav-cv',
+      title: "CV",
+      section: "Navigation",
+      handler: () => { window.location.href = '/cv/'; },
+    },
+    
+    
+      {
+        id: 'category-ai-vision',
+        title: "AI & Vision",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#ai-vision'; },
+      },
+    
+      {
+        id: 'category-data-automation',
+        title: "Data & Automation",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#data-automation'; },
+      },
+    
+      {
+        id: 'category-products',
+        title: "Products & Tools",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#products'; },
+      },
+    
+      {
+        id: 'category-esports',
+        title: "Esports & Content",
+        section: "Project categories",
+        handler: () => { window.location.href = '/projects/#esports'; },
+      },
+    
+    
+      
+      
+      {
+        id: 'post-blog-2026-11-09-how-subany-video-works',
+        title: "How subany.video works: live subtitles in the browser",
+        description: "A technical tour of the fixed-delay player, in-browser speech recognition, translation and subtitle timing behind subany.video.",
+        section: "Tutorials",
+        handler: () => { window.location.href = '/blog/2026/11/09/how-subany-video-works/'; },
+      },
+    
+    
+      
+      
+      {
+        id: 'project-ai-yolo-object-detection',
+        title: "AI-YOLO Object Detection",
+        description: "An index of YOLO object-detection models for industrial inspection and video-game computer vision.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/ai-yolo-object-detection/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-claude-telegram-bot',
+        title: "Claude Telegram Bot",
+        description: "Telegram bridge for Claude Code: notifications, approvals and remote control from your phone.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/claude-telegram-bot/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cleanyourmail',
+        title: "CleanYourMail — Reversible Inbox Cleanup for Coding Agents",
+        description: "A local, agent-native skill that files newsletters, promotions and spam reversibly — nothing is permanently deleted.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cleanyourmail/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cleanyourphone',
+        title: "CleanYourPhone — Reversible Android Debloat for Coding Agents",
+        description: "An open-source, reversible Android debloat skill that disables preinstalled apps over ADB without root.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cleanyourphone/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-clutchbot-ai',
+        title: "ClutchBot.ai (CS2AI)",
+        description: "Conversational AI assistant for Counter-Strike 2 players with chat-based tactical guidance and match insights.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/clutchbot-ai/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-players-detector-yolo12s',
+        title: "Counter Strike 2 Players Detector (YOLO12s, 2025)",
+        description: "Player identification in Counter-Strike 2 with a YOLO12s model released in 2025.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-players-detector-yolo12s/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-players-detector-yolov9-v10-v11',
+        title: "Counter Strike 2 Players Detector (YOLOv9/v10/v11, 2024)",
+        description: "Player identification in Counter-Strike 2 with YOLOv9, YOLOv10 and YOLO11 models released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-players-detector-yolov9-v10-v11/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-vrs-predictions',
+        title: "CS2 VRS Predictions",
+        description: "Predictive modelling pipeline that forecasts Counter-Strike 2 team standings and tournament outcomes.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-vrs-predictions/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-cs2-weapon-detector-yolo12m',
+        title: "Counter Strike 2 Weapon Detector (YOLO12m, 2025)",
+        description: "Weapon identification in Counter-Strike 2 with a YOLO12m model released in 2025.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/cs2-weapon-detector-yolo12m/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-data-wrangling-titanic',
+        title: "Data Wrangling Titanic",
+        description: "Complete cleaning and analysis of the Titanic dataset with pandas and a logistic-regression model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/data-wrangling-titanic/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-deadlock-players-detector',
+        title: "Deadlock Players Detector (YOLO11, 2024)",
+        description: "Player identification in Deadlock with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/deadlock-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-docflow-saas',
+        title: "DocFlow SaaS",
+        description: "End-to-end document control for engineering project orders, reading the ERP in read-only mode and archiving every returned PDF.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/docflow-saas/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-docucontrol',
+        title: "DocuControl",
+        description: "Automation of reports and document control, analysing ERP exports and generating advanced visual reports.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/docucontrol/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-dxf-data-extraction',
+        title: "Data Extraction from DXF Files",
+        description: "Extracts entities from DXF technical drawings and regenerates them in a user-defined format for automated documentation.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/dxf-data-extraction/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-eipsa-erp',
+        title: "EIPSA ERP",
+        description: "Role-based ERP desktop application that unifies the daily activities of an industrial company's departments.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/eipsa-erp/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-email-mapi-automation',
+        title: "Email MAPI Tools Automation",
+        description: "Automates documentation entry from Outlook emails into Excel and the ERP database, then sends the processed data back.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/email-mapi-automation/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-fluorescent-penetrant-inspection',
+        title: "Fluorescent Penetrant Inspection Test",
+        description: "Detects liquid penetrant test indications in metallurgy components with a YOLO11l object-detection model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/fluorescent-penetrant-inspection/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-fortnite-players-detector',
+        title: "Fortnite Players Detector (YOLO11, 2024)",
+        description: "Player identification in Fortnite with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/fortnite-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-futurama-image-classification',
+        title: "Image & Vision Classification of Futurama Frames",
+        description: "Multi-label classification of Futurama characters in video frames, 2nd public and 3rd private in a Kaggle competition.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/futurama-image-classification/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-hltv-scraper',
+        title: "HLTV Team and Player Stats Scraper",
+        description: "Scrapes HLTV team and player statistics and computes a weighted performance score for Counter-Strike 2.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/hltv-scraper/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-liquid-penetrant-test-yolo11l',
+        title: "Liquid Penetrant Test (DP, LPI, PT) (YOLO11l, 2024)",
+        description: "Liquid penetrant test (DP, LPI, PT) detection with a YOLO11l model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/liquid-penetrant-test-yolo11l/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-lol-map-tracking',
+        title: "LoL Map Tracking Object Detection",
+        description: "Tracks League of Legends champions on the minimap with a YOLO11m object-detection model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/lol-map-tracking/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-lol-map-tracking-yolo11',
+        title: "League of Legends Map Tracking (YOLO11, 2024)",
+        description: "Champion and map tracking in League of Legends with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/lol-map-tracking-yolo11/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-monitoring-report-automation',
+        title: "Monitoring Report Automation",
+        description: "Reduces report generation time and manual data-entry errors by turning ERP exports into styled Excel reports.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/monitoring-report-automation/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-ocr-weapon-detection-cs2',
+        title: "OCR Weapon Detection in Counter-Strike 2",
+        description: "Captures the screen and detects weapon names in Counter-Strike 2 using Optical Character Recognition.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/ocr-weapon-detection-cs2/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-overwatch-2-players-detector',
+        title: "OverWatch 2 Players Detector (YOLO11, 2024)",
+        description: "Player identification in OverWatch 2 with a YOLO11 model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/overwatch-2-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-polymarket-autobetting',
+        title: "Polymarket Auto-Betting Bot",
+        description: "Automated trading bot for BTC prediction markets on Polymarket with limit orders and Telegram controls.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/polymarket-autobetting/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-pro-pov-cs2',
+        title: "Pro POV CS2 — Autonomous Esports Content Pipeline",
+        description: "The autonomous engine behind the Pro POV CS2 channel: match discovery, demo parsing, POV recording and publishing.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/pro-pov-cs2/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-subany-video',
+        title: "subany.video",
+        description: "Live subtitles and translation for streams and videos, processed privately in your browser.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/subany-video/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-tableau-documentation-flow',
+        title: "TABLEAU, Documentation Flow Dashboard",
+        description: "A visual progress report to monitor document inflow, processing and delivery across engineering projects.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/tableau-documentation-flow/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-traffic-accidents-madrid',
+        title: "Analysis of Traffic Accidents",
+        description: "Analysis and prediction of traffic accidents in the city of Madrid.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/traffic-accidents-madrid/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-trtw-tv',
+        title: "trtw.tv — Live Spanish Subtitles for Twitch & YouTube",
+        description: "Chrome extension that transcribes English streams locally and overlays Spanish subtitles on Twitch and YouTube.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/trtw-tv/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-twitter-sentiment-analysis',
+        title: "Twitter Sentiment Analysis",
+        description: "Identifies positive and negative sentiment in tweets and explores their natural-language characteristics.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/twitter-sentiment-analysis/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-twitter-sentiment-emojis',
+        title: "Twitter - Sentiment Analysis with Emojis",
+        description: "Classifies the emotional tone of tweets from their emoji usage with natural language processing.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/twitter-sentiment-emojis/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-valorant-players-detector',
+        title: "Valorant Players Detector (YOLOv10/v11, 2024)",
+        description: "Player identification in Valorant with YOLOv10 and YOLO11 models released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/valorant-players-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-welding-defects-detector',
+        title: "Welding Defects Detector",
+        description: "Detects welding defects in metallurgy inspection images with a YOLO11x object-detection model.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/welding-defects-detector/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-welding-defects-detector-yolo11x',
+        title: "Welding Defects Detector (YOLO11x, 2024)",
+        description: "Welding-defect detection in metallurgy images with a YOLO11x model released in 2024.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/welding-defects-detector-yolo11x/'; },
+      },
+    
+      
+      
+      {
+        id: 'project-workshop-scheduler',
+        title: "Appointment Management for Auto Repair Shops",
+        description: "Self-hosted appointment and customer management for auto repair shops, running on the local network.",
+        section: "Projects",
+        handler: () => { window.location.href = '/projects/workshop-scheduler/'; },
+      },
+    
+  ];
+</script> <script src="/assets/js/search-i18n.js"></script> <script src="/assets/al_search/js/shortcut-key.js"></script> <script src="/assets/js/code-scroll.js" defer></script> </body> </html>

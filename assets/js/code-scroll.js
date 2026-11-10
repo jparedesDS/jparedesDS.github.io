@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll("pre").forEach(e=>{e.hasAttribute("tabindex")||e.setAttribute("tabindex","0")})});
