@@ -1,486 +1,392 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Automatización del informe de seguimiento | Jose Paredes </title> <meta name="author" content="Jose Paredes"> <meta name="description" content="Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo."> <meta name="keywords" content="data science, computer vision, YOLO, automation, AI engineering, portfolio"> <meta property="og:site_name" content="Jose Paredes"> <meta property="og:type" content="website"> <meta property="og:title" content="Jose Paredes | Automatización del informe de seguimiento"> <meta property="og:url" content="https://jparedesds.github.io/projects/monitoring-report-automation/"> <meta property="og:description" content="Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo."> <meta property="og:image" content="https://jparedesds.github.io/profile.jpg"> <meta property="og:locale" content="es"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="Automatización del informe de seguimiento"> <meta name="twitter:description" content="Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo."> <meta name="twitter:image" content="https://jparedesds.github.io/profile.jpg"> <script type="application/ld+json">
-    {
-        "author":
-        {
-            "@type": "Person",
-            "name": "Jose Paredes"
-        },
-        "url": "https://jparedesds.github.io/projects/monitoring-report-automation/",
-        "@type": "WebSite",
-        "description": "Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo.",
-        "headline": "Automatización del informe de seguimiento",
+<!doctype html>
+<html lang="es">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automatización del informe de seguimiento</title>
+<meta name="description" content="Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo.">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jparedesds.github.io/es/projects/monitoring-report-automation/">
+  <link rel="alternate" hreflang="es" href="https://jparedesds.github.io/es/projects/monitoring-report-automation/">
+  <link rel="alternate" hreflang="en" href="https://jparedesds.github.io/projects/monitoring-report-automation/">
+  <link rel="alternate" hreflang="x-default" href="https://jparedesds.github.io/projects/monitoring-report-automation/">
+
+
+<meta property="og:title" content="Automatización del informe de seguimiento">
+<meta property="og:description" content="Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jparedesds.github.io/projects/monitoring-report-automation/">
+
+  <meta property="og:image" content="https://jparedesds.github.io/profile.jpg">
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Automatización del informe de seguimiento",
+  "description": "Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo.",
+  "url": "https://jparedesds.github.io/projects/monitoring-report-automation/"
+  
+}
+</script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/vcard.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script>
+  (function () {
+    var saved = localStorage.getItem("theme");
+    var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    document.documentElement.classList.add("js");
+  })();
+</script>
+
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <main id="main-content">
+      
+
+
+<aside class="sidebar" data-sidebar>
+  <div class="sidebar-info">
+    <figure class="avatar-box">
+      <img
+        src="/profile.jpg"
+        alt="Retrato de Jose Paredes"
+        width="80"
+        height="80"
+        loading="eager"
+      >
+    </figure>
+
+    <div class="info-content">
+      <h1 class="name">Jose Paredes</h1>
+      <p class="title">Científico de Datos · Madrid, España</p>
+    </div>
+
+    <button
+      class="info_more-btn"
+      data-sidebar-btn
+      aria-expanded="false"
+      aria-controls="sidebar-more"
+      aria-label="Mostrar contactos"
+    >
+      <span>Mostrar contactos</span>
+      
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+  
+
+    </button>
+  </div>
+
+  <div class="sidebar-info_more" id="sidebar-more">
+    <div class="separator"></div>
+
+    <ul class="contacts-list">
+      
         
-        "sameAs": ["https://github.com/jparedesDS","https://www.linkedin.com/in/jparedesDS","https://www.kaggle.com/joseparedesc"],
         
-        "name": "Jose Paredes",
-        "@context": "https://schema.org"
-    }
-  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
-  :root {
-    --max-content-width: 1100px;
-  }
-</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;family=Inter:wght@400;500;600;700&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;JP&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="stylesheet" href="/assets/css/subany.css?v=9a7a27140b51b11a9d7ddd7726ade978"> <link rel="canonical" href="https://jparedesds.github.io/projects/monitoring-report-automation/"> <link rel="alternate" hreflang="en" href="https://jparedesds.github.io/projects/monitoring-report-automation/"> <link rel="alternate" hreflang="es" href="https://jparedesds.github.io/es/projects/monitoring-report-automation/"> <link rel="alternate" hreflang="x-default" href="https://jparedesds.github.io/projects/monitoring-report-automation/"> <script src="/assets/js/theme.js?v=0e299309263e7d5d8651f7d3b40f2c68"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
-    initTheme();
-  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <a class="skip-link" href="#main-content">Saltar al contenido</a> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation" aria-label="Navegación principal"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/es/"> <span class="font-weight-bold">Jose</span> Paredes </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Mostrar navegación"> <span class="sr-only">Mostrar navegación</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item"> <a class="nav-link" href="/es/">Sobre mí</a> </li> <li class="nav-item"> <a class="nav-link" href="/es/blog/">Blog</a> </li> <li class="nav-item active"> <a class="nav-link" href="/es/projects/" aria-current="page">Proyectos</a> </li> <li class="nav-item"> <a class="nav-link" href="/es/repositories/">Repositorios</a> </li> <li class="nav-item"> <a class="nav-link" href="/es/cv/">CV</a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Abrir búsqueda" aria-label="Abrir búsqueda ctrl k"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span> </button> </li> <li class="nav-item lang-switch-container"> <a class="nav-link lang-switch" href="/projects/monitoring-report-automation/" hreflang="en" lang="en" aria-label="EN — Ver esta página en inglés">EN</a> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema"> <i class="fa-solid fa-sun" id="light-toggle-light" aria-hidden="true"></i> <i class="fa-solid fa-moon" id="light-toggle-dark" aria-hidden="true"></i> </button> </li> </ul> </div> </div> </nav> </header> <div class="container mt-5" id="main-content" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Automatización del informe de seguimiento</h1> <p class="post-description">Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo.</p> </header> <article> <div class="project-page"> <div class="project-meta"> <span class="project-category">Datos y Automatización</span> </div> <div class="project-links"> <a class="project-link" href="https://github.com/jparedesDS/monitoring-report" target="_blank" rel="noopener noreferrer">Código</a> </div> <h2 id="resumen">Resumen</h2> <p>Un script que convierte una exportación del ERP en un informe de seguimiento de Excel con estilo. Limpia los datos, divide los documentos por estado y escribe una hoja por vista.</p> <h2 id="problema">Problema</h2> <p>Preparar el informe de seguimiento de documentos a mano llevaba tiempo y era propenso a errores de introducción manual de datos. El script realiza automáticamente la limpieza, agrupación y formato repetitivos.</p> <h2 id="funcionalidades-principales">Funcionalidades principales</h2> <ul> <li>Importa el archivo Excel del ERP, rellena valores nulos y convierte fechas</li> <li>Agrupa los documentos en conjuntos enviados, no enviados, comentados y aprobados</li> <li>Calcula los días de devolución, las semanas de contrato y notas adicionales</li> <li>Escribe hojas con estilo para todos los documentos, enviados, no enviados, comentados y un gráfico general de estado</li> <li>Aplica estilos de celda personalizados según el estado del documento</li> </ul> <h2 id="stack">Stack</h2> <ul> <li>Python</li> <li>pandas</li> <li>xlsxwriter y openpyxl</li> <li>tqdm y aspose-cells</li> </ul> </div> </article> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container footer-content"> <p>© 2026 Jose Paredes. Científico de datos · Ingeniero de IA · Madrid.</p> <p>Creado con al-folio.</p> </div> </footer> <script>
-  window.alFolio = {
-    compatBootstrap: false
-  };
-</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
-    addBackToTop();
-  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Escribe para buscar" data-placeholder="Escribe para buscar" data-select="para seleccionar" data-navigate="para navegar" data-close="para cerrar"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
-  const ninja = document.querySelector('ninja-keys');
-  ninja.data = [
-    {
-      id: 'nav-about',
-      title: "Sobre mí",
-      section: "Navegación",
-      handler: () => { window.location.href = '/es/'; },
-    },
-    {
-      id: 'nav-blog',
-      title: "Blog",
-      section: "Navegación",
-      handler: () => { window.location.href = '/es/blog/'; },
-    },
-    {
-      id: 'nav-projects',
-      title: "Proyectos",
-      section: "Navegación",
-      handler: () => { window.location.href = '/es/projects/'; },
-    },
-    {
-      id: 'nav-repositories',
-      title: "Repositorios",
-      section: "Navegación",
-      handler: () => { window.location.href = '/es/repositories/'; },
-    },
-    {
-      id: 'nav-cv',
-      title: "CV",
-      section: "Navegación",
-      handler: () => { window.location.href = '/es/cv/'; },
-    },
+        
+        
+        <li class="contact-item">
+          <div class="icon-box">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>
+
+</div>
+          <div class="contact-info">
+            <p class="contact-title">Correo</p>
+            
+              <a class="contact-link" href="mailto:jparedescolmenarejo@gmail.com">jparedescolmenarejo@gmail.com</a>
+            
+          </div>
+        </li>
+      
+        
+        
+        
+        
+        <li class="contact-item">
+          <div class="icon-box">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
+  
+</div>
+          <div class="contact-info">
+            <p class="contact-title">CV</p>
+            
+              <a class="contact-link" href="/assets/pdf/resume.pdf">CV</a>
+            
+          </div>
+        </li>
+      
+        
+        
+        
+        
+        <li class="contact-item">
+          <div class="icon-box">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v11M4 5v.5M9 20v-6a3 3 0 0 1 6 0v6M9 9v11"/></svg>
+  
+</div>
+          <div class="contact-info">
+            <p class="contact-title">LinkedIn</p>
+            
+              <a class="contact-link" href="https://www.linkedin.com/in/jparedesDS/">LinkedIn</a>
+            
+          </div>
+        </li>
+      
+        
+        
+        
+        
+        <li class="contact-item">
+          <div class="icon-box">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+  
+</div>
+          <div class="contact-info">
+            <p class="contact-title">GitHub</p>
+            
+              <a class="contact-link" href="https://github.com/jparedesDS">GitHub</a>
+            
+          </div>
+        </li>
+      
+        
+        
+        
+        
+        <li class="contact-item">
+          <div class="icon-box">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>
+
+</div>
+          <div class="contact-info">
+            <p class="contact-title">Hugging Face</p>
+            
+              <a class="contact-link" href="https://huggingface.co/jparedesDS">Hugging Face</a>
+            
+          </div>
+        </li>
+      
+        
+        
+        
+        
+        <li class="contact-item">
+          <div class="icon-box">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>
+
+</div>
+          <div class="contact-info">
+            <p class="contact-title">Kaggle</p>
+            
+              <a class="contact-link" href="https://www.kaggle.com/joseparedesc">Kaggle</a>
+            
+          </div>
+        </li>
+      
+    </ul>
+
+    <div class="separator"></div>
+
+    <div class="sidebar-actions">
+      
+
+  <a
+    class="lang-switch"
+    href="/projects/monitoring-report-automation/"
+    hreflang="en"
+    lang="en"
+    aria-label="EN — View this page in English"
+  >EN</a>
+
+
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Cambiar tema"
+      >
+        
+    <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  
+
+        
+    <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  
+
+      </button>
+    </div>
+  </div>
+</aside>
+
+
+      <div class="main-content">
+        
+        
+        
+
+<nav class="navbar" aria-label="Navegación principal">
+  
     
+    <ul class="navbar-list">
+      
+        
+        <li class="navbar-item">
+          
+            <a class="navbar-link" data-nav-link href="/es/#about">Sobre mí</a>
+          
+        </li>
+      
+        
+        <li class="navbar-item">
+          
+            <a class="navbar-link" data-nav-link href="/es/#resume">Currículum</a>
+          
+        </li>
+      
+        
+        <li class="navbar-item">
+          
+            <a class="navbar-link" data-nav-link href="/es/#portfolio">Proyectos</a>
+          
+        </li>
+      
+        
+        <li class="navbar-item">
+          
+            <a class="navbar-link" data-nav-link href="/blog/">Blog</a>
+          
+        </li>
+      
+        
+        <li class="navbar-item">
+          
+            <a class="navbar-link" data-nav-link href="/es/#contact">Contacto</a>
+          
+        </li>
+      
+    </ul>
+  
+</nav>
+
+
+        
+
+
+<article class="project-page active" data-page="project">
+  <a class="back-link" href="/es/#portfolio">
     
-      {
-        id: 'category-ai-vision',
-        title: "IA y Visión",
-        section: "Categorías de proyectos",
-        handler: () => { window.location.href = '/es/projects/#ai-vision'; },
-      },
-    
-      {
-        id: 'category-data-automation',
-        title: "Datos y Automatización",
-        section: "Categorías de proyectos",
-        handler: () => { window.location.href = '/es/projects/#data-automation'; },
-      },
-    
-      {
-        id: 'category-products',
-        title: "Productos y Herramientas",
-        section: "Categorías de proyectos",
-        handler: () => { window.location.href = '/es/projects/#products'; },
-      },
-    
-      {
-        id: 'category-esports',
-        title: "Esports y Contenido",
-        section: "Categorías de proyectos",
-        handler: () => { window.location.href = '/es/projects/#esports'; },
-      },
-    
-    
-      
-      
-      {
-        id: 'post-blog-2026-11-09-como-funciona-subany-video',
-        title: "Cómo funciona subany.video: subtítulos en directo en el navegador",
-        description: "Un recorrido técnico por el reproductor con retardo fijo, el reconocimiento de voz en el navegador, la traducción y la sincronización de subtítulos de subany.video.",
-        section: "Tutoriales",
-        handler: () => { window.location.href = '/es/blog/2026/11/09/como-funciona-subany-video/'; },
-      },
-    
-    
-      
-      
-      {
-        id: 'project-ai-yolo-object-detection',
-        title: "Detección de objetos AI-YOLO",
-        description: "Un índice de modelos de detección de objetos YOLO para inspección industrial y visión artificial en videojuegos.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/ai-yolo-object-detection/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-claude-telegram-bot',
-        title: "Bot de Telegram para Claude",
-        description: "Puente de Telegram para Claude Code: notificaciones, aprobaciones y control remoto desde el móvil.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/claude-telegram-bot/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-cleanyourmail',
-        title: "CleanYourMail: limpieza de bandeja de entrada reversible para agentes de código",
-        description: "Una skill local y nativa para agentes que archiva boletines, promociones y spam de forma reversible: nada se elimina de forma permanente.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/cleanyourmail/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-cleanyourphone',
-        title: "CleanYourPhone: debloat de Android reversible para agentes de código",
-        description: "Una skill de código abierto que hace debloat en Android de forma reversible y desactiva aplicaciones preinstaladas por ADB sin root.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/cleanyourphone/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-clutchbot-ai',
-        title: "ClutchBot.ai (CS2AI)",
-        description: "Asistente de IA conversacional para jugadores de Counter-Strike 2 con orientación táctica por chat y análisis de partidas.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/clutchbot-ai/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-cs2-players-detector-yolo12s',
-        title: "Counter Strike 2 Players Detector (YOLO12s, 2025)" + ' · EN',
-        description: "Player identification in Counter-Strike 2 with a YOLO12s model released in 2025.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/cs2-players-detector-yolo12s/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-cs2-players-detector-yolov9-v10-v11',
-        title: "Counter Strike 2 Players Detector (YOLOv9/v10/v11, 2024)" + ' · EN',
-        description: "Player identification in Counter-Strike 2 with YOLOv9, YOLOv10 and YOLO11 models released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/cs2-players-detector-yolov9-v10-v11/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-cs2-vrs-predictions',
-        title: "Predicciones VRS de CS2",
-        description: "Pipeline de modelado predictivo que pronostica la clasificación de equipos y los resultados de torneos de Counter-Strike 2.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/cs2-vrs-predictions/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-cs2-weapon-detector-yolo12m',
-        title: "Counter Strike 2 Weapon Detector (YOLO12m, 2025)" + ' · EN',
-        description: "Weapon identification in Counter-Strike 2 with a YOLO12m model released in 2025.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/cs2-weapon-detector-yolo12m/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-data-wrangling-titanic',
-        title: "Preparación de datos del Titanic",
-        description: "Limpieza y análisis completos del conjunto de datos del Titanic con pandas y un modelo de regresión logística.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/data-wrangling-titanic/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-deadlock-players-detector',
-        title: "Deadlock Players Detector (YOLO11, 2024)" + ' · EN',
-        description: "Player identification in Deadlock with a YOLO11 model released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/deadlock-players-detector/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-docflow-saas',
-        title: "DocFlow SaaS",
-        description: "Control documental de principio a fin para pedidos de proyectos de ingeniería, leyendo el ERP en modo de solo lectura y archivando cada PDF devuelto.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/docflow-saas/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-docucontrol',
-        title: "DocuControl",
-        description: "Automatización de informes y control documental, analizando exportaciones del ERP y generando informes visuales avanzados.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/docucontrol/'; },
-      },
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></svg>
+  
+
+    Proyectos
+  </a>
+
+  
+
+  <p class="project-category">
+    Datos y Automatización
+  </p>
+  <h1 class="h1 project-title">Automatización del informe de seguimiento</h1>
+  <p class="project-summary">Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo.</p>
+
+  
+
+  
+
+  
+  <ul class="project-links">
     
       
-      
-      {
-        id: 'project-dxf-data-extraction',
-        title: "Extracción de datos de archivos DXF",
-        description: "Extrae entidades de planos técnicos DXF y las regenera en un formato definido por el usuario para la documentación automatizada.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/dxf-data-extraction/'; },
-      },
+      <li>
+        
+          
+          
+          
+          
+          
+          
+            <a class="project-link" href="https://github.com/jparedesDS/monitoring-report" target="_blank" rel="noopener noreferrer">
+              Código
+            </a>
+          
+        
+      </li>
     
-      
-      
-      {
-        id: 'project-eipsa-erp',
-        title: "EIPSA ERP",
-        description: "Aplicación de escritorio ERP con acceso por roles que unifica la actividad diaria de los departamentos de una empresa industrial.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/eipsa-erp/'; },
-      },
+  </ul>
+
+
+
+  <div class="prose">
+    <h2 id="resumen">Resumen</h2>
+
+<p>Un script que convierte una exportación del ERP en un informe de seguimiento de Excel con estilo. Limpia los datos, divide los documentos por estado y escribe una hoja por vista.</p>
+
+<h2 id="problema">Problema</h2>
+
+<p>Preparar el informe de seguimiento de documentos a mano llevaba tiempo y era propenso a errores de introducción manual de datos. El script realiza automáticamente la limpieza, agrupación y formato repetitivos.</p>
+
+<h2 id="funcionalidades-principales">Funcionalidades principales</h2>
+
+<ul>
+  <li>Importa el archivo Excel del ERP, rellena valores nulos y convierte fechas</li>
+  <li>Agrupa los documentos en conjuntos enviados, no enviados, comentados y aprobados</li>
+  <li>Calcula los días de devolución, las semanas de contrato y notas adicionales</li>
+  <li>Escribe hojas con estilo para todos los documentos, enviados, no enviados, comentados y un gráfico general de estado</li>
+  <li>Aplica estilos de celda personalizados según el estado del documento</li>
+</ul>
+
+<h2 id="stack">Stack</h2>
+
+<ul>
+  <li>Python</li>
+  <li>pandas</li>
+  <li>xlsxwriter y openpyxl</li>
+  <li>tqdm y aspose-cells</li>
+</ul>
+
+  </div>
+
+  
+  
+  
+  
+  
+  
     
-      
-      
-      {
-        id: 'project-email-mapi-automation',
-        title: "Automatización de herramientas MAPI de correo",
-        description: "Automatiza la entrada de documentación desde correos de Outlook en Excel y la base de datos del ERP, y después reenvía los datos procesados.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/email-mapi-automation/'; },
-      },
     
+    <a class="next-project" href="/es/projects/docflow-saas/">
+      Proyectos → DocFlow SaaS
       
-      
-      {
-        id: 'project-fluorescent-penetrant-inspection',
-        title: "Prueba de inspección por líquidos penetrantes fluorescentes",
-        description: "Detecta indicaciones de la prueba de líquidos penetrantes en componentes de metalurgia con un modelo de detección de objetos YOLO11l.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/fluorescent-penetrant-inspection/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-fortnite-players-detector',
-        title: "Fortnite Players Detector (YOLO11, 2024)" + ' · EN',
-        description: "Player identification in Fortnite with a YOLO11 model released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/fortnite-players-detector/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-futurama-image-classification',
-        title: "Clasificación de imagen y visión de fotogramas de Futurama",
-        description: "Clasificación multietiqueta de personajes de Futurama en fotogramas de vídeo: 2.º puesto público y 3.º privado en una competición de Kaggle.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/futurama-image-classification/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-hltv-scraper',
-        title: "Scraper de estadísticas de equipos y jugadores de HLTV",
-        description: "Extrae estadísticas de equipos y jugadores de HLTV y calcula una puntuación de rendimiento ponderada para Counter-Strike 2.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/hltv-scraper/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-liquid-penetrant-test-yolo11l',
-        title: "Liquid Penetrant Test (DP, LPI, PT) (YOLO11l, 2024)" + ' · EN',
-        description: "Liquid penetrant test (DP, LPI, PT) detection with a YOLO11l model released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/liquid-penetrant-test-yolo11l/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-lol-map-tracking',
-        title: "Detección de objetos para el seguimiento del mapa de LoL",
-        description: "Sigue a los campeones de League of Legends en el minimapa con un modelo de detección de objetos YOLO11m.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/lol-map-tracking/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-lol-map-tracking-yolo11',
-        title: "League of Legends Map Tracking (YOLO11, 2024)" + ' · EN',
-        description: "Champion and map tracking in League of Legends with a YOLO11 model released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/lol-map-tracking-yolo11/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-monitoring-report-automation',
-        title: "Automatización del informe de seguimiento",
-        description: "Reduce el tiempo de generación de informes y los errores de introducción manual de datos convirtiendo exportaciones del ERP en informes de Excel con estilo.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/monitoring-report-automation/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-ocr-weapon-detection-cs2',
-        title: "Detección de armas por OCR en Counter-Strike 2",
-        description: "Captura la pantalla y detecta nombres de armas en Counter-Strike 2 mediante reconocimiento óptico de caracteres.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/ocr-weapon-detection-cs2/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-overwatch-2-players-detector',
-        title: "OverWatch 2 Players Detector (YOLO11, 2024)" + ' · EN',
-        description: "Player identification in OverWatch 2 with a YOLO11 model released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/overwatch-2-players-detector/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-polymarket-autobetting',
-        title: "Bot de apuestas automáticas para Polymarket",
-        description: "Bot de trading automatizado para mercados de predicción de BTC en Polymarket con órdenes limitadas y controles por Telegram.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/polymarket-autobetting/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-pro-pov-cs2',
-        title: "Pro POV CS2: pipeline autónomo de contenido de esports",
-        description: "El motor autónomo detrás del canal Pro POV CS2: descubrimiento de partidas, análisis de demos, grabación de POV y publicación.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/pro-pov-cs2/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-subany-video',
-        title: "subany.video",
-        description: "Subtítulos y traducción en directo para directos y vídeos, procesados de forma privada en tu navegador. Sin cuenta.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/subany-video/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-tableau-documentation-flow',
-        title: "TABLEAU, panel de flujo de documentación",
-        description: "Un informe visual de progreso para monitorizar la entrada, el procesamiento y la entrega de documentos en proyectos de ingeniería.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/tableau-documentation-flow/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-traffic-accidents-madrid',
-        title: "Análisis de accidentes de tráfico",
-        description: "Análisis y predicción de accidentes de tráfico en la ciudad de Madrid.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/traffic-accidents-madrid/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-trtw-tv',
-        title: "trtw.tv: subtítulos en español en directo para Twitch y YouTube",
-        description: "Extensión de Chrome que transcribe retransmisiones en inglés en local y superpone subtítulos en español en Twitch y YouTube.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/trtw-tv/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-twitter-sentiment-analysis',
-        title: "Análisis de sentimiento en Twitter",
-        description: "Identifica el sentimiento positivo y negativo en tuits y explora sus características de lenguaje natural.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/twitter-sentiment-analysis/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-twitter-sentiment-emojis',
-        title: "Twitter: análisis de sentimiento con emojis",
-        description: "Clasifica el tono emocional de los tuits a partir del uso de emojis con procesamiento de lenguaje natural.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/twitter-sentiment-emojis/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-valorant-players-detector',
-        title: "Valorant Players Detector (YOLOv10/v11, 2024)" + ' · EN',
-        description: "Player identification in Valorant with YOLOv10 and YOLO11 models released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/valorant-players-detector/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-welding-defects-detector',
-        title: "Detector de defectos de soldadura",
-        description: "Detecta defectos de soldadura en imágenes de inspección metalúrgica con un modelo de detección de objetos YOLO11x.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/welding-defects-detector/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-welding-defects-detector-yolo11x',
-        title: "Welding Defects Detector (YOLO11x, 2024)" + ' · EN',
-        description: "Welding-defect detection in metallurgy images with a YOLO11x model released in 2024.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/welding-defects-detector-yolo11x/'; },
-      },
-    
-      
-      
-      {
-        id: 'project-workshop-scheduler',
-        title: "Gestión de citas para talleres de reparación de automóviles",
-        description: "Gestión de citas y clientes autoalojada para talleres de reparación, ejecutada en la red local.",
-        section: "Proyectos",
-        handler: () => { window.location.href = '/es/projects/workshop-scheduler/'; },
-      },
-    
-  ];
-</script> <script src="/assets/js/search-i18n.js"></script> <script src="/assets/al_search/js/shortcut-key.js"></script> <script src="/assets/js/mermaid-palette.js?v=28ea969f253feb8e0df79317ebf5cfe5" defer></script> <script src="/assets/js/code-scroll.js" defer></script> </body> </html>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>
+  
+
+    </a>
+  
+</article>
+
+      </div>
+    </main>
+
+    <script src="/assets/js/script.js" defer></script>
+  </body>
+</html>
