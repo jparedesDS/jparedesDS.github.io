@@ -43,7 +43,7 @@ description: "Curated public repositories and models."
             <span class="repository-private">{{ strings.repositories.private }}</span>
           {% endif %}
         </div>
-        {% if repo.description %}
+        {% if repo.description and repo.description != '' %}
           <p class="repository-card-description">{{ repo.description }}</p>
         {% endif %}
         <div class="repository-card-meta">

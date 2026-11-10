@@ -13,7 +13,7 @@ repos:
     private: false
   - name: cs2data
     url: https://github.com/jparedesDS/cs2data
-    description: "The autonomous engine behind the Pro POV CS2 channel: match discovery, demo parsing, POV recording and publishing."
+    description: ""
     language:
     private: true
   - name: docflow
@@ -33,7 +33,7 @@ repos:
     private: false
   - name: CS2AI
     url: https://github.com/jparedesDS/CS2AI
-    description: "Conversational AI assistant for Counter-Strike 2 players with chat-based tactical guidance and match insights."
+    description: ""
     language:
     private: true
   - name: clean-your-phone
@@ -48,7 +48,7 @@ repos:
     private: false
   - name: DocuControl
     url: https://github.com/jparedesDS/DocuControl
-    description: "Automation of reports and document control, analysing ERP exports and generating advanced visual reports."
+    description: ""
     language:
     private: true
   - name: talleres-ritmo
@@ -58,7 +58,7 @@ repos:
     private: false
   - name: cs2-vrs-predictions
     url: https://github.com/jparedesDS/cs2-vrs-predictions
-    description: "Predictive modelling pipeline that forecasts Counter-Strike 2 team standings and tournament outcomes."
+    description: ""
     language:
     private: true
   - name: email-mapi-automation
@@ -93,7 +93,7 @@ repos:
     private: false
   - name: polymarket-autobetting
     url: https://github.com/jparedesDS/polymarket-autobetting
-    description: "Automated trading bot for BTC prediction markets on Polymarket with limit orders and Telegram controls."
+    description: ""
     language:
     private: true
   - name: AI-YOLO
