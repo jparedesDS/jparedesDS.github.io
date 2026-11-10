@@ -1,0 +1,59 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const href = project.href ?? `/work/${project.slug}/`;
+
+const categoryLabels: Record<Project["category"], string> = {
+  "ai-vision": "AI & Vision",
+  "data-automation": "Data & Automation",
+  products: "Product",
+  esports: "Esports",
+};
+
+const categoryLabel = categoryLabels[project.category];
+const initial = project.title.slice(0, 1).toUpperCase();
+const tags = project.tags ?? [];
+---
+
+<a class="work-card" href={href}>
+  <div class="work-media" data-project={project.slug}>
+    {
+      project.image ? (
+        <img
+          src={project.image}
+          alt={project.imageAlt ?? ""}
+          width="1200"
+          height="675"
+          loading="lazy"
+        />
+      ) : (
+        <div class="work-fallback" aria-hidden="true">
+          <span class="work-fallback-initial">{initial}</span>
+          <span class="work-fallback-category">{categoryLabel}</span>
+        </div>
+      )
+    }
+  </div>
+  <div class="work-body">
+    <div class="work-meta">
+      <span>{categoryLabel}</span>
+      <span>{project.year}</span>
+    </div>
+    <h3>{project.title}</h3>
+    <p>{project.summary}</p>
+    {
+      tags.length > 0 && (
+        <div class="chips">
+          {tags.map((tag) => (
+            <span>{tag}</span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</a>

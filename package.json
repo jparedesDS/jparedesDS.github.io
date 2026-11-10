@@ -1,0 +1,25 @@
+{
+  "name": "jparedesds-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal portfolio of Jose Paredes, built with Astro.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "npm run build && node --test test/content.test.mjs"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "astro": "^7.4.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
+    "typescript": "^6.0.3"
+  }
+}

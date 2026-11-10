@@ -1,0 +1,44 @@
+---
+import { site } from "../data/site";
+---
+
+<section class="hero" id="about">
+  <div class="hero-copy">
+    <p class="eyebrow">
+      <span class="status-dot" aria-hidden="true"></span>
+      {site.city} · {site.availability}
+    </p>
+    <h1>Jose<br />Paredes</h1>
+    <p class="hero-role">{site.role}</p>
+    <p class="hero-intro">{site.intro}</p>
+    <div class="hero-links" role="group" aria-label="Links">
+      {
+        site.links.map((link) => (
+          <a
+            href={link.url}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noreferrer" : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <aside class="hero-card">
+    <div class="portrait">
+      <img
+        src="/profile.jpg"
+        alt="Pixel-art portrait of Jose Paredes"
+        width="234"
+        height="234"
+      />
+    </div>
+    <div class="hero-card-row">
+      <span>{site.location}</span>
+      <span>{site.since}</span>
+    </div>
+    <p class="hero-card-note">{site.currentNote}</p>
+  </aside>
+</section>

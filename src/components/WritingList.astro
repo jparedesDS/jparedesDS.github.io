@@ -1,0 +1,26 @@
+---
+import { site } from "../data/site";
+---
+
+<div class="writing">
+  {
+    site.writing.map((item) => {
+      const external = item.href.startsWith("http");
+      return (
+        <a
+          class="writing-row"
+          href={item.href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noreferrer" : undefined}
+        >
+          <span class="writing-date">{item.date}</span>
+          <span class="writing-title">{item.title}</span>
+          <span class="writing-tag">{item.tag}</span>
+          <span class="writing-arrow" aria-hidden="true">
+            ↗
+          </span>
+        </a>
+      );
+    })
+  }
+</div>

@@ -4,3 +4,11 @@ _site
 .DS_Store
 .superpowers/
 al-folio-upgrade-report.md
+.worktrees/
+
+# Astro / Node
+node_modules/
+dist/
+.astro/
+test-results/
+playwright-report/

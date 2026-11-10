@@ -1,0 +1,10 @@
+---
+import { site } from "../data/site";
+---
+
+<section class="section stack-section" aria-labelledby="stack-heading">
+  <p class="section-kicker" id="stack-heading">04 / Stack</p>
+  <div class="stack">
+    {site.stack.map((item) => <span>{item}</span>)}
+  </div>
+</section>

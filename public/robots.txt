@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jparedesds.github.io/sitemap.xml
