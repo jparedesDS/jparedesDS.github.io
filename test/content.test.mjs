@@ -152,6 +152,49 @@ const walk = (dir) =>
     return entry.isDirectory() ? walk(full) : [full];
   });
 
+test("legacy project URLs redirect to /work/", () => {
+  const html = read("projects/index.html");
+  assert.match(html, /<meta http-equiv="refresh" content="0; url=\/work\/"/);
+  assert.match(html, /rel="canonical" href="https:\/\/jparedesds\.github\.io\/work\/"/);
+  assert.match(html, /<a [^>]*href="\/work\/"/);
+});
+
+test("legacy category URLs redirect to their /work/ anchor", () => {
+  for (const category of ["ai-vision", "data-automation", "products", "esports"]) {
+    const html = read(`projects/${category}/index.html`);
+    assert.match(html, new RegExp(`content="0; url=/work/#${category}"`), category);
+    assert.match(
+      html,
+      new RegExp(`rel="canonical" href="https://jparedesds\\.github\\.io/work/#${category}"`),
+      category,
+    );
+    assert.match(html, new RegExp(`<a [^>]*href="/work/#${category}"`), category);
+  }
+});
+
+test("the redirects are tiny static pages without scripts or analytics", () => {
+  for (const file of [
+    "projects/index.html",
+    "projects/ai-vision/index.html",
+    "projects/data-automation/index.html",
+    "projects/products/index.html",
+    "projects/esports/index.html",
+  ]) {
+    const html = read(file);
+    assert.doesNotMatch(html, /<script/i, file);
+    assert.doesNotMatch(html, /gtag|googletagmanager|analytics|plausible/i, file);
+    assert.match(html, /<html lang="en"/, file);
+  }
+});
+
+test("the old #projects anchor still exists", () => {
+  assert.match(read("index.html"), /id="projects"/);
+});
+
+test("the old #about anchor still exists", () => {
+  assert.match(read("index.html"), /id="about"/);
+});
+
 test("the legacy case and the sub-sites are preserved", () => {
   assert.ok(fs.existsSync(path.join(dist, "cleanyourmail/index.html")));
   assert.ok(fs.existsSync(path.join(dist, "css/main.css")));
@@ -204,5 +247,20 @@ test("every sub-site carries at least one asset next to its index", () => {
       (file) => path.basename(file) !== "index.html",
     );
     assert.ok(files.length > 0, `${sub} only contains index.html`);
+  }
+});
+
+// /blog/ is a separate Hugo site deployed to the same origin, not an Astro
+// route, so it is not part of this build output and is not asserted here.
+test("the cleanup keeps the legacy pages and the public assets", () => {
+  for (const file of [
+    "cleanyourmail/index.html",
+    "cs2pov/index.html",
+    "murdoku/index.html",
+    "propovcs2/index.html",
+    "resume.pdf",
+    "profile.jpg",
+  ]) {
+    assert.ok(fs.existsSync(path.join(dist, file)), file);
   }
 });
