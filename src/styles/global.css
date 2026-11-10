@@ -476,6 +476,23 @@ html[data-theme="dark"] .theme-dot {
   object-fit: contain;
 }
 
+/* Wide logos: fit the whole mark instead of cropping its ends. */
+.work-media[data-project="hltv-scraper"] {
+  background: var(--surface-2);
+}
+
+.work-media[data-project="hltv-scraper"] img {
+  object-fit: contain;
+}
+
+.work-media[data-project="cleanyourphone"] {
+  background: var(--ink);
+}
+
+.work-media[data-project="cleanyourphone"] img {
+  object-fit: contain;
+}
+
 .work-fallback {
   height: 100%;
   display: flex;

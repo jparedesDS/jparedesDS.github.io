@@ -20,6 +20,29 @@ test("the timeline does not overflow at 360px", async ({ page }) => {
   expect(overflow).toBeLessThanOrEqual(1);
 });
 
+test("the wide project logos are contained, not cropped", async ({ page }) => {
+  await page.goto("/");
+  const fits = await page.evaluate(() =>
+    Object.fromEntries(
+      [...document.querySelectorAll(".work-media")].map((media) => [
+        media.dataset.project,
+        getComputedStyle(media.querySelector("img")).objectFit,
+      ]),
+    ),
+  );
+  const expected = {
+    "subany-video": "cover",
+    cleanyourmail: "cover",
+    "docflow-saas": "contain", // SVG marks
+    "pro-pov-cs2": "contain",
+    cleanyourphone: "contain",
+    "dxf-data-extraction": "cover",
+    "welding-defects-detection": "cover",
+    "hltv-scraper": "contain",
+  };
+  expect(fits).toEqual(expected);
+});
+
 test("the page has no vertical frame and a round portrait", async ({ page }) => {
   await page.goto("/");
   const s = await page.evaluate(() => {
