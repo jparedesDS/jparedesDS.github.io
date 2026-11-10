@@ -111,7 +111,6 @@ export const projects: Project[] = [
     imageAlt: "trtw.tv live subtitles",
     links: [{ label: "Code", url: "https://github.com/jparedesDS/trtw-tv", external: true }],
     href: "/work/trtw-tv/",
-    featured: true,
     detail: true,
     tags: ["TypeScript", "Whisper", "Chrome"],
   },
@@ -180,6 +179,9 @@ export const projects: Project[] = [
     image: "/images/mydxf.png",
     imageAlt: "DXF technical drawing extraction",
     links: [{ label: "Code", url: "https://github.com/jparedesDS/extract-data-dxf", external: true }],
+    href: "https://github.com/jparedesDS/extract-data-dxf",
+    featured: true,
+    tags: ["Python", "Deep Learning", "CAD"],
   },
   {
     slug: "welding-defects-detection",
@@ -193,6 +195,9 @@ export const projects: Project[] = [
       { label: "Model", url: "https://huggingface.co/jparedesDS/welding-defects-detection", external: true },
       { label: "Code", url: "https://github.com/jparedesDS/welding-defects-detection", external: true },
     ],
+    href: "https://github.com/jparedesDS/welding-defects-detection",
+    featured: true,
+    tags: ["YOLO11", "Python", "Computer Vision"],
   },
   {
     slug: "futurama-frame-classification",
@@ -296,6 +301,9 @@ export const projects: Project[] = [
     image: "/images/myhltv.png",
     imageAlt: "HLTV scraper",
     links: [{ label: "Code", url: "https://github.com/jparedesDS/hltv-scraper", external: true }],
+    href: "https://github.com/jparedesDS/hltv-scraper",
+    featured: true,
+    tags: ["Python", "Scraping", "Pandas"],
   },
   {
     slug: "twitter-emoji-sentiment",

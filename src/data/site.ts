@@ -4,12 +4,17 @@ export type SiteLink = {
   external?: boolean;
 };
 
-export type ExperienceItem = {
-  role: string;
-  company: string;
+export type TimelineKind = "work" | "education" | "milestone";
+
+export type TimelineEntry = {
+  kind: TimelineKind;
+  title: string;
+  org?: string;
   description: string;
-  period: string;
+  href?: string;
 };
+
+export type TimelinePeriod = { period: string; entries: TimelineEntry[] };
 
 export type WritingItem = {
   date: string;
@@ -29,7 +34,7 @@ export type Site = {
   intro: string;
   availability: string;
   currentNote: string;
-  experience: ExperienceItem[];
+  timeline: TimelinePeriod[];
   writing: WritingItem[];
   stack: string[];
 };
@@ -51,27 +56,107 @@ export const site: Site = {
     "I build computer-vision systems and automation for industrial engineering, and local-first AI products. Currently at EIPSA.",
   availability: "Available for select AI work",
   currentNote: "Currently building inspection models, DocFlow and subany.video.",
-  experience: [
+  timeline: [
     {
-      role: "Data Analyst & AI Engineer",
-      company: "EIPSA",
-      description:
-        "Computer vision for metallurgy inspection, DocFlow and ERP automation.",
+      period: "2026",
+      entries: [
+        {
+          kind: "milestone",
+          title: "subany.video",
+          description: "Live subtitles and translation, processed in the browser.",
+          href: "/work/subany-video/",
+        },
+        {
+          kind: "milestone",
+          title: "CleanYourMail",
+          description: "Reversible inbox cleanup for coding agents.",
+          href: "/cleanyourmail/",
+        },
+        {
+          kind: "milestone",
+          title: "CleanYourPhone",
+          description: "Reversible Android debloat without root.",
+          href: "/work/cleanyourphone/",
+        },
+      ],
+    },
+    {
       period: "2024 — Now",
+      entries: [
+        {
+          kind: "work",
+          title: "Data Analyst & AI Engineer",
+          org: "EIPSA",
+          description:
+            "Computer vision for metallurgy inspection, DocFlow and ERP automation.",
+        },
+        {
+          kind: "milestone",
+          title: "DocFlow",
+          description: "Document control for engineering project orders, in production.",
+          href: "/work/docflow-saas/",
+        },
+        {
+          kind: "milestone",
+          title: "YOLO inspection models",
+          description: "Defect detection for metallurgy quality control.",
+          href: "https://huggingface.co/jparedesDS/welding-defects-detection",
+        },
+        {
+          kind: "milestone",
+          title: "Pro POV CS2",
+          description: "Autonomous esports content pipeline.",
+          href: "/work/pro-pov-cs2/",
+        },
+      ],
     },
     {
-      role: "Data Management Technician",
-      company: "Comunicación Permanente",
-      description:
-        "Customer data, incident reporting and the internal procedures behind them.",
       period: "2021 — 2023",
+      entries: [
+        {
+          kind: "work",
+          title: "Data Management Technician",
+          org: "Comunicación Permanente",
+          description:
+            "Customer data, incident reporting and the internal procedures behind them.",
+        },
+        {
+          kind: "education",
+          title: "Data Science Bootcamp",
+          org: "The Bridge",
+          description:
+            "Supervised and unsupervised learning, deep learning, NLP, computer vision and Flask deployment.",
+        },
+        {
+          kind: "milestone",
+          title: "Kaggle Bronze Medal",
+          description: "Multilabel image classification (Futurama frames).",
+          href: "https://www.kaggle.com/competitions/comp-mediavida-2-futurama/leaderboard",
+        },
+      ],
     },
     {
-      role: "Electronics Lab Technician",
-      company: "Grupo ANOVO",
-      description:
-        "Diagnostics, repair and production quality data for consumer devices.",
       period: "2015 — 2020",
+      entries: [
+        {
+          kind: "work",
+          title: "Electronics Lab Technician",
+          org: "Grupo ANOVO",
+          description:
+            "Diagnostics, repair and production quality data for consumer devices.",
+        },
+      ],
+    },
+    {
+      period: "2010 — 2012",
+      entries: [
+        {
+          kind: "education",
+          title: "Telecommunications",
+          org: "Centro de Formación Padre Piquer",
+          description: "Advanced Vocational Degree in Telecommunications.",
+        },
+      ],
     },
   ],
   writing: [
