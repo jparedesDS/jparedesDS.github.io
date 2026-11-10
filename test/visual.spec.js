@@ -11,6 +11,15 @@ for (const [width, columns] of [[1440, 4], [768, 2], [360, 1]]) {
   });
 }
 
+test("the timeline does not overflow at 360px", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 });
+  await page.goto("/");
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(1);
+});
+
 test("the page has no vertical frame and a round portrait", async ({ page }) => {
   await page.goto("/");
   const s = await page.evaluate(() => {

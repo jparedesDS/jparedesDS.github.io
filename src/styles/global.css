@@ -537,50 +537,81 @@ html[data-theme="dark"] .theme-dot {
   padding: 3px 6px;
 }
 
-/* Experience */
+/* Timeline */
 
-.experience {
+.timeline-period {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  padding: 22px 0 26px;
   border-top: 1px solid var(--line);
 }
 
-.exp-row {
-  display: grid;
-  grid-template-columns: 240px minmax(0, 1fr) 110px;
-  gap: 24px;
-  align-items: start;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.exp-row h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.exp-role p {
-  margin: 3px 0 0;
+.timeline-years {
+  padding-top: 2px;
   font-family: var(--label);
-  font-size: 10px;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.timeline-entries {
+  display: grid;
+  gap: 20px;
+}
+
+.timeline-entry {
+  display: grid;
+  gap: 4px;
+}
+
+.timeline-kind {
+  font-family: var(--label);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-.exp-text {
+.timeline-entry h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
   margin: 0;
-  font-size: 14.5px;
-  line-height: 1.55;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.timeline-entry h3 a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--line);
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.timeline-entry h3 a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.timeline-org {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
   color: var(--muted);
 }
 
-.exp-date {
-  justify-self: end;
-  font-family: var(--label);
-  font-size: 11px;
+.timeline-entry p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--muted);
-  white-space: nowrap;
 }
 
 /* Writing */
@@ -728,9 +759,9 @@ html[data-theme="dark"] .theme-dot {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .exp-row {
-    grid-template-columns: 210px minmax(0, 1fr) 95px;
-    gap: 18px;
+  .timeline-period {
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 24px;
   }
 
   .contact-panel {
@@ -829,14 +860,14 @@ html[data-theme="dark"] .theme-dot {
     grid-template-columns: 1fr;
   }
 
-  .exp-row {
+  .timeline-period {
     grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 18px 0;
+    gap: 10px;
+    padding: 20px 0 24px;
   }
 
-  .exp-date {
-    justify-self: start;
+  .timeline-years {
+    padding-top: 0;
   }
 
   .writing-row {

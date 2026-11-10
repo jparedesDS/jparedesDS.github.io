@@ -54,6 +54,27 @@ test("the home shows experience, writing and contact", () => {
   assert.match(html, /jparedescolmenarejo@gmail\.com/);
 });
 
+test("the timeline combines work, education and milestones", () => {
+  const html = read("index.html");
+  for (const text of [
+    "Work, education &amp; milestones",
+    "EIPSA",
+    "Comunicación Permanente",
+    "Grupo ANOVO",
+    "The Bridge",
+    "Padre Piquer",
+    "Kaggle",
+    "DocFlow",
+    "Pro POV CS2",
+    "subany.video",
+    "CleanYourMail",
+    "CleanYourPhone",
+  ]) {
+    assert.match(html, new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+  assert.match(html, /class="timeline"/);
+});
+
 test("the archive contains the current categories and model releases", () => {
   const html = read("work/index.html");
   for (const category of [

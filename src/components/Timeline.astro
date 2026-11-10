@@ -1,0 +1,38 @@
+---
+import { site } from "../data/site";
+
+const labels = { work: "Work", education: "Education", milestone: "Milestone" } as const;
+const isExternal = (href: string) => href.startsWith("http");
+---
+
+<div class="timeline">
+  {
+    site.timeline.map((period) => (
+      <div class="timeline-period">
+        <span class="timeline-years">{period.period}</span>
+        <div class="timeline-entries">
+          {period.entries.map((entry) => (
+            <div class="timeline-entry">
+              <span class="timeline-kind">{labels[entry.kind]}</span>
+              <h3>
+                {entry.href ? (
+                  <a
+                    href={entry.href}
+                    target={isExternal(entry.href) ? "_blank" : undefined}
+                    rel={isExternal(entry.href) ? "noreferrer" : undefined}
+                  >
+                    {entry.title}
+                  </a>
+                ) : (
+                  entry.title
+                )}
+                {entry.org && <span class="timeline-org">{entry.org}</span>}
+              </h3>
+              <p>{entry.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</div>
