@@ -1329,8 +1329,9 @@ html[data-theme="dark"] .cv .card .list-group-item .badge {
 }
 
 /* Code highlighting: the block always uses the palette code surface and the
-   palette text colour. Token colours below are palette values that pass WCAG AA
-   on that surface. */
+   palette text colour. Every Pygments family that the bundled GitHub (light)
+   and native (dark) stylesheets can emit is remapped to an approved palette
+   colour, so no third-party token colour reaches the page. */
 .highlight,
 .highlight pre,
 .highlight code {
@@ -1350,12 +1351,34 @@ html[data-theme="dark"] :not(pre) > code {
   color: var(--global-text-color);
 }
 
+/* Highlighted lines: palette blend background plus the palette text colour. */
+html[data-theme="light"] .highlight .hll {
+  background-color: color-mix(in srgb, var(--global-theme-color) 18%, var(--global-code-bg-color));
+  color: var(--global-text-color);
+}
+
+html[data-theme="dark"] .highlight .hll {
+  background-color: color-mix(in srgb, var(--global-theme-color) 22%, var(--global-code-bg-color));
+  color: var(--global-text-color);
+}
+
+/* Light syntax: comments, prompts, generic output and whitespace. */
 html[data-theme="light"] .highlight .c,
+html[data-theme="light"] .highlight .ch,
 html[data-theme="light"] .highlight .cm,
-html[data-theme="light"] .highlight .c1 {
+html[data-theme="light"] .highlight .cp,
+html[data-theme="light"] .highlight .c1,
+html[data-theme="light"] .highlight .cs,
+html[data-theme="light"] .highlight .g,
+html[data-theme="light"] .highlight .go,
+html[data-theme="light"] .highlight .gp,
+html[data-theme="light"] .highlight .gh,
+html[data-theme="light"] .highlight .gu,
+html[data-theme="light"] .highlight .w {
   color: #3f382f;
 }
 
+/* Light syntax: numbers. */
 html[data-theme="light"] .highlight .m,
 html[data-theme="light"] .highlight .mf,
 html[data-theme="light"] .highlight .mh,
@@ -1365,6 +1388,7 @@ html[data-theme="light"] .highlight .il {
   color: #8e0f42;
 }
 
+/* Light syntax: strings. */
 html[data-theme="light"] .highlight .s,
 html[data-theme="light"] .highlight .sb,
 html[data-theme="light"] .highlight .sc,
@@ -1374,36 +1398,95 @@ html[data-theme="light"] .highlight .se,
 html[data-theme="light"] .highlight .sh,
 html[data-theme="light"] .highlight .si,
 html[data-theme="light"] .highlight .sx,
-html[data-theme="light"] .highlight .s1 {
+html[data-theme="light"] .highlight .sr,
+html[data-theme="light"] .highlight .s1,
+html[data-theme="light"] .highlight .ss {
   color: #5f092c;
 }
 
+/* Light syntax: keywords, classes, functions, decorators and tags. */
+html[data-theme="light"] .highlight .k,
+html[data-theme="light"] .highlight .kc,
+html[data-theme="light"] .highlight .kd,
+html[data-theme="light"] .highlight .kn,
+html[data-theme="light"] .highlight .kp,
+html[data-theme="light"] .highlight .kr,
+html[data-theme="light"] .highlight .kt,
+html[data-theme="light"] .highlight .nc,
+html[data-theme="light"] .highlight .nf,
+html[data-theme="light"] .highlight .ne,
+html[data-theme="light"] .highlight .nt,
+html[data-theme="light"] .highlight .nd {
+  color: #7a0c39;
+}
+
+/* Light syntax: names, attributes, variables, constants and labels. */
+html[data-theme="light"] .highlight .n,
 html[data-theme="light"] .highlight .na,
 html[data-theme="light"] .highlight .no,
+html[data-theme="light"] .highlight .ni,
+html[data-theme="light"] .highlight .nl,
+html[data-theme="light"] .highlight .nn,
+html[data-theme="light"] .highlight .nx,
 html[data-theme="light"] .highlight .nv,
 html[data-theme="light"] .highlight .vc,
 html[data-theme="light"] .highlight .vg,
-html[data-theme="light"] .highlight .vi {
+html[data-theme="light"] .highlight .vi,
+html[data-theme="light"] .highlight .py,
+html[data-theme="light"] .highlight .l,
+html[data-theme="light"] .highlight .ld,
+html[data-theme="light"] .highlight .x {
   color: #1c1915;
 }
 
+/* Light syntax: builtins. */
 html[data-theme="light"] .highlight .nb,
 html[data-theme="light"] .highlight .bp {
   color: #4a4238;
 }
 
-html[data-theme="light"] .highlight .nc,
-html[data-theme="light"] .highlight .kt {
-  color: #7a0c39;
+/* Light syntax: operators, punctuation, emphasis and strong text. */
+html[data-theme="light"] .highlight .o,
+html[data-theme="light"] .highlight .ow,
+html[data-theme="light"] .highlight .p,
+html[data-theme="light"] .highlight .ge,
+html[data-theme="light"] .highlight .gs {
+  color: #1c1915;
 }
 
+/* Light syntax: errors and deletions keep a palette tinted background. */
+html[data-theme="light"] .highlight .err,
+html[data-theme="light"] .highlight .gd {
+  background-color: color-mix(in srgb, #8e0f42 6%, var(--global-code-bg-color));
+  color: #8e0f42;
+}
+
+/* Light syntax: tracebacks, inserted lines and diff markers. */
+html[data-theme="light"] .highlight .gr,
+html[data-theme="light"] .highlight .gt,
+html[data-theme="light"] .highlight .gi {
+  background-color: transparent;
+  color: #4a4238;
+}
+
+/* Dark syntax: comments, prompts, generic output and whitespace. */
 html[data-theme="dark"] .highlight .c,
+html[data-theme="dark"] .highlight .ch,
 html[data-theme="dark"] .highlight .cm,
+html[data-theme="dark"] .highlight .cp,
 html[data-theme="dark"] .highlight .c1,
-html[data-theme="dark"] .highlight .gp {
+html[data-theme="dark"] .highlight .cs,
+html[data-theme="dark"] .highlight .g,
+html[data-theme="dark"] .highlight .go,
+html[data-theme="dark"] .highlight .gp,
+html[data-theme="dark"] .highlight .gh,
+html[data-theme="dark"] .highlight .gu,
+html[data-theme="dark"] .highlight .w {
   color: #c4b9a8;
 }
 
+/* Dark syntax: keywords, classes, functions, decorators, tags, numbers and
+   strings. */
 html[data-theme="dark"] .highlight .k,
 html[data-theme="dark"] .highlight .kc,
 html[data-theme="dark"] .highlight .kd,
@@ -1411,8 +1494,11 @@ html[data-theme="dark"] .highlight .kn,
 html[data-theme="dark"] .highlight .kp,
 html[data-theme="dark"] .highlight .kr,
 html[data-theme="dark"] .highlight .kt,
-html[data-theme="dark"] .highlight .ow,
+html[data-theme="dark"] .highlight .nc,
+html[data-theme="dark"] .highlight .nf,
+html[data-theme="dark"] .highlight .ne,
 html[data-theme="dark"] .highlight .nt,
+html[data-theme="dark"] .highlight .nd,
 html[data-theme="dark"] .highlight .m,
 html[data-theme="dark"] .highlight .mf,
 html[data-theme="dark"] .highlight .mh,
@@ -1428,24 +1514,54 @@ html[data-theme="dark"] .highlight .se,
 html[data-theme="dark"] .highlight .sh,
 html[data-theme="dark"] .highlight .si,
 html[data-theme="dark"] .highlight .sx,
+html[data-theme="dark"] .highlight .sr,
 html[data-theme="dark"] .highlight .s1,
-html[data-theme="dark"] .highlight .nc {
+html[data-theme="dark"] .highlight .ss {
   color: #ffb35c;
 }
 
+/* Dark syntax: names, attributes, variables, operators and punctuation. */
+html[data-theme="dark"] .highlight .n,
 html[data-theme="dark"] .highlight .na,
 html[data-theme="dark"] .highlight .no,
+html[data-theme="dark"] .highlight .ni,
+html[data-theme="dark"] .highlight .nl,
+html[data-theme="dark"] .highlight .nn,
+html[data-theme="dark"] .highlight .nx,
 html[data-theme="dark"] .highlight .nv,
 html[data-theme="dark"] .highlight .vc,
 html[data-theme="dark"] .highlight .vg,
 html[data-theme="dark"] .highlight .vi,
-html[data-theme="dark"] .highlight .nf,
-html[data-theme="dark"] .highlight .nn {
+html[data-theme="dark"] .highlight .py,
+html[data-theme="dark"] .highlight .l,
+html[data-theme="dark"] .highlight .ld,
+html[data-theme="dark"] .highlight .x,
+html[data-theme="dark"] .highlight .o,
+html[data-theme="dark"] .highlight .ow,
+html[data-theme="dark"] .highlight .p,
+html[data-theme="dark"] .highlight .ge,
+html[data-theme="dark"] .highlight .gs {
   color: #ede3d3;
 }
 
+/* Dark syntax: builtins. */
 html[data-theme="dark"] .highlight .nb,
 html[data-theme="dark"] .highlight .bp {
+  color: #c0b5a4;
+}
+
+/* Dark syntax: errors and deletions keep a palette tinted background. */
+html[data-theme="dark"] .highlight .err,
+html[data-theme="dark"] .highlight .gd {
+  background-color: color-mix(in srgb, #ff5a94 18%, var(--global-code-bg-color));
+  color: #ffb35c;
+}
+
+/* Dark syntax: tracebacks, inserted lines and diff markers. */
+html[data-theme="dark"] .highlight .gr,
+html[data-theme="dark"] .highlight .gt,
+html[data-theme="dark"] .highlight .gi {
+  background-color: transparent;
   color: #c0b5a4;
 }
 
