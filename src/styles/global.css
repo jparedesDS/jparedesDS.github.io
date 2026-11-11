@@ -1064,6 +1064,7 @@ html[data-theme="dark"] .theme-dot {
   max-width: 768px;
   margin: 0 auto;
   padding: 24px;
+  font-size: 18px;
 }
 
 .work-archive .page-header h1 {
@@ -1103,7 +1104,7 @@ html[data-theme="dark"] .theme-dot {
 .work-archive .archive-month-header {
   margin: 25px 0;
   width: 200px;
-  font-size: 21px;
+  font-size: 21.06px;
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: normal;

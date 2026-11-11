@@ -176,6 +176,7 @@ test("the work archive is 720px wide with the PaperMod type scale at 1440", asyn
   await page.goto("/work/");
   const s = await page.evaluate(() => ({
     year: document.querySelector(".archive-year").getBoundingClientRect().width,
+    base: getComputedStyle(document.querySelector(".work-archive")).fontSize,
     h1: getComputedStyle(document.querySelector(".page-header h1")).fontSize,
     yearHeader: getComputedStyle(document.querySelector(".archive-year-header")).fontSize,
     monthHeader: getComputedStyle(document.querySelector(".archive-month-header")).fontSize,
@@ -183,9 +184,10 @@ test("the work archive is 720px wide with the PaperMod type scale at 1440", asyn
     meta: getComputedStyle(document.querySelector(".archive-meta")).fontSize,
   }));
   expect(s.year).toBe(720);
+  expect(s.base).toBe("18px");
   expect(s.h1).toBe("40px");
   expect(s.yearHeader).toBe("27px");
-  expect(s.monthHeader).toBe("21px");
+  expect(s.monthHeader).toBe("21.06px");
   expect(s.title).toBe("18.72px");
   expect(s.meta).toBe("14px");
 });
