@@ -409,6 +409,18 @@ html[data-theme="dark"] .theme-dot {
   margin-bottom: 22px;
 }
 
+/* The Writing column is narrow: stack its heading and "All writing" link. */
+
+.home-columns #writing .section-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.home-columns #writing .section-head h2 {
+  font-size: clamp(26px, 2.4vw, 32px);
+}
+
 .section-head {
   display: flex;
   justify-content: space-between;
