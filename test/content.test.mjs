@@ -166,40 +166,111 @@ test("contact includes the Sites block with the three sites", () => {
   }
 });
 
-test("the archive contains the current categories and model releases", () => {
+const archiveSections = (html) =>
+  [...html.matchAll(/<section class="archive-year">([\s\S]*?)<\/section>/g)].map((match) => match[1]);
+
+test("the work archive is chronological and complete", () => {
   const html = read("work/index.html");
-  for (const category of [
-    "AI & Computer Vision",
-    "Data & Automation",
-    "Products & Tools",
-    "Esports & Content",
-    "Model releases",
-  ]) {
-    assert.match(html, new RegExp(category));
-  }
-  assert.match(html, /OCR Weapon Detection/);
-  assert.match(html, /LoL Map Tracking Object Detection/);
-  assert.match(html, /Polymarket/);
+  assert.equal((html.match(/class="archive-entry"/g) || []).length, 38);
+  assert.equal((html.match(/data-kind="project"/g) || []).length, 28);
+  assert.equal((html.match(/data-kind="model"/g) || []).length, 10);
+  const years = [...html.matchAll(/class="archive-year-head"[^>]*>(\d{4})/g)].map((match) => match[1]);
+  assert.deepEqual(years, ["2026", "2025", "2024"]);
+  assert.doesNotMatch(html, /id="ai-vision"/);
+  assert.match(html, /HLTV Team &amp; Player Stats Scraper/);
+  assert.match(html, /Counter Strike 2 Weapon Detector/);
   assert.match(html, /Private project/);
-  assert.match(html, /Private source/);
   assert.doesNotMatch(html, /href="[^"]*polymarket/i);
-});
-
-test("the archive lists every project and model release once", () => {
-  const html = read("work/index.html");
-  assert.equal((html.match(/class="archive-item"/g) || []).length, 28);
-  assert.equal((html.match(/class="model-item"/g) || []).length, 10);
-
-  const slugs = [...html.matchAll(/data-slug="([^"]+)"/g)].map((match) => match[1]);
-  assert.equal(slugs.length, 28);
-  assert.equal(new Set(slugs).size, 28, `duplicate archive slug in: ${slugs.join(", ")}`);
-});
-
-test("the archive exposes the category anchors", () => {
-  const html = read("work/index.html");
-  for (const id of ["ai-vision", "data-automation", "products", "esports"]) {
-    assert.match(html, new RegExp(`id="${id}"`));
+  for (const name of ["AYESA", "SACYR", "Hyundai", "eGesdoc", "Aconex", "Sendoc", "PRODOC"]) {
+    assert.doesNotMatch(html, new RegExp(name, "i"));
   }
+});
+
+test("the archive lede counts the 38 items", () => {
+  const html = read("work/index.html");
+  const lede = html.match(/<p class="archive-lede">([\s\S]*?)<\/p>/);
+  assert.ok(lede, "archive lede");
+  assert.match(lede[1], /38/);
+});
+
+test("the archive counts and orders the items per year", () => {
+  const html = read("work/index.html");
+  const sections = archiveSections(html);
+  assert.equal(sections.length, 3);
+  assert.deepEqual(
+    sections.map((section) => (section.match(/class="archive-entry"/g) || []).length),
+    [3, 7, 28],
+  );
+  assert.deepEqual(
+    sections.map((section) => {
+      const head = section.match(/class="archive-year-head">(\d{4}) <span>(\d+)<\/span>/);
+      assert.ok(head, "year head");
+      return [head[1], Number(head[2])];
+    }),
+    [
+      ["2026", 3],
+      ["2025", 7],
+      ["2024", 28],
+    ],
+  );
+});
+
+test("the archive sorts each year by title", () => {
+  const html = read("work/index.html");
+  for (const section of archiveSections(html)) {
+    const titles = [...section.matchAll(/<h3>(?:<a [^>]*>)?([^<]+)/g)].map((match) =>
+      match[1].replace(/&amp;/g, "&"),
+    );
+    assert.equal(titles.length, (section.match(/class="archive-entry"/g) || []).length);
+    assert.deepEqual(titles, [...titles].sort((a, b) => a.localeCompare(b, "en")));
+  }
+});
+
+test("the archive entries carry the kind, slug and meta", () => {
+  const html = read("work/index.html");
+  const entries = [...html.matchAll(/<article class="archive-entry"([\s\S]*?)<\/article>/g)];
+  assert.equal(entries.length, 38);
+  assert.match(entries[0][1], /data-kind="(project|model)"/);
+  assert.match(entries[0][1], /data-slug="[^"]+"/);
+  assert.match(html, /<article class="archive-entry" data-kind="project" data-slug="docflow-saas">/);
+  assert.match(html, /<article class="archive-entry" data-kind="model" data-slug="cs2-yolo12m-weapon-detection">/);
+  assert.match(html, /<p class="archive-entry-meta">Model · YOLO12m<\/p>/);
+  assert.match(html, /<p class="archive-entry-meta">Data &amp; Automation<\/p>/);
+});
+
+test("the archive has no images, summaries or category sections", () => {
+  const html = read("work/index.html");
+  const sections = archiveSections(html);
+  assert.equal(sections.length, 3);
+  for (const section of sections) {
+    assert.doesNotMatch(section, /<img/i);
+  }
+  assert.doesNotMatch(html, /archive-thumb/);
+  assert.doesNotMatch(html, /archive-group-head/);
+  assert.doesNotMatch(html, /Live subtitles and translation for streams/);
+  assert.doesNotMatch(html, /Multi-tenant document control that keeps project files/);
+});
+
+test("the archive hides the links of every private project", () => {
+  const html = read("work/index.html");
+  for (const slug of ["polymarket-autobetting", "docucontrol", "clutchbot-cs2ai", "cs2-vrs-predictions"]) {
+    const entry = html.match(
+      new RegExp(`<article class="archive-entry"[^>]*data-slug="${slug}"[\\s\\S]*?</article>`),
+    );
+    assert.ok(entry, slug);
+    assert.match(entry[0], /Private project/, slug);
+    assert.doesNotMatch(entry[0], /<a /, slug);
+  }
+});
+
+test("Pro POV keeps its case link and the private marker", () => {
+  const html = read("work/index.html");
+  const entry = html.match(
+    /<article class="archive-entry"[^>]*data-slug="pro-pov-cs2"[\s\S]*?<\/article>/,
+  );
+  assert.ok(entry, "pro-pov-cs2 entry");
+  assert.match(entry[0], /href="\/work\/pro-pov-cs2\/"/);
+  assert.match(entry[0], /Private project/);
 });
 
 test("the archive only links to /work/ or an existing case page", () => {
@@ -291,16 +362,17 @@ test("legacy project URLs redirect to /work/", () => {
   assert.match(html, /<a [^>]*href="\/work\/"/);
 });
 
-test("legacy category URLs redirect to their /work/ anchor", () => {
+test("legacy category URLs redirect to /work/", () => {
   for (const category of ["ai-vision", "data-automation", "products", "esports"]) {
     const html = read(`projects/${category}/index.html`);
-    assert.match(html, new RegExp(`content="0; url=/work/#${category}"`), category);
+    assert.match(html, /content="0; url=\/work\/"/, category);
     assert.match(
       html,
-      new RegExp(`rel="canonical" href="https://jparedesds\\.github\\.io/work/#${category}"`),
+      /rel="canonical" href="https:\/\/jparedesds\.github\.io\/work\/"/,
       category,
     );
-    assert.match(html, new RegExp(`<a [^>]*href="/work/#${category}"`), category);
+    assert.match(html, /<a [^>]*href="\/work\/"/, category);
+    assert.doesNotMatch(html, /#/, category);
   }
 });
 

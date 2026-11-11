@@ -1,74 +1,99 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
-import ArchiveGroup from "../../components/ArchiveGroup.astro";
 import { models, projects } from "../../data/projects";
+import type { ProjectLink } from "../../data/projects";
 
-const groups = [
-  { id: "ai-vision", index: "02", label: "AI & Computer Vision" },
-  { id: "data-automation", index: "03", label: "Data & Automation" },
-  { id: "products", index: "04", label: "Products & Tools" },
-  { id: "esports", index: "05", label: "Esports & Content" },
-] as const;
+type ArchiveItem = {
+  slug: string;
+  title: string;
+  year: string;
+  kind: "project" | "model";
+  meta: string;
+  href?: string;
+  links: ProjectLink[];
+  private?: boolean;
+};
 
-const byCategory = (category: string) => projects.filter((project) => project.category === category);
+const categoryLabels = {
+  "ai-vision": "AI & Computer Vision",
+  "data-automation": "Data & Automation",
+  products: "Products & Tools",
+  esports: "Esports & Content",
+} as const;
+
+const items: ArchiveItem[] = [
+  ...projects.map((project) => ({
+    slug: project.slug,
+    title: project.title,
+    year: project.year,
+    kind: "project" as const,
+    meta: categoryLabels[project.category],
+    href: project.href,
+    links: project.private ? [] : project.links,
+    private: project.private,
+  })),
+  ...models.map((model) => ({
+    slug: model.slug,
+    title: model.name,
+    year: model.year,
+    kind: "model" as const,
+    meta: `Model · ${model.version}`,
+    links: model.links,
+  })),
+];
+
+const sorted = [...items].sort(
+  (a, b) => Number(b.year) - Number(a.year) || a.title.localeCompare(b.title, "en"),
+);
+
+const years = [...new Set(sorted.map((item) => item.year))];
+
+const groups = years.map((year) => ({
+  year,
+  items: sorted.filter((item) => item.year === year),
+}));
 ---
 
 <BaseLayout
   title="Work archive — Jose Paredes"
-  description="The complete archive of projects and model releases by Jose Paredes."
+  description="Every project and model release by Jose Paredes, newest first."
 >
   <div class="page">
     <header class="archive-hero">
       <p class="section-kicker">01 / Archive</p>
       <h1>Archive</h1>
       <p class="archive-lede">
-        {projects.length} projects across computer vision, data and automation, products and esports — plus
-        {" "}{models.length} standalone model releases.
+        {items.length} items — {projects.length} projects and {models.length} model releases, newest first.
       </p>
       <a class="archive-back" href="/">← Back to home</a>
     </header>
 
     {
       groups.map((group) => (
-        <ArchiveGroup
-          id={group.id}
-          index={group.index}
-          label={group.label}
-          projects={byCategory(group.id)}
-        />
-      ))
-    }
-
-    <section class="archive-section" id="model-releases">
-      <SectionHeader index="06" kicker="Models" title="Model releases" />
-      <p class="archive-note">
-        Standalone model cards and versioned releases behind the computer-vision work.
-      </p>
-      <div class="model-list-archive">
-        {
-          models.map((model) => (
-            <article class="model-item">
-              <div class="model-head">
-                <h3>{model.name}</h3>
-                <span class="model-version">
-                  {model.version} · {model.year}
-                </span>
+        <section class="archive-year">
+          <h2 class="archive-year-head">
+            {group.year} <span>{group.items.length}</span>
+          </h2>
+          {group.items.map((item) => (
+            <article class="archive-entry" data-kind={item.kind} data-slug={item.slug}>
+              <div class="archive-entry-main">
+                <h3>{item.href ? <a href={item.href}>{item.title}</a> : item.title}</h3>
+                <p class="archive-entry-meta">{item.meta}</p>
               </div>
-              <p>{model.description}</p>
-              <div class="archive-links">
-                {model.links.map((link) => (
-                  <a href={link.url} rel="noopener">
+              <div class="archive-entry-links">
+                {item.private && <span class="archive-private">Private project</span>}
+                {item.links.map((link) => (
+                  <a href={link.url} rel={link.external ? "noopener" : undefined}>
                     {link.label}
-                    <span aria-hidden="true"> ↗</span>
+                    <span aria-hidden="true">{link.external ? " ↗" : " →"}</span>
                   </a>
                 ))}
               </div>
             </article>
-          ))
-        }
-      </div>
-    </section>
+          ))}
+        </section>
+      ))
+    }
 
     <p class="archive-foot"><a href="/">← Back to home</a></p>
   </div>

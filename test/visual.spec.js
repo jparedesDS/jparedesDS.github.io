@@ -161,3 +161,34 @@ test("the dark palette matches subany", async ({ page }) => {
   const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
   expect(bg).toBe("rgb(58, 54, 51)");
 });
+
+test("the work archive lists the years newest first without images", async ({ page }) => {
+  await page.goto("/work/");
+  await expect(page.locator(".archive-entry")).toHaveCount(38);
+  const years = await page.locator(".archive-year-head").allTextContents();
+  expect(years.map((text) => text.trim().split(/\s+/)[0])).toEqual(["2026", "2025", "2024"]);
+  await expect(page.locator(".archive-entry img")).toHaveCount(0);
+});
+
+test("the archive rows pair the title with its links at 1440", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/work/");
+  const columns = await page.evaluate(
+    () => getComputedStyle(document.querySelector(".archive-entry")).gridTemplateColumns.split(" ").length,
+  );
+  expect(columns).toBe(2);
+});
+
+test("the archive rows stack at 360 without overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 });
+  await page.goto("/work/");
+  const state = await page.evaluate(() => {
+    const entry = document.querySelector(".archive-entry");
+    return {
+      columns: getComputedStyle(entry).gridTemplateColumns.split(" ").length,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    };
+  });
+  expect(state.columns).toBe(1);
+  expect(state.overflow).toBeLessThanOrEqual(1);
+});
