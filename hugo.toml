@@ -49,6 +49,14 @@ publishDir = "dist"
     parent = "blog"
     weight = 3
     url = "blog/faq"
+  [[menu.header]]
+    name = "projects"
+    weight = 2
+    url = "projects"
+  [[menu.header]]
+    name = "contact"
+    weight = 3
+    url = "contact"
 
 [params]
 user = "hello"
@@ -104,3 +112,15 @@ key = 4
 name = "email"
 url = "mailto:jparedescolmenarejo@gmail.com"
 aria = "Email"
+
+[[params.activeProjects]]
+name = "subany.video"
+url = "https://subany.video/"
+
+[[params.activeProjects]]
+name = "cleanyourphone.org"
+url = "https://www.cleanyourphone.org/"
+
+[[params.activeProjects]]
+name = "cleanyourmail.org"
+url = "https://www.cleanyourmail.org/"

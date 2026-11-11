@@ -23,6 +23,16 @@
                     <p class="profileRole">Data Scientist / AI Engineer</p>
                     <p class="profileBio">I build computer-vision systems and local-first AI products in Madrid.</p>
                     {{ partial "profile-social.html" . }}
+                    {{ with .Site.Params.activeProjects }}
+                    <div class="activeProjects">
+                        <p class="activeProjectsLabel">Active projects</p>
+                        <div class="activeProjectsLinks">
+                            {{ range . }}
+                            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }} <span aria-hidden="true">↗</span></a>
+                            {{ end }}
+                        </div>
+                    </div>
+                    {{ end }}
                 </div>
             </main>
         </div>
