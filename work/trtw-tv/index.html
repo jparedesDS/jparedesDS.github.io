@@ -1,46 +1,21 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>trtw.tv — Jose Paredes</title><meta name="description" content="Live Spanish subtitles for Twitch and YouTube, transcribed locally with Whisper."><link rel="canonical" href="https://jparedesds.github.io/work/trtw-tv/"><meta property="og:title" content="trtw.tv — Jose Paredes"><meta property="og:description" content="Live Spanish subtitles for Twitch and YouTube, transcribed locally with Whisper."><meta property="og:image" content="https://jparedesds.github.io/profile.jpg"><meta property="og:url" content="https://jparedesds.github.io/work/trtw-tv/"><meta property="og:type" content="website"><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Jose Paredes",
-  "jobTitle": "Data Scientist / AI Engineer",
-  "url": "https://jparedesds.github.io/",
-  "sameAs": [
-    "https://github.com/jparedesDS",
-    "https://www.linkedin.com/in/jparedesDS/",
-    "https://huggingface.co/jparedesDS",
-    "https://www.kaggle.com/joseparedesc"
-  ]
-}</script><link rel="icon" href="/profile.jpg"><script>
-      (function () {
-        var saved = localStorage.getItem("theme");
-        var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.dataset.theme = dark ? "dark" : "light";
-      })();
-    </script><link rel="stylesheet" href="/_astro/BaseLayout.Cbo0mHop.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="header-inner"><a class="brand" href="/"><img src="/profile.jpg" alt="" width="28" height="28"><span>jparedesDS</span></a><nav class="nav" aria-label="Primary"><a href="/#work">Work</a><a href="/#experience">Experience</a><a href="/blog/">Writing</a><a href="/#contact">Contact</a></nav><div class="header-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme"><span class="theme-dot"></span></button></div></div></header><script>
-  (function () {
-    var root = document.documentElement;
-    var toggle = document.querySelector("[data-theme-toggle]");
-    if (!toggle) return;
-
-    function sync() {
-      var dark = root.dataset.theme === "dark";
-      toggle.setAttribute("aria-pressed", String(dark));
-      toggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
-    }
-
-    sync();
-
-    toggle.addEventListener("click", function () {
-      var next = root.dataset.theme === "dark" ? "light" : "dark";
-      root.dataset.theme = next;
-      localStorage.setItem("theme", next);
-      sync();
-    });
-  })();
-</script><main id="main-content"><article class="case"><a class="back-link" href="/work/">← All work</a><p class="case-kicker">products · 2025</p><h1>trtw.tv</h1><p class="case-summary">Live Spanish subtitles for Twitch and YouTube, transcribed locally with Whisper.</p><figure class="case-media"><img src="/images/trtw-tv.png" alt="trtw.tv live subtitles" width="1200" height="630"></figure><div class="project-links"><a class="project-link" href="https://github.com/jparedesDS/trtw-tv" target="_blank" rel="noopener noreferrer">Code<span aria-hidden="true"> ↗</span></a></div><div class="prose"><h2 id="problem">Problem</h2>
-<p>English live streams are hard to follow for Spanish-speaking viewers, and the platforms do not provide live Spanish subtitles. Cloud transcription services add cost, require API keys and send the audio off the viewer’s machine, which is a poor fit for a browser extension that should just work on any stream.</p>
-<h2 id="approach">Approach</h2>
-<p>trtw.tv is a Chrome extension (Manifest V3) that captures the audio of the active tab, transcribes English with Whisper and overlays Spanish subtitles on Twitch and YouTube. It runs entirely on the user’s machine, using WebGPU when available and a WASM/CPU fallback when it is not, so integrated graphics are enough. Whisper <code>tiny.en</code>, <code>base.en</code> and <code>small.en</code> models are provided through transformers.js, with Silero VAD, local-agreement confirmation and a hallucination filter to keep the output stable. Translation uses the Chrome built-in Translator API with an Opus-MT fallback, and the extension supports a glossary, context and bilingual subtitles. The popup shows the measured latency, which sits around 1.5 to 3 seconds behind the stream.</p>
-<h2 id="result">Result</h2>
-<p>Viewers can watch English Twitch and YouTube streams with live Spanish subtitles without sending audio to a server, creating an account or paying for an API. The extension follows the player, works on ordinary hardware and keeps the transcription local.</p>
-</div><a class="case-next" href="/work/cleanyourphone/"><span class="case-next-label">Next project</span><span class="case-next-title">CleanYourPhone</span><span class="case-next-arrow" aria-hidden="true">→</span></a><p class="case-foot"><a href="/work/">← Back to the archive</a></p></article></main><footer class="site-footer"><span>© 2026 Jose Paredes</span><span>Built with care. No template.</span></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Redirecting</title>
+  <link rel="canonical" href="https://github.com/jparedesDS/trtw-tv">
+  <meta http-equiv="refresh" content="0; url=https://github.com/jparedesDS/trtw-tv">
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0d1117; color: #c9d1d9; font: 16px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    main { max-width: 38rem; padding: 2rem; }
+    a { color: #58a6ff; }
+  </style>
+</head>
+<body>
+  <main>
+    <p>This page has moved to <a href="https://github.com/jparedesDS/trtw-tv">https://github.com/jparedesDS/trtw-tv</a>.</p>
+  </main>
+</body>
+</html>
