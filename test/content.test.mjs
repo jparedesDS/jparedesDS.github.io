@@ -124,25 +124,46 @@ test("contact adds the personal and Pro POV socials", () => {
   }
 });
 
-test("the timeline combines work, education and milestones", () => {
+test("the header brand is jparedesDS", () => {
   const html = read("index.html");
+  assert.match(html, /<span>jparedesDS<\/span>/);
+});
+
+test("the timeline is only work and education", () => {
+  const html = read("index.html");
+  assert.match(html, /Work &amp; education/);
+  const experience = html.match(/<section class="section" id="experience">([\s\S]*?)<\/section>/);
+  assert.ok(experience, "experience section");
+  const section = experience[1];
+  assert.match(section, /class="timeline"/);
   for (const text of [
-    "Work, education &amp; milestones",
     "EIPSA",
     "Comunicación Permanente",
-    "Grupo ANOVO",
     "The Bridge",
+    "Grupo ANOVO",
     "Padre Piquer",
-    "Kaggle",
-    "DocFlow",
-    "Pro POV CS2",
-    "subany.video",
-    "CleanYourMail",
-    "CleanYourPhone",
   ]) {
-    assert.match(html, new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    assert.ok(section.includes(text), text);
   }
-  assert.match(html, /class="timeline"/);
+  assert.doesNotMatch(section, /Milestone/);
+  assert.doesNotMatch(section, /Kaggle/);
+  assert.doesNotMatch(section, /Pro POV CS2/);
+  assert.doesNotMatch(section, /DocFlow/);
+  assert.doesNotMatch(section, /2026/);
+});
+
+test("contact includes the Sites block with the three sites", () => {
+  const html = read("index.html");
+  const panel = html.match(/<section class="contact-panel"[\s\S]*?<\/section>/);
+  assert.ok(panel, "contact panel");
+  assert.match(panel[0], /<h3 class="contact-label">Sites<\/h3>/);
+  for (const url of [
+    "https://subany.video/",
+    "https://cleanyourmail.org/",
+    "https://cleanyourphone.org/",
+  ]) {
+    assert.ok(panel[0].includes(url), url);
+  }
 });
 
 test("the archive contains the current categories and model releases", () => {

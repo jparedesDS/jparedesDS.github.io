@@ -58,7 +58,7 @@ test("experience and writing stack at 360 without overflow", async ({ page }) =>
   expect(boxes.overflow).toBeLessThanOrEqual(1);
 });
 
-for (const [width, columns] of [[1440, 3], [980, 1], [360, 1]]) {
+for (const [width, columns] of [[1440, 4], [980, 1], [360, 1]]) {
   test(`the contact panel has ${columns} columns at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto("/");
@@ -71,10 +71,24 @@ for (const [width, columns] of [[1440, 3], [980, 1], [360, 1]]) {
   });
 }
 
-test("the contact panel names the personal and Pro POV blocks", async ({ page }) => {
+test("contact has four columns at 1440 and one at 980", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/");
+  let count = await page.evaluate(() => getComputedStyle(document.querySelector(".contact-panel")).gridTemplateColumns.split(" ").length);
+  expect(count).toBe(4);
+  await page.setViewportSize({ width: 980, height: 1000 });
+  await page.reload();
+  count = await page.evaluate(() => getComputedStyle(document.querySelector(".contact-panel")).gridTemplateColumns.split(" ").length);
+  expect(count).toBe(1);
+});
+
+test("the contact panel names the personal, Pro POV and Sites blocks", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".contact-panel")).toContainText("Personal");
   await expect(page.locator(".contact-panel")).toContainText("Pro POV CS2");
+  await expect(page.locator(".contact-panel")).toContainText("Sites");
+  await expect(page.locator('.contact-panel a[href="https://cleanyourmail.org/"]')).toBeVisible();
+  await expect(page.locator('.contact-panel a[href="https://cleanyourphone.org/"]')).toBeVisible();
 });
 
 test("the timeline does not overflow at 360px", async ({ page }) => {
