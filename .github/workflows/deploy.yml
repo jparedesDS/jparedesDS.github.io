@@ -1,0 +1,29 @@
+name: Deploy portfolio
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Dart Sass
+        run: |
+          curl -sSLo sass.tar.gz https://github.com/sass/dart-sass/releases/download/1.108.2/dart-sass-1.108.2-linux-x64.tar.gz
+          tar -xzf sass.tar.gz
+          echo "$PWD/dart-sass" >> "$GITHUB_PATH"
+      - run: sass --version
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.169.0"
+          extended: true
+      - run: hugo --gc --minify
+      - run: touch dist/.nojekyll
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
+          clean: true

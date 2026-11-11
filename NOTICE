@@ -1,0 +1,27 @@
+NOTICE
+======
+
+This repository contains the source of Jose Paredes's personal portfolio
+(https://jparedesds.github.io/). The site content and the original layouts and
+styles in this repository are copyright (c) 2026 Jose Paredes and are licensed
+under the GNU General Public License v3; see LICENSE for the full text.
+
+Nightfall theme
+---------------
+
+The site vendors the Nightfall theme at themes/nightfall/:
+
+  Nightfall - https://github.com/LordMathis/hugo-theme-nightfall
+  Copyright (c) 2024 Matúš Námešný
+  Licensed under the MIT License
+
+The full MIT text is reproduced in themes/nightfall/LICENSE and governs the
+theme code, not the portfolio content.
+
+Legacy pages
+------------
+
+static/cs2pov/, static/propovcs2/ and static/murdoku/ are served unchanged from
+the previous site. They are kept because they are live products or because
+YouTube and TikTok require their privacy and terms pages; they are not part of
+the Hugo template.

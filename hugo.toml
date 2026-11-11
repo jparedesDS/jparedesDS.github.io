@@ -1,0 +1,102 @@
+baseURL = "https://jparedesds.github.io/"
+locale = "en-us"
+title = "Jose Paredes"
+theme = "nightfall"
+publishDir = "dist"
+
+[module]
+  [module.hugoVersion]
+    min = "0.158.0"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[pagination]
+  pagerSize = 10
+
+[taxonomies]
+  tag = "tags"
+
+[permalinks]
+  blog = "/blog/:year/:month/:day/:slug/"
+  tags = "/blog/tags/:slug/"
+
+[menu]
+  [[menu.header]]
+    name = "about"
+    # Hugo sorts weight 0 as unset, which would place "about" last.
+    weight = -1
+    url = "about"
+  [[menu.header]]
+    name = "blog"
+    weight = 1
+    url = "blog"
+  [[menu.header]]
+    name = "tags"
+    weight = 2
+    url = "blog/tags"
+  [[menu.header]]
+    name = "archive"
+    weight = 3
+    url = "blog/archives"
+  [[menu.header]]
+    name = "faq"
+    weight = 4
+    url = "blog/faq"
+
+[params]
+user = "jparedesDS"
+hostname = "portfolio"
+openLinksInNewTab = true
+displayDateFormat = "2006-01-02"
+showMetadata = true
+showPublishedDate = true
+showReadingTime = true
+showTags = true
+showAuthors = false
+showCategories = false
+sitedescription = "Data scientist and AI engineer in Madrid."
+footerHtml = '© 2026 Jose Paredes · Built with <a href="https://gohugo.io" class="footerLink">Hugo</a> and <a href="https://github.com/LordMathis/hugo-theme-nightfall" class="footerLink">Nightfall</a>'
+
+[params.author]
+  name = "Jose Paredes"
+  email = "jparedescolmenarejo@gmail.com"
+
+[params.styles]
+  color = "blue"
+
+[[params.social]]
+key = 0
+name = "github"
+url = "https://github.com/jparedesDS"
+target = "_blank"
+aria = "GitHub Profile"
+
+[[params.social]]
+key = 1
+name = "linkedin"
+url = "https://www.linkedin.com/in/jparedesDS/"
+target = "_blank"
+aria = "LinkedIn Profile"
+
+[[params.social]]
+key = 2
+name = "x"
+url = "https://x.com/xhitoCS"
+target = "_blank"
+aria = "X Profile"
+
+[[params.social]]
+key = 3
+name = "instagram"
+url = "https://www.instagram.com/xhitoCS/"
+target = "_blank"
+aria = "Instagram Profile"
+
+[[params.social]]
+key = 4
+name = "email"
+url = "mailto:jparedescolmenarejo@gmail.com"
+aria = "Email"

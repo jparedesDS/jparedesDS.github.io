@@ -1,0 +1,27 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{.Description | default .Site.Params.SiteDescription}}">
+
+{{ hugo.Generator }}
+
+<!-- Permalink & RSSlink -->
+<link rel="canonical" href="{{ .Permalink }}" >
+{{- with .OutputFormats.Get "RSS" }}
+  <link href="{{ .Permalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" >
+  <link href="{{ .Permalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" >
+{{- end -}}
+
+{{ $vars := dict
+  "color" (or site.Params.styles.color "blue")
+}}
+
+{{ $options := dict
+  "targetPath" "css/style.css"
+  "transpiler" "dartsass"
+  "vars" $vars
+}}
+
+{{ $style := resources.Get "sass/main.scss" | toCSS $options | minify | fingerprint }}
+<link href="{{ $style.RelPermalink }}" rel="stylesheet">
+
+{{ partial "custom-head.html" . }}

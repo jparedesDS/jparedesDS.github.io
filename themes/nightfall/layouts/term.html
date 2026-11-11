@@ -1,0 +1,52 @@
+{{ define "title" }}
+  {{ .Title }} | {{ .Site.Params.author.name }}
+{{ end }}
+
+{{ define "main" }}
+<div>
+  <div class="listHeader">
+    <h1>{{ .Title }}</h1>
+  </div>
+
+  {{ with .Content }}
+  <div class="listContent">
+    {{- . -}}
+  </div>
+  {{ end }}
+
+  {{ $pages := .Pages }}
+  {{ $paginator := .Paginate $pages }}
+
+  <div role="list">
+    {{ range $paginator.Pages }}
+      <div class="postListItem" role="listitem">
+        <a class="postListLink" href="{{ .Permalink }}">
+          <div class="postHeader">
+            <span class="postTitle">{{ .Title }}</span>
+            {{ $layout := .Site.Params.displayDateFormat | default "2006-01-02" }}
+            {{ $iso := .Date | time.Format "2006-01-02" }}
+            <time class="postDate" datetime="{{ $iso }}">{{ .Date | time.Format $layout }}</time>
+          </div>
+
+          {{ $showReadingTime := true }}
+          {{ if eq .Site.Params.showReadingTime false }}{{ $showReadingTime = false }}{{ end }}
+          {{ if eq .Site.Params.readingTime false }}{{ $showReadingTime = false }}{{ end }}
+          {{ if eq .Params.showReadingTime false }}{{ $showReadingTime = false }}{{ end }}
+          {{ if $showReadingTime }}
+          <div class="readingTime">
+            {{ i18n "reading_time" }}: {{ i18n "reading_time_desc" .ReadingTime }}
+          </div>
+          {{ end }}
+        </a>
+
+        <div class="postExcerpt">
+          {{ .Summary }}
+        </div>
+      </div>
+    {{ end }}
+  </div>
+
+  {{ partial "pagination.html" (dict "paginator" $paginator) }}
+
+</div>
+{{ end }}

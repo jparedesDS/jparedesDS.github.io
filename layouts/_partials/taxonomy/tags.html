@@ -1,0 +1,9 @@
+<!-- Nightfall prints .LinkTitle, which title-cases technical tags (#Hls,
+     #Webgpu). Use the raw taxonomy term instead. -->
+<dt>{{ i18n "tags" }}</dt>
+<dd>
+{{- range $index, $el := . -}}
+    <span></span>
+    <a href="{{ .RelPermalink }}">#{{ .Data.Term }}</a>
+{{- end -}}
+</dd>

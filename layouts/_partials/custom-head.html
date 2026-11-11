@@ -1,0 +1,28 @@
+<style>
+  /* Nightfall centres .content and floats .postTitle next to .postDate. On
+     list pages that leaves long titles centred, capitalises every word and
+     drops the date onto its own line. Keep the original casing, align the
+     title left and lay the header out as a row so dates stay on the right. */
+  .postHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .postTitle {
+    float: none;
+    text-align: left;
+    text-transform: none;
+  }
+
+  .postDate {
+    float: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .archiveYear h2 {
+    text-align: left;
+  }
+</style>

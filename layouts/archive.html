@@ -1,0 +1,43 @@
+{{ define "title" }}
+  {{ .Title }} | {{ .Site.Params.author.name }}
+{{ end }}
+
+{{ define "main" }}
+<div>
+  <div class="listHeader">
+    <h1>{{ .Title }}</h1>
+  </div>
+
+  {{ with .Content }}
+  <div class="listContent">
+    {{- . -}}
+  </div>
+  {{ end }}
+
+  {{ $layout := .Site.Params.displayDateFormat | default "2006-01-02" }}
+  {{ $posts := where site.RegularPages "Section" "blog" }}
+  {{ $years := $posts.GroupByDate "2006" }}
+
+  {{ range $years }}
+    <div class="archiveYear">
+      <h2>{{ .Key }}</h2>
+      <div role="list">
+        {{ range .Pages }}
+          <div class="postListItem" role="listitem">
+            <a class="postListLink" href="{{ .Permalink }}">
+              <div class="postHeader">
+                <span class="postTitle">{{ .Title }}</span>
+                {{ $iso := .Date | time.Format "2006-01-02" }}
+                <time class="postDate" datetime="{{ $iso }}">{{ .Date | time.Format $layout }}</time>
+              </div>
+              <div class="readingTime">
+                {{ i18n "reading_time" }}: {{ i18n "reading_time_desc" .ReadingTime }}
+              </div>
+            </a>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+</div>
+{{ end }}

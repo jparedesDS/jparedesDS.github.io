@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 170" width="340" height="170">
+  <defs>
+    <linearGradient id="bgAI" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <radialGradient id="glowAI" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="340" height="170" rx="14" fill="url(#bgAI)"/>
+  <circle cx="100" cy="85" r="75" fill="url(#glowAI)"/>
+  <g opacity="0.18" stroke="#f59e0b" stroke-width="0.6" fill="none">
+    <path d="M30 30 L60 30 L70 40 M280 140 L310 140 L320 130"/>
+    <path d="M30 140 L60 140 L70 130 M280 30 L310 30 L320 40"/>
+    <circle cx="60" cy="30" r="2" fill="#f59e0b"/>
+    <circle cx="280" cy="140" r="2" fill="#f59e0b"/>
+    <circle cx="60" cy="140" r="2" fill="#f59e0b"/>
+    <circle cx="280" cy="30" r="2" fill="#f59e0b"/>
+  </g>
+  <g transform="translate(70 42)">
+    <path d="M0 12 a12 12 0 0 1 12 -12 h56 a12 12 0 0 1 12 12 v32 a12 12 0 0 1 -12 12 H30 l-14 14 v-14 H12 a12 12 0 0 1 -12 -12 z"
+          fill="#f59e0b"/>
+    <circle cx="28" cy="28" r="4.5" fill="#0b1220"/>
+    <circle cx="52" cy="28" r="4.5" fill="#0b1220"/>
+    <path d="M24 42 q16 8 32 0" stroke="#0b1220" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(230 50)" stroke="#fef3c7" stroke-width="2.5" fill="none">
+    <circle cx="30" cy="30" r="26" stroke-opacity="0.9"/>
+    <circle cx="30" cy="30" r="14" stroke-opacity="0.6"/>
+    <circle cx="30" cy="30" r="2" fill="#fef3c7" stroke="none"/>
+    <path d="M30 0 V12 M30 48 V60 M0 30 H12 M48 30 H60" stroke-linecap="round"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <text x="170" y="138" font-size="20" font-weight="800" text-anchor="middle" fill="#f59e0b" letter-spacing="2">CLUTCHBOT.AI</text>
+    <text x="170" y="156" font-size="9"  font-weight="500" text-anchor="middle" fill="#cbd5e1" letter-spacing="6">CONVERSATIONAL · CS2</text>
+  </g>
+</svg>
