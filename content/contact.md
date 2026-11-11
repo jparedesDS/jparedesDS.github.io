@@ -17,7 +17,7 @@ I’m open to select AI, computer-vision and local-first product work.
 ## Pro POV CS2
 
 - [YouTube](https://www.youtube.com/@Pro.POV.CS2)
-- [TikTok](https://www.tiktok.com/@propov.cs2)
+- [TikTok](https://www.tiktok.com/@propov_cs2)
 - [Instagram](https://www.instagram.com/propovcs2)
 - [X / Twitter](https://x.com/ProPOVCS2)
 - [Twitch](https://www.twitch.tv/propovcs2)

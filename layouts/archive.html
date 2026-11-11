@@ -1,43 +1,49 @@
-{{ define "title" }}
-  {{ .Title }} | {{ .Site.Params.author.name }}
-{{ end }}
+{{- define "title" }}Archive | {{ .Site.Params.author.name }}{{ end }}
 
-{{ define "main" }}
-<div>
-  <div class="listHeader">
-    <h1>{{ .Title }}</h1>
-  </div>
+{{- define "main" }}
 
-  {{ with .Content }}
-  <div class="listContent">
-    {{- . -}}
-  </div>
-  {{ end }}
+<div class="blogShell">
+{{ partial "blog-nav.html" . }}
 
-  {{ $layout := .Site.Params.displayDateFormat | default "2006-01-02" }}
-  {{ $posts := where site.RegularPages "Section" "blog" }}
-  {{ $years := $posts.GroupByDate "2006" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+</header>
 
-  {{ range $years }}
-    <div class="archiveYear">
-      <h2>{{ .Key }}</h2>
-      <div role="list">
-        {{ range .Pages }}
-          <div class="postListItem" role="listitem">
-            <a class="postListLink" href="{{ .Permalink }}">
-              <div class="postHeader">
-                <span class="postTitle">{{ .Title }}</span>
-                {{ $iso := .Date | time.Format "2006-01-02" }}
-                <time class="postDate" datetime="{{ $iso }}">{{ .Date | time.Format $layout }}</time>
-              </div>
-              <div class="readingTime">
-                {{ i18n "reading_time" }}: {{ i18n "reading_time_desc" .ReadingTime }}
-              </div>
-            </a>
-          </div>
-        {{ end }}
+{{- $pages := where site.RegularPages "Section" "blog" }}
+
+{{- range $pages.GroupByPublishDate "2006" }}
+{{- if ne .Key "0001" }}
+<div class="archive-year">
+  {{- $year := replace .Key "0001" "" }}
+  <h2 class="archive-year-header" id="{{ $year }}">
+    <a class="archive-header-link" href="#{{ $year }}">{{ $year }}</a>
+    <sup class="archive-count">&nbsp;{{ len .Pages }}</sup>
+  </h2>
+  {{- range .Pages.GroupByDate "January" }}
+  <div class="archive-month">
+    <h3 class="archive-month-header" id="{{ $year }}-{{ .Key }}">
+      <a class="archive-header-link" href="#{{ $year }}-{{ .Key }}">{{ .Key }}</a>
+      <sup class="archive-count">&nbsp;{{ len .Pages }}</sup>
+    </h3>
+    <div class="archive-posts">
+      {{- range .Pages }}
+      <div class="archive-entry">
+        <h3 class="archive-entry-title entry-hint-parent">
+          {{- .Title | markdownify }}
+        </h3>
+        <div class="archive-meta">
+          {{- partial "blog-meta.html" . -}}
+        </div>
+        <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
       </div>
+      {{- end }}
     </div>
-  {{ end }}
+  </div>
+  {{- end }}
 </div>
-{{ end }}
+{{- end }}
+{{- end }}
+
+</div>
+
+{{- end }}{{/* end main */ -}}

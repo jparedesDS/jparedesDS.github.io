@@ -1,0 +1,53 @@
+{{- define "title" }}{{ .Title }} | {{ .Site.Params.author.name }}{{ end }}
+
+{{- define "main" }}
+
+<div class="blogShell">
+{{ partial "blog-nav.html" . }}
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{ with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
+    <div class="post-meta">
+      {{- partial "blog-meta.html" . -}}
+    </div>
+  </header>
+
+  <div class="post-content md-content">
+    {{- partial "blog-anchored-headings.html" .Content -}}
+  </div>
+
+  {{ with .GetTerms "tags" }}
+  <footer class="post-footer">
+    <ul class="post-tags">
+      {{- range . }}
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+  </footer>
+  {{ end }}
+
+  {{- $prev := .PrevInSection }}
+  {{- $next := .NextInSection }}
+  {{- if or $prev $next }}
+  <nav class="paginav">
+    {{- with $prev }}
+    <a class="prev" href="{{ .Permalink }}">
+      <span class="title">«</span>
+      <span>{{ .Title }}</span>
+    </a>
+    {{- end }}
+    {{- with $next }}
+    <a class="next" href="{{ .Permalink }}">
+      <span class="title">»</span>
+      <span>{{ .Title }}</span>
+    </a>
+    {{- end }}
+  </nav>
+  {{- end }}
+</article>
+
+</div>
+
+{{- end }}{{/* end main */ -}}

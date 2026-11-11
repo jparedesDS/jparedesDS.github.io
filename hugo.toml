@@ -30,29 +30,13 @@ publishDir = "dist"
     weight = -1
     url = "about"
   [[menu.header]]
-    name = "blog"
-    identifier = "blog"
-    weight = 1
-    url = "blog"
-  [[menu.header]]
-    name = "tags"
-    parent = "blog"
-    weight = 1
-    url = "blog/tags"
-  [[menu.header]]
-    name = "archive"
-    parent = "blog"
-    weight = 2
-    url = "blog/archives"
-  [[menu.header]]
-    name = "faq"
-    parent = "blog"
-    weight = 3
-    url = "blog/faq"
-  [[menu.header]]
     name = "projects"
-    weight = 2
+    weight = 1
     url = "projects"
+  [[menu.header]]
+    name = "blog"
+    weight = 2
+    url = "blog"
   [[menu.header]]
     name = "contact"
     weight = 3
@@ -124,3 +108,7 @@ url = "https://www.cleanyourphone.org/"
 [[params.activeProjects]]
 name = "cleanyourmail.org"
 url = "https://www.cleanyourmail.org/"
+
+[[params.activeProjects]]
+name = "Pro POV CS2"
+url = "/propovcs2/"
