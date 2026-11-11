@@ -94,6 +94,43 @@
     height: 26px;
   }
 
+  .activeProjects {
+    margin-top: 2.1rem;
+  }
+
+  .activeProjectsLabel {
+    margin: 0 0 0.7rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a8a8b3;
+  }
+
+  .activeProjectsLinks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem;
+  }
+
+  .activeProjectsLinks a {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 999px;
+    color: #f8f8ff;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: color 0.18s ease, border-color 0.18s ease;
+  }
+
+  .activeProjectsLinks a:hover {
+    color: #80aadd;
+    border-color: #80aadd;
+    text-decoration: none;
+  }
+
   /* Blog children: tags/archive/faq live under ~/blog. */
   .headerWrapper {
     overflow: visible;
