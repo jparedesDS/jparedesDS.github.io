@@ -55,46 +55,66 @@ const groups = years.map((year) => ({
 ---
 
 <BaseLayout
-  title="Work archive — Jose Paredes"
+  title="Archive — Jose Paredes"
   description="Every project and model release by Jose Paredes, newest first."
 >
-  <div class="page">
-    <header class="archive-hero">
-      <p class="section-kicker">01 / Archive</p>
+  <div class="work-archive">
+    <header class="page-header">
       <h1>Archive</h1>
-      <p class="archive-lede">
-        {items.length} items — {projects.length} projects and {models.length} model releases, newest first.
-      </p>
-      <a class="archive-back" href="/">← Back to home</a>
     </header>
 
     {
       groups.map((group) => (
         <section class="archive-year">
-          <h2 class="archive-year-head">
-            {group.year} <span>{group.items.length}</span>
+          <h2 class="archive-year-header" id={group.year}>
+            <a class="archive-header-link" href={`#${group.year}`}>
+              {group.year}
+            </a>
+            <sup class="archive-count">&nbsp;{group.items.length}</sup>
           </h2>
-          {group.items.map((item) => (
-            <article class="archive-entry" data-kind={item.kind} data-slug={item.slug}>
-              <div class="archive-entry-main">
-                <h3>{item.href ? <a href={item.href}>{item.title}</a> : item.title}</h3>
-                <p class="archive-entry-meta">{item.meta}</p>
-              </div>
-              <div class="archive-entry-links">
-                {item.private && <span class="archive-private">Private project</span>}
-                {item.links.map((link) => (
-                  <a href={link.url} rel={link.external ? "noopener" : undefined}>
-                    {link.label}
-                    <span aria-hidden="true">{link.external ? " ↗" : " →"}</span>
-                  </a>
-                ))}
-              </div>
-            </article>
-          ))}
+          <div class="archive-month">
+            <h3 class="archive-month-header" id={`${group.year}-all`}>
+              <a class="archive-header-link" href={`#${group.year}-all`}>
+                All year
+              </a>
+              <sup class="archive-count">&nbsp;{group.items.length}</sup>
+            </h3>
+            <div class="archive-posts">
+              {group.items.map((item) => (
+                <article class="archive-entry" data-kind={item.kind} data-slug={item.slug}>
+                  <h3 class="archive-entry-title">{item.title}</h3>
+                  <div class="archive-meta">
+                    Year: {item.year}&nbsp;|&nbsp;{item.meta}
+                    {item.links.length > 0 && (
+                      <>
+                        {" "}
+                        &nbsp;|&nbsp;{" "}
+                        {item.links.map((link, i) => (
+                          <>
+                            <a href={link.url} rel={link.external ? "noopener" : undefined}>
+                              {link.label}
+                            </a>
+                            {i < item.links.length - 1 ? " · " : ""}
+                          </>
+                        ))}
+                      </>
+                    )}
+                    {item.private && (
+                      <>
+                        {" "}
+                        &nbsp;|&nbsp; <span>Private project</span>
+                      </>
+                    )}
+                  </div>
+                  {item.href && (
+                    <a class="entry-link" aria-label={`Open ${item.title}`} href={item.href}></a>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
       ))
     }
-
-    <p class="archive-foot"><a href="/">← Back to home</a></p>
   </div>
 </BaseLayout>

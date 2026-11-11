@@ -165,30 +165,52 @@ test("the dark palette matches subany", async ({ page }) => {
 test("the work archive lists the years newest first without images", async ({ page }) => {
   await page.goto("/work/");
   await expect(page.locator(".archive-entry")).toHaveCount(38);
-  const years = await page.locator(".archive-year-head").allTextContents();
+  const years = await page.locator(".archive-year-header").allTextContents();
   expect(years.map((text) => text.trim().split(/\s+/)[0])).toEqual(["2026", "2025", "2024"]);
   await expect(page.locator(".archive-entry img")).toHaveCount(0);
+  await expect(page.locator(".archive-month")).toHaveCount(3);
 });
 
-test("the archive rows pair the title with its links at 1440", async ({ page }) => {
+test("the work archive is 720px wide with the PaperMod type scale at 1440", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/work/");
-  const columns = await page.evaluate(
-    () => getComputedStyle(document.querySelector(".archive-entry")).gridTemplateColumns.split(" ").length,
-  );
-  expect(columns).toBe(2);
+  const s = await page.evaluate(() => ({
+    year: document.querySelector(".archive-year").getBoundingClientRect().width,
+    h1: getComputedStyle(document.querySelector(".page-header h1")).fontSize,
+    yearHeader: getComputedStyle(document.querySelector(".archive-year-header")).fontSize,
+    monthHeader: getComputedStyle(document.querySelector(".archive-month-header")).fontSize,
+    title: getComputedStyle(document.querySelector(".archive-entry-title")).fontSize,
+    meta: getComputedStyle(document.querySelector(".archive-meta")).fontSize,
+  }));
+  expect(s.year).toBe(720);
+  expect(s.h1).toBe("40px");
+  expect(s.yearHeader).toBe("27px");
+  expect(s.monthHeader).toBe("21px");
+  expect(s.title).toBe("18.72px");
+  expect(s.meta).toBe("14px");
 });
 
-test("the archive rows stack at 360 without overflow", async ({ page }) => {
+test("the archive month is a two-column row at 1440 and stacks at 360", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/work/");
+  let layout = await page.evaluate(() => {
+    const month = getComputedStyle(document.querySelector(".archive-month"));
+    return { display: month.display, direction: month.flexDirection };
+  });
+  expect(layout).toEqual({ display: "flex", direction: "row" });
+  await page.setViewportSize({ width: 360, height: 900 });
+  layout = await page.evaluate(() => {
+    const month = getComputedStyle(document.querySelector(".archive-month"));
+    return { display: month.display, direction: month.flexDirection };
+  });
+  expect(layout).toEqual({ display: "flex", direction: "column" });
+});
+
+test("the work archive does not overflow at 360", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 900 });
   await page.goto("/work/");
-  const state = await page.evaluate(() => {
-    const entry = document.querySelector(".archive-entry");
-    return {
-      columns: getComputedStyle(entry).gridTemplateColumns.split(" ").length,
-      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-    };
-  });
-  expect(state.columns).toBe(1);
-  expect(state.overflow).toBeLessThanOrEqual(1);
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(1);
 });

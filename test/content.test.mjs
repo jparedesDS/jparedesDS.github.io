@@ -174,7 +174,9 @@ test("the work archive is chronological and complete", () => {
   assert.equal((html.match(/class="archive-entry"/g) || []).length, 38);
   assert.equal((html.match(/data-kind="project"/g) || []).length, 28);
   assert.equal((html.match(/data-kind="model"/g) || []).length, 10);
-  const years = [...html.matchAll(/class="archive-year-head"[^>]*>(\d{4})/g)].map((match) => match[1]);
+  const years = [...html.matchAll(/class="archive-year-header"[^>]*>(?:<a[^>]*>)?(\d{4})/g)].map(
+    (match) => match[1],
+  );
   assert.deepEqual(years, ["2026", "2025", "2024"]);
   assert.doesNotMatch(html, /id="ai-vision"/);
   assert.match(html, /HLTV Team &amp; Player Stats Scraper/);
@@ -186,11 +188,10 @@ test("the work archive is chronological and complete", () => {
   }
 });
 
-test("the archive lede counts the 38 items", () => {
+test("the archive shows one All year month row per year", () => {
   const html = read("work/index.html");
-  const lede = html.match(/<p class="archive-lede">([\s\S]*?)<\/p>/);
-  assert.ok(lede, "archive lede");
-  assert.match(lede[1], /38/);
+  assert.equal((html.match(/class="archive-month"/g) || []).length, 3);
+  assert.equal((html.match(/>All year<\/a>/g) || []).length, 3);
 });
 
 test("the archive counts and orders the items per year", () => {
@@ -202,8 +203,14 @@ test("the archive counts and orders the items per year", () => {
     [3, 7, 28],
   );
   assert.deepEqual(
+    sections.map((section) => (section.match(/class="archive-month"/g) || []).length),
+    [1, 1, 1],
+  );
+  assert.deepEqual(
     sections.map((section) => {
-      const head = section.match(/class="archive-year-head">(\d{4}) <span>(\d+)<\/span>/);
+      const head = section.match(
+        /class="archive-year-header"[^>]*>(?:<a[^>]*>)?(\d{4})<\/a><sup class="archive-count">&nbsp;(\d+)<\/sup>/,
+      );
       assert.ok(head, "year head");
       return [head[1], Number(head[2])];
     }),
@@ -213,13 +220,23 @@ test("the archive counts and orders the items per year", () => {
       ["2024", 28],
     ],
   );
+  assert.deepEqual(
+    sections.map((section) => {
+      const month = section.match(
+        /class="archive-month-header"[^>]*>[\s\S]*?All year<\/a><sup class="archive-count">&nbsp;(\d+)<\/sup>/,
+      );
+      assert.ok(month, "month head");
+      return Number(month[1]);
+    }),
+    [3, 7, 28],
+  );
 });
 
 test("the archive sorts each year by title", () => {
   const html = read("work/index.html");
   for (const section of archiveSections(html)) {
-    const titles = [...section.matchAll(/<h3>(?:<a [^>]*>)?([^<]+)/g)].map((match) =>
-      match[1].replace(/&amp;/g, "&"),
+    const titles = [...section.matchAll(/<h3 class="archive-entry-title">([^<]+)<\/h3>/g)].map(
+      (match) => match[1].replace(/&amp;/g, "&"),
     );
     assert.equal(titles.length, (section.match(/class="archive-entry"/g) || []).length);
     assert.deepEqual(titles, [...titles].sort((a, b) => a.localeCompare(b, "en")));
@@ -234,8 +251,14 @@ test("the archive entries carry the kind, slug and meta", () => {
   assert.match(entries[0][1], /data-slug="[^"]+"/);
   assert.match(html, /<article class="archive-entry" data-kind="project" data-slug="docflow-saas">/);
   assert.match(html, /<article class="archive-entry" data-kind="model" data-slug="cs2-yolo12m-weapon-detection">/);
-  assert.match(html, /<p class="archive-entry-meta">Model · YOLO12m<\/p>/);
-  assert.match(html, /<p class="archive-entry-meta">Data &amp; Automation<\/p>/);
+  assert.match(
+    html,
+    /<div class="archive-meta">Year: 2025&nbsp;\|&nbsp;Model · YOLO12m/,
+  );
+  assert.match(
+    html,
+    /<div class="archive-meta">Year: 2024&nbsp;\|&nbsp;Data &amp; Automation/,
+  );
 });
 
 test("the archive has no images, summaries or category sections", () => {
@@ -518,7 +541,7 @@ test("the Person JSON-LD parses and carries the identity links", () => {
 test("every page carries Open Graph metadata", () => {
   for (const [file, title, url] of [
     ["index.html", "Jose Paredes — Data Scientist &amp; AI Engineer", "https://jparedesds.github.io/"],
-    ["work/index.html", "Work archive — Jose Paredes", "https://jparedesds.github.io/work/"],
+    ["work/index.html", "Archive — Jose Paredes", "https://jparedesds.github.io/work/"],
     [
       "work/docflow-saas/index.html",
       null,
