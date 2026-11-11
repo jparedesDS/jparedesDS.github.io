@@ -1,0 +1,31 @@
+<header class="headerWrapper">
+    <div class="header">
+        <div>
+            <a class="terminal" href="{{ .Site.BaseURL | relLangURL }}">
+                <span>{{ .Site.Params.user }}@{{ .Site.Params.hostname }} ~ $</span>
+            </a>
+        </div>
+        <input class="side-menu" type="checkbox" id="side-menu">
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <nav class="headerLinks">
+            <ul>
+                {{ range .Site.Menus.header }}
+                {{ if not .Parent }}
+                <li{{ if .HasChildren }} class="has-children"{{ end }}>
+                    <a href="{{ .URL | absLangURL }}" title="{{ .Title }}">~/{{- .Name -}}</a>
+                    {{ if .HasChildren }}
+                    <ul class="submenu">
+                        {{ range .Children }}
+                        <li>
+                            <a href="{{ .URL | absLangURL }}" title="{{ .Title }}">~/{{- .Name -}}</a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                    {{ end }}
+                </li>
+                {{ end }}
+                {{ end }}
+            </ul>
+        </nav>
+    </div>
+</header>

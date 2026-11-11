@@ -31,24 +31,28 @@ publishDir = "dist"
     url = "about"
   [[menu.header]]
     name = "blog"
+    identifier = "blog"
     weight = 1
     url = "blog"
   [[menu.header]]
     name = "tags"
-    weight = 2
+    parent = "blog"
+    weight = 1
     url = "blog/tags"
   [[menu.header]]
     name = "archive"
-    weight = 3
+    parent = "blog"
+    weight = 2
     url = "blog/archives"
   [[menu.header]]
     name = "faq"
-    weight = 4
+    parent = "blog"
+    weight = 3
     url = "blog/faq"
 
 [params]
-user = "jparedesDS"
-hostname = "portfolio"
+user = "hello"
+hostname = "jparedesDS"
 openLinksInNewTab = true
 displayDateFormat = "2006-01-02"
 showMetadata = true
