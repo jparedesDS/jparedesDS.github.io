@@ -4,7 +4,7 @@ export type SiteLink = {
   external?: boolean;
 };
 
-export type TimelineKind = "work" | "education" | "milestone";
+export type TimelineKind = "work" | "education";
 
 export type TimelineEntry = {
   kind: TimelineKind;
@@ -33,6 +33,7 @@ export type Site = {
   links: SiteLink[];
   personalSocials: SiteLink[];
   propovSocials: SiteLink[];
+  sites: SiteLink[];
   intro: string;
   availability: string;
   currentNote: string;
@@ -66,34 +67,16 @@ export const site: Site = {
     { label: "Twitch", url: "https://www.twitch.tv/propovcs2", external: true },
     { label: "Kick", url: "https://kick.com/propovcs2", external: true },
   ],
+  sites: [
+    { label: "Subany", url: "https://subany.video/", external: true },
+    { label: "CleanYourMail", url: "https://cleanyourmail.org/", external: true },
+    { label: "CleanYourPhone", url: "https://cleanyourphone.org/", external: true },
+  ],
   intro:
     "I build computer-vision systems and automation for industrial engineering, and local-first AI products. Currently at EIPSA.",
   availability: "Available for select AI work",
   currentNote: "Currently building inspection models, DocFlow and subany.video.",
   timeline: [
-    {
-      period: "2026",
-      entries: [
-        {
-          kind: "milestone",
-          title: "subany.video",
-          description: "Live subtitles and translation, processed in the browser.",
-          href: "/work/subany-video/",
-        },
-        {
-          kind: "milestone",
-          title: "CleanYourMail",
-          description: "Reversible inbox cleanup for coding agents.",
-          href: "/cleanyourmail/",
-        },
-        {
-          kind: "milestone",
-          title: "CleanYourPhone",
-          description: "Reversible Android debloat without root.",
-          href: "/work/cleanyourphone/",
-        },
-      ],
-    },
     {
       period: "2024 — Now",
       entries: [
@@ -102,25 +85,7 @@ export const site: Site = {
           title: "Data Analyst & AI Engineer",
           org: "EIPSA",
           description:
-            "Computer vision for metallurgy inspection, DocFlow and ERP automation.",
-        },
-        {
-          kind: "milestone",
-          title: "DocFlow",
-          description: "Document control for engineering project orders, in production.",
-          href: "/work/docflow-saas/",
-        },
-        {
-          kind: "milestone",
-          title: "YOLO inspection models",
-          description: "Defect detection for metallurgy quality control.",
-          href: "https://huggingface.co/jparedesDS/welding-defects-detection",
-        },
-        {
-          kind: "milestone",
-          title: "Pro POV CS2",
-          description: "Autonomous esports content pipeline.",
-          href: "/work/pro-pov-cs2/",
+            "Computer vision for metallurgy inspection and data automation.",
         },
       ],
     },
@@ -140,12 +105,6 @@ export const site: Site = {
           org: "The Bridge",
           description:
             "Supervised and unsupervised learning, deep learning, NLP, computer vision and Flask deployment.",
-        },
-        {
-          kind: "milestone",
-          title: "Kaggle Bronze Medal",
-          description: "Multilabel image classification (Futurama frames).",
-          href: "https://www.kaggle.com/competitions/comp-mediavida-2-futurama/leaderboard",
         },
       ],
     },

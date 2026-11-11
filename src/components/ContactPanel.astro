@@ -41,4 +41,16 @@ const personal = [
       }
     </div>
   </div>
+  <div class="contact-block">
+    <h3 class="contact-label">Sites</h3>
+    <div class="contact-links">
+      {
+        site.sites.map((link) => (
+          <a href={link.url} target="_blank" rel="noreferrer">
+            {link.label} <span aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </section>

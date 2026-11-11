@@ -58,7 +58,7 @@ test("experience and writing stack at 360 without overflow", async ({ page }) =>
   expect(boxes.overflow).toBeLessThanOrEqual(1);
 });
 
-for (const [width, columns] of [[1440, 3], [980, 1], [360, 1]]) {
+for (const [width, columns] of [[1440, 4], [980, 1], [360, 1]]) {
   test(`the contact panel has ${columns} columns at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto("/");
@@ -71,10 +71,24 @@ for (const [width, columns] of [[1440, 3], [980, 1], [360, 1]]) {
   });
 }
 
-test("the contact panel names the personal and Pro POV blocks", async ({ page }) => {
+test("contact has four columns at 1440 and one at 980", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/");
+  let count = await page.evaluate(() => getComputedStyle(document.querySelector(".contact-panel")).gridTemplateColumns.split(" ").length);
+  expect(count).toBe(4);
+  await page.setViewportSize({ width: 980, height: 1000 });
+  await page.reload();
+  count = await page.evaluate(() => getComputedStyle(document.querySelector(".contact-panel")).gridTemplateColumns.split(" ").length);
+  expect(count).toBe(1);
+});
+
+test("the contact panel names the personal, Pro POV and Sites blocks", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".contact-panel")).toContainText("Personal");
   await expect(page.locator(".contact-panel")).toContainText("Pro POV CS2");
+  await expect(page.locator(".contact-panel")).toContainText("Sites");
+  await expect(page.locator('.contact-panel a[href="https://cleanyourmail.org/"]')).toBeVisible();
+  await expect(page.locator('.contact-panel a[href="https://cleanyourphone.org/"]')).toBeVisible();
 });
 
 test("the timeline does not overflow at 360px", async ({ page }) => {
@@ -146,4 +160,35 @@ test("the dark palette matches subany", async ({ page }) => {
   await page.goto("/");
   const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
   expect(bg).toBe("rgb(58, 54, 51)");
+});
+
+test("the work archive lists the years newest first without images", async ({ page }) => {
+  await page.goto("/work/");
+  await expect(page.locator(".archive-entry")).toHaveCount(38);
+  const years = await page.locator(".archive-year-head").allTextContents();
+  expect(years.map((text) => text.trim().split(/\s+/)[0])).toEqual(["2026", "2025", "2024"]);
+  await expect(page.locator(".archive-entry img")).toHaveCount(0);
+});
+
+test("the archive rows pair the title with its links at 1440", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/work/");
+  const columns = await page.evaluate(
+    () => getComputedStyle(document.querySelector(".archive-entry")).gridTemplateColumns.split(" ").length,
+  );
+  expect(columns).toBe(2);
+});
+
+test("the archive rows stack at 360 without overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 });
+  await page.goto("/work/");
+  const state = await page.evaluate(() => {
+    const entry = document.querySelector(".archive-entry");
+    return {
+      columns: getComputedStyle(entry).gridTemplateColumns.split(" ").length,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    };
+  });
+  expect(state.columns).toBe(1);
+  expect(state.overflow).toBeLessThanOrEqual(1);
 });
