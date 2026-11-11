@@ -11,6 +11,10 @@ export type Project = {
   links: ProjectLink[];
   href?: string;
   featured?: boolean;
+  /** Position of the project inside the home selection. Lower comes first. */
+  featuredOrder?: number;
+  /** The GitHub link is an agent skill, so the card labels it Skill instead of Code. */
+  skill?: boolean;
   detail?: boolean;
   private?: boolean;
   /** Short technology chips shown on the home card. */
@@ -40,6 +44,7 @@ export const projects: Project[] = [
     ],
     href: "/work/subany-video/",
     featured: true,
+    featuredOrder: 1,
     detail: true,
     tags: ["TypeScript", "WebGPU", "Whisper"],
   },
@@ -64,6 +69,8 @@ export const projects: Project[] = [
     ],
     href: "/cleanyourmail/",
     featured: true,
+    featuredOrder: 3,
+    skill: true,
     tags: ["Python", "IMAP", "CLI"],
   },
   {
@@ -76,7 +83,6 @@ export const projects: Project[] = [
     imageAlt: "DocFlow document control dashboard with project status and revisions",
     links: [{ label: "Code", url: "https://github.com/jparedesDS/docflow", external: true }],
     href: "/work/docflow-saas/",
-    featured: true,
     detail: true,
     tags: ["FastAPI", "React", "Docker"],
   },
@@ -96,7 +102,6 @@ export const projects: Project[] = [
       { label: "X", url: "https://x.com/ProPOVCS2", external: true },
     ],
     href: "/work/pro-pov-cs2/",
-    featured: true,
     detail: true,
     private: true,
     tags: ["Python", "CS2", "Automation"],
@@ -128,6 +133,8 @@ export const projects: Project[] = [
     ],
     href: "/work/cleanyourphone/",
     featured: true,
+    featuredOrder: 2,
+    skill: true,
     detail: true,
     tags: ["Python", "ADB", "Android"],
   },
@@ -180,7 +187,6 @@ export const projects: Project[] = [
     imageAlt: "DXF technical drawing extraction",
     links: [{ label: "Code", url: "https://github.com/jparedesDS/extract-data-dxf", external: true }],
     href: "https://github.com/jparedesDS/extract-data-dxf",
-    featured: true,
     tags: ["Python", "Deep Learning", "CAD"],
   },
   {
@@ -196,7 +202,6 @@ export const projects: Project[] = [
       { label: "Code", url: "https://github.com/jparedesDS/welding-defects-detection", external: true },
     ],
     href: "https://github.com/jparedesDS/welding-defects-detection",
-    featured: true,
     tags: ["YOLO11", "Python", "Computer Vision"],
   },
   {
@@ -302,7 +307,6 @@ export const projects: Project[] = [
     imageAlt: "HLTV scraper",
     links: [{ label: "Code", url: "https://github.com/jparedesDS/hltv-scraper", external: true }],
     href: "https://github.com/jparedesDS/hltv-scraper",
-    featured: true,
     tags: ["Python", "Scraping", "Pandas"],
   },
   {

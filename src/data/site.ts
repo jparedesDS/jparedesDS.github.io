@@ -31,6 +31,8 @@ export type Site = {
   since: string;
   email: string;
   links: SiteLink[];
+  personalSocials: SiteLink[];
+  propovSocials: SiteLink[];
   intro: string;
   availability: string;
   currentNote: string;
@@ -51,6 +53,18 @@ export const site: Site = {
     { label: "LinkedIn", url: "https://www.linkedin.com/in/jparedesDS/", external: true },
     { label: "Email", url: "mailto:jparedescolmenarejo@gmail.com" },
     { label: "CV", url: "/resume.pdf" },
+  ],
+  personalSocials: [
+    { label: "X", url: "https://x.com/xhitoCS", external: true },
+    { label: "Instagram", url: "https://www.instagram.com/xhitoCS/", external: true },
+  ],
+  propovSocials: [
+    { label: "YouTube", url: "https://www.youtube.com/@Pro.POV.CS2", external: true },
+    { label: "TikTok", url: "https://www.tiktok.com/@propov.cs2", external: true },
+    { label: "Instagram", url: "https://www.instagram.com/propovcs2", external: true },
+    { label: "X", url: "https://x.com/ProPOVCS2", external: true },
+    { label: "Twitch", url: "https://www.twitch.tv/propovcs2", external: true },
+    { label: "Kick", url: "https://kick.com/propovcs2", external: true },
   ],
   intro:
     "I build computer-vision systems and automation for industrial engineering, and local-first AI products. Currently at EIPSA.",
@@ -175,14 +189,37 @@ export const site: Site = {
   ],
   stack: [
     "Python",
+    "Jupyter",
+    "JavaScript",
+    "TypeScript",
+    "HTML/CSS",
     "PyTorch",
+    "TensorFlow",
+    "Keras",
     "YOLO",
     "OpenCV",
+    "scikit-learn",
+    "Pandas",
+    "NumPy",
+    "NLP",
+    "Hugging Face",
     "FastAPI",
+    "Flask",
     "React",
-    "TypeScript",
     "Docker",
     "SQL",
-    "Hugging Face",
+    "SQLite",
+    "PostgreSQL",
+    "GitHub Actions",
+    "Tableau",
+    "BeautifulSoup",
+    "ADB",
+    "WebGPU",
+    "Whisper",
+    "ONNX",
+    "FFmpeg",
+    "Claude",
+    "AI agents",
+    "Local-first",
   ],
 };

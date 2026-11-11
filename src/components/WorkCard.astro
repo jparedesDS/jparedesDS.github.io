@@ -6,8 +6,6 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const href = project.href ?? `/work/${project.slug}/`;
-const external = href.startsWith("http");
 
 const categoryLabels: Record<Project["category"], string> = {
   "ai-vision": "AI & Vision",
@@ -18,25 +16,44 @@ const categoryLabels: Record<Project["category"], string> = {
 
 const categoryLabel = categoryLabels[project.category];
 const initial = project.title.slice(0, 1).toUpperCase();
-const tags = project.tags ?? [];
+
+const web = project.links.find(
+  (link) => /website|web/i.test(link.label) && /^https?:/.test(link.url),
+);
+const code = project.links.find((link) => /code|github/i.test(link.label));
+const primary = project.href ?? web?.url ?? project.links[0]?.url;
+const primaryExternal = primary?.startsWith("http") ?? false;
+const codeLabel = project.skill ? "Skill" : "Code";
 ---
 
-<a
-  class="work-card"
-  href={href}
-  target={external ? "_blank" : undefined}
-  rel={external ? "noreferrer" : undefined}
->
+<article class="work-card" data-project={project.slug}>
   <div class="work-media" data-project={project.slug}>
     {
       project.image ? (
-        <img
-          src={project.image}
-          alt={project.imageAlt ?? ""}
-          width="1200"
-          height="675"
-          loading="lazy"
-        />
+        primary ? (
+          <a
+            class="work-media-link"
+            href={primary}
+            target={primaryExternal ? "_blank" : undefined}
+            rel={primaryExternal ? "noreferrer" : undefined}
+          >
+            <img
+              src={project.image}
+              alt={project.imageAlt ?? ""}
+              width="1200"
+              height="675"
+              loading="lazy"
+            />
+          </a>
+        ) : (
+          <img
+            src={project.image}
+            alt={project.imageAlt ?? ""}
+            width="1200"
+            height="675"
+            loading="lazy"
+          />
+        )
       ) : (
         <div class="work-fallback" aria-hidden="true">
           <span class="work-fallback-initial">{initial}</span>
@@ -50,16 +67,37 @@ const tags = project.tags ?? [];
       <span>{categoryLabel}</span>
       <span>{project.year}</span>
     </div>
-    <h3>{project.title}</h3>
+    <h3>
+      {
+        primary ? (
+          <a
+            href={primary}
+            target={primaryExternal ? "_blank" : undefined}
+            rel={primaryExternal ? "noreferrer" : undefined}
+          >
+            {project.title}
+          </a>
+        ) : (
+          project.title
+        )
+      }
+    </h3>
     <p>{project.summary}</p>
     {
-      tags.length > 0 && (
-        <div class="chips">
-          {tags.slice(0, 2).map((tag) => (
-            <span>{tag}</span>
-          ))}
+      (web || (code && !project.private)) && (
+        <div class="work-links">
+          {web && (
+            <a href={web.url} target="_blank" rel="noreferrer">
+              Web <span aria-hidden="true">↗</span>
+            </a>
+          )}
+          {code && !project.private && (
+            <a href={code.url} target="_blank" rel="noreferrer">
+              {codeLabel} <span aria-hidden="true">↗</span>
+            </a>
+          )}
         </div>
       )
     }
   </div>
-</a>
+</article>

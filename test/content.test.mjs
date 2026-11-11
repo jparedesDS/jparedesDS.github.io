@@ -15,25 +15,19 @@ test("the build produces the home with the shell", () => {
   assert.match(html, /data-theme/);
 });
 
-test("the home shows the eight selected projects", () => {
+test("the home shows the three selected projects", () => {
   const html = read("index.html");
-  assert.equal((html.match(/class="work-card"/g) || []).length, 8);
-  for (const title of [
-    "subany.video",
-    "CleanYourMail",
-    "DocFlow",
-    "Pro POV CS2",
-    "CleanYourPhone",
-    "HLTV Team &amp; Player Stats Scraper",
-    "Technical Drawing Data Extraction",
-    "Welding Defects Detector",
-  ]) {
+  assert.equal((html.match(/class="work-card"/g) || []).length, 3);
+  for (const title of ["subany.video", "CleanYourPhone", "CleanYourMail"]) {
     assert.ok(html.includes(title), title);
   }
-  assert.doesNotMatch(html, /href="\/work\/trtw-tv\/"/);
-  assert.match(html, /https:\/\/github\.com\/jparedesDS\/hltv-scraper/);
-  assert.match(html, /https:\/\/github\.com\/jparedesDS\/extract-data-dxf/);
-  assert.match(html, /https:\/\/github\.com\/jparedesDS\/welding-defects-detection/);
+  const cards = html.match(/<article class="work-card"[\s\S]*?<\/article>/g) || [];
+  assert.equal(cards.length, 3);
+  assert.ok(cards.every((card) => /subany\.video|CleanYourPhone|CleanYourMail/.test(card)));
+  assert.equal((html.match(/>Web\s*<span/g) || []).length, 3);
+  assert.equal((html.match(/>Skill\s*<span/g) || []).length, 2);
+  assert.doesNotMatch(html, /subtitle\.me/);
+  assert.doesNotMatch(html, /class="chips"/);
 });
 
 test("the home has the hero, the portrait and the contact links", () => {
@@ -52,6 +46,82 @@ test("the home shows experience, writing and contact", () => {
   assert.match(html, /href="\/blog\/"/);
   assert.match(html, /Let’s build/);
   assert.match(html, /jparedescolmenarejo@gmail\.com/);
+});
+
+test("experience and writing sit in two columns", () => {
+  const html = read("index.html");
+  assert.match(html, /class="home-columns"/);
+  assert.match(html, /id="experience"/);
+  assert.match(html, /id="writing"/);
+  const wrapper = html.match(/<div class="home-columns">([\s\S]*?)<\/div>\s*<section class="section stack-section"/);
+  assert.ok(wrapper, "home-columns wraps only experience and writing");
+  assert.match(wrapper[1], /id="experience"/);
+  assert.match(wrapper[1], /id="writing"/);
+});
+
+test("the stack includes the GitHub toolset", () => {
+  const html = read("index.html");
+  for (const item of [
+    "Jupyter",
+    "JavaScript",
+    "PyTorch",
+    "TensorFlow",
+    "Keras",
+    "scikit-learn",
+    "Pandas",
+    "NumPy",
+    "NLP",
+    "FastAPI",
+    "Flask",
+    "Docker",
+    "SQLite",
+    "PostgreSQL",
+    "GitHub Actions",
+    "Tableau",
+    "BeautifulSoup",
+    "ADB",
+    "WebGPU",
+    "Whisper",
+    "ONNX",
+    "FFmpeg",
+    "Claude",
+    "AI agents",
+    "Local-first",
+  ]) {
+    assert.ok(html.includes(item), item);
+  }
+});
+
+test("contact adds the personal and Pro POV socials", () => {
+  const html = read("index.html");
+  for (const url of [
+    "x.com/xhitoCS",
+    "instagram.com/xhitoCS",
+    "youtube.com/@Pro.POV.CS2",
+    "tiktok.com/@propov.cs2",
+    "instagram.com/propovcs2",
+    "twitch.tv/propovcs2",
+    "kick.com/propovcs2",
+    "x.com/ProPOVCS2",
+  ]) {
+    assert.ok(html.includes(url), url);
+  }
+  assert.doesNotMatch(html, /tiktok\.com\/@xhitoCS/);
+
+  const panel = html.match(/<section class="contact-panel"[\s\S]*?<\/section>/);
+  assert.ok(panel, "contact panel");
+  assert.match(panel[0], />Personal</);
+  assert.match(panel[0], />Pro POV CS2</);
+  for (const url of [
+    "youtube.com/@Pro.POV.CS2",
+    "tiktok.com/@propov.cs2",
+    "instagram.com/propovcs2",
+    "x.com/ProPOVCS2",
+    "twitch.tv/propovcs2",
+    "kick.com/propovcs2",
+  ]) {
+    assert.ok(panel[0].includes(url), `pro pov url in contact panel: ${url}`);
+  }
 });
 
 test("the timeline combines work, education and milestones", () => {
