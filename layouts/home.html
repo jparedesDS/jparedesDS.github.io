@@ -28,7 +28,7 @@
                         <p class="activeProjectsLabel">Active projects</p>
                         <div class="activeProjectsLinks">
                             {{ range . }}
-                            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }} <span aria-hidden="true">↗</span></a>
+                            <a href="{{ .url }}"{{ if hasPrefix .url "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .name }} <span aria-hidden="true">↗</span></a>
                             {{ end }}
                         </div>
                     </div>

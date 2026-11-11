@@ -1,0 +1,19 @@
+{{- define "title" }}{{ .Title }} | {{ .Site.Params.author.name }}{{ end }}
+
+{{- define "main" }}
+
+<div class="blogShell">
+{{ partial "blog-nav.html" . }}
+
+<article class="post-single">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+  <div class="post-content md-content">
+    {{- .Content -}}
+  </div>
+</article>
+
+</div>
+
+{{- end }}{{/* end main */ -}}

@@ -1,0 +1,27 @@
+{{- define "title" }}{{ .Title }} | {{ .Site.Params.author.name }}{{ end }}
+
+{{- define "main" }}
+
+<div class="blogShell">
+{{ partial "blog-nav.html" . }}
+
+{{- if .Title }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- if .Description }}
+  <div class="post-description">{{ .Description }}</div>
+  {{- end }}
+</header>
+{{- end }}
+
+<ul class="terms-tags">
+  {{- range .Data.Terms.Alphabetical }}
+  <li>
+    <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }} <sup><strong><sup>{{ .Count }}</sup></strong></sup></a>
+  </li>
+  {{- end }}
+</ul>
+
+</div>
+
+{{- end }}{{/* end main */ -}}
