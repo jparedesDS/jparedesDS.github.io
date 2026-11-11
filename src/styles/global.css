@@ -1065,6 +1065,11 @@ html[data-theme="dark"] .theme-dot {
   margin: 0 auto;
   padding: 24px;
   font-size: 18px;
+  line-height: 1.6;
+}
+
+.work-archive .page-header {
+  margin: 24px 0 20px;
 }
 
 .work-archive .page-header h1 {
@@ -1129,6 +1134,11 @@ html[data-theme="dark"] .theme-dot {
   letter-spacing: normal;
 }
 
+.work-archive .entry-hint-parent {
+  display: flex;
+  justify-content: space-between;
+}
+
 .work-archive .archive-meta {
   color: var(--muted);
   font-size: 14px;
@@ -1146,7 +1156,7 @@ html[data-theme="dark"] .theme-dot {
 .work-archive .archive-count {
   color: var(--muted);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .work-archive .archive-header-link {
@@ -1157,6 +1167,7 @@ html[data-theme="dark"] .theme-dot {
   position: absolute;
   inset: 0;
   z-index: 0;
+  border-radius: 8px;
 }
 
 @media (max-width: 768px) {

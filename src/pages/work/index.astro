@@ -82,7 +82,7 @@ const groups = years.map((year) => ({
             <div class="archive-posts">
               {group.items.map((item) => (
                 <article class="archive-entry" data-kind={item.kind} data-slug={item.slug}>
-                  <h3 class="archive-entry-title">{item.title}</h3>
+                  <h3 class="archive-entry-title entry-hint-parent">{item.title}</h3>
                   <div class="archive-meta">
                     Year: {item.year}&nbsp;|&nbsp;{item.meta}
                     {item.links.length > 0 && (

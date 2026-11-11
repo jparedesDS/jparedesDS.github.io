@@ -216,3 +216,22 @@ test("the work archive does not overflow at 360", async ({ page }) => {
   );
   expect(overflow).toBeLessThanOrEqual(1);
 });
+
+test("the archive matches the blog metrics at 1440", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/work/");
+  const s = await page.evaluate(() => ({
+    headerMargin: getComputedStyle(document.querySelector(".page-header")).margin,
+    lineHeight: parseFloat(
+      getComputedStyle(document.querySelector(".work-archive")).lineHeight,
+    ),
+    countWeight: getComputedStyle(document.querySelector(".archive-count")).fontWeight,
+    titleDisplay: getComputedStyle(document.querySelector(".archive-entry-title")).display,
+    linkRadius: getComputedStyle(document.querySelector(".entry-link")).borderRadius,
+  }));
+  expect(s.headerMargin).toBe("24px 0px 20px");
+  expect(s.lineHeight).toBe(28.8);
+  expect(s.countWeight).toBe("700");
+  expect(s.titleDisplay).toBe("flex");
+  expect(s.linkRadius).toBe("8px");
+});

@@ -235,7 +235,7 @@ test("the archive counts and orders the items per year", () => {
 test("the archive sorts each year by title", () => {
   const html = read("work/index.html");
   for (const section of archiveSections(html)) {
-    const titles = [...section.matchAll(/<h3 class="archive-entry-title">([^<]+)<\/h3>/g)].map(
+    const titles = [...section.matchAll(/<h3 class="archive-entry-title[^"]*">([^<]+)<\/h3>/g)].map(
       (match) => match[1].replace(/&amp;/g, "&"),
     );
     assert.equal(titles.length, (section.match(/class="archive-entry"/g) || []).length);
