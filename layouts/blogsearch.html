@@ -1,0 +1,153 @@
+{{- define "title" }}Search | {{ .Site.Params.author.name }}{{ end }}
+
+{{- define "main" }}
+
+<div class="blogShell">
+{{ partial "blog-nav.html" . }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+</header>
+
+<div class="searchBox">
+  <label class="visuallyHidden" for="blog-search">Search posts</label>
+  <input id="blog-search" type="search" placeholder="Search posts…" autocomplete="off" autofocus>
+</div>
+
+<p class="searchStatus" id="blog-search-status" aria-live="polite"></p>
+<div class="searchResults" id="blog-search-results"></div>
+
+<noscript>
+  <p class="langNotice">Search needs JavaScript. <a href="/blog/">Browse the blog</a>.<br>La búsqueda necesita JavaScript. <a href="/blog/">Ver el blog</a>.</p>
+</noscript>
+
+</div>
+
+<script>
+(function () {
+  var input = document.getElementById('blog-search');
+  var results = document.getElementById('blog-search-results');
+  var status = document.getElementById('blog-search-status');
+  if (!input || !results || !status) return;
+
+  var query = '';
+  var lang = 'en';
+  try {
+    query = new URLSearchParams(window.location.search).get('lang') || '';
+    lang = query || localStorage.getItem('blog-lang') || 'en';
+  } catch (error) {}
+  if (lang !== 'es') lang = 'en';
+  try {
+    if (query === 'en') localStorage.setItem('blog-lang', 'en');
+    else if (lang === 'es') localStorage.setItem('blog-lang', 'es');
+  } catch (error) {}
+  document.documentElement.lang = lang;
+  var pageHeading = document.querySelector('.page-header h1');
+  if (pageHeading) pageHeading.textContent = lang === 'es' ? 'Buscar' : 'Search';
+  if (lang === 'es') document.title = "Buscar | {{ .Site.Params.author.name }}";
+
+  var copy = lang === 'es' ? {
+    placeholder: 'Buscar entradas…',
+    loading: 'Cargando…',
+    one: '1 entrada',
+    many: function (count) { return count + ' entradas'; },
+    none: 'No se encontraron entradas.',
+    date: 'Fecha: ',
+    time: 'Tiempo de lectura: ',
+    error: 'La búsqueda no está disponible ahora mismo.'
+  } : {
+    placeholder: 'Search posts…',
+    loading: 'Loading…',
+    one: '1 post',
+    many: function (count) { return count + ' posts'; },
+    none: 'No posts found.',
+    date: 'Date: ',
+    time: 'Estimated Reading Time: ',
+    error: 'Search is unavailable right now.'
+  };
+
+  input.placeholder = copy.placeholder;
+  input.setAttribute('aria-label', copy.placeholder);
+  status.textContent = copy.loading;
+
+  var posts = [];
+
+  function normalize(value) {
+    return String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function formatDate(iso) {
+    var date = new Date(iso + 'T00:00:00');
+    return date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  function render() {
+    var query = normalize(input.value.trim());
+    results.textContent = '';
+
+    var matches = posts.filter(function (post) {
+      if (!query) return true;
+      var haystack = [post.title, post.title_es, post.summary, post.summary_es, (post.tags || []).join(' ')].join(' ');
+      return normalize(haystack).indexOf(query) !== -1;
+    });
+
+    status.textContent = matches.length === 0 ? copy.none : (matches.length === 1 ? copy.one : copy.many(matches.length));
+
+    matches.forEach(function (post) {
+      var title = lang === 'es' && post.title_es ? post.title_es : post.title;
+      var summary = lang === 'es' && post.summary_es ? post.summary_es : post.summary;
+
+      var article = document.createElement('article');
+      article.className = 'post-entry';
+
+      var header = document.createElement('header');
+      header.className = 'entry-header';
+      var heading = document.createElement('h2');
+      heading.textContent = title;
+      header.appendChild(heading);
+
+      var content = document.createElement('div');
+      content.className = 'entry-content';
+      var paragraph = document.createElement('p');
+      paragraph.textContent = summary;
+      content.appendChild(paragraph);
+
+      var footer = document.createElement('footer');
+      footer.className = 'entry-footer';
+      footer.textContent = copy.date + formatDate(post.date) + ' | ' + copy.time + post.readTime + ' min';
+
+      var overlay = document.createElement('a');
+      overlay.className = 'entry-link';
+      overlay.href = post.url;
+      overlay.setAttribute('aria-label', (lang === 'es' ? 'enlace a la entrada ' : 'post link to ') + title);
+
+      article.appendChild(header);
+      article.appendChild(content);
+      article.appendChild(footer);
+      article.appendChild(overlay);
+      results.appendChild(article);
+    });
+  }
+
+  fetch("{{ "/blog/index.json" | relURL }}", { cache: 'no-store' })
+    .then(function (response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    })
+    .then(function (data) {
+      posts = Array.isArray(data) ? data : [];
+      render();
+    })
+    .catch(function () {
+      status.textContent = copy.error;
+    });
+
+  input.addEventListener('input', render);
+})();
+</script>
+
+{{- end }}{{/* end main */ -}}

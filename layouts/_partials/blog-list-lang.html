@@ -1,0 +1,43 @@
+<script>
+(function () {
+  var query = '';
+  var lang = 'en';
+  try {
+    query = new URLSearchParams(window.location.search).get('lang') || '';
+    lang = query || localStorage.getItem('blog-lang') || 'en';
+  } catch (error) {}
+  try {
+    if (query === 'en') localStorage.setItem('blog-lang', 'en');
+    else if (lang === 'es') localStorage.setItem('blog-lang', 'es');
+  } catch (error) {}
+  if (lang !== 'es') return;
+  document.documentElement.lang = 'es';
+  document.querySelectorAll('.metaLabel').forEach(function (label) {
+    var text = label.getAttribute('data-label-es');
+    if (text) label.textContent = text;
+  });
+  document.querySelectorAll('time[datetime]').forEach(function (time) {
+    var value = time.getAttribute('datetime') || '';
+    var date = new Date(value.slice(0, 10) + 'T00:00:00');
+    if (!isNaN(date.getTime())) {
+      time.textContent = date.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+  });
+  document.querySelectorAll('[data-title-es]').forEach(function (item) {
+    var title = item.getAttribute('data-title-es');
+    if (title) {
+      var target = item.querySelector('.entry-header h2, .archive-entry-title') || item;
+      target.textContent = title;
+    }
+    var summary = item.getAttribute('data-summary-es');
+    if (summary) {
+      var paragraph = item.querySelector('.entry-content p');
+      if (paragraph) paragraph.textContent = summary;
+    }
+  });
+})();
+</script>

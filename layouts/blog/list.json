@@ -1,0 +1,14 @@
+{{- $pages := slice -}}
+{{- range .RegularPages.ByDate.Reverse -}}
+  {{- $pages = $pages | append (dict
+    "title" .Title
+    "title_es" (.Params.title_es | default "")
+    "url" .RelPermalink
+    "summary" (.Summary | plainify | htmlUnescape)
+    "summary_es" (.Params.summary_es | default "")
+    "date" (.Date.Format "2006-01-02")
+    "readTime" (.Params.readTime | default .ReadingTime)
+    "tags" (.Params.tags | default slice)
+  ) -}}
+{{- end -}}
+{{- $pages | jsonify -}}

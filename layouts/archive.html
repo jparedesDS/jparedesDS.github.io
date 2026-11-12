@@ -27,7 +27,7 @@
     </h3>
     <div class="archive-posts">
       {{- range .Pages }}
-      <div class="archive-entry">
+      <div class="archive-entry" data-title-es="{{ .Params.title_es | default .Title }}">
         <h3 class="archive-entry-title entry-hint-parent">
           {{- .Title | markdownify }}
         </h3>
@@ -43,6 +43,8 @@
 </div>
 {{- end }}
 {{- end }}
+
+{{ partial "blog-list-lang.html" . }}
 
 </div>
 
