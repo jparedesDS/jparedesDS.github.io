@@ -1,15 +1,17 @@
 +++
 title = "Projects"
 url = "/projects/"
+user = "projects"
 showMetadata = false
 +++
 
 ## Active
 
 - [subany.video](https://subany.video/) — live subtitles and translation for streams, processed locally in the browser.
+- [subany.site](https://subany.site/) — the project site for subany.video.
 - [CleanYourPhone](https://www.cleanyourphone.org/) — reversible Android debloat without root.
 - [CleanYourMail](https://www.cleanyourmail.org/) — reversible inbox cleanup for coding agents.
-- [Pro POV CS2](/propovcs2/) — autonomous esports content pipeline for Counter-Strike 2.
+- [Pro POV CS2](https://www.propovcs2.com/) — autonomous esports content pipeline for Counter-Strike 2.
 
 ## Selected work
 

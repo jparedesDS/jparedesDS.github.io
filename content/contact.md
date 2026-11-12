@@ -1,6 +1,7 @@
 +++
 title = "Contact"
 url = "/contact/"
+user = "contact"
 showMetadata = false
 +++
 
@@ -14,8 +15,17 @@ I’m open to select AI, computer-vision and local-first product work.
 - Hugging Face: [huggingface.co/jparedesDS](https://huggingface.co/jparedesDS)
 - Kaggle: [kaggle.com/joseparedesc](https://www.kaggle.com/joseparedesc)
 
+## Projects
+
+- [subany.video](https://subany.video/) — live subtitles and translation in the browser.
+- [subany.site](https://subany.site/) — the project site for subany.video.
+- [CleanYourPhone](https://www.cleanyourphone.org/) — reversible Android debloat without root.
+- [CleanYourMail](https://www.cleanyourmail.org/) — reversible inbox cleanup for coding agents.
+- [Pro POV CS2](https://www.propovcs2.com/) — autonomous esports content for Counter-Strike 2.
+
 ## Pro POV CS2
 
+- [Website](https://www.propovcs2.com/)
 - [YouTube](https://www.youtube.com/@Pro.POV.CS2)
 - [TikTok](https://www.tiktok.com/@propov_cs2)
 - [Instagram](https://www.instagram.com/propovcs2)

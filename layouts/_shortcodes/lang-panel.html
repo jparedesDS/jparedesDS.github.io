@@ -1,0 +1,4 @@
+{{- $lang := .Get 0 -}}
+<section class="langPanel" data-lang="{{ $lang }}" lang="{{ $lang }}"{{ if ne $lang "en" }} hidden{{ end }}>
+{{ .Inner | markdownify }}
+</section>

@@ -1,6 +1,7 @@
 +++
 title = "About"
 date = 2026-11-11
+user = "about"
 showMetadata = false
 +++
 
@@ -13,10 +14,11 @@ Resume: [PDF](/resume.pdf)
 <h2>Projects</h2>
 
 - [Subany](https://subany.video/) — live subtitles in the browser. Whisper and ONNX on WebGPU, with no server round-trip.
-- [CleanYourMail](https://cleanyourmail.org/) — a local-first way to clean up a Gmail inbox without handing over your mail.
-- [CleanYourPhone](https://cleanyourphone.org/) — the same idea for your phone: inspect and clean it locally.
+- [subany.site](https://subany.site/) — the project site for subany.video.
+- [CleanYourMail](https://www.cleanyourmail.org/) — a local-first way to clean up a Gmail inbox without handing over your mail.
+- [CleanYourPhone](https://www.cleanyourphone.org/) — the same idea for your phone: inspect and clean it locally.
 - [DocFlow](https://github.com/jparedesDS/docflow) — document automation for industrial teams.
-- [Pro POV CS2](/propovcs2/) — a computer-vision project for Counter-Strike 2 POV clips.
+- [Pro POV CS2](https://www.propovcs2.com/) — a computer-vision project for Counter-Strike 2 POV clips.
 - [GitHub](https://github.com/jparedesDS) — the rest of the code, including the models published on Hugging Face.
 
 ## Experience

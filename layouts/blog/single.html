@@ -7,11 +7,18 @@
 
 <article class="post-single">
   <header class="post-header">
-    <h1 class="post-title">{{ .Title }}</h1>
-    {{ with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
+    <h1 class="post-title" data-title-en="{{ .Title }}" data-title-es="{{ .Params.title_es | default .Title }}">{{ .Title }}</h1>
+    {{ with .Description }}<div class="post-description" data-description-en="{{ . }}" data-description-es="{{ $.Params.description_es | default . }}">{{ . }}</div>{{ end }}
     <div class="post-meta">
       {{- partial "blog-meta.html" . -}}
     </div>
+    {{ if .HasShortcode "lang-panel" }}
+    <div class="langSwitch" role="group" aria-label="Language">
+      <span class="langSwitchLabel" data-label-en="Language" data-label-es="Idioma">Language</span>
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+    {{ end }}
   </header>
 
   <div class="post-content md-content">
@@ -49,5 +56,65 @@
 </article>
 
 </div>
+
+{{ if .HasShortcode "lang-panel" }}
+<script>
+(function () {
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.langPanel'));
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.langSwitch button'));
+  var title = document.querySelector('.post-title');
+  var description = document.querySelector('.post-description');
+  var switchLabel = document.querySelector('.langSwitchLabel');
+  var metaDescription = document.querySelector('meta[name="description"]');
+  if (!panels.length || !buttons.length || !title) return;
+  var author = "{{ .Site.Params.author.name }}";
+
+  function setLanguage(lang) {
+    panels.forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-lang') !== lang;
+    });
+    buttons.forEach(function (button) {
+      var active = button.getAttribute('data-lang') === lang;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    document.documentElement.lang = lang;
+    if (switchLabel) {
+      switchLabel.textContent = switchLabel.getAttribute('data-label-' + lang) || 'Language';
+    }
+    var heading = title.getAttribute('data-title-' + lang) || title.getAttribute('data-title-en');
+    title.textContent = heading;
+    document.title = heading + ' | ' + author;
+    if (description) {
+      var text = description.getAttribute('data-description-' + lang) || description.getAttribute('data-description-en');
+      description.textContent = text;
+      if (metaDescription) metaDescription.setAttribute('content', text);
+    }
+    try {
+      var url = new URL(window.location.href);
+      if (lang === 'en') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', lang);
+      }
+      window.history.replaceState(null, '', url);
+      localStorage.setItem('blog-lang', lang);
+    } catch (error) {}
+  }
+
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      setLanguage(button.getAttribute('data-lang'));
+    });
+  });
+
+  var initial = 'en';
+  try {
+    initial = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('blog-lang') || 'en';
+  } catch (error) {}
+  setLanguage(initial === 'es' ? 'es' : 'en');
+})();
+</script>
+{{ end }}
 
 {{- end }}{{/* end main */ -}}
