@@ -30,7 +30,7 @@
 {{- $paginator := .Paginate .RegularPages.ByDate.Reverse }}
 
 {{- range $paginator.Pages }}
-<article class="post-entry">
+<article class="post-entry" data-title-es="{{ .Params.title_es | default .Title }}" data-summary-es="{{ .Params.summary_es | default (.Summary | plainify | htmlUnescape) }}">
   <header class="entry-header">
     <h2>{{ .Title }}</h2>
   </header>
@@ -56,6 +56,8 @@
   </nav>
 </footer>
 {{- end }}
+
+{{ partial "blog-list-lang.html" . }}
 
 </div>
 

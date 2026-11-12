@@ -14,7 +14,7 @@
 {{- end }}
 
 {{- range .Pages.ByDate.Reverse }}
-<article class="post-entry tag-entry">
+<article class="post-entry tag-entry" data-title-es="{{ .Params.title_es | default .Title }}" data-summary-es="{{ .Params.summary_es | default (.Summary | plainify | htmlUnescape) }}">
   <header class="entry-header">
     <h2>{{ .Title }}</h2>
   </header>
@@ -27,6 +27,8 @@
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
 </article>
 {{- end }}
+
+{{ partial "blog-list-lang.html" . }}
 
 </div>
 

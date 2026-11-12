@@ -8,6 +8,7 @@ locale: en_US
 description: "A technical tour of the fixed-delay player, in-browser speech recognition, translation and subtitle timing behind subany.video."
 description_es: "Un recorrido técnico por el reproductor con retardo fijo, el reconocimiento de voz en el navegador, la traducción y la sincronización de subtítulos de subany.video."
 summary: "subany.video is a small experiment with a deliberately narrow promise: paste a Twitch link and watch the stream with translated subtitles. The video, the speech recognition and the translation all run in the browser."
+summary_es: "subany.video es un experimento pequeño con una promesa deliberadamente estrecha: pega un enlace de Twitch y mira el directo con subtítulos traducidos. El vídeo, el reconocimiento de voz y la traducción se ejecutan en el navegador."
 readTime: 14
 tags: [subany, hls, whisper, onnx, webgpu, translation, traduccion]
 slug: "how-subany-video-works"

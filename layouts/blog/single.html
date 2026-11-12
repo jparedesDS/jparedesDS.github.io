@@ -18,6 +18,7 @@
       <button type="button" data-lang="en" aria-pressed="true">EN</button>
       <button type="button" data-lang="es" aria-pressed="false">ES</button>
     </div>
+    <noscript><p class="langNotice">JavaScript is disabled; both language versions are shown below.<br>JavaScript está desactivado; se muestran las dos versiones.</p></noscript>
     {{ end }}
   </header>
 
@@ -79,17 +80,46 @@
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
     document.documentElement.lang = lang;
+    document.querySelectorAll('.metaLabel').forEach(function (label) {
+      var text = label.getAttribute('data-label-' + lang);
+      if (text) label.textContent = text;
+    });
+    document.querySelectorAll('time[datetime]').forEach(function (time) {
+      var value = time.getAttribute('datetime') || '';
+      var date = new Date(value.slice(0, 10) + 'T00:00:00');
+      if (!isNaN(date.getTime())) {
+        time.textContent = date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+    });
     if (switchLabel) {
       switchLabel.textContent = switchLabel.getAttribute('data-label-' + lang) || 'Language';
     }
     var heading = title.getAttribute('data-title-' + lang) || title.getAttribute('data-title-en');
     title.textContent = heading;
     document.title = heading + ' | ' + author;
+
+    var text = description ? (description.getAttribute('data-description-' + lang) || description.getAttribute('data-description-en')) : '';
     if (description) {
-      var text = description.getAttribute('data-description-' + lang) || description.getAttribute('data-description-en');
       description.textContent = text;
       if (metaDescription) metaDescription.setAttribute('content', text);
     }
+
+    function setMeta(id, value) {
+      var element = document.getElementById(id);
+      if (element && value) element.setAttribute('content', value);
+    }
+
+    setMeta('og-title', heading);
+    setMeta('twitter-title', heading);
+    setMeta('og-description', text);
+    setMeta('twitter-description', text);
+    setMeta('og-locale', lang === 'es' ? 'es_ES' : 'en_US');
+    setMeta('og-locale-alternate', lang === 'es' ? 'en_US' : 'es_ES');
+
     try {
       var url = new URL(window.location.href);
       if (lang === 'en') {
@@ -100,6 +130,9 @@
       window.history.replaceState(null, '', url);
       localStorage.setItem('blog-lang', lang);
     } catch (error) {}
+
+    var ogUrl = document.getElementById('og-url');
+    if (ogUrl) ogUrl.setAttribute('content', window.location.href);
   }
 
   buttons.forEach(function (button) {

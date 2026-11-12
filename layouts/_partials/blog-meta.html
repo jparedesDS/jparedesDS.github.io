@@ -1,15 +1,15 @@
 {{- $meta := slice }}
 {{- if not .Date.IsZero -}}
   {{- $date := printf "<time datetime=\"%s\">%s</time>" (.Date | time.Format "2006-01-02T15:04:05-07:00") (.Date | time.Format "January 2, 2006") }}
-  {{- $meta = $meta | append (printf "Date: %s" $date) }}
+  {{- $meta = $meta | append (printf "<span class=\"metaLabel\" data-label-en=\"Date:\" data-label-es=\"Fecha:\">Date:</span> %s" $date) }}
 {{- end }}
 {{- $minutes := .ReadingTime }}
 {{- with .Params.readTime }}{{ $minutes = . }}{{ end }}
 {{- if $minutes -}}
-  {{- $meta = $meta | append (printf "Estimated Reading Time: %d min" $minutes) }}
+  {{- $meta = $meta | append (printf "<span class=\"metaLabel\" data-label-en=\"Estimated Reading Time:\" data-label-es=\"Tiempo de lectura:\">Estimated Reading Time:</span> %d min" $minutes) }}
 {{- end }}
 {{- with .Site.Params.author.name -}}
-  {{- $meta = $meta | append (printf "Author: %s" .) }}
+  {{- $meta = $meta | append (printf "<span class=\"metaLabel\" data-label-en=\"Author:\" data-label-es=\"Autor:\">Author:</span> %s" .) }}
 {{- end }}
 {{- with $meta -}}
   {{- range $i, $item := . -}}

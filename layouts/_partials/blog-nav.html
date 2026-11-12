@@ -1,6 +1,7 @@
 {{- $p := .RelPermalink -}}
 <nav class="blogNav" aria-label="Blog">
   <a href="/blog/"{{ if eq $p "/blog/" }} class="active" aria-current="page"{{ end }}>Blog</a>
+  <a href="/blog/search/"{{ if hasPrefix $p "/blog/search" }} class="active" aria-current="page"{{ end }}>Search</a>
   <a href="/blog/tags/"{{ if hasPrefix $p "/blog/tags" }} class="active" aria-current="page"{{ end }}>Tags</a>
   <a href="/blog/archives/"{{ if eq $p "/blog/archives/" }} class="active" aria-current="page"{{ end }}>Archive</a>
   <a href="/blog/faq/"{{ if eq $p "/blog/faq/" }} class="active" aria-current="page"{{ end }}>FAQ</a>
