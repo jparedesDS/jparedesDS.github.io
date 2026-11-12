@@ -29,5 +29,5 @@ me on [GitHub](https://github.com/jparedesDS) and
 
 ## Why are some posts in Spanish?
 
-English is the default, but a few topics are easier to explain in Spanish, and the Spanish
-version helps readers who arrive through Spanish-speaking communities.
+English is the default. Posts that exist in both languages include an EN/ES switch at the
+top, and the chosen language is kept in the URL (`?lang=es`), so either version can be shared.
