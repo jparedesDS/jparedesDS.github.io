@@ -1,0 +1,74 @@
+.ga-consent {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 2147483000;
+  width: min(720px, calc(100% - 24px));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: #12141a;
+  color: #e9ecf3;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.ga-consent p {
+  flex: 1 1 340px;
+  margin: 0;
+  color: #c7ccd8;
+}
+
+.ga-consent a {
+  color: #9aa7ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ga-consent-btns {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.ga-consent button {
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #1c2130;
+  color: #e9ecf3;
+  cursor: pointer;
+}
+
+.ga-consent button:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.ga-consent button.primary {
+  background: #7c8cff;
+  border-color: #7c8cff;
+  color: #08090d;
+}
+
+@media (max-width: 560px) {
+  .ga-consent {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    transform: none;
+    width: auto;
+  }
+  .ga-consent-btns {
+    width: 100%;
+  }
+  .ga-consent button {
+    flex: 1;
+  }
+}
