@@ -1,10 +1,13 @@
 (function () {
   'use strict';
+  if (window.__gaConsentInit) return;
+  window.__gaConsentInit = true;
   var script = document.currentScript;
   if (!script) return;
   var id = script.getAttribute('data-ga');
   if (!id) return;
   var privacy = script.getAttribute('data-privacy') || '';
+  var cookieDomain = script.getAttribute('data-cookie-domain') || '';
   var KEY = 'ga_consent_v1';
 
   var T = {
@@ -36,6 +39,17 @@
     choice = localStorage.getItem(KEY);
   } catch (e) {
     /* storage blocked */
+  }
+  if (!choice) {
+    var match = document.cookie.match(/(?:^|; )ga_consent=(granted|denied)/);
+    if (match) {
+      choice = match[1];
+      try {
+        localStorage.setItem(KEY, choice);
+      } catch (e) {
+        /* ignore */
+      }
+    }
   }
 
   function load() {
@@ -76,6 +90,10 @@
     } catch (e) {
       /* ignore */
     }
+    var cookie = 'ga_consent=' + value + '; Max-Age=31536000; Path=/; SameSite=Lax';
+    if (location.protocol === 'https:') cookie += '; Secure';
+    document.cookie = cookie;
+    if (cookieDomain) document.cookie = cookie + '; Domain=' + cookieDomain;
     var box = document.getElementById('ga-consent');
     if (box) box.parentNode.removeChild(box);
     if (value === 'granted') load();
