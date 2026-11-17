@@ -13,6 +13,7 @@ assertions to main()/check_route(). Stdlib only.
 import json
 import re
 import sys
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -674,6 +675,7 @@ CONTACT_MAILTO = ("mailto:jparedescolmenarejo@gmail.com"
                   "?subject=Oportunidad%20CV%20/%20ML")
 CONTACT_EMAIL = "jparedescolmenarejo@gmail.com"
 # Same networks and same products on both pages (plan, Task 6 Step 2).
+# The email link is checked separately (its href carries the subject).
 CONTACT_NETWORKS = (
     "https://github.com/jparedesDS",
     "https://www.linkedin.com/in/jparedesDS/",
@@ -689,7 +691,7 @@ CONTACT_PROJECTS = (
     "https://www.cleanyourmail.org/",
     "https://propovcs2.com/",
 )
-CONTACT_PROPov_SOCIALS = (
+CONTACT_PROPOV_SOCIALS = (
     "https://propovcs2.com/",
     "https://www.youtube.com/@Pro.POV.CS2",
     "https://www.tiktok.com/@propov_cs2",
@@ -707,12 +709,31 @@ CONTACT_BANNED = (
 )
 
 
+def _main_html(text):
+    """HTML inside <main>...</main>: the page copy, without the chrome."""
+    match = re.search(r"<main\b[^>]*>([\s\S]*?)</main>", text)
+    return match.group(1) if match else None
+
+
+def _visible_text(html):
+    """Visible text of an HTML fragment (tags stripped, entities decoded)."""
+    return unescape(re.sub(r"<[^>]+>", "", html)).strip()
+
+
 def _lead_paragraph(text):
-    """HTML of the first <p> after the page h1 (the content lead)."""
-    h1 = text.find("<h1")
-    start = text.find("<p", h1 if h1 != -1 else 0)
-    if start == -1:
+    """HTML of the first <p> after the page h1 (the content lead).
+
+    Returns None when the page has no h1, or no paragraph after it: the
+    caller then fails loudly instead of matching a paragraph that belongs
+    to the site chrome.
+    """
+    h1 = re.search(r"<h1\b", text)
+    if h1 is None:
         return None
+    para = re.search(r"<p[ >]", text[h1.end():])
+    if para is None:
+        return None
+    start = h1.end() + para.start()
     end = text.find("</p>", start)
     return None if end == -1 else text[start:end]
 
@@ -728,21 +749,31 @@ def check_contact():
             checks.append(("contact " + route, ["missing page"]))
             continue
 
-        # The lead paragraph opens with the approved availability line.
+        # The page copy is the <main> region. The claim checks below are
+        # scoped to it, so nav, footer and script text cannot trip them.
+        main = _main_html(text)
+        if main is None:
+            failures.append("no <main> region")
+            main = ""
+
+        # The lead paragraph starts with the approved availability line.
         lead = _lead_paragraph(text)
         if lead is None:
-            failures.append("no lead paragraph")
+            failures.append("no lead paragraph after the h1")
         else:
-            if copy["availability"] not in lead:
-                failures.append("lead lacks availability: %r"
+            visible = _visible_text(lead)
+            if not visible.startswith(copy["availability"]):
+                failures.append("lead does not start with availability: %r"
                                 % copy["availability"])
-            if copy["intro"] not in lead:
+            if copy["intro"] not in visible:
                 failures.append("lead lacks: %r" % copy["intro"])
-            if re.search(r"\b(19|20)\d{2}\b", lead):
-                failures.append("lead contains a date (not approved)")
         if text.count(copy["availability"]) != 1:
             failures.append("availability appears %d times, want 1"
                             % text.count(copy["availability"]))
+
+        # No availability date is approved: none anywhere in the copy.
+        if re.search(r"\b(19|20)\d{2}\b", main):
+            failures.append("page copy contains a date (not approved)")
 
         # The page language must match the copy.
         match = re.search(r"<html[^>]*\blang=(\"([^\"]*)\"|([^\s>]+))", text)
@@ -767,11 +798,12 @@ def check_contact():
         for url in CONTACT_PROJECTS:
             if not _href_present(text, url):
                 failures.append("project link missing: %s" % url)
-        for url in CONTACT_PROPov_SOCIALS:
+        for url in CONTACT_PROPOV_SOCIALS:
             if not _href_present(text, url):
                 failures.append("Pro POV link missing: %s" % url)
 
-        lowered = text.casefold()
+        # Unapproved claims are scanned in the page copy only.
+        lowered = main.casefold()
         for phrase in CONTACT_BANNED:
             if phrase.casefold() in lowered:
                 failures.append("unapproved claim present: %r" % phrase)
@@ -867,7 +899,7 @@ def main():
             print("FAIL %s: %s" % (label, "; ".join(failures)))
         else:
             print("PASS " + label)
-        about_passed += 1
+            about_passed += 1
     contact_checks = check_contact()
     contact_passed = 0
     for label, failures in contact_checks:
@@ -875,7 +907,7 @@ def main():
             print("FAIL %s: %s" % (label, "; ".join(failures)))
         else:
             print("PASS " + label)
-        contact_passed += 1
+            contact_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
