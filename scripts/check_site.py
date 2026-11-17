@@ -5,7 +5,7 @@ Run from the repo root after a Hugo build:
 
     python scripts/check_site.py
 
-Prints a PASS/FAIL line per route and a summary (`OK 23/23`), exiting 0
+Prints a PASS/FAIL line per route and a summary (`OK 24/24`), exiting 0
 when everything passes and 1 otherwise. Each task of the plan adds its
 assertions to main()/check_route(). Stdlib only.
 """
@@ -27,6 +27,7 @@ ROUTES = [
     "/blog/index.json", "/blog/index.xml", "/index.xml", "/sitemap.xml",
     "/propovcs2/", "/cleanyourmail/",
     "/es/", "/es/about/", "/es/projects/", "/es/contact/", "/es/privacy/",
+    "/es/blog/",
 ]
 
 BASE_URL = "https://jparedesds.github.io"
@@ -41,11 +42,18 @@ PAGE_PAIRS = [
     ("/privacy/", "/es/privacy/"),
 ]
 
-# Controller ruling (Task 1 review): only these two preserved static
-# meta-refresh stubs may skip <main>, because they must not be modified.
-# Every other HTML route must contain <main; there is no general
-# "any refresh HTML" exemption.
-REDIRECT_ROUTES = {"/propovcs2/", "/cleanyourmail/"}
+# Controller ruling (Task 1 review, extended by the Task 7 review):
+# these preserved static meta-refresh stubs are redirects, not content
+# pages, so they may skip <main> and the social-card tags. The exemption
+# is this explicit named list only; check_sharing() additionally proves
+# each stub really is a noindex meta-refresh redirect. Every other HTML
+# route must contain <main and carry the full social tag set.
+REDIRECT_STUBS = {
+    "/propovcs2/",
+    "/cleanyourmail/",
+    "/blog/2026/11/09/como-funciona-subany-video/",
+    "/es/blog/",
+}
 
 
 class _RefreshParser(HTMLParser):
@@ -826,18 +834,16 @@ def check_contact():
 
 
 # Task 7: social cards and Person structured data. Every rebuilt page
-# (EN, ES and blog) carries the same 1200x630 card. Preserved static
-# meta-refresh stubs are not pages of the rebuilt site and are exempt:
-# the two legacy product stubs, the legacy ES article URL (a noindex
-# redirect to the bilingual EN article) and /es/blog/. The Person
-# JSON-LD lives on the home pages only, with the jobTitle translated.
-# Home titles are the plan's exact strings (& may render as &amp;).
+# (EN, ES and blog) carries the same 1200x630 card. Only the explicit
+# REDIRECT_STUBS list is exempt (controller ruling, Task 7 review):
+# those static documents are noindex meta-refresh redirects, not pages
+# of the rebuilt site, and check_sharing() verifies each one as such.
+# The Person JSON-LD lives on the home pages only, with the jobTitle
+# translated. Home titles are the plan's exact strings (& may render
+# as &amp;).
 OG_IMAGE_URL = BASE_URL + "/og-image.png"
-SHARING_EXEMPT = REDIRECT_ROUTES | {
-    "/blog/2026/11/09/como-funciona-subany-video/",
-}
 SHARING_ROUTES = [r for r in ROUTES
-                  if r.endswith("/") and r not in SHARING_EXEMPT] + ["/privacy/"]
+                  if r.endswith("/") and r not in REDIRECT_STUBS] + ["/privacy/"]
 HOME_TITLES = {
     "/": "Jose Paredes — Computer Vision & ML Engineer (Madrid)",
     "/es/": "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)",
@@ -849,6 +855,12 @@ PERSON_JOBTITLES = {
 PERSON_KNOWSABOUT = ("Computer Vision", "YOLO", "PyTorch", "FastAPI",
                      "React", "Docker")
 PERSON_ALUMNI = ("The Bridge", "Padre Piquer")
+# Approved-facts-only: the JSON-LD must carry exactly these top-level
+# keys and exactly the approved collections — no extra facts (Task 7
+# review).
+PERSON_KEYS = {"@context", "@type", "name", "jobTitle", "url", "image",
+               "address", "sameAs", "knowsAbout", "alumniOf"}
+PERSON_ADDRESS_KEYS = {"@type", "addressLocality", "addressCountry"}
 
 
 def _meta_values(text, key, name):
@@ -871,6 +883,24 @@ def _jsonld_scripts(text):
 def check_sharing():
     """Task 7 social-card / JSON-LD assertions: (label, failures) pairs."""
     checks = []
+
+    # The exemption is only legitimate while each listed stub really is
+    # a noindex meta-refresh redirect (controller ruling, Task 7 review).
+    for route in sorted(REDIRECT_STUBS):
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            failures.append("missing page")
+        else:
+            refresh = _RefreshParser()
+            refresh.feed(text)
+            refresh.close()
+            if not refresh.has_refresh or not refresh.targets:
+                failures.append("no valid meta-refresh redirect")
+            robots = _meta_values(text, "name", "robots")
+            if not any("noindex" in value for value in robots):
+                failures.append("no noindex robots meta")
+        checks.append(("redirect stub " + route, failures))
 
     for route in SHARING_ROUTES:
         failures = []
@@ -974,6 +1004,15 @@ def check_sharing():
             except json.JSONDecodeError as exc:
                 failures.append("invalid JSON: %s" % exc)
                 data = {}
+            if not isinstance(data, dict):
+                failures.append("JSON-LD is %s, want an object"
+                                % type(data).__name__)
+                data = {}
+            if set(data) != PERSON_KEYS:
+                failures.append("top-level keys are %r, want exactly %r"
+                                % (sorted(data), sorted(PERSON_KEYS)))
+            if data.get("@context") != "https://schema.org":
+                failures.append("@context is %r" % data.get("@context"))
             if data.get("@type") != "Person":
                 failures.append("@type is %r, want Person" % data.get("@type"))
             if data.get("name") != "Jose Paredes":
@@ -981,29 +1020,45 @@ def check_sharing():
             if data.get("jobTitle") != job_title:
                 failures.append("jobTitle is %r, want %r"
                                 % (data.get("jobTitle"), job_title))
-            address = data.get("address") or {}
-            if (address.get("addressLocality") != "Madrid"
-                    or address.get("addressCountry") != "ES"):
-                failures.append("address is %r, want Madrid/ES" % address)
+            address = data.get("address")
+            if not isinstance(address, dict):
+                failures.append("address is %r, want an object" % address)
+            else:
+                if set(address) != PERSON_ADDRESS_KEYS:
+                    failures.append("address keys are %r, want exactly %r"
+                                    % (sorted(address),
+                                       sorted(PERSON_ADDRESS_KEYS)))
+                if (address.get("addressLocality") != "Madrid"
+                        or address.get("addressCountry") != "ES"):
+                    failures.append("address is %r, want Madrid/ES" % address)
             if data.get("url") != BASE_URL + route:
                 failures.append("url is %r, want %s"
                                 % (data.get("url"), BASE_URL + route))
             if data.get("image") != OG_IMAGE_URL:
                 failures.append("image is %r, want %s"
                                 % (data.get("image"), OG_IMAGE_URL))
-            same_as = data.get("sameAs") or []
-            if set(same_as) != set(CONTACT_NETWORKS):
-                failures.append("sameAs is %r, want the six networks"
-                                % same_as)
-            knows = data.get("knowsAbout") or []
-            for topic in PERSON_KNOWSABOUT:
-                if topic not in knows:
-                    failures.append("knowsAbout lacks %r" % topic)
-            alumni = [a.get("name") for a in data.get("alumniOf") or []
+            # Exact collection comparison: extras and duplicates fail.
+            for key, approved in (("sameAs", CONTACT_NETWORKS),
+                                  ("knowsAbout", PERSON_KNOWSABOUT)):
+                values = data.get(key)
+                if (not isinstance(values, list)
+                        or not all(isinstance(v, str) for v in values)
+                        or sorted(values) != sorted(approved)):
+                    failures.append("%s is %r, want exactly %r"
+                                    % (key, values, list(approved)))
+            alumni = data.get("alumniOf")
+            names = ([a.get("name") for a in alumni
                       if isinstance(a, dict)]
-            for school in PERSON_ALUMNI:
-                if school not in alumni:
-                    failures.append("alumniOf lacks %r" % school)
+                     if isinstance(alumni, list) else None)
+            if (names is None or len(alumni) != len(PERSON_ALUMNI)
+                    or not all(isinstance(n, str) for n in names)
+                    or sorted(names) != sorted(PERSON_ALUMNI)):
+                failures.append("alumniOf is %r, want exactly %r"
+                                % (alumni, list(PERSON_ALUMNI)))
+            elif any(a.get("@type") != "EducationalOrganization"
+                     or set(a) != {"@type", "name"} for a in alumni):
+                failures.append("alumniOf entries must be "
+                                "{@type: EducationalOrganization, name}")
         checks.append(("person jsonld " + route, failures))
 
     return checks
@@ -1020,7 +1075,7 @@ def check_route(route):
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError as exc:
             return ["invalid UTF-8: %s" % exc]
-        if route in REDIRECT_ROUTES:
+        if route in REDIRECT_STUBS:
             parser = _RefreshParser()
             parser.feed(text)
             parser.close()
