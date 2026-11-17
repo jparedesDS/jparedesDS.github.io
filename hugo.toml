@@ -26,8 +26,8 @@ defaultContentLanguageInSubdir = false
   # 404 kind is disabled so a single bilingual 404 document ships.
   disableKinds = ["taxonomy", "term", "404"]
 [languages.es.params]
-  # Task 11 switches this to /resume-es.pdf once the Spanish CV ships.
-  resumeUrl = "/resume.pdf"
+  # Task 11: the Spanish CV ships as /resume-es.pdf.
+  resumeUrl = "/resume-es.pdf"
 
 [module]
   [module.hugoVersion]

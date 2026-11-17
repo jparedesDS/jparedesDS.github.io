@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jose Paredes Colmenarejo — CV</title>
+<!--
+  Task 11: English CV, printed to static/resume.pdf by scripts/cv/print.ps1
+  (headless Chrome, A4, no header/footer). Build-time source only: this
+  file is not published. Facts must match the site (content/en/about.md)
+  and the approved list in the plan; no tenure phrases, no extra metrics.
+  Typography follows the site: Fira Mono headings, Open Sans body, with
+  the print-legible blue accent #2f6db3. No photos.
+-->
+<style>
+  @font-face {
+    font-family: "Fira Mono";
+    src: url("../../themes/nightfall/static/fonts/FiraMono/FiraMono-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Open Sans";
+    src: url("../../themes/nightfall/static/fonts/OpenSans/OpenSans-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Open Sans", "Segoe UI", sans-serif;
+    font-size: 9.8pt;
+    line-height: 1.4;
+    color: #323232;
+  }
+  a { color: #2f6db3; text-decoration: none; }
+  header {
+    border-bottom: 1.5pt solid #2f6db3;
+    padding-bottom: 7pt;
+    margin-bottom: 8pt;
+  }
+  h1 {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-size: 19pt;
+    letter-spacing: .5pt;
+    color: #2f2f2f;
+    margin: 0 0 2pt;
+  }
+  .role {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-size: 10.5pt;
+    color: #2f6db3;
+    margin: 0 0 5pt;
+  }
+  .contact { font-size: 9pt; color: #4a4f55; margin: 0; }
+  .contact + .contact { margin-top: 1.5pt; }
+  h2 {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-size: 10pt;
+    text-transform: uppercase;
+    letter-spacing: .8pt;
+    color: #2f6db3;
+    border-bottom: .6pt solid #d7dce2;
+    padding-bottom: 2pt;
+    margin: 9pt 0 5pt;
+  }
+  p { margin: 0 0 4pt; }
+  .job { margin-bottom: 6pt; }
+  .jobHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8pt;
+  }
+  .jobTitle { font-weight: 700; color: #2f2f2f; }
+  .company { font-weight: 700; color: #2f6db3; }
+  .dates {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-size: 8.5pt;
+    color: #5a5f66;
+    white-space: nowrap;
+  }
+  ul { margin: 2pt 0 0; padding-left: 12pt; }
+  li { margin-bottom: 1.5pt; }
+  li::marker { color: #2f6db3; }
+  .stack { margin: 0; }
+  .edu { margin-bottom: 3pt; }
+  .muted { color: #5a5f66; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Jose Paredes Colmenarejo</h1>
+    <p class="role">Computer Vision &amp; ML Engineer</p>
+    <p class="contact">Madrid, Spain · +34 616 744 808 · <a href="mailto:jparedescolmenarejo@gmail.com">jparedescolmenarejo@gmail.com</a></p>
+    <p class="contact"><a href="https://www.linkedin.com/in/jparedesDS/">linkedin.com/in/jparedesDS</a> · <a href="https://github.com/jparedesDS">github.com/jparedesDS</a> · <a href="https://jparedesds.github.io/">jparedesds.github.io</a></p>
+  </header>
+
+  <h2>Summary</h2>
+  <p>Computer vision &amp; ML engineer focused on industrial quality control and local-first AI products. I build YOLO-based inspection systems and the data automation around them, including DocFlow, an internal SaaS in production developed with AI assistance (Claude). Bilingual (Spanish/English).</p>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="jobHead">
+      <span><span class="jobTitle">Data Analyst &amp; AI Engineer</span> · <span class="company">EIPSA</span> <span class="muted">— Madrid</span></span>
+      <span class="dates">01/2024 – Present</span>
+    </div>
+    <ul>
+      <li>Industrial computer vision: YOLO11 models for fluorescent penetrant inspection and welding defect detection in metallurgy quality control.</li>
+      <li>DocFlow, an internal SaaS in production: 21 API routers, 24 service layers and 24 frontend screens; FastAPI, React, DocuSign, JWT, Docker + CI; AI-assisted development with Claude.</li>
+      <li>DXF technical-drawing data extraction: 80% less manual processing time.</li>
+      <li>Email→ERP automation: 500+ incoming documents per month.</li>
+      <li>Tableau dashboards for project documentation tracking.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="jobHead">
+      <span><span class="jobTitle">Data Management Technician</span> · <span class="company">Comunicación Permanente</span> <span class="muted">— Madrid</span></span>
+      <span class="dates">01/2021 – 12/2023</span>
+    </div>
+    <ul>
+      <li>Customer database of 10,000+ records; internal reporting improved incident tracking by 25%.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="jobHead">
+      <span><span class="jobTitle">Electronics Lab Technician</span> · <span class="company">Grupo ANOVO</span> <span class="muted">— Madrid</span></span>
+      <span class="dates">01/2015 – 12/2020</span>
+    </div>
+    <ul>
+      <li>Diagnostics and repair of 50+ devices per week at 95%+ quality.</li>
+    </ul>
+  </div>
+
+  <h2>Selected projects</h2>
+  <ul>
+    <li><a href="https://subany.video/"><strong>Subany</strong></a> <span class="muted">(subany.video)</span> — live subtitles in the browser: Whisper + ONNX on WebGPU, no server round-trip.</li>
+    <li><a href="https://www.cleanyourmail.org/"><strong>CleanYourMail</strong></a> <span class="muted">(cleanyourmail.org)</span> — local-first Gmail inbox cleanup.</li>
+    <li><a href="https://www.cleanyourphone.org/"><strong>CleanYourPhone</strong></a> <span class="muted">(cleanyourphone.org)</span> — inspect and clean your phone locally.</li>
+    <li><a href="https://propovcs2.com/"><strong>Pro POV CS2</strong></a> <span class="muted">(propovcs2.com)</span> — computer vision for Counter-Strike 2 POV clips.</li>
+  </ul>
+
+  <h2>Stack</h2>
+  <p class="stack">Python · PyTorch · TensorFlow · Keras · YOLO · OpenCV · scikit-learn · Pandas · NumPy · FastAPI · Flask · React · Docker · GitHub Actions · SQL · PostgreSQL · Tableau · Hugging Face · Whisper · ONNX · Claude</p>
+
+  <h2>Education</h2>
+  <div class="jobHead edu">
+    <span><span class="jobTitle">Data Science Bootcamp</span> · The Bridge</span>
+    <span class="dates">09/2021 – 06/2022</span>
+  </div>
+  <div class="jobHead edu">
+    <span><span class="jobTitle">Advanced Vocational Degree in Telecommunications</span> · Centro de Formación Padre Piquer</span>
+    <span class="dates">2010 – 2012</span>
+  </div>
+
+  <h2>Languages</h2>
+  <p>Spanish (native) · English (B2)</p>
+
+  <h2>Open source &amp; Kaggle</h2>
+  <ul>
+    <li>33+ public repositories and 268+ followers on <a href="https://github.com/jparedesDS">GitHub</a>.</li>
+    <li>10+ computer-vision models on <a href="https://huggingface.co/jparedesDS">Hugging Face</a> (YOLO v9–v12).</li>
+    <li>Kaggle bronze medal in multilabel image classification (ResNet152).</li>
+  </ul>
+</body>
+</html>

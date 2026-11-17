@@ -7,7 +7,8 @@ Run from the repo root after a Hugo build:
 
 Prints a PASS/FAIL line per route and a summary (`OK 25/25`), exiting 0
 when everything passes and 1 otherwise. Each task of the plan adds its
-assertions to main()/check_route(). Stdlib only.
+assertions to main()/check_route(). Stdlib only, plus PyMuPDF (fitz,
+already installed) for the Task 11 CV PDF checks.
 """
 
 import json
@@ -16,6 +17,11 @@ import sys
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
+
+try:
+    import fitz  # PyMuPDF: Task 11 CV text/page checks only.
+except ImportError:  # pragma: no cover - reported as a check failure.
+    fitz = None
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -235,9 +241,9 @@ def check_i18n():
 
 
 # Task 3: hiring strip on both home pages. Copy is the approved text,
-# verbatim. The ES CV link keeps pointing at the English /resume.pdf
-# until Task 11 ships /resume-es.pdf. Hugo's minifier drops quotes
-# around simple attribute values, so href checks accept both forms.
+# verbatim. Task 11: each language links its own CV (/resume.pdf EN,
+# /resume-es.pdf ES). Hugo's minifier drops quotes around simple
+# attribute values, so href checks accept both forms.
 HIRE_COPY = {
     "/": {
         "lang": "en",
@@ -249,6 +255,7 @@ HIRE_COPY = {
                   "Hugging Face · DocFlow in production"),
         "proof_marker": "since 2024",
         "cv": "Download CV",
+        "cv_url": "/resume.pdf",
         "email": "Email me",
         "projects": "Active projects",
         "banned": "four years",
@@ -264,6 +271,7 @@ HIRE_COPY = {
                   "en Hugging Face · DocFlow en producción"),
         "proof_marker": "desde 2024",
         "cv": "Descargar CV",
+        "cv_url": "/resume-es.pdf",
         "email": "Escríbeme",
         "projects": "Proyectos activos",
         "banned": "cuatro años",
@@ -318,16 +326,18 @@ def check_hiring():
             if _class_pos(text, cls) == -1:
                 failures.append("no .%s markup" % cls)
 
-        # CV button: /resume.pdf in both languages, with download.
-        if not _href_present(text, "/resume.pdf"):
-            failures.append('no href="/resume.pdf"')
+        # CV button: the language's own PDF, with download.
+        cv_url = copy["cv_url"]
+        if not _href_present(text, cv_url):
+            failures.append('no href="%s"' % cv_url)
         cv_tag = re.search(
-            r'<a\b[^>]*href=(?:"/resume\.pdf"|/resume\.pdf)[^>]*>', text)
+            r'<a\b[^>]*href=(?:"%s"|%s)[^>]*>'
+            % (re.escape(cv_url), re.escape(cv_url)), text)
         if cv_tag is None:
             failures.append("no CV anchor tag")
         elif "download" not in cv_tag.group(0):
             failures.append("CV anchor lacks download attribute")
-        if not any(_norm(href) == "/resume.pdf" and label == copy["cv"]
+        if not any(_norm(href) == cv_url and label == copy["cv"]
                    for href, label in parser.anchors):
             failures.append("no CV button labelled %r" % copy["cv"])
 
@@ -350,10 +360,12 @@ def check_hiring():
                 % (role_pos, proof_pos, chips_pos))
         checks.append(("hiring strip " + route, failures))
 
-    # The CV link target must actually ship, in both languages.
-    checks.append(("resume.pdf shipped",
-                   [] if (ROOT / "dist" / "resume.pdf").is_file()
-                   else ["dist/resume.pdf missing"]))
+    # The CV link targets must actually ship, in both languages.
+    failures = []
+    for name in ("resume.pdf", "resume-es.pdf"):
+        if not (ROOT / "dist" / name).is_file():
+            failures.append("dist/%s missing" % name)
+    checks.append(("CV PDFs shipped", failures))
     return checks
 
 
@@ -522,9 +534,8 @@ def check_cases():
 
 # Task 5: About aligned with the CV. Figures are fixed by the plan; the
 # EIPSA tenure is "since 2024" — never "four years"/"4 years" or the ES
-# equivalents. Kaggle is a "bronze medal", never a podium place. The ES
-# CV link keeps /resume.pdf until Task 11 ships /resume-es.pdf (that
-# task updates this check).
+# equivalents. Kaggle is a "bronze medal", never a podium place. Task
+# 11: the ES CV link points at /resume-es.pdf, EN keeps /resume.pdf.
 # Review round 1: facts are scoped to the section that owns them and
 # matched as distinctive phrases, so a figure mentioned elsewhere on the
 # page (Tableau in Stack, DocFlow in Projects, Kaggle in Contact) cannot
@@ -640,13 +651,15 @@ def check_about():
                 failures.append("missing h2 section: %r" % name)
 
         # CV link sits right under the intro paragraph: after the h1 and
-        # before the first section h2.
+        # before the first section h2. Each language links its own PDF.
+        cv_url = "/resume-es.pdf" if route == "/es/about/" else "/resume.pdf"
         cv = re.search(
-            r'<a\b[^>]*href=(?:"/resume\.pdf"|/resume\.pdf)[^>]*>', text)
+            r'<a\b[^>]*href=(?:"%s"|%s)[^>]*>'
+            % (re.escape(cv_url), re.escape(cv_url)), text)
         h1_pos = text.find("<h1")
         h2_pos = text.find("<h2")
         if cv is None:
-            failures.append('no href="/resume.pdf"')
+            failures.append('no href="%s"' % cv_url)
         elif not (-1 < h1_pos < cv.start() < h2_pos):
             failures.append(
                 "CV link not between h1 and first h2: h1@%d cv@%d h2@%d"
@@ -1710,6 +1723,227 @@ def check_privacy():
     return checks
 
 
+# Task 11: the bilingual CV. Two A4 PDFs (two pages max) printed from
+# the build-time HTML templates in scripts/cv/ via scripts/cv/print.ps1;
+# the templates are sources, not published pages. Only the approved
+# facts may appear; tenure phrases and podium places are banned exactly
+# as in About. PyMuPDF verifies the shipped PDFs themselves: facts in
+# the extracted text, page count, A4 geometry, no embedded images (no
+# photos), no text outside the page (clipping) and a readable minimum
+# font size.
+CV_PDFS = {
+    "en": {"static": "static/resume.pdf", "dist": "dist/resume.pdf",
+           "template": "scripts/cv/cv-en.html"},
+    "es": {"static": "static/resume-es.pdf", "dist": "dist/resume-es.pdf",
+           "template": "scripts/cv/cv-es.html"},
+}
+CV_FACTS = {
+    "en": [
+        ("Jose Paredes Colmenarejo",),
+        ("Computer Vision & ML Engineer",),
+        ("Computer Vision",),
+        ("Madrid",),
+        ("+34 616 744 808",),
+        ("jparedescolmenarejo@gmail.com",),
+        ("linkedin.com/in/jparedesDS",),
+        ("github.com/jparedesDS",),
+        ("jparedesds.github.io",),
+        ("local-first",),
+        ("Bilingual",),
+        ("EIPSA",),
+        ("Data Analyst & AI Engineer",),
+        ("01/2024",), ("Present",),
+        ("YOLO11",),
+        ("penetrant inspection",),
+        ("welding defect",),
+        ("DocFlow",),
+        ("internal SaaS in production",),
+        ("21 API routers",),
+        ("24 service layers",),
+        ("24 frontend screens",),
+        ("FastAPI",), ("React",), ("DocuSign",), ("JWT",),
+        ("Docker",), ("Claude",),
+        ("DXF",), ("80%",),
+        ("ERP",), ("500+",),
+        ("Tableau",),
+        ("Comunicación Permanente",),
+        ("Data Management Technician",),
+        ("01/2021",), ("12/2023",),
+        ("10,000+",), ("25%",),
+        ("Grupo ANOVO",),
+        ("Electronics Lab Technician",),
+        ("01/2015",), ("12/2020",),
+        ("50+",), ("95%",),
+        ("Subany",), ("CleanYourMail",), ("CleanYourPhone",),
+        ("Pro POV CS2",),
+        ("Python",), ("PyTorch",), ("OpenCV",), ("scikit-learn",),
+        ("Data Science Bootcamp",), ("The Bridge",),
+        ("09/2021",), ("06/2022",),
+        ("Advanced Vocational Degree in Telecommunications",),
+        ("Padre Piquer",), ("2010",), ("2012",),
+        ("Spanish",), ("native",), ("English",), ("B2",),
+        ("33+",), ("268+",), ("10+",),
+        ("Hugging Face",), ("v9",), ("v12",),
+        ("Kaggle",),
+        ("bronze medal in multilabel image classification",),
+        ("ResNet152",),
+    ],
+    "es": [
+        ("Jose Paredes Colmenarejo",),
+        ("Ingeniero de Computer Vision y ML",),
+        ("Visión artificial",),
+        ("Madrid",),
+        ("+34 616 744 808",),
+        ("jparedescolmenarejo@gmail.com",),
+        ("linkedin.com/in/jparedesDS",),
+        ("github.com/jparedesDS",),
+        ("jparedesds.github.io",),
+        ("local-first",),
+        ("Bilingüe",),
+        ("EIPSA",),
+        ("Analista de datos e ingeniero de IA",),
+        ("01/2024",), ("actualidad",),
+        ("YOLO11",),
+        ("líquidos penetrantes",),
+        ("defectos de soldadura",),
+        ("DocFlow",),
+        ("SaaS interno en producción",),
+        ("21 routers",),
+        ("24 capas de servicio",),
+        ("24 pantallas",),
+        ("FastAPI",), ("React",), ("DocuSign",), ("JWT",),
+        ("Docker",), ("Claude",),
+        ("DXF",), ("80%",),
+        ("ERP",), ("500+",),
+        ("Tableau",),
+        ("Comunicación Permanente",),
+        ("Técnico de gestión de datos",),
+        ("01/2021",), ("12/2023",),
+        ("10.000+", "10,000+"), ("25%",),
+        ("Grupo ANOVO",),
+        ("Técnico de laboratorio de electrónica",),
+        ("01/2015",), ("12/2020",),
+        ("50+",), ("95%",),
+        ("Subany",), ("CleanYourMail",), ("CleanYourPhone",),
+        ("Pro POV CS2",),
+        ("Python",), ("PyTorch",), ("OpenCV",), ("scikit-learn",),
+        ("Bootcamp de Data Science",), ("The Bridge",),
+        ("09/2021",), ("06/2022",),
+        ("Grado Superior en Telecomunicaciones",),
+        ("Padre Piquer",), ("2010",), ("2012",),
+        ("Español",), ("nativo",), ("Inglés",), ("B2",),
+        ("33+",), ("268+",), ("10+",),
+        ("Hugging Face",), ("v9",), ("v12",),
+        ("Kaggle",),
+        ("medalla de bronce en clasificación multilabel de imágenes",),
+        ("ResNet152",),
+    ],
+}
+CV_BANNED = ("four years", "4 years", "cuatro años", "4 años",
+             "3rd place", "3er puesto", "tercer puesto")
+
+
+def _pdf_text(doc):
+    """All PDF text, whitespace collapsed so line wraps join phrases."""
+    return re.sub(r"\s+", " ", " ".join(p.get_text() for p in doc))
+
+
+def check_cv():
+    """Task 11 bilingual CV assertions: (label, failures) pairs."""
+    checks = []
+
+    # Build-time templates: A4 print CSS, the print-blue accent, the
+    # page language, and no photos.
+    for lang, spec in CV_PDFS.items():
+        failures = []
+        path = ROOT / spec["template"]
+        if not path.is_file():
+            failures.append("missing template " + spec["template"])
+        else:
+            html = path.read_text(encoding="utf-8")
+            flat = re.sub(r"\s+", " ", html)
+            if "size: A4" not in flat:
+                failures.append("template lacks @page size: A4")
+            if "margin: 14mm" not in flat:
+                failures.append("template lacks @page margin: 14mm")
+            if "#2f6db3" not in html:
+                failures.append("template lacks the print accent #2f6db3")
+            if re.search(r"<img\b", html, re.IGNORECASE):
+                failures.append("template contains an <img> (no photos)")
+            if ('lang="%s"' % lang) not in html:
+                failures.append('template html lang is not "%s"' % lang)
+        checks.append(("cv template " + lang, failures))
+
+    if fitz is None:
+        checks.append(("cv pdfs", ["PyMuPDF (fitz) is not installed"]))
+        return checks
+
+    for lang, spec in CV_PDFS.items():
+        failures = []
+        static = ROOT / spec["static"]
+        dist = ROOT / spec["dist"]
+        for path in (static, dist):
+            if not path.is_file():
+                failures.append("missing "
+                                + path.relative_to(ROOT).as_posix())
+        if failures:
+            checks.append(("cv pdf " + lang, failures))
+            continue
+        if static.read_bytes() != dist.read_bytes():
+            failures.append("dist copy differs from the static source "
+                            "(stale build?)")
+        try:
+            doc = fitz.open(static)
+        except Exception as exc:
+            checks.append(("cv pdf " + lang,
+                           ["cannot open PDF: %s" % exc]))
+            continue
+        if not 1 <= doc.page_count <= 2:
+            failures.append("%d pages, want 1-2" % doc.page_count)
+        text = _pdf_text(doc)
+        for alternatives in CV_FACTS[lang]:
+            if not any(alt in text for alt in alternatives):
+                failures.append("missing fact: %s"
+                                % " / ".join(alternatives))
+        lowered = text.casefold()
+        for phrase in CV_BANNED:
+            if phrase.casefold() in lowered:
+                failures.append("banned phrase present: %r" % phrase)
+        min_size = None
+        clipped = set()
+        for pno, page in enumerate(doc, 1):
+            rect = page.rect
+            if abs(rect.width - 595) > 3 or abs(rect.height - 842) > 3:
+                failures.append("page %d is %.0fx%.0f pt, want A4"
+                                % (pno, rect.width, rect.height))
+            if page.get_images():
+                failures.append("page %d embeds an image (no photos)"
+                                % pno)
+            for block in page.get_text("dict")["blocks"]:
+                for line in block.get("lines", []):
+                    for span in line["spans"]:
+                        if not span["text"].strip():
+                            continue
+                        size = span["size"]
+                        min_size = (size if min_size is None
+                                    else min(min_size, size))
+                        x0, y0, x1, y1 = span["bbox"]
+                        if (x0 < rect.x0 - 1 or y0 < rect.y0 - 1
+                                or x1 > rect.x1 + 1
+                                or y1 > rect.y1 + 1):
+                            clipped.add("page %d: text outside the page "
+                                        "(clipped): %r"
+                                        % (pno, span["text"][:40]))
+        failures.extend(sorted(clipped))
+        if min_size is not None and min_size < 8:
+            failures.append("font size %.1f pt < 8 pt (unreadable)"
+                            % min_size)
+        doc.close()
+        checks.append(("cv pdf " + lang, failures))
+
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -1825,6 +2059,14 @@ def main():
         else:
             print("PASS " + label)
             privacy_passed += 1
+    cv_checks = check_cv()
+    cv_passed = 0
+    for label, failures in cv_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            cv_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
@@ -1834,7 +2076,8 @@ def main():
             and sharing_passed == len(sharing_checks)
             and notfound_passed == len(notfound_checks)
             and menu_passed == len(menu_checks)
-            and privacy_passed == len(privacy_checks)):
+            and privacy_passed == len(privacy_checks)
+            and cv_passed == len(cv_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))
