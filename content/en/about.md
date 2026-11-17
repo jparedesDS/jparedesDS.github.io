@@ -1,6 +1,7 @@
 +++
 title = "About"
 date = 2026-11-11
+translationKey = "about"
 user = "about"
 showMetadata = false
 +++

@@ -1,0 +1,59 @@
+# Traducciones al español del sitio. Las claves replican
+# themes/nightfall/i18n/en.toml; las nuevas cadenas de UI van aquí.
+[not_found]
+    other = "NO ENCONTRADO"
+
+[not_found_desc]
+    other = "Acabas de llegar a una ruta que no existe..."
+
+[home]
+    other = "Inicio"
+
+[published]
+    other = "publicado"
+
+[reading_time]
+    other = "tiempo de lectura"
+
+[reading_time_desc]
+  one = "1 minuto"
+  other = "{{ .Count }} minutos"
+
+[authors]
+  other = "autores"
+
+[tags]
+  other = "etiquetas"
+
+[categories]
+  other = "categorías"
+
+[and]
+  other = "y"
+
+[powered_by]
+  other = "Hecho con"
+
+[theme]
+  other = "tema"
+
+[last_updated]
+  other = "última actualización"
+
+[back_to_home]
+  other = "volver al inicio"
+
+[page]
+  other = "página"
+
+[no_terms]
+  other = "no se encontraron términos"
+
+[posts_with_term]
+  other = "entradas con el término"
+
+[newer_posts]
+  other = "entradas recientes"
+
+[older_posts]
+  other = "entradas anteriores"

@@ -1,6 +1,6 @@
 +++
 title = "Projects"
-url = "/projects/"
+translationKey = "projects"
 user = "projects"
 showMetadata = false
 +++

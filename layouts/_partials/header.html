@@ -4,12 +4,13 @@
 <header class="headerWrapper">
     <div class="header">
         <div>
-            <a class="terminal" href="{{ .Site.BaseURL | relLangURL }}">
+            <a class="terminal" href="{{ "" | relLangURL }}">
                 <span>{{ $user }}@{{ .Site.Params.hostname }} ~ $</span>
             </a>
         </div>
         <input class="side-menu" type="checkbox" id="side-menu">
         <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        {{ partial "lang-switch.html" . }}
         <nav class="headerLinks">
             <ul>
                 {{ range .Site.Menus.header }}

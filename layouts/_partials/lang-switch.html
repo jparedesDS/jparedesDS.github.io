@@ -1,0 +1,14 @@
+{{- /* Site-wide EN/ES selector. Hidden on /blog... pages: the articles
+       carry their own in-page EN/ES toggle (?lang=es). */ -}}
+{{- if not (hasPrefix .RelPermalink "/blog") -}}
+{{- $en := "/" -}}
+{{- $es := "/es/" -}}
+{{- range .AllTranslations -}}
+  {{- if eq .Lang "en" -}}{{- $en = .RelPermalink -}}{{- end -}}
+  {{- if eq .Lang "es" -}}{{- $es = .RelPermalink -}}{{- end -}}
+{{- end -}}
+<nav class="langSwitchSite" aria-label="Language">
+    <a href="{{ $en }}" hreflang="en"{{ if eq .Lang "en" }} aria-current="true"{{ end }}>EN</a>
+    <a href="{{ $es }}" hreflang="es"{{ if eq .Lang "es" }} aria-current="true"{{ end }}>ES</a>
+</nav>
+{{- end -}}

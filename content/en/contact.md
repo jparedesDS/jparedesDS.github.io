@@ -1,6 +1,6 @@
 +++
 title = "Contact"
-url = "/contact/"
+translationKey = "contact"
 user = "contact"
 showMetadata = false
 +++

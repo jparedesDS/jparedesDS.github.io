@@ -3,6 +3,21 @@ locale = "en-us"
 title = "Jose Paredes"
 theme = "nightfall"
 publishDir = "dist"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[languages.en]
+  contentDir = "content/en"
+  languageName = "English"
+  languageCode = "en"
+  weight = 1
+[languages.es]
+  contentDir = "content/es"
+  languageName = "Español"
+  languageCode = "es"
+  weight = 2
+  # The blog (and its tags) is English-only: no empty /es/tags/ scaffold.
+  disableKinds = ["taxonomy", "term"]
 
 [module]
   [module.hugoVersion]
