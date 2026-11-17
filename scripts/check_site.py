@@ -1465,6 +1465,109 @@ PRIVACY_STUB_WORDS = ("placeholder", "being written", "provisional",
 PRIVACY_BANNED = (r"\bVAT\b", r"\bCIF\b", r"\bNIF\b", r"\bS\.L\.",
                   r"\bLtd\b", r"\bInc\b", r"\bretention\b",
                   r"\bretención\b")
+# Task 10 review: the required disclosures are asserted as whole
+# polarity-sensitive phrases on the normalized visible text, not as
+# bare keywords — deleting "If you decline, it never loads", dropping
+# the revocation steps or reversing the Do Not Track sentence must
+# fail. "banned" lists the reversed polarities explicitly.
+PRIVACY_DISCLOSURES = {
+    "/privacy/": {
+        "required": [
+            "only after you accept",
+            "if you decline, it never loads",
+            "the legal basis is your consent",
+            "to understand how the site is used",
+            "delete the cookies and site data",
+            "reload the page",
+            "the banner will appear again",
+            "declining keeps google analytics off",
+            "page views, engagement and outbound clicks",
+            "respects the do not track",
+            "with do not track enabled, it does not track you",
+        ],
+        "banned": [
+            "does not respect the do not track",
+            "ignores do not track",
+            "loads before you accept",
+            "without your consent",
+        ],
+        # Unverified operational promises trimmed by the Task 10 review
+        # ruling; they must not return.
+        "unverified": [
+            "i do not combine it with any other data source",
+            "no server-side record of your choice",
+            "no advertising networks run on this site",
+            "i only use your message to reply",
+        ],
+    },
+    "/es/privacy/": {
+        "required": [
+            "solo después de que aceptes",
+            "si lo rechazas, no se carga nunca",
+            "la base legal es tu consentimiento",
+            "para entender cómo se usa el sitio",
+            "elimina las cookies y los datos de sitio",
+            "recarga la página",
+            "el banner volverá a aparecer",
+            "rechazar mantiene google analytics desactivado",
+            "páginas vistas, interacción y clics hacia sitios externos",
+            "respeta la señal do not track",
+            "si la tienes activada, no te rastrea",
+        ],
+        "banned": [
+            "no respeta la señal do not track",
+            "ignora do not track",
+            "se carga antes de que aceptes",
+            "sin tu consentimiento",
+        ],
+        # Promesas operativas no verificadas, retiradas por la revisión
+        # de la Task 10; no deben volver.
+        "unverified": [
+            "no los combino con ninguna otra fuente de datos",
+            "no guarda ningún registro de tu elección en un servidor",
+            "no hay redes publicitarias en este sitio",
+            "solo uso tu mensaje para responderte",
+        ],
+    },
+}
+# The consent and pulse tags must stay functionally identical (defer,
+# same URLs/attributes, nothing added): the full ordered attribute list
+# is pinned, quoted and minified-bare forms alike.
+CONSENT_SRC = "/consent.js?v=2"
+PULSE_ATTRS = [("defer", None), ("src", PULSE_SRC),
+               ("data-site", PULSE_SITE)]
+
+
+def _norm_text(html):
+    """Visible text of a fragment, whitespace collapsed, casefolded."""
+    return re.sub(r"\s+", " ", _visible_text(html)).casefold()
+
+
+_TAG_ATTR_RE = re.compile(
+    r"\s([a-zA-Z_:][-a-zA-Z0-9_:.]*)"
+    r"(?:\s*=\s*(?:\"([^\"]*)\"|'([^']*)'|([^\s\"'>]+)))?")
+
+
+def _tag_attrs(tag):
+    """Ordered (name, value) pairs of a raw start tag.
+
+    Boolean attributes (defer) get None; quoted and minified-bare
+    values are unquoted, so the list compares equal across builds.
+    """
+    body = tag[tag.find(" ") + 1:] if " " in tag else ""
+    if body.endswith(">"):
+        body = body[:-1]
+    attrs = []
+    # Pad so the first attribute also has the leading whitespace the
+    # tokenizer expects.
+    for match in _TAG_ATTR_RE.finditer(" " + body):
+        value = match.group(2)
+        if value is None:
+            value = match.group(3)
+        if value is None:
+            value = match.group(4)
+        attrs.append((match.group(1).lower(), value))
+    return attrs
 
 
 def _script_tags(text):
@@ -1508,12 +1611,23 @@ def check_privacy():
         for pattern in PRIVACY_BANNED:
             if re.search(pattern, visible, re.IGNORECASE):
                 failures.append("unapproved claim matches %r" % pattern)
+        normalized = _norm_text(main)
+        for phrase in PRIVACY_DISCLOSURES[route]["required"]:
+            if phrase not in normalized:
+                failures.append("missing disclosure: %r" % phrase)
+        for phrase in PRIVACY_DISCLOSURES[route]["banned"]:
+            if phrase in normalized:
+                failures.append("reversed disclosure present: %r" % phrase)
+        for phrase in PRIVACY_DISCLOSURES[route]["unverified"]:
+            if phrase in normalized:
+                failures.append("unverified promise present: %r" % phrase)
         if not _href_present(main, "mailto:" + PRIVACY_EMAIL):
             failures.append("no mailto link to " + PRIVACY_EMAIL)
         checks.append(("privacy page " + route, failures))
 
-    # The consent script tag carries the right data-privacy per language
-    # on every page that ships the site shell (the blog is EN).
+    # The consent script tag stays functionally identical (defer, same
+    # src/data-ga) and carries the right data-privacy per language on
+    # every page that ships the site shell (the blog is EN).
     for route in MENU_ROUTES:
         failures = []
         text, _ = _parse(route)
@@ -1522,18 +1636,18 @@ def check_privacy():
                            ["missing page"]))
             continue
         want = "/es/privacy/" if route.startswith("/es/") else "/privacy/"
+        want_attrs = [("defer", None), ("src", CONSENT_SRC),
+                      ("data-ga", PRIVACY_GA_ID), ("data-privacy", want)]
         tags = [t for t in _script_tags(text)
                 if "/consent.js" in (_attr(t, "src") or "")]
         if len(tags) != 1:
             failures.append("expected 1 consent script tag, found %d"
                             % len(tags))
         else:
-            if _attr(tags[0], "data-privacy") != want:
-                failures.append("data-privacy is %r, want %r"
-                                % (_attr(tags[0], "data-privacy"), want))
-            if _attr(tags[0], "data-ga") != PRIVACY_GA_ID:
-                failures.append("data-ga is %r, want %r"
-                                % (_attr(tags[0], "data-ga"), PRIVACY_GA_ID))
+            attrs = _tag_attrs(tags[0])
+            if attrs != want_attrs:
+                failures.append("consent tag attrs are %r, want %r"
+                                % (attrs, want_attrs))
         checks.append(("consent data-privacy " + route, failures))
 
     # The footer keeps the existing line and appends the localized link.
@@ -1568,9 +1682,10 @@ def check_privacy():
                             % (links[0][1].strip(), label))
         checks.append(("footer privacy " + route, failures))
 
-    # Pulse is disclose-only (controller ruling): its script tag must
-    # survive untouched, and the consent script must not gate it.
-    for route in ("/", "/es/", "/privacy/", "/es/privacy/"):
+    # Pulse is disclose-only (controller ruling): the complete tag
+    # (defer, same src/data-site, nothing added) must survive untouched
+    # on every shell page, and the consent script must not gate it.
+    for route in MENU_ROUTES:
         failures = []
         text, _ = _parse(route)
         if text is None:
@@ -1581,9 +1696,11 @@ def check_privacy():
         if len(tags) != 1:
             failures.append("expected 1 pulse script tag, found %d"
                             % len(tags))
-        elif _attr(tags[0], "data-site") != PULSE_SITE:
-            failures.append("pulse data-site changed: %r"
-                            % _attr(tags[0], "data-site"))
+        else:
+            attrs = _tag_attrs(tags[0])
+            if attrs != PULSE_ATTRS:
+                failures.append("pulse tag attrs are %r, want %r"
+                                % (attrs, PULSE_ATTRS))
         checks.append(("pulse untouched " + route, failures))
     consent_js = (ROOT / "static" / "consent.js").read_text(encoding="utf-8")
     checks.append(("consent.js does not touch pulse",

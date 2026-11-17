@@ -11,7 +11,7 @@ This site is a personal portfolio run by **Jose Paredes**, based in Madrid, Spai
 
 The site uses Google Analytics 4 (measurement ID `G-Y85VJ3E6W4`) to understand how the site is used: which pages are read, how visitors arrive and which content is useful. The legal basis is your consent: the analytics script loads **only after you accept** the cookie banner. If you decline, it never loads.
 
-When you accept, Google Analytics sets `_ga` cookies in your browser to distinguish visitors and sessions. Google processes the data on my behalf; I do not combine it with any other data source.
+When you accept, Google Analytics sets `_ga` cookies in your browser to distinguish visitors and sessions. Google processes the data on my behalf.
 
 ## Cookieless analytics (Pulse)
 
@@ -19,15 +19,15 @@ The site also runs a first-party, cookieless analytics script (`pulse.subtitleme
 
 ## Your consent choice, and how to change it
 
-Your banner choice is stored in your browser's `localStorage` under the key `ga_consent_v1` (a `ga_consent` cookie mirrors it). There is no account, and this site keeps no server-side record of your choice.
+Your banner choice is stored in your browser's `localStorage` under the key `ga_consent_v1` (a `ga_consent` cookie mirrors it). There is no account.
 
 To change your choice, clear this site's data in your browser: delete the cookies and site data for `jparedesds.github.io` (in most browsers, open the padlock or settings icon in the address bar and look for "Cookies and site data", or use the browser's privacy settings), then reload the page. The banner will appear again and you can accept or decline anew. Declining keeps Google Analytics off.
 
 ## What this site does not do
 
 - No accounts, no comments, no newsletter.
-- No data is sold, and no advertising networks run on this site.
-- Nothing is collected beyond the analytics described above. If you email me, I only use your message to reply.
+- No data is sold.
+- Nothing is collected beyond the analytics described above.
 
 ## Contact
 
