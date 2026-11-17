@@ -1239,6 +1239,101 @@ def check_404():
     return checks
 
 
+# Task 9: the accessible mobile menu. The shared header replaces the
+# checkbox/label hack with a real <button aria-expanded aria-controls>
+# plus ~20 lines of inline JS (Escape closes and refocuses the button,
+# outside clicks close). Every page that carries the site header must
+# ship the new markup; the redirect stubs have no header and are exempt.
+MENU_ROUTES = [r for r in ROUTES
+               if r.endswith("/") and r not in REDIRECT_STUBS]
+MENU_ROUTES += ["/privacy/", "/404.html"]
+MENU_LABELS = {"en": "Menu", "es": "Menú"}
+
+
+def check_menu():
+    """Task 9 mobile-menu assertions: (label, failures) pairs."""
+    checks = []
+
+    for route in MENU_ROUTES:
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("menu " + route, ["missing page"]))
+            continue
+
+        # The legacy checkbox/label markup must be gone (quoted and
+        # minified-bare forms alike).
+        for needle in ('class="side-menu"', "class=side-menu",
+                       '<label class="hamb"', "<label class=hamb"):
+            if needle in text:
+                failures.append("legacy markup present: %s" % needle)
+
+        # Exactly one toggle button with the required attributes.
+        toggles = [t for t in re.findall(r"<button\b[^>]*>", text)
+                   if _attr(t, "class") == "menuToggle"]
+        if len(toggles) != 1:
+            failures.append("expected 1 button.menuToggle, found %d"
+                            % len(toggles))
+        else:
+            tag = toggles[0]
+            for name, want in (("type", "button"),
+                               ("aria-expanded", "false"),
+                               ("aria-controls", "site-menu")):
+                if _attr(tag, name) != want:
+                    failures.append("menuToggle %s is %r, want %r"
+                                    % (name, _attr(tag, name), want))
+            want_label = MENU_LABELS["es" if route.startswith("/es/")
+                                     else "en"]
+            if _attr(tag, "aria-label") != want_label:
+                failures.append("menuToggle aria-label is %r, want %r"
+                                % (_attr(tag, "aria-label"), want_label))
+            body = re.search(
+                r"<button\b[^>]*\bclass=(?:\"menuToggle\""
+                r"|menuToggle(?=[\s>]))[^>]*>([\s\S]*?)</button>", text)
+            if body is None or "hamb-line" not in body.group(1):
+                failures.append("menuToggle lacks the hamb-line icon span")
+
+        # The panel is a labelled nav the button can control.
+        navs = [t for t in re.findall(r"<nav\b[^>]*>", text)
+                if _attr(t, "id") == "site-menu"]
+        if len(navs) != 1:
+            failures.append("expected 1 nav#site-menu, found %d" % len(navs))
+        elif _attr(navs[0], "class") != "headerLinks":
+            failures.append("nav#site-menu class is %r, want headerLinks"
+                            % _attr(navs[0], "class"))
+
+        # The inline script handles Escape and the data-open state.
+        if "Escape" not in text:
+            failures.append("no Escape handler in the page")
+        if "data-open" not in text or "setAttribute" not in text:
+            failures.append("no data-open state handling in the script")
+        checks.append(("menu " + route, failures))
+
+    # The panel/button CSS ships in the shared custom-head style block:
+    # open state, focus ring, and the button hidden above 768px. The
+    # minifier drops quotes around simple attribute values.
+    failures = []
+    text, _ = _parse("/")
+    if text is None:
+        failures.append("missing page")
+    else:
+        if "[data-open=true] .headerLinks" not in text:
+            failures.append("no [data-open=true] .headerLinks rule")
+        if "max-height:100%" not in text:
+            failures.append("no max-height:100% open rule")
+        if ".menuToggle:focus-visible" not in text:
+            failures.append("no .menuToggle:focus-visible rule")
+        if "outline:2px solid #80aadd" not in text:
+            failures.append("no 2px #80aadd focus outline")
+        if not re.search(r"\.menuToggle\{[^}]*display:none", text):
+            failures.append("menuToggle is not hidden by default (desktop)")
+        if ".menuToggle{display:block" not in text:
+            failures.append("menuToggle not shown inside the mobile query")
+    checks.append(("menu CSS", failures))
+
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -1338,6 +1433,14 @@ def main():
         else:
             print("PASS " + label)
             notfound_passed += 1
+    menu_checks = check_menu()
+    menu_passed = 0
+    for label, failures in menu_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            menu_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
@@ -1345,7 +1448,8 @@ def main():
             and about_passed == len(about_checks)
             and contact_passed == len(contact_checks)
             and sharing_passed == len(sharing_checks)
-            and notfound_passed == len(notfound_checks)):
+            and notfound_passed == len(notfound_checks)
+            and menu_passed == len(menu_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

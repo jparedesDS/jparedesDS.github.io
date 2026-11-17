@@ -1065,6 +1065,60 @@
   }
   {{- end }}
 
+  /* Accessible mobile menu (Task 9). The header toggle is a real button
+     and the panel opens via [data-open] on .header instead of the old
+     checkbox; the three-line icon, its X animation and the 0.5s slide
+     keep the theme's look. */
+  .menuToggle {
+    display: none;
+    padding: 10px 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .menuToggle:focus-visible,
+  .headerLinks a:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .menuToggle {
+      display: block;
+    }
+
+    /* Keep the theme's 0.5s max-height slide, but take the closed
+       panel's links out of the tab order once it is fully closed.
+       The z-index lifts the panel above positioned page content (the
+       blog's .post-entry/.entry-link overlays painted over it before). */
+    .headerLinks {
+      z-index: 10;
+      visibility: hidden;
+      transition: max-height 0.5s ease-out, visibility 0s linear 0.5s;
+    }
+
+    [data-open="true"] .headerLinks {
+      max-height: 100%;
+      visibility: visible;
+      transition: max-height 0.5s ease-out;
+    }
+
+    [data-open="true"] .menuToggle .hamb-line {
+      background: transparent;
+    }
+
+    [data-open="true"] .menuToggle .hamb-line::before {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+
+    [data-open="true"] .menuToggle .hamb-line::after {
+      transform: rotate(45deg);
+      top: 0;
+    }
+  }
+
   /* On 1080p the Nightfall layout reads small; emulate 125% page zoom. */
   @media (min-width: 1280px) {
     body {

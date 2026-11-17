@@ -58,6 +58,10 @@
 [older_posts]
   other = "entradas anteriores"
 
+# Botón accesible del menú móvil en la cabecera compartida (Task 9).
+[menu_label]
+    other = "Menú"
+
 # <title> de la portada y alt de la tarjeta social (Task 7).
 [home_title]
     other = "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)"

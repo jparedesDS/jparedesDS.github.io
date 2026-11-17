@@ -58,6 +58,10 @@
 [older_posts]
   other = "older posts"
 
+# Accessible mobile menu toggle in the shared header (Task 9).
+[menu_label]
+    other = "Menu"
+
 # Home <title> and social-card alt text (Task 7).
 [home_title]
     other = "Jose Paredes — Computer Vision & ML Engineer (Madrid)"

@@ -8,10 +8,11 @@
                 <span>{{ $user }}@{{ .Site.Params.hostname }} ~ $</span>
             </a>
         </div>
-        <input class="side-menu" type="checkbox" id="side-menu">
-        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <button type="button" class="menuToggle" aria-expanded="false" aria-controls="site-menu" aria-label="{{ i18n "menu_label" }}">
+            <span class="hamb-line"></span>
+        </button>
         {{ partial "lang-switch.html" . }}
-        <nav class="headerLinks">
+        <nav id="site-menu" class="headerLinks">
             <ul>
                 {{ range .Site.Menus.header }}
                 <li>
@@ -24,3 +25,30 @@
         </nav>
     </div>
 </header>
+<script>
+    (function () {
+        var header = document.querySelector('.header');
+        var button = header.querySelector('.menuToggle');
+        function setOpen(open) {
+            header.setAttribute('data-open', open ? 'true' : 'false');
+            button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        button.addEventListener('click', function () {
+            setOpen(button.getAttribute('aria-expanded') !== 'true');
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+                setOpen(false);
+                button.focus();
+            }
+        });
+        document.addEventListener('click', function (event) {
+            var target = event.target;
+            if (button.getAttribute('aria-expanded') === 'true'
+                    && !button.contains(target)
+                    && !(target.closest && target.closest('#site-menu a'))) {
+                setOpen(false);
+            }
+        });
+    })();
+</script>
