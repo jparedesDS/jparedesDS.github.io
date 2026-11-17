@@ -516,53 +516,65 @@ def check_cases():
 # equivalents. Kaggle is a "bronze medal", never a podium place. The ES
 # CV link keeps /resume.pdf until Task 11 ships /resume-es.pdf (that
 # task updates this check).
-ABOUT_FACTS = {
-    "/about/": [
-        ("80%",),
-        ("500+",),
-        ("33+",),
-        ("268+",),
-        ("10+",),
-        ("Kaggle",),
-        ("DocFlow",),
-        ("21 API routers",),
-        ("24 service layers",),
-        ("24 frontend screens",),
-        ("10,000+",),
-        ("25%",),
-        ("50+",),
-        ("95%",),
-        ("bronze medal",),
-        ("ResNet152",),
-        ("Tableau",),
-        ("Open source",),
-        ("Languages:",),
-        ("native",),
-        ("B2",),
-    ],
-    "/es/about/": [
-        ("80%",),
-        ("500+",),
-        ("33+",),
-        ("268+",),
-        ("10+",),
-        ("Kaggle",),
-        ("DocFlow",),
-        ("21 routers",),
-        ("24 servicios",),
-        ("24 pantallas",),
-        ("10.000+", "10,000+"),
-        ("25%",),
-        ("50+",),
-        ("95%",),
-        ("medalla de bronce",),
-        ("ResNet152",),
-        ("Tableau",),
-        ("Código abierto",),
-        ("Idiomas:",),
-        ("nativo",),
-        ("B2",),
-    ],
+# Review round 1: facts are scoped to the section that owns them and
+# matched as distinctive phrases, so a figure mentioned elsewhere on the
+# page (Tableau in Stack, DocFlow in Projects, Kaggle in Contact) cannot
+# mask a deleted bullet. "95%+" keeps its plus; the approved ES wording
+# is "al menos el 95%".
+ABOUT_INTRO_FACTS = {
+    "/about/": [("Languages:",), ("native",), ("B2",)],
+    "/es/about/": [("Idiomas:",), ("nativo",), ("B2",)],
+}
+ABOUT_SCOPE_FACTS = {
+    "/about/": {
+        "Experience": [
+            ("DocFlow",),
+            ("internal SaaS in production",),
+            ("21 API routers",),
+            ("24 service layers",),
+            ("24 frontend screens",),
+            ("80% less manual processing time",),
+            ("500+ incoming documents per month",),
+            ("Tableau dashboards for project documentation tracking",),
+            ("10,000+",),
+            ("25%",),
+            ("50+",),
+            ("95%+",),
+        ],
+        "Open source": [
+            ("33+",),
+            ("268+",),
+            ("10+",),
+            ("Kaggle",),
+            ("bronze medal in multilabel image classification",),
+            ("ResNet152",),
+        ],
+    },
+    "/es/about/": {
+        "Experiencia": [
+            ("DocFlow",),
+            ("SaaS interno en producción",),
+            ("21 routers",),
+            ("24 capas de servicio",),
+            ("24 pantallas",),
+            ("80% menos de tiempo de procesado manual",),
+            ("500+ documentos entrantes al mes",),
+            ("Cuadros de mando en Tableau para el seguimiento de la "
+             "documentación de proyectos",),
+            ("10.000+", "10,000+"),
+            ("25%",),
+            ("50+",),
+            ("95%+", "al menos el 95%"),
+        ],
+        "Código abierto": [
+            ("33+",),
+            ("268+",),
+            ("10+",),
+            ("Kaggle",),
+            ("medalla de bronce en clasificación multilabel de imágenes",),
+            ("ResNet152",),
+        ],
+    },
 }
 ABOUT_SECTIONS = {
     "/about/": ("Projects", "Experience", "Open source", "Education",
@@ -574,20 +586,39 @@ ABOUT_BANNED = ("four years", "4 years", "cuatro años", "4 años",
                 "3rd place", "3er puesto", "tercer puesto")
 
 
+def _section_html(text, heading):
+    """HTML of the h2 section titled `heading`, up to the next h2."""
+    start = re.search(r"<h2\b[^>]*>\s*%s\s*</h2>" % re.escape(heading), text)
+    if start is None:
+        return None
+    rest = text[start.end():]
+    nxt = rest.find("<h2")
+    return rest if nxt == -1 else rest[:nxt]
+
+
 def check_about():
     """Task 5 About/CV assertions: (label, failures) pairs."""
     checks = []
 
-    for route, facts in ABOUT_FACTS.items():
+    for route, intro_facts in ABOUT_INTRO_FACTS.items():
         failures = []
         text, _ = _parse(route)
         if text is None:
             checks.append(("about " + route, ["missing page"]))
             continue
 
-        for alternatives in facts:
+        for alternatives in intro_facts:
             if not any(alt in text for alt in alternatives):
                 failures.append("missing fact: %s" % " / ".join(alternatives))
+        for heading, facts in ABOUT_SCOPE_FACTS[route].items():
+            section = _section_html(text, heading)
+            if section is None:
+                failures.append("missing section: %r" % heading)
+                continue
+            for alternatives in facts:
+                if not any(alt in section for alt in alternatives):
+                    failures.append("missing fact in %s: %s"
+                                    % (heading, " / ".join(alternatives)))
         lowered = text.casefold()
         for phrase in ABOUT_BANNED:
             if phrase.casefold() in lowered:

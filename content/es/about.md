@@ -30,7 +30,7 @@ Idiomas: español nativo · inglés B2
 
 Visión artificial para inspección metalúrgica y automatización de datos: modelos YOLO para detección de defectos, pipelines de anotación y evaluación, y las herramientas internas que los ponen a trabajar.
 
-- DocFlow, un SaaS interno en producción: 21 routers de API, 24 servicios y 24 pantallas, con DocuSign, JWT y Docker + CI. Desarrollo asistido por IA con Claude.
+- DocFlow, un SaaS interno en producción: 21 routers de API, 24 capas de servicio y 24 pantallas, con DocuSign, JWT y Docker + CI. Desarrollo asistido por IA con Claude.
 - Extracción de datos de planos técnicos DXF: un 80% menos de tiempo de procesado manual.
 - Automatización correo→ERP: 500+ documentos entrantes al mes.
 - Cuadros de mando en Tableau para el seguimiento de la documentación de proyectos.
@@ -43,7 +43,7 @@ Base de datos de clientes con 10.000+ registros; los informes internos mejoraron
 ### Técnico de laboratorio de electrónica · Grupo ANOVO
 **2015 — 2020**
 
-Diagnóstico y reparación de 50+ dispositivos a la semana, con una calidad del 95%+.
+Diagnóstico y reparación de 50+ dispositivos a la semana, con un índice de calidad de al menos el 95%.
 
 ## Código abierto
 
