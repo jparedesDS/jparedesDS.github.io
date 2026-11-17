@@ -1241,13 +1241,90 @@ def check_404():
 
 # Task 9: the accessible mobile menu. The shared header replaces the
 # checkbox/label hack with a real <button aria-expanded aria-controls>
-# plus ~20 lines of inline JS (Escape closes and refocuses the button,
-# outside clicks close). Every page that carries the site header must
-# ship the new markup; the redirect stubs have no header and are exempt.
+# plus a small inline JS (Escape closes and refocuses the button, true
+# outside clicks close, the closed panel is inert on mobile). Every page
+# that carries the site header must ship the new markup; the redirect
+# stubs have no header and are exempt.
 MENU_ROUTES = [r for r in ROUTES
                if r.endswith("/") and r not in REDIRECT_STUBS]
 MENU_ROUTES += ["/privacy/", "/404.html"]
 MENU_LABELS = {"en": "Menu", "es": "Menú"}
+
+
+def _brace_body(text, open_pos):
+    """Content between the brace at open_pos and its matching close.
+
+    The menu script and the menu CSS contain no braces inside string
+    literals, so depth counting is exact for them.
+    """
+    if open_pos < 0 or open_pos >= len(text) or text[open_pos] != "{":
+        return None
+    depth = 0
+    for i in range(open_pos, len(text)):
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+            if depth == 0:
+                return text[open_pos + 1:i]
+    return None
+
+
+def _fn_body(text, anchor):
+    """Brace-matched body of the first function at/after `anchor`."""
+    pos = text.find(anchor)
+    if pos == -1:
+        return None
+    fpos = text.find("function", pos)
+    if fpos == -1:
+        return None
+    return _brace_body(text, text.find("{", fpos))
+
+
+def _menu_script_failures(text):
+    """Code-path assertions on the inline menu script.
+
+    The build is minified (identifiers renamed, single quotes turned to
+    double), so the assertions are structural: they locate the function
+    bodies by brace matching instead of by name. A substring search for
+    "Escape" alone would pass even with the focus restore or the state
+    sync removed; these checks fail in that case.
+    """
+    failures = []
+    scripts = [s for s in re.findall(r"<script>([\s\S]*?)</script>", text)
+               if "menuToggle" in s]
+    if len(scripts) != 1:
+        return ["expected 1 inline menu script, found %d" % len(scripts)]
+    script = scripts[0].replace("'", '"')
+
+    # data-open and aria-expanded are set together in the state function.
+    pos = script.find('"data-open"')
+    fpos = script.rfind("function", 0, pos) if pos != -1 else -1
+    body = _brace_body(script, script.find("{", fpos)) if fpos != -1 else None
+    if body is None or "setAttribute" not in body or '"aria-expanded"' not in body:
+        failures.append("state function does not set both data-open "
+                        "and aria-expanded")
+
+    # A keydown listener handles Escape and refocuses the button on close.
+    body = _fn_body(script, 'addEventListener("keydown"')
+    if body is None:
+        failures.append("no keydown listener registered")
+    else:
+        if '"Escape"' not in body:
+            failures.append("keydown listener does not handle Escape")
+        if ".focus()" not in body:
+            failures.append("Escape close does not refocus the button")
+
+    # A document click listener closes on true outside clicks only: its
+    # body must exempt both the button and the panel via contains().
+    if 'document.addEventListener("click"' not in script:
+        failures.append("no document click listener registered")
+    else:
+        body = _fn_body(script, 'document.addEventListener("click"')
+        if body is None or body.count(".contains(") < 2:
+            failures.append("outside-click handler must exempt the button "
+                            "and the panel")
+    return failures
 
 
 def check_menu():
@@ -1302,33 +1379,45 @@ def check_menu():
             failures.append("nav#site-menu class is %r, want headerLinks"
                             % _attr(navs[0], "class"))
 
-        # The inline script handles Escape and the data-open state.
-        if "Escape" not in text:
-            failures.append("no Escape handler in the page")
-        if "data-open" not in text or "setAttribute" not in text:
-            failures.append("no data-open state handling in the script")
+        # The inline script's actual code paths (state sync, Escape +
+        # focus restore, outside-click listener), not just substrings.
+        failures += _menu_script_failures(text)
         checks.append(("menu " + route, failures))
 
-    # The panel/button CSS ships in the shared custom-head style block:
-    # open state, focus ring, and the button hidden above 768px. The
-    # minifier drops quotes around simple attribute values.
+    # The panel/button CSS ships in the shared custom-head style block.
+    # The declarations must sit in the right rules: display:block inside
+    # the 768px media query (a desktop regression otherwise) and
+    # max-height:100% inside the [data-open] panel rule. The minifier
+    # drops quotes around simple attribute values and spaces in preludes.
     failures = []
     text, _ = _parse("/")
     if text is None:
         failures.append("missing page")
     else:
-        if "[data-open=true] .headerLinks" not in text:
-            failures.append("no [data-open=true] .headerLinks rule")
-        if "max-height:100%" not in text:
-            failures.append("no max-height:100% open rule")
-        if ".menuToggle:focus-visible" not in text:
+        style = re.search(r"<style>([\s\S]*?)</style>", text)
+        css = style.group(1) if style else ""
+        if ".menuToggle:focus-visible" not in css:
             failures.append("no .menuToggle:focus-visible rule")
-        if "outline:2px solid #80aadd" not in text:
+        if "outline:2px solid #80aadd" not in css:
             failures.append("no 2px #80aadd focus outline")
-        if not re.search(r"\.menuToggle\{[^}]*display:none", text):
+        if not re.search(r"\.menuToggle\{[^}]*display:none", css):
             failures.append("menuToggle is not hidden by default (desktop)")
-        if ".menuToggle{display:block" not in text:
-            failures.append("menuToggle not shown inside the mobile query")
+        shown_in_query = False
+        for m in re.finditer(r"@media[^{]*\{", css):
+            if "max-width:768px" not in re.sub(r"\s+", "", m.group(0)):
+                continue
+            body = _brace_body(css, m.end() - 1)
+            if body and ".menuToggle{display:block" in re.sub(r"\s+", "", body):
+                shown_in_query = True
+        if not shown_in_query:
+            failures.append("menuToggle display:block is not inside the "
+                            "max-width:768px media query")
+        rule = re.search(r'\[data-open=(?:"true"|true)\]\s*\.headerLinks\s*\{',
+                         css)
+        body = _brace_body(css, rule.end() - 1) if rule else None
+        if body is None or "max-height:100%" not in re.sub(r"\s+", "", body):
+            failures.append("max-height:100% is not inside the "
+                            "[data-open=true] .headerLinks rule")
     checks.append(("menu CSS", failures))
 
     return checks

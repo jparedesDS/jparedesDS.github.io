@@ -29,9 +29,15 @@
     (function () {
         var header = document.querySelector('.header');
         var button = header.querySelector('.menuToggle');
+        var panel = document.getElementById('site-menu');
+        var mobile = window.matchMedia('(max-width: 768px)');
         function setOpen(open) {
             header.setAttribute('data-open', open ? 'true' : 'false');
             button.setAttribute('aria-expanded', open ? 'true' : 'false');
+            /* inert takes the closed panel out of the tab order at once
+               (the CSS visibility flip waits for the 0.5s slide); it is
+               mobile-only so the desktop nav stays interactive. */
+            panel.inert = mobile.matches && !open;
         }
         button.addEventListener('click', function () {
             setOpen(button.getAttribute('aria-expanded') !== 'true');
@@ -46,9 +52,13 @@
             var target = event.target;
             if (button.getAttribute('aria-expanded') === 'true'
                     && !button.contains(target)
-                    && !(target.closest && target.closest('#site-menu a'))) {
+                    && !panel.contains(target)) {
                 setOpen(false);
             }
         });
+        mobile.addEventListener('change', function () {
+            setOpen(button.getAttribute('aria-expanded') === 'true');
+        });
+        setOpen(false);
     })();
 </script>
