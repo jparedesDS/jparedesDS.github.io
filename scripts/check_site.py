@@ -5,7 +5,7 @@ Run from the repo root after a Hugo build:
 
     python scripts/check_site.py
 
-Prints a PASS/FAIL line per route and a summary (`OK 24/24`), exiting 0
+Prints a PASS/FAIL line per route and a summary (`OK 25/25`), exiting 0
 when everything passes and 1 otherwise. Each task of the plan adds its
 assertions to main()/check_route(). Stdlib only.
 """
@@ -25,7 +25,7 @@ ROUTES = [
     "/blog/2026/11/09/how-subany-video-works/",
     "/blog/2026/11/09/como-funciona-subany-video/",
     "/blog/index.json", "/blog/index.xml", "/index.xml", "/sitemap.xml",
-    "/propovcs2/", "/cleanyourmail/",
+    "/propovcs2/", "/cleanyourmail/", "/privacy/",
     "/es/", "/es/about/", "/es/projects/", "/es/contact/", "/es/privacy/",
     "/es/blog/",
 ]
@@ -843,7 +843,7 @@ def check_contact():
 # as &amp;).
 OG_IMAGE_URL = BASE_URL + "/og-image.png"
 SHARING_ROUTES = [r for r in ROUTES
-                  if r.endswith("/") and r not in REDIRECT_STUBS] + ["/privacy/"]
+                  if r.endswith("/") and r not in REDIRECT_STUBS]
 HOME_TITLES = {
     "/": "Jose Paredes — Computer Vision & ML Engineer (Madrid)",
     "/es/": "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)",
@@ -1247,7 +1247,7 @@ def check_404():
 # stubs have no header and are exempt.
 MENU_ROUTES = [r for r in ROUTES
                if r.endswith("/") and r not in REDIRECT_STUBS]
-MENU_ROUTES += ["/privacy/", "/404.html"]
+MENU_ROUTES += ["/404.html"]
 MENU_LABELS = {"en": "Menu", "es": "Menú"}
 
 
@@ -1423,6 +1423,176 @@ def check_menu():
     return checks
 
 
+# Task 10: bilingual privacy pages, linked from the consent banner and
+# the footer. The consent script carries a language-aware data-privacy
+# attribute (/privacy/ EN, /es/privacy/ ES); the footer keeps the
+# existing copyright/built-with line and appends a localized
+# Privacy/Privacidad link. Pulse (first-party, cookieless) is
+# disclose-only per the controller ruling: it must keep loading
+# untouched, so the checks prove its tag survives and the consent
+# script never references it. The copy may only use the verified facts:
+# no legal entity, VAT number or retention claims.
+PRIVACY_PAGES = ("/privacy/", "/es/privacy/")
+PRIVACY_LABELS = {"en": "Privacy", "es": "Privacidad"}
+PRIVACY_EMAIL = "jparedescolmenarejo@gmail.com"
+PRIVACY_GA_ID = "G-Y85VJ3E6W4"
+PULSE_SRC = "https://pulse.subtitleme.workers.dev/t.js"
+PULSE_SITE = "pk_42a58793b14cbd7af3c6"
+PRIVACY_FACTS = {
+    "/privacy/": [
+        ("Jose Paredes",), ("Madrid",),
+        ("Google Analytics",), ("G-Y85VJ3E6W4",), ("_ga",),
+        ("consent",),
+        ("pulse.subtitleme.workers.dev/t.js",), ("cookieless",),
+        ("localStorage",), ("pulse_vid",), ("sessionStorage",),
+        ("Do Not Track",),
+        ("ga_consent_v1",),
+        (PRIVACY_EMAIL,),
+    ],
+    "/es/privacy/": [
+        ("Jose Paredes",), ("Madrid",),
+        ("Google Analytics",), ("G-Y85VJ3E6W4",), ("_ga",),
+        ("consentimiento",),
+        ("pulse.subtitleme.workers.dev/t.js",), ("sin cookies",),
+        ("localStorage",), ("pulse_vid",), ("sessionStorage",),
+        ("Do Not Track",),
+        ("ga_consent_v1",),
+        (PRIVACY_EMAIL,),
+    ],
+}
+PRIVACY_STUB_WORDS = ("placeholder", "being written", "provisional",
+                      "en redacción")
+PRIVACY_BANNED = (r"\bVAT\b", r"\bCIF\b", r"\bNIF\b", r"\bS\.L\.",
+                  r"\bLtd\b", r"\bInc\b", r"\bretention\b",
+                  r"\bretención\b")
+
+
+def _script_tags(text):
+    """Every raw <script ...> start tag in a built page."""
+    return re.findall(r"<script\b[^>]*>", text)
+
+
+def _footer_html(text):
+    """Inner HTML of the site <footer class="footer">, or None.
+
+    Blog pages also carry per-post <footer class="entry-footer"> cards,
+    so the class is matched explicitly (quoted and minified-bare).
+    """
+    match = re.search(
+        r'<footer\b[^>]*\bclass=(?:"footer"|footer(?=[\s>]))[^>]*>'
+        r"([\s\S]*?)</footer>", text)
+    return match.group(1) if match else None
+
+
+def check_privacy():
+    """Task 10 privacy assertions: (label, failures) pairs."""
+    checks = []
+
+    # The pages exist and carry the verified facts, not the stub notice.
+    for route in PRIVACY_PAGES:
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("privacy page " + route, ["missing page"]))
+            continue
+        main = _main_html(text) or ""
+        for alternatives in PRIVACY_FACTS[route]:
+            if not any(alt in main for alt in alternatives):
+                failures.append("missing fact: %s"
+                                % " / ".join(alternatives))
+        visible = _visible_text(main)
+        lowered = visible.casefold()
+        for word in PRIVACY_STUB_WORDS:
+            if word in lowered:
+                failures.append("stub wording still present: %r" % word)
+        for pattern in PRIVACY_BANNED:
+            if re.search(pattern, visible, re.IGNORECASE):
+                failures.append("unapproved claim matches %r" % pattern)
+        if not _href_present(main, "mailto:" + PRIVACY_EMAIL):
+            failures.append("no mailto link to " + PRIVACY_EMAIL)
+        checks.append(("privacy page " + route, failures))
+
+    # The consent script tag carries the right data-privacy per language
+    # on every page that ships the site shell (the blog is EN).
+    for route in MENU_ROUTES:
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("consent data-privacy " + route,
+                           ["missing page"]))
+            continue
+        want = "/es/privacy/" if route.startswith("/es/") else "/privacy/"
+        tags = [t for t in _script_tags(text)
+                if "/consent.js" in (_attr(t, "src") or "")]
+        if len(tags) != 1:
+            failures.append("expected 1 consent script tag, found %d"
+                            % len(tags))
+        else:
+            if _attr(tags[0], "data-privacy") != want:
+                failures.append("data-privacy is %r, want %r"
+                                % (_attr(tags[0], "data-privacy"), want))
+            if _attr(tags[0], "data-ga") != PRIVACY_GA_ID:
+                failures.append("data-ga is %r, want %r"
+                                % (_attr(tags[0], "data-ga"), PRIVACY_GA_ID))
+        checks.append(("consent data-privacy " + route, failures))
+
+    # The footer keeps the existing line and appends the localized link.
+    for route in MENU_ROUTES:
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("footer privacy " + route, ["missing page"]))
+            continue
+        footer = _footer_html(text)
+        if footer is None:
+            checks.append(("footer privacy " + route, ["no <footer>"]))
+            continue
+        is_es = route.startswith("/es/")
+        want = "/es/privacy/" if is_es else "/privacy/"
+        label = PRIVACY_LABELS["es" if is_es else "en"]
+        for needle in ("2026 Jose Paredes", "Built with"):
+            if needle not in footer:
+                failures.append("existing footer line lost: %r" % needle)
+        for href in ("https://gohugo.io",
+                     "https://github.com/LordMathis/hugo-theme-nightfall"):
+            if not _href_present(footer, href):
+                failures.append("built-with link lost: " + href)
+        parser = _LangParser()
+        parser.feed(footer)
+        parser.close()
+        links = [(h, l) for h, l in parser.anchors if _norm(h) == want]
+        if not links:
+            failures.append("no footer link to " + want)
+        elif not any(l.strip() == label for _, l in links):
+            failures.append("footer privacy link labelled %r, want %r"
+                            % (links[0][1].strip(), label))
+        checks.append(("footer privacy " + route, failures))
+
+    # Pulse is disclose-only (controller ruling): its script tag must
+    # survive untouched, and the consent script must not gate it.
+    for route in ("/", "/es/", "/privacy/", "/es/privacy/"):
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("pulse untouched " + route, ["missing page"]))
+            continue
+        tags = [t for t in _script_tags(text)
+                if (_attr(t, "src") or "") == PULSE_SRC]
+        if len(tags) != 1:
+            failures.append("expected 1 pulse script tag, found %d"
+                            % len(tags))
+        elif _attr(tags[0], "data-site") != PULSE_SITE:
+            failures.append("pulse data-site changed: %r"
+                            % _attr(tags[0], "data-site"))
+        checks.append(("pulse untouched " + route, failures))
+    consent_js = (ROOT / "static" / "consent.js").read_text(encoding="utf-8")
+    checks.append(("consent.js does not touch pulse",
+                   ["consent.js references pulse"]
+                   if "pulse" in consent_js.lower() else []))
+
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -1530,6 +1700,14 @@ def main():
         else:
             print("PASS " + label)
             menu_passed += 1
+    privacy_checks = check_privacy()
+    privacy_passed = 0
+    for label, failures in privacy_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            privacy_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
@@ -1538,7 +1716,8 @@ def main():
             and contact_passed == len(contact_checks)
             and sharing_passed == len(sharing_checks)
             and notfound_passed == len(notfound_checks)
-            and menu_passed == len(menu_checks)):
+            and menu_passed == len(menu_checks)
+            and privacy_passed == len(privacy_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

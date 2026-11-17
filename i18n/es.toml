@@ -62,6 +62,10 @@
 [menu_label]
     other = "Menú"
 
+# Enlace del pie al aviso de privacidad (Task 10).
+[privacy]
+    other = "Privacidad"
+
 # <title> de la portada y alt de la tarjeta social (Task 7).
 [home_title]
     other = "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)"

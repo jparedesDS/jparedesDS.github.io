@@ -62,6 +62,10 @@
 [menu_label]
     other = "Menu"
 
+# Footer link to the privacy notice (Task 10).
+[privacy]
+    other = "Privacy"
+
 # Home <title> and social-card alt text (Task 7).
 [home_title]
     other = "Jose Paredes — Computer Vision & ML Engineer (Madrid)"
