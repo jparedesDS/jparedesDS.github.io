@@ -83,3 +83,21 @@
 
 [active_projects]
     other = "Active projects"
+
+# Bilingual 404 page (Task 8). The English block is rendered with i18n;
+# the Spanish block reads i18n/es.toml, because Hugo's i18n function
+# only resolves the language of the page being built.
+[nf_title]
+    other = "Not found"
+
+[nf_text]
+    other = "The page you are looking for does not exist or has moved. Use the links below to get back on track."
+
+[nf_home]
+    other = "Back to the home page"
+
+[nf_projects]
+    other = "Projects"
+
+[nf_blog]
+    other = "Blog"

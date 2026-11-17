@@ -83,3 +83,21 @@
 
 [active_projects]
     other = "Proyectos activos"
+
+# Página 404 bilingüe (Task 8). Un solo documento (/404.html) sirve a los
+# dos idiomas: el bloque español se lee de este archivo y el inglés con
+# i18n.
+[nf_title]
+    other = "No encontrado"
+
+[nf_text]
+    other = "La página que buscas no existe o se ha movido. Usa los enlaces de abajo para continuar explorando el sitio."
+
+[nf_home]
+    other = "Volver al inicio"
+
+[nf_projects]
+    other = "Proyectos"
+
+[nf_blog]
+    other = "Blog"

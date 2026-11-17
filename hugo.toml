@@ -3,6 +3,9 @@ locale = "en-us"
 title = "Jose Paredes"
 theme = "nightfall"
 publishDir = "dist"
+# dist/ is a build artifact (gitignored): wipe the leftovers so a build
+# never ships a stale file, e.g. a second 404 document (Task 8).
+cleanDestinationDir = true
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 
@@ -19,7 +22,9 @@ defaultContentLanguageInSubdir = false
   languageCode = "es"
   weight = 2
   # The blog (and its tags) is English-only: no empty /es/tags/ scaffold.
-  disableKinds = ["taxonomy", "term"]
+  # GitHub Pages serves only the root /404.html (Task 8): the Spanish
+  # 404 kind is disabled so a single bilingual 404 document ships.
+  disableKinds = ["taxonomy", "term", "404"]
 [languages.es.params]
   # Task 11 switches this to /resume-es.pdf once the Spanish CV ships.
   resumeUrl = "/resume.pdf"

@@ -1064,6 +1064,181 @@ def check_sharing():
     return checks
 
 
+# Task 8: the bilingual 404. GitHub Pages serves only /404.html, so the
+# build must ship exactly one 404 document, built from the default
+# language, showing both languages and the approved links. The copy is
+# the plan's wording and is asserted verbatim.
+NF_TITLE = {"en": "Not found", "es": "No encontrado"}
+NF_TEXT = {
+    "en": ("The page you are looking for does not exist or has moved. "
+           "Use the links below to get back on track."),
+    "es": ("La página que buscas no existe o se ha movido. "
+           "Usa los enlaces de abajo para continuar explorando el sitio."),
+}
+# href -> the visible label the link must carry.
+NF_LINKS = {
+    "/": "Back to the home page",
+    "/es/": "Volver al inicio",
+    "/projects/": "Projects",
+    "/es/projects/": "Proyectos",
+    "/blog/": "Blog",
+}
+
+
+def _headings(html):
+    """(level, attrs, inner html) of every heading in an HTML fragment."""
+    return re.findall(r"<h([1-6])([^>]*)>([\s\S]*?)</h\1>", html)
+
+
+def _dist_target(path):
+    """The built file a site-absolute path points at."""
+    target = ROOT / "dist" / path.lstrip("/")
+    return target / "index.html" if path.endswith("/") else target
+
+
+def check_404():
+    """Task 8 bilingual 404 assertions: (label, failures) pairs."""
+    checks = []
+
+    # Exactly one 404 document ships, and it is the root one GitHub
+    # Pages serves.
+    failures = []
+    found = sorted(p.relative_to(ROOT).as_posix()
+                   for p in (ROOT / "dist").rglob("404.html"))
+    if found != ["dist/404.html"]:
+        failures.append("404 outputs are %r, want exactly ['dist/404.html']"
+                        % (found,))
+    checks.append(("single 404 output", failures))
+
+    # GitHub Pages does not serve /es/404.html, so it must not exist.
+    failures = []
+    if (ROOT / "dist" / "es" / "404.html").is_file():
+        failures.append("dist/es/404.html exists")
+    checks.append(("no /es/404.html", failures))
+
+    text, parser = _parse("/404.html")
+    if text is None:
+        checks.append(("bilingual 404", ["missing dist/404.html"]))
+        return checks
+
+    main = _main_html(text)
+    if main is None:
+        checks.append(("bilingual 404", ["no <main> region"]))
+        return checks
+
+    # Both languages are visible: a title and a short explanation each.
+    failures = []
+    visible = _visible_text(main)
+    for lang in ("en", "es"):
+        if NF_TITLE[lang] not in visible:
+            failures.append("missing %s title %r" % (lang, NF_TITLE[lang]))
+        if NF_TEXT[lang] not in visible:
+            failures.append("missing %s text %r" % (lang, NF_TEXT[lang]))
+    checks.append(("bilingual 404 copy", failures))
+
+    # A real heading per language; the Spanish block is marked lang="es".
+    failures = []
+    heads = _headings(main)
+    h1s = [head for head in heads if head[0] == "1"]
+    if len(h1s) != 1:
+        failures.append("expected 1 h1, found %d" % len(h1s))
+    elif NF_TITLE["en"] not in _visible_text(h1s[0][2]):
+        failures.append("the h1 is not the English title %r"
+                        % NF_TITLE["en"])
+    # The Spanish block is a section marked lang="es" (so its paragraph
+    # and links are announced in Spanish too) with its own heading.
+    es_blocks = re.findall(
+        r"<section\b[^>]*\blang=(?:\"es\"|es)[^>]*>([\s\S]*?)</section>",
+        main)
+    if len(es_blocks) != 1:
+        failures.append("expected 1 section marked lang=es, found %d"
+                        % len(es_blocks))
+    else:
+        es_heads = _headings(es_blocks[0])
+        if len(es_heads) != 1:
+            failures.append("expected 1 heading in the lang=es block, "
+                            "found %d" % len(es_heads))
+        elif NF_TITLE["es"] not in _visible_text(es_heads[0][2]):
+            failures.append("the lang=es heading is not the Spanish title %r"
+                            % NF_TITLE["es"])
+    checks.append(("404 headings", failures))
+
+    # The two language blocks are separated by a horizontal rule.
+    failures = []
+    rule = main.find("<hr")
+    en_pos = main.find(NF_TITLE["en"])
+    es_pos = main.find(NF_TITLE["es"])
+    if rule == -1:
+        failures.append("no <hr> between the two language blocks")
+    elif not (en_pos < rule < es_pos):
+        failures.append("the rule does not separate the blocks "
+                        "(en@%d rule@%d es@%d)" % (en_pos, rule, es_pos))
+    checks.append(("404 rule", failures))
+
+    # The five approved links, each with visible text.
+    failures = []
+    body = _LangParser()
+    body.feed(main)
+    body.close()
+    anchors = [(href, label) for href, label in body.anchors]
+    for href, label in NF_LINKS.items():
+        matching = [(h, l) for h, l in anchors if _norm(h) == href]
+        if not matching:
+            failures.append("no link to %s" % href)
+        elif not any(l.strip() for _, l in matching):
+            failures.append("the link to %s has no text" % href)
+        elif not any(l.strip() == label for _, l in matching):
+            failures.append("the link to %s is labelled %r, want %r"
+                            % (href, matching[0][1].strip(), label))
+    checks.append(("404 links", failures))
+
+    # The page works without JavaScript: no script and no inline
+    # handlers in the content.
+    failures = []
+    if re.search(r"<script\b", main, re.IGNORECASE):
+        failures.append("the 404 content contains a <script>")
+    if re.search(r"<[^>]+\son[a-z]+\s*=", main, re.IGNORECASE):
+        failures.append("the 404 content contains an inline event handler")
+    checks.append(("404 without JS", failures))
+
+    # No meta refresh: the page must not redirect anywhere.
+    failures = []
+    refresh = _RefreshParser()
+    refresh.feed(text)
+    refresh.close()
+    if refresh.has_refresh:
+        failures.append("the 404 page uses a meta refresh")
+    checks.append(("404 without meta refresh", failures))
+
+    # The dark shell of the site survives: header, footer, stylesheet.
+    failures = []
+    if "<header" not in text:
+        failures.append("no <header> (site shell lost)")
+    if "<footer" not in text:
+        failures.append("no <footer> (site shell lost)")
+    if not re.search(r"<link[^>]*rel=stylesheet[^>]*>", text):
+        failures.append("no stylesheet link (dark shell lost)")
+    checks.append(("404 keeps the site shell", failures))
+
+    # Every site-absolute link on the page resolves in the build.
+    failures = []
+    targets = [href for href, _ in parser.anchors]
+    targets += [href for _, href in parser.alternates]
+    targets.append(parser.canonical or "")
+    for href in targets:
+        path = _norm(href)
+        if not path.startswith("/"):
+            continue
+        path = path.split("#")[0].split("?")[0]
+        if not path:
+            continue
+        if not _dist_target(path).exists():
+            failures.append("dangling link to %s" % path)
+    checks.append(("404 links resolve", failures))
+
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -1155,13 +1330,22 @@ def main():
         else:
             print("PASS " + label)
             sharing_passed += 1
+    notfound_checks = check_404()
+    notfound_passed = 0
+    for label, failures in notfound_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            notfound_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
             and case_passed == len(case_checks)
             and about_passed == len(about_checks)
             and contact_passed == len(contact_checks)
-            and sharing_passed == len(sharing_checks)):
+            and sharing_passed == len(sharing_checks)
+            and notfound_passed == len(notfound_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))
