@@ -348,6 +348,142 @@ def check_hiring():
     return checks
 
 
+# Task 4: three case studies on Projects. Facts are fixed by the plan;
+# "500+" belongs to the correo->ERP automation and lives in About, so it
+# is banned here. Each fact lists the accepted spellings (the minifier
+# keeps text as authored, but en/em dashes may vary by copy).
+CASE_ANCHORS = ("vision", "docflow", "subany")
+CASE_IMAGES = ("case-vision.svg", "case-docflow.svg", "case-subany.png")
+CASE_FACTS = {
+    "/projects/": [
+        ("21 API routers",),
+        ("24 services",),
+        ("24 screens",),
+        ("0–40 ms", "0-40 ms"),
+        ("15.3",),
+    ],
+    "/es/projects/": [
+        ("21 routers",),
+        ("24 servicios",),
+        ("24 pantallas",),
+        ("0–40 ms", "0-40 ms"),
+        ("15,3",),
+    ],
+}
+SUBANY_ARTICLE = "/blog/2026/11/09/how-subany-video-works/"
+ACTIVE_PRODUCT_URLS = (
+    "https://subany.video/",
+    "https://subany.site/",
+    "https://www.cleanyourphone.org/",
+    "https://www.cleanyourmail.org/",
+    "https://propovcs2.com/",
+)
+
+
+def _attr(tag, name):
+    """Attribute value from a raw start tag, quoted or minified-bare."""
+    match = re.search(r'\b%s=(?:"([^"]*)"|([^\s>]+))' % name, tag)
+    if match is None:
+        return None
+    return match.group(1) if match.group(1) is not None else match.group(2)
+
+
+def check_cases():
+    """Task 4 case-study assertions: (label, failures) pairs."""
+    checks = []
+
+    for route, facts in CASE_FACTS.items():
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("cases " + route, ["missing page"]))
+            continue
+
+        # Anchors must sit on the case h3 headings, in order, under an h2.
+        h1_pos = text.find("<h1")
+        h2_pos = text.find("<h2")
+        h3_pos = text.find("<h3")
+        if not (-1 < h1_pos < h2_pos < h3_pos):
+            failures.append("heading order wrong: h1@%d h2@%d h3@%d"
+                            % (h1_pos, h2_pos, h3_pos))
+        anchor_positions = []
+        for anchor in CASE_ANCHORS:
+            match = re.search(
+                r'<h3\b[^>]*\bid=(?:"%s"|%s(?=[\s>]))' % (anchor, anchor),
+                text)
+            if match is None:
+                failures.append('no h3 with id="%s"' % anchor)
+            else:
+                anchor_positions.append(match.start())
+        if len(anchor_positions) == len(CASE_ANCHORS):
+            if anchor_positions != sorted(anchor_positions):
+                failures.append("case anchors out of order")
+            if h2_pos != -1 and anchor_positions[0] < h2_pos:
+                failures.append("first case h3 precedes the section h2")
+
+        for alternatives in facts:
+            if not any(alt in text for alt in alternatives):
+                failures.append("missing fact: %s" % " / ".join(alternatives))
+        if "500+" in text:
+            failures.append("banned figure 500+ present (belongs in About)")
+
+        if _class_pos(text, "caseList") == -1:
+            failures.append("no .caseList markup")
+        case_count = len(re.findall(
+            r'<section\b[^>]*\bclass=(?:"case"|case(?=[\s>]))', text))
+        if case_count != 3:
+            failures.append("expected 3 .case sections, found %d" % case_count)
+        if not _href_present(text, SUBANY_ARTICLE):
+            failures.append("no link to the subany article %s" % SUBANY_ARTICLE)
+
+        # Every referenced local image must ship, and each case image
+        # must be referenced with meaningful alt text.
+        imgs = re.findall(r"<img\b[^>]*>", text)
+        srcs = {}
+        for tag in imgs:
+            src = _attr(tag, "src") or ""
+            srcs[src] = tag
+            if src.startswith("/images/"):
+                if not (ROOT / "dist" / src.lstrip("/")).is_file():
+                    failures.append("referenced image missing: " + src)
+        for name in CASE_IMAGES:
+            src = "/images/" + name
+            tag = srcs.get(src)
+            if tag is None:
+                failures.append("case image not referenced: " + src)
+            elif not (_attr(tag, "alt") or "").strip():
+                failures.append("case image lacks alt text: " + src)
+
+        # Active products and the archive/GitHub link stay below the cases.
+        for url in ACTIVE_PRODUCT_URLS:
+            if not _href_present(text, url):
+                failures.append("active product link missing: " + url)
+        if not _href_present(text, "https://github.com/jparedesDS"):
+            failures.append("archive GitHub link missing")
+        checks.append(("cases " + route, failures))
+
+    # The three case images ship at 1200x675 (SVG root size / PNG IHDR).
+    failures = []
+    for name in CASE_IMAGES:
+        path = ROOT / "dist" / "images" / name
+        if not path.is_file():
+            failures.append("dist/images/%s missing" % name)
+            continue
+        if name.endswith(".svg"):
+            svg = path.read_text(encoding="utf-8")
+            if 'width="1200"' not in svg or 'height="675"' not in svg:
+                failures.append("%s is not 1200x675" % name)
+        else:
+            data = path.read_bytes()
+            size = (int.from_bytes(data[16:20], "big"),
+                    int.from_bytes(data[20:24], "big"))
+            if data[:8] != b"\x89PNG\r\n\x1a\n" or size != (1200, 675):
+                failures.append("%s is not a 1200x675 PNG (got %r)"
+                                % (name, size))
+    checks.append(("case images shipped 1200x675", failures))
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -407,9 +543,18 @@ def main():
         else:
             print("PASS " + label)
             hire_passed += 1
+    case_checks = check_cases()
+    case_passed = 0
+    for label, failures in case_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            case_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
-            and hire_passed == len(hire_checks)):
+            and hire_passed == len(hire_checks)
+            and case_passed == len(case_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

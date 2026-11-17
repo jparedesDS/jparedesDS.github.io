@@ -957,6 +957,100 @@
       text-align: center;
     }
   }
+
+  /* Projects case studies: bordered cards with media, problem/solution/
+     result paragraphs, stack chips and links. */
+  .caseList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 1.2rem 0 2.4rem;
+  }
+
+  .case {
+    padding: 1.4rem 1.5rem 1.5rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 10px;
+    background: #2e2e33;
+  }
+
+  .case h3 {
+    margin: 0 0 1rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    color: #f8f8ff;
+  }
+
+  .caseMedia {
+    margin: 0 0 1.1rem;
+  }
+
+  .caseMedia img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #292a2d;
+  }
+
+  .caseMedia figcaption {
+    margin-top: 0.5rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.72rem;
+    color: #a8a8b3;
+  }
+
+  .case p {
+    margin: 0 0 0.7rem;
+    line-height: 1.65;
+    color: #c9c9cf;
+  }
+
+  .case p strong {
+    color: #f8f8ff;
+  }
+
+  .caseChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.9rem 0 0.9rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .caseChips li {
+    padding: 0.25rem 0.7rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 999px;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.72rem;
+    color: #80aadd;
+  }
+
+  .case p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .case a {
+    color: #80aadd;
+  }
+
+  .case a:hover {
+    color: #f8f8ff;
+  }
+
+  @media (max-width: 768px) {
+    .case {
+      padding: 1rem;
+    }
+
+    .case h3 {
+      font-size: 1.05rem;
+    }
+  }
   {{- end }}
 
   /* On 1080p the Nightfall layout reads small; emulate 125% page zoom. */
