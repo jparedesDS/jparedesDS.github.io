@@ -511,6 +511,115 @@ def check_cases():
     return checks
 
 
+# Task 5: About aligned with the CV. Figures are fixed by the plan; the
+# EIPSA tenure is "since 2024" — never "four years"/"4 years" or the ES
+# equivalents. Kaggle is a "bronze medal", never a podium place. The ES
+# CV link keeps /resume.pdf until Task 11 ships /resume-es.pdf (that
+# task updates this check).
+ABOUT_FACTS = {
+    "/about/": [
+        ("80%",),
+        ("500+",),
+        ("33+",),
+        ("268+",),
+        ("10+",),
+        ("Kaggle",),
+        ("DocFlow",),
+        ("21 API routers",),
+        ("24 service layers",),
+        ("24 frontend screens",),
+        ("10,000+",),
+        ("25%",),
+        ("50+",),
+        ("95%",),
+        ("bronze medal",),
+        ("ResNet152",),
+        ("Tableau",),
+        ("Open source",),
+        ("Languages:",),
+        ("native",),
+        ("B2",),
+    ],
+    "/es/about/": [
+        ("80%",),
+        ("500+",),
+        ("33+",),
+        ("268+",),
+        ("10+",),
+        ("Kaggle",),
+        ("DocFlow",),
+        ("21 routers",),
+        ("24 servicios",),
+        ("24 pantallas",),
+        ("10.000+", "10,000+"),
+        ("25%",),
+        ("50+",),
+        ("95%",),
+        ("medalla de bronce",),
+        ("ResNet152",),
+        ("Tableau",),
+        ("Código abierto",),
+        ("Idiomas:",),
+        ("nativo",),
+        ("B2",),
+    ],
+}
+ABOUT_SECTIONS = {
+    "/about/": ("Projects", "Experience", "Open source", "Education",
+                "Stack", "Writing", "Contact"),
+    "/es/about/": ("Proyectos", "Experiencia", "Código abierto", "Formación",
+                   "Stack", "Blog", "Contacto"),
+}
+ABOUT_BANNED = ("four years", "4 years", "cuatro años", "4 años",
+                "3rd place", "3er puesto", "tercer puesto")
+
+
+def check_about():
+    """Task 5 About/CV assertions: (label, failures) pairs."""
+    checks = []
+
+    for route, facts in ABOUT_FACTS.items():
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("about " + route, ["missing page"]))
+            continue
+
+        for alternatives in facts:
+            if not any(alt in text for alt in alternatives):
+                failures.append("missing fact: %s" % " / ".join(alternatives))
+        lowered = text.casefold()
+        for phrase in ABOUT_BANNED:
+            if phrase.casefold() in lowered:
+                failures.append("banned phrase present: %r" % phrase)
+        if route == "/es/about/" and "provisional" in lowered:
+            failures.append("provisional stub notice still present")
+        for name in ABOUT_SECTIONS[route]:
+            if re.search(r"<h2\b[^>]*>\s*%s\s*</h2>" % re.escape(name),
+                         text) is None:
+                failures.append("missing h2 section: %r" % name)
+
+        # CV link sits right under the intro paragraph: after the h1 and
+        # before the first section h2.
+        cv = re.search(
+            r'<a\b[^>]*href=(?:"/resume\.pdf"|/resume\.pdf)[^>]*>', text)
+        h1_pos = text.find("<h1")
+        h2_pos = text.find("<h2")
+        if cv is None:
+            failures.append('no href="/resume.pdf"')
+        elif not (-1 < h1_pos < cv.start() < h2_pos):
+            failures.append(
+                "CV link not between h1 and first h2: h1@%d cv@%d h2@%d"
+                % (h1_pos, cv.start(), h2_pos))
+
+        # Legacy deep links (/about/#projects) keep resolving.
+        if 'id="projects"' not in text and "id=projects" not in text:
+            failures.append('no id="projects" anchor')
+        checks.append(("about " + route, failures))
+
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -578,10 +687,19 @@ def main():
         else:
             print("PASS " + label)
             case_passed += 1
+    about_checks = check_about()
+    about_passed = 0
+    for label, failures in about_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            about_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
-            and case_passed == len(case_checks)):
+            and case_passed == len(case_checks)
+            and about_passed == len(about_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

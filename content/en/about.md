@@ -10,6 +10,8 @@ I am a data scientist and AI engineer based in Madrid. At [EIPSA](https://www.ei
 
 Resume: [PDF](/resume.pdf)
 
+Languages: Spanish (native) · English (B2)
+
 <span id="projects"></span>
 
 <h2>Projects</h2>
@@ -29,15 +31,26 @@ Resume: [PDF](/resume.pdf)
 
 Computer vision for metallurgy inspection and data automation: YOLO models for defect detection, annotation and evaluation pipelines, and the internal tools that put them to work.
 
-### Data Management Technician · Comunicación Permanente
-**2021 — 2023**
+- DocFlow, an internal SaaS in production: 21 API routers, 24 service layers and 24 frontend screens, with DocuSign, JWT and Docker + CI. Built with AI-assisted development using Claude.
+- DXF technical-drawing extraction: 80% less manual processing time.
+- Email→ERP automation: 500+ incoming documents per month.
+- Tableau dashboards for project documentation tracking.
 
-Customer data, incident reporting and the internal procedures behind them.
+### Data Management Technician · Comunicación Permanente
+**2021 — 2023** · Madrid
+
+Customer database of 10,000+ records; internal reporting improved incident tracking by 25%.
 
 ### Electronics Lab Technician · Grupo ANOVO
 **2015 — 2020**
 
-Diagnostics, repair and production quality data for consumer devices.
+Diagnostics and repair of 50+ consumer devices per week, at 95%+ quality.
+
+## Open source
+
+- 33+ public repositories on [GitHub](https://github.com/jparedesDS) and 268+ followers.
+- 10+ computer-vision models on [Hugging Face](https://huggingface.co/jparedesDS) (YOLO v9–v12).
+- Kaggle bronze medal in multilabel image classification (ResNet152).
 
 ## Education
 
