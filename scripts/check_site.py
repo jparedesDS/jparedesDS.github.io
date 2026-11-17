@@ -825,6 +825,190 @@ def check_contact():
     return checks
 
 
+# Task 7: social cards and Person structured data. Every rebuilt page
+# (EN, ES and blog) carries the same 1200x630 card. Preserved static
+# meta-refresh stubs are not pages of the rebuilt site and are exempt:
+# the two legacy product stubs, the legacy ES article URL (a noindex
+# redirect to the bilingual EN article) and /es/blog/. The Person
+# JSON-LD lives on the home pages only, with the jobTitle translated.
+# Home titles are the plan's exact strings (& may render as &amp;).
+OG_IMAGE_URL = BASE_URL + "/og-image.png"
+SHARING_EXEMPT = REDIRECT_ROUTES | {
+    "/blog/2026/11/09/como-funciona-subany-video/",
+}
+SHARING_ROUTES = [r for r in ROUTES
+                  if r.endswith("/") and r not in SHARING_EXEMPT] + ["/privacy/"]
+HOME_TITLES = {
+    "/": "Jose Paredes — Computer Vision & ML Engineer (Madrid)",
+    "/es/": "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)",
+}
+PERSON_JOBTITLES = {
+    "/": "Computer Vision & ML Engineer",
+    "/es/": "Ingeniero de Computer Vision y ML",
+}
+PERSON_KNOWSABOUT = ("Computer Vision", "YOLO", "PyTorch", "FastAPI",
+                     "React", "Docker")
+PERSON_ALUMNI = ("The Bridge", "Padre Piquer")
+
+
+def _meta_values(text, key, name):
+    """Content values of every <meta> whose `key` attribute equals name."""
+    values = []
+    for tag in re.findall(r"<meta\b[^>]*>", text):
+        if _attr(tag, key) == name:
+            values.append(_attr(tag, "content") or "")
+    return values
+
+
+def _jsonld_scripts(text):
+    """Contents of every <script type=application/ld+json> block."""
+    return re.findall(
+        r"<script\b[^>]*\btype=(?:\"application/ld\+json\""
+        r"|application/ld\+json(?=[\s>]))[^>]*>([\s\S]*?)</script>",
+        text)
+
+
+def check_sharing():
+    """Task 7 social-card / JSON-LD assertions: (label, failures) pairs."""
+    checks = []
+
+    for route in SHARING_ROUTES:
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("sharing " + route, ["missing page"]))
+            continue
+
+        # One absolute og:image pointing at a file that ships, plus the
+        # alt text and the fixed dimensions.
+        for prop, want in (("og:image", OG_IMAGE_URL),
+                           ("og:image:width", "1200"),
+                           ("og:image:height", "630")):
+            values = _meta_values(text, "property", prop)
+            if len(values) != 1:
+                failures.append("%s appears %d times, want 1"
+                                % (prop, len(values)))
+            elif values[0] != want:
+                failures.append("%s is %r, want %r" % (prop, values[0], want))
+        alts = _meta_values(text, "property", "og:image:alt")
+        if len(alts) != 1 or not alts[0].strip():
+            failures.append("og:image:alt missing, empty or duplicated")
+        images = _meta_values(text, "name", "twitter:image")
+        if len(images) != 1 or images[0] != OG_IMAGE_URL:
+            failures.append("twitter:image is %r, want one %s"
+                            % (images, OG_IMAGE_URL))
+        cards = _meta_values(text, "name", "twitter:card")
+        if len(cards) != 1 or cards[0] != "summary_large_image":
+            failures.append("twitter:card is %r, want one summary_large_image"
+                            % cards)
+
+        # No og:*/article:*/twitter:* meta may appear twice on a page.
+        seen = {}
+        for tag in re.findall(r"<meta\b[^>]*>", text):
+            for key in ("property", "name"):
+                value = _attr(tag, key) or ""
+                if value.startswith(("og:", "article:", "twitter:")):
+                    seen[value] = seen.get(value, 0) + 1
+        for name, count in sorted(seen.items()):
+            if count > 1:
+                failures.append("duplicate meta %s (x%d)" % (name, count))
+
+        # Person JSON-LD belongs to the home pages only.
+        if route not in HOME_TITLES and _jsonld_scripts(text):
+            failures.append("JSON-LD present off the home page")
+        checks.append(("sharing " + route, failures))
+
+    # The card assets ship: SVG source at 1200x630 in the Nightfall
+    # palette, PNG rendered from it at the same size.
+    failures = []
+    svg_path = ROOT / "dist" / "og-image.svg"
+    png_path = ROOT / "dist" / "og-image.png"
+    if not svg_path.is_file():
+        failures.append("dist/og-image.svg missing")
+    else:
+        svg = svg_path.read_text(encoding="utf-8")
+        if 'width="1200"' not in svg or 'height="630"' not in svg:
+            failures.append("og-image.svg is not 1200x630")
+        for color in ("#292a2d", "#f8f8ff", "#80aadd"):
+            if color not in svg:
+                failures.append("og-image.svg lacks palette color " + color)
+    if not png_path.is_file():
+        failures.append("dist/og-image.png missing")
+    else:
+        data = png_path.read_bytes()
+        size = (int.from_bytes(data[16:20], "big"),
+                int.from_bytes(data[20:24], "big"))
+        if data[:8] != b"\x89PNG\r\n\x1a\n" or size != (1200, 630):
+            failures.append("og-image.png is not a 1200x630 PNG (got %r)"
+                            % (size,))
+    checks.append(("og card assets shipped 1200x630", failures))
+
+    # Home titles, verbatim (entities decoded, whitespace trimmed).
+    for route, want in HOME_TITLES.items():
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            failures.append("missing page")
+        else:
+            match = re.search(r"<title>([\s\S]*?)</title>", text)
+            got = unescape(match.group(1)).strip() if match else None
+            if got != want:
+                failures.append("title is %r, want %r" % (got, want))
+        checks.append(("home title " + route, failures))
+
+    # Person JSON-LD on both home pages: valid JSON, one script, the
+    # plan's facts only.
+    for route, job_title in PERSON_JOBTITLES.items():
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            checks.append(("person jsonld " + route, ["missing page"]))
+            continue
+        scripts = _jsonld_scripts(text)
+        if len(scripts) != 1:
+            failures.append("expected 1 ld+json script, found %d"
+                            % len(scripts))
+        else:
+            try:
+                data = json.loads(scripts[0])
+            except json.JSONDecodeError as exc:
+                failures.append("invalid JSON: %s" % exc)
+                data = {}
+            if data.get("@type") != "Person":
+                failures.append("@type is %r, want Person" % data.get("@type"))
+            if data.get("name") != "Jose Paredes":
+                failures.append("name is %r" % data.get("name"))
+            if data.get("jobTitle") != job_title:
+                failures.append("jobTitle is %r, want %r"
+                                % (data.get("jobTitle"), job_title))
+            address = data.get("address") or {}
+            if (address.get("addressLocality") != "Madrid"
+                    or address.get("addressCountry") != "ES"):
+                failures.append("address is %r, want Madrid/ES" % address)
+            if data.get("url") != BASE_URL + route:
+                failures.append("url is %r, want %s"
+                                % (data.get("url"), BASE_URL + route))
+            if data.get("image") != OG_IMAGE_URL:
+                failures.append("image is %r, want %s"
+                                % (data.get("image"), OG_IMAGE_URL))
+            same_as = data.get("sameAs") or []
+            if set(same_as) != set(CONTACT_NETWORKS):
+                failures.append("sameAs is %r, want the six networks"
+                                % same_as)
+            knows = data.get("knowsAbout") or []
+            for topic in PERSON_KNOWSABOUT:
+                if topic not in knows:
+                    failures.append("knowsAbout lacks %r" % topic)
+            alumni = [a.get("name") for a in data.get("alumniOf") or []
+                      if isinstance(a, dict)]
+            for school in PERSON_ALUMNI:
+                if school not in alumni:
+                    failures.append("alumniOf lacks %r" % school)
+        checks.append(("person jsonld " + route, failures))
+
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -908,12 +1092,21 @@ def main():
         else:
             print("PASS " + label)
             contact_passed += 1
+    sharing_checks = check_sharing()
+    sharing_passed = 0
+    for label, failures in sharing_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            sharing_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
             and case_passed == len(case_checks)
             and about_passed == len(about_checks)
-            and contact_passed == len(contact_checks)):
+            and contact_passed == len(contact_checks)
+            and sharing_passed == len(sharing_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

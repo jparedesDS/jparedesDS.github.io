@@ -58,6 +58,10 @@
 [older_posts]
   other = "older posts"
 
+# Home <title> and social-card alt text (Task 7).
+[home_title]
+    other = "Jose Paredes — Computer Vision & ML Engineer (Madrid)"
+
 # Hiring strip on the home page (Task 3).
 [hire_role]
     other = "Computer Vision & ML Engineer"

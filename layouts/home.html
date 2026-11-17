@@ -2,11 +2,10 @@
 <html lang="{{ .Site.Language.Lang }}">
 
 <head>
-    <title>
-        {{ i18n "home" }} | {{ .Site.Params.author.name }}
-    </title>
+    <title>{{ i18n "home_title" }}</title>
 
     {{ partial "head.html" . }}
+    {{ partial "person-jsonld.html" . }}
 
 </head>
 

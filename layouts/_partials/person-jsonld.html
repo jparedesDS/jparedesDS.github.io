@@ -1,0 +1,32 @@
+{{- /* Person structured data, home pages only (Task 7). Static JSON-LD,
+       no JS. Facts are the plan's approved values; jobTitle is the
+       translated hiring role. Included from layouts/home.html, which
+       renders both the EN and the ES home. */ -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jose Paredes",
+  "jobTitle": "{{ i18n "hire_role" }}",
+  "url": "{{ .Permalink }}",
+  "image": "{{ "og-image.png" | absURL }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Madrid",
+    "addressCountry": "ES"
+  },
+  "sameAs": [
+    "https://github.com/jparedesDS",
+    "https://www.linkedin.com/in/jparedesDS/",
+    "https://x.com/xhitoCS",
+    "https://www.instagram.com/xhitoCS/",
+    "https://huggingface.co/jparedesDS",
+    "https://www.kaggle.com/joseparedesc"
+  ],
+  "knowsAbout": ["Computer Vision", "YOLO", "PyTorch", "FastAPI", "React", "Docker"],
+  "alumniOf": [
+    { "@type": "EducationalOrganization", "name": "The Bridge" },
+    { "@type": "EducationalOrganization", "name": "Padre Piquer" }
+  ]
+}
+</script>
