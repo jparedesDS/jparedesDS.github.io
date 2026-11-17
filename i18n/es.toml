@@ -107,5 +107,8 @@
 [nf_projects]
     other = "Proyectos"
 
+[nf_contact]
+    other = "Contacto"
+
 [nf_blog]
     other = "Blog"

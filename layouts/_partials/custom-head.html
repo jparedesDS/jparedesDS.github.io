@@ -11,7 +11,16 @@
 {{- if eq .RelPermalink "/blog/search/" }}
 <meta name="robots" content="noindex">
 {{- end }}
-{{- if and .IsPage (eq .Section "blog") }}
+{{- /* Complete OG/Twitter object on every page (final review). Blog
+       articles keep the article block below (with the ?lang=es
+       alternates and the ids the in-article language switch updates);
+       every other page gets the website block. The image tags are
+       shared, and the twitter card/title/description for non-articles
+       closes the set, so each page carries every tag exactly once. */ -}}
+{{- $isArticle := and .IsPage (eq .Section "blog") }}
+{{- $ogTitle := .Title }}
+{{- if .IsHome }}{{ $ogTitle = i18n "home_title" }}{{ end }}
+{{- if $isArticle }}
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" id="og-title" content="{{ .Title }}">
@@ -28,18 +37,26 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" id="twitter-title" content="{{ .Title }}">
 <meta name="twitter:description" id="twitter-description" content="{{ .Description | default .Site.Params.sitedescription }}">
+{{- else }}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:description" content="{{ .Description | default .Site.Params.sitedescription }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="{{ if eq .Site.Language.Lang "es" }}es_ES{{ else }}en_US{{ end }}">
 {{- end }}
-{{- /* Social card image on every page (Task 7). Blog pages already emit
-       their own og:title/og:url/twitter:card above, so only the image
-       tags are shared; the card type for non-blog pages lives here so
-       each page ends up with exactly one twitter:card. */ -}}
+{{- /* Social card image on every page (Task 7). The card itself is
+       English-only, so og:image:alt describes its English wording on
+       every page, in both languages (final review). */ -}}
 <meta property="og:image" content="{{ "og-image.png" | absURL }}">
-<meta property="og:image:alt" content="{{ i18n "home_title" }}">
+<meta property="og:image:alt" content="Social card reading 'Jose Paredes — Computer Vision &amp; ML Engineer' and 'Madrid · Open to opportunities', with Computer Vision, YOLO, PyTorch, FastAPI, React and Docker chips above jparedesds.github.io">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:image" content="{{ "og-image.png" | absURL }}">
-{{- if not (and .IsPage (eq .Section "blog")) }}
+{{- if not $isArticle }}
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $ogTitle }}">
+<meta name="twitter:description" content="{{ .Description | default .Site.Params.sitedescription }}">
 {{- end }}
 {{- /* Reciprocal hreflang for the bilingual site pages. Blog pages are
        excluded: the article block above already emits its own ?lang=es
@@ -117,6 +134,9 @@
     margin: 0.45rem 0 0;
     font-family: "Open Sans", sans-serif;
     font-size: 1.15rem;
+    /* The role is an h2 for the heading outline (final review); keep
+       the paragraph weight it had before. */
+    font-weight: 400;
     color: #c9c9cf;
   }
 
@@ -967,6 +987,12 @@
     .hireActions a {
       width: 100%;
       text-align: center;
+      /* 44px touch target (final review); flex centring keeps the
+         label vertically centred once the button grows. */
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 

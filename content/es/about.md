@@ -5,7 +5,7 @@ user = "sobre-mi"
 showMetadata = false
 +++
 
-Soy científico de datos e ingeniero de IA en Madrid. En [EIPSA](https://www.eipsa.es/) construyo sistemas de visión artificial y automatización de datos para ingeniería industrial: desde modelos de inspección en la línea de producción hasta las herramientas que los rodean. Fuera del trabajo desarrollo productos de IA local-first: herramientas que se ejecutan en tu propia máquina y mantienen tus datos ahí.
+Soy ingeniero de computer vision y ML y vivo en Madrid. En [EIPSA](https://www.eipsa.es/) construyo sistemas de visión artificial y automatización de datos para ingeniería industrial: desde modelos de inspección en la línea de producción hasta las herramientas que los rodean. Fuera del trabajo desarrollo productos de IA local-first: herramientas que se ejecutan en tu propia máquina y mantienen tus datos ahí.
 
 Currículum: [PDF](/resume-es.pdf)
 

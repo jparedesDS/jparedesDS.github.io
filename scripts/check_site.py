@@ -5,7 +5,7 @@ Run from the repo root after a Hugo build:
 
     python scripts/check_site.py
 
-Prints a PASS/FAIL line per route and a summary (`OK 25/25`), exiting 0
+Prints a PASS/FAIL line per route and a summary (`OK 28/28`), exiting 0
 when everything passes and 1 otherwise. Each task of the plan adds its
 assertions to main()/check_route(). Stdlib only, plus PyMuPDF (fitz,
 already installed) for the Task 11 CV PDF checks.
@@ -34,6 +34,9 @@ ROUTES = [
     "/propovcs2/", "/cleanyourmail/", "/privacy/",
     "/es/", "/es/about/", "/es/projects/", "/es/contact/", "/es/privacy/",
     "/es/blog/",
+    # Preserved routes outside the rebuild (final review): /work/ is a
+    # redirect stub; /cs2pov/ and /murdoku/ are standalone app pages.
+    "/work/", "/cs2pov/", "/murdoku/",
 ]
 
 BASE_URL = "https://jparedesds.github.io"
@@ -48,17 +51,40 @@ PAGE_PAIRS = [
     ("/privacy/", "/es/privacy/"),
 ]
 
-# Controller ruling (Task 1 review, extended by the Task 7 review):
-# these preserved static meta-refresh stubs are redirects, not content
-# pages, so they may skip <main> and the social-card tags. The exemption
-# is this explicit named list only; check_sharing() additionally proves
-# each stub really is a noindex meta-refresh redirect. Every other HTML
+# Controller ruling (Task 1 review, extended by the Task 7 review and
+# the final review): these preserved static meta-refresh stubs are
+# redirects, not content pages, so they may skip <main> and the
+# social-card tags. The exemption is this explicit named list only;
+# check_sharing() additionally proves each stub really is a noindex
+# meta-refresh redirect to its approved target. The STANDALONE_PAGES
+# below are likewise exempt from the social tags. Every other HTML
 # route must contain <main and carry the full social tag set.
 REDIRECT_STUBS = {
     "/propovcs2/",
     "/cleanyourmail/",
     "/blog/2026/11/09/como-funciona-subany-video/",
     "/es/blog/",
+    "/work/",
+}
+
+# Where each redirect stub must point (final review): the refresh target
+# is asserted, not just its presence. Values compare after _norm().
+REFRESH_TARGETS = {
+    "/propovcs2/": "https://propovcs2.com/",
+    "/cleanyourmail/": "https://cleanyourmail.org/",
+    "/blog/2026/11/09/como-funciona-subany-video/":
+        "/blog/2026/11/09/how-subany-video-works/?lang=es",
+    "/es/blog/": "/blog/",
+    "/work/": "/projects/",
+}
+
+# Preserved standalone app pages (final review): they ship their own
+# markup, not the rebuilt dark shell, so they are exempt from the
+# social-tag, menu, consent, footer and pulse assertions — but they are
+# still routes that must exist and render <main>.
+STANDALONE_PAGES = {
+    "/cs2pov/",
+    "/murdoku/",
 }
 
 
@@ -258,7 +284,7 @@ HIRE_COPY = {
         "cv_url": "/resume.pdf",
         "email": "Email me",
         "projects": "Active projects",
-        "banned": "four years",
+        "banned": ("four years", "4 years"),
     },
     "/es/": {
         "lang": "es",
@@ -274,7 +300,7 @@ HIRE_COPY = {
         "cv_url": "/resume-es.pdf",
         "email": "Escríbeme",
         "projects": "Proyectos activos",
-        "banned": "cuatro años",
+        "banned": ("cuatro años", "4 años"),
     },
 }
 
@@ -319,8 +345,18 @@ def check_hiring():
                 failures.append("missing %s copy: %r" % (key, wanted))
         if copy["proof_marker"] not in text:
             failures.append("proof lacks %r" % copy["proof_marker"])
-        if copy["banned"].casefold() in text.casefold():
-            failures.append("banned phrase present: %r" % copy["banned"])
+        lowered = text.casefold()
+        for phrase in copy["banned"]:
+            if phrase.casefold() in lowered:
+                failures.append("banned phrase present: %r" % phrase)
+        # The role is a real h2 in the heading outline (final review),
+        # not a styled paragraph.
+        if re.search(r'<h2\b[^>]*\bclass=(?:"profileRole"'
+                     r'|profileRole(?=[\s>]))', text) is None:
+            failures.append("role is not an h2.profileRole")
+        if re.search(r'<p\b[^>]*\bclass=(?:"profileRole"'
+                     r'|profileRole(?=[\s>]))', text) is not None:
+            failures.append("role still rendered as p.profileRole")
         for cls in ("hireStrip", "hireAvailability", "hireProof",
                     "hireActions"):
             if _class_pos(text, cls) == -1:
@@ -366,6 +402,35 @@ def check_hiring():
         if not (ROOT / "dist" / name).is_file():
             failures.append("dist/%s missing" % name)
     checks.append(("CV PDFs shipped", failures))
+
+    # Mobile CV/email buttons keep a 44px touch target (final review):
+    # min-height:44px must sit in the .hireActions a rule inside the
+    # max-width:768px media query, not in the desktop rule.
+    failures = []
+    text, _ = _parse("/")
+    if text is None:
+        failures.append("missing page")
+    else:
+        style = re.search(r"<style>([\s\S]*?)</style>", text)
+        css = style.group(1) if style else ""
+        found = False
+        for m in re.finditer(r"@media[^{]*\{", css):
+            if "max-width:768px" not in re.sub(r"\s+", "", m.group(0)):
+                continue
+            body = _brace_body(css, m.end() - 1)
+            if body is None:
+                continue
+            compact = re.sub(r"\s+", "", body)
+            pos = compact.find(".hireActionsa{")
+            if pos == -1:
+                continue
+            rule = _brace_body(compact, pos + len(".hireActionsa"))
+            if rule and "min-height:44px" in rule:
+                found = True
+        if not found:
+            failures.append("no min-height:44px in the mobile "
+                            ".hireActions a rule")
+    checks.append(("hire buttons mobile touch target", failures))
     return checks
 
 
@@ -404,6 +469,27 @@ CASE_FACTS = {
     ],
 }
 SUBANY_ARTICLE = "/blog/2026/11/09/how-subany-video-works/"
+# Final review: the public docflow repository is DocFlow Lite, a
+# CustomTkinter desktop app — not the internal SaaS the case describes.
+# The link label and the clarifying sentence are pinned; the old
+# "Code on GitHub" wording must not return.
+DOCFLOW_REPO_URL = "https://github.com/jparedesDS/docflow"
+DOCFLOW_LITE = {
+    "/projects/": {
+        "label": "DocFlow Lite on GitHub",
+        "sentence": ("The public repository is DocFlow Lite, a "
+                     "CustomTkinter desktop app; the SaaS described "
+                     "here is internal."),
+        "old_label": "Code on GitHub",
+    },
+    "/es/projects/": {
+        "label": "DocFlow Lite en GitHub",
+        "sentence": ("El repositorio público es DocFlow Lite, una "
+                     "aplicación de escritorio en CustomTkinter; el "
+                     "SaaS descrito aquí es interno."),
+        "old_label": "Código en GitHub",
+    },
+}
 ACTIVE_PRODUCT_URLS = (
     "https://subany.video/",
     "https://subany.site/",
@@ -427,7 +513,7 @@ def check_cases():
 
     for route, facts in CASE_FACTS.items():
         failures = []
-        text, _ = _parse(route)
+        text, parser = _parse(route)
         if text is None:
             checks.append(("cases " + route, ["missing page"]))
             continue
@@ -457,9 +543,13 @@ def check_cases():
         for alternatives in facts:
             if not any(alt in text for alt in alternatives):
                 failures.append("missing fact: %s" % " / ".join(alternatives))
-        if "500+" in text:
+        # The claim bans apply to the page copy (<main>), not to the
+        # head: the shared social-card alt describes the card's stack
+        # chips (PyTorch among them) on every page (final review).
+        main = _main_html(text) or ""
+        if "500+" in main:
             failures.append("banned figure 500+ present (belongs in About)")
-        lowered = text.casefold()
+        lowered = main.casefold()
         for claim in CASE_BANNED:
             if claim.casefold() in lowered:
                 failures.append("unapproved claim present: %r" % claim)
@@ -508,6 +598,20 @@ def check_cases():
                 failures.append("active product link missing: " + url)
         if not _href_present(text, "https://github.com/jparedesDS"):
             failures.append("archive GitHub link missing")
+
+        # The DocFlow evidence link names the Lite desktop repo, and the
+        # case says the SaaS itself is internal (final review).
+        lite = DOCFLOW_LITE[route]
+        if not any(href == DOCFLOW_REPO_URL and label == lite["label"]
+                   for href, label in parser.anchors):
+            failures.append("no link labelled %r to %s"
+                            % (lite["label"], DOCFLOW_REPO_URL))
+        if lite["sentence"] not in text:
+            failures.append("missing Lite clarification: %r"
+                            % lite["sentence"])
+        if lite["old_label"] in text:
+            failures.append("old evidence label present: %r"
+                            % lite["old_label"])
         checks.append(("cases " + route, failures))
 
     # The three case images ship at 1200x675 (SVG root size / PNG IHDR).
@@ -673,6 +777,85 @@ def check_about():
     return checks
 
 
+# Final review: the positioning is Computer Vision & ML, not the old
+# "data scientist and AI engineer" wording. The About intros and the
+# global sitedescription (localized per language) carry the approved
+# copy, and the old wording must be gone from every built page.
+SITE_DESCRIPTIONS = {
+    "en": ("Computer Vision & ML Engineer in Madrid. Industrial quality "
+           "control and local-first AI products."),
+    "es": ("Ingeniero de Computer Vision y ML en Madrid. Control de "
+           "calidad industrial y productos de IA local-first."),
+}
+POSITIONING_OLD = ("data scientist and ai engineer",
+                   "científico de datos e ingeniero de ia")
+POSITIONING_INTROS = {
+    "/about/": "I am a computer vision and ML engineer based in Madrid.",
+    "/es/about/": "Soy ingeniero de computer vision y ML y vivo en Madrid.",
+    "/blog/faq/": "a computer vision and ML engineer in Madrid",
+}
+# Pages that inherit the global sitedescription (no description of
+# their own in front matter), mapped to the language they must use.
+DESCRIPTION_ROUTES = {
+    "/": "en", "/about/": "en", "/projects/": "en", "/contact/": "en",
+    "/privacy/": "en", "/blog/": "en", "/blog/search/": "en",
+    "/blog/tags/": "en", "/blog/tags/hls/": "en",
+    "/blog/archives/": "en", "/blog/faq/": "en",
+    "/es/": "es", "/es/about/": "es", "/es/projects/": "es",
+    "/es/contact/": "es", "/es/privacy/": "es",
+}
+
+
+def check_positioning():
+    """Final-review positioning assertions: (label, failures) pairs."""
+    checks = []
+
+    # The old wording is gone from every built HTML page.
+    failures = []
+    for route in ROUTES:
+        if not route.endswith(("/", ".html")):
+            continue
+        text, _ = _parse(route)
+        if text is None:
+            continue  # missing files already fail in check_route
+        lowered = text.casefold()
+        for phrase in POSITIONING_OLD:
+            if phrase in lowered:
+                failures.append("%s still says %r" % (route, phrase))
+    checks.append(("old positioning gone", failures))
+
+    # The new intros are present, verbatim.
+    for route, intro in POSITIONING_INTROS.items():
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            failures.append("missing page")
+        elif intro not in text:
+            failures.append("missing intro: %r" % intro)
+        checks.append(("positioning intro " + route, failures))
+
+    # The inherited meta description is the approved sitedescription,
+    # in the page's own language (ES pages no longer inherit the EN
+    # one).
+    for route, lang in DESCRIPTION_ROUTES.items():
+        failures = []
+        text, _ = _parse(route)
+        if text is None:
+            failures.append("missing page")
+        else:
+            values = _meta_values(text, "name", "description")
+            want = SITE_DESCRIPTIONS[lang]
+            if len(values) != 1:
+                failures.append("meta description appears %d times, "
+                                "want 1" % len(values))
+            elif unescape(values[0]) != want:
+                failures.append("meta description is %r, want %r"
+                                % (values[0], want))
+        checks.append(("sitedescription " + route, failures))
+
+    return checks
+
+
 # Task 6: the Contact pages open with the approved availability line and
 # link the email with a prefilled subject. The subject is the plan's value
 # and is NOT translated: both languages must carry the very same string.
@@ -788,9 +971,12 @@ def check_contact():
                                 % copy["availability"])
             if copy["intro"] not in visible:
                 failures.append("lead lacks: %r" % copy["intro"])
-        if text.count(copy["availability"]) != 1:
+        # Availability is stated once in the page copy. The count is
+        # scoped to <main>: the head's social-card alt quotes the
+        # card's own availability line (final review).
+        if main.count(copy["availability"]) != 1:
             failures.append("availability appears %d times, want 1"
-                            % text.count(copy["availability"]))
+                            % main.count(copy["availability"]))
 
         # No availability date is approved: none anywhere in the copy.
         if re.search(r"\b(19|20)\d{2}\b", main):
@@ -847,20 +1033,55 @@ def check_contact():
 
 
 # Task 7: social cards and Person structured data. Every rebuilt page
-# (EN, ES and blog) carries the same 1200x630 card. Only the explicit
-# REDIRECT_STUBS list is exempt (controller ruling, Task 7 review):
-# those static documents are noindex meta-refresh redirects, not pages
-# of the rebuilt site, and check_sharing() verifies each one as such.
+# (EN, ES and blog) carries the same 1200x630 card and, since the final
+# review, the complete OG/Twitter object. The explicit REDIRECT_STUBS
+# list is exempt (controller ruling, Task 7 review): those static
+# documents are noindex meta-refresh redirects, not pages of the
+# rebuilt site, and check_sharing() verifies each one as such. The
+# STANDALONE_PAGES (cs2pov, murdoku) are preserved app pages outside
+# the rebuild and keep their own markup, so they are exempt too.
 # The Person JSON-LD lives on the home pages only, with the jobTitle
 # translated. Home titles are the plan's exact strings (& may render
 # as &amp;).
 OG_IMAGE_URL = BASE_URL + "/og-image.png"
+# The card is English-only: its alt describes the English wording on
+# every page, in both languages (final review).
+OG_IMAGE_ALT = ("Social card reading 'Jose Paredes — Computer Vision & "
+                "ML Engineer' and 'Madrid · Open to opportunities', with "
+                "Computer Vision, YOLO, PyTorch, FastAPI, React and "
+                "Docker chips above jparedesds.github.io")
 SHARING_ROUTES = [r for r in ROUTES
-                  if r.endswith("/") and r not in REDIRECT_STUBS]
+                  if r.endswith("/") and r not in REDIRECT_STUBS
+                  and r not in STANDALONE_PAGES]
 HOME_TITLES = {
     "/": "Jose Paredes — Computer Vision & ML Engineer (Madrid)",
     "/es/": "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)",
 }
+# Expected og:title per non-stub page (final review): the home pages
+# share their full <title>, every other page its own .Title.
+OG_TITLES = {
+    "/": HOME_TITLES["/"],
+    "/es/": HOME_TITLES["/es/"],
+    "/about/": "About",
+    "/es/about/": "Sobre mí",
+    "/projects/": "Projects",
+    "/es/projects/": "Proyectos",
+    "/contact/": "Contact",
+    "/es/contact/": "Contacto",
+    "/privacy/": "Privacy",
+    "/es/privacy/": "Privacidad",
+    "/blog/": "Blog",
+    "/blog/search/": "Search",
+    "/blog/tags/": "Tags",
+    "/blog/tags/hls/": "Hls",
+    "/blog/archives/": "Archive",
+    "/blog/faq/": "FAQ",
+    "/blog/2026/11/09/how-subany-video-works/":
+        "How subany.video works: live subtitles in the browser",
+}
+# The only article among the sharing routes: it keeps og:type=article,
+# article:published_time and the og:locale:alternate/hreflang block.
+ARTICLE_ROUTES = {"/blog/2026/11/09/how-subany-video-works/"}
 PERSON_JOBTITLES = {
     "/": "Computer Vision & ML Engineer",
     "/es/": "Ingeniero de Computer Vision y ML",
@@ -910,6 +1131,13 @@ def check_sharing():
             refresh.close()
             if not refresh.has_refresh or not refresh.targets:
                 failures.append("no valid meta-refresh redirect")
+            else:
+                want_target = REFRESH_TARGETS.get(route)
+                if want_target is not None and not any(
+                        _norm(t) == _norm(want_target)
+                        for t in refresh.targets):
+                    failures.append("refresh targets %r, want %r"
+                                    % (refresh.targets, want_target))
             robots = _meta_values(text, "name", "robots")
             if not any("noindex" in value for value in robots):
                 failures.append("no noindex robots meta")
@@ -936,6 +1164,9 @@ def check_sharing():
         alts = _meta_values(text, "property", "og:image:alt")
         if len(alts) != 1 or not alts[0].strip():
             failures.append("og:image:alt missing, empty or duplicated")
+        elif unescape(alts[0]) != OG_IMAGE_ALT:
+            failures.append("og:image:alt is %r, want the English card "
+                            "description %r" % (alts[0], OG_IMAGE_ALT))
         images = _meta_values(text, "name", "twitter:image")
         if len(images) != 1 or images[0] != OG_IMAGE_URL:
             failures.append("twitter:image is %r, want one %s"
@@ -955,6 +1186,66 @@ def check_sharing():
         for name, count in sorted(seen.items()):
             if count > 1:
                 failures.append("duplicate meta %s (x%d)" % (name, count))
+
+        # The complete OG/Twitter object, exactly once per tag (final
+        # review): type, site_name, title, description, url, locale and
+        # the twitter mirrors — not just the image tags.
+        is_article = route in ARTICLE_ROUTES
+        want_type = "article" if is_article else "website"
+        want_locale = "es_ES" if route.startswith("/es/") else "en_US"
+        for prop, want in (("og:type", want_type),
+                           ("og:site_name", "Jose Paredes"),
+                           ("og:title", OG_TITLES[route]),
+                           ("og:url", BASE_URL + route),
+                           ("og:locale", want_locale)):
+            values = _meta_values(text, "property", prop)
+            if len(values) != 1:
+                failures.append("%s appears %d times, want 1"
+                                % (prop, len(values)))
+            elif unescape(values[0]) != want:
+                failures.append("%s is %r, want %r"
+                                % (prop, values[0], want))
+
+        # og:description mirrors the page's own meta description (the
+        # localized sitedescription where the page has none); the
+        # twitter tags mirror their og counterparts.
+        descriptions = _meta_values(text, "name", "description")
+        og_desc = _meta_values(text, "property", "og:description")
+        if len(descriptions) != 1 or not descriptions[0].strip():
+            failures.append("meta description missing, empty or "
+                            "duplicated")
+        if len(og_desc) != 1:
+            failures.append("og:description appears %d times, want 1"
+                            % len(og_desc))
+        elif descriptions and unescape(og_desc[0]) != unescape(descriptions[0]):
+            failures.append("og:description %r differs from meta "
+                            "description %r" % (og_desc[0], descriptions[0]))
+        tw_titles = _meta_values(text, "name", "twitter:title")
+        if len(tw_titles) != 1 or unescape(tw_titles[0]) != OG_TITLES[route]:
+            failures.append("twitter:title is %r, want one %r"
+                            % (tw_titles, OG_TITLES[route]))
+        tw_descs = _meta_values(text, "name", "twitter:description")
+        if len(tw_descs) != 1 or (og_desc and unescape(tw_descs[0])
+                                  != unescape(og_desc[0])):
+            failures.append("twitter:description is %r, want one copy of "
+                            "og:description" % tw_descs)
+
+        # Article-only tags: published_time and the ES alternate stay
+        # on the article and appear nowhere else.
+        published = _meta_values(text, "property", "article:published_time")
+        alternates = _meta_values(text, "property", "og:locale:alternate")
+        if is_article:
+            if len(published) != 1 or not published[0].strip():
+                failures.append("article:published_time missing, empty "
+                                "or duplicated")
+            if len(alternates) != 1 or alternates[0] != "es_ES":
+                failures.append("og:locale:alternate is %r, want one "
+                                "es_ES" % alternates)
+        else:
+            if published:
+                failures.append("article:published_time off an article")
+            if alternates:
+                failures.append("og:locale:alternate off an article")
 
         # Person JSON-LD belongs to the home pages only.
         if route not in HOME_TITLES and _jsonld_scripts(text):
@@ -1094,6 +1385,8 @@ NF_LINKS = {
     "/es/": "Volver al inicio",
     "/projects/": "Projects",
     "/es/projects/": "Proyectos",
+    "/contact/": "Contact",
+    "/es/contact/": "Contacto",
     "/blog/": "Blog",
 }
 
@@ -1188,7 +1481,7 @@ def check_404():
                         "(en@%d rule@%d es@%d)" % (en_pos, rule, es_pos))
     checks.append(("404 rule", failures))
 
-    # The five approved links, each with visible text.
+    # The approved links, each with visible text.
     failures = []
     body = _LangParser()
     body.feed(main)
@@ -1259,7 +1552,8 @@ def check_404():
 # that carries the site header must ship the new markup; the redirect
 # stubs have no header and are exempt.
 MENU_ROUTES = [r for r in ROUTES
-               if r.endswith("/") and r not in REDIRECT_STUBS]
+               if r.endswith("/") and r not in REDIRECT_STUBS
+               and r not in STANDALONE_PAGES]
 MENU_ROUTES += ["/404.html"]
 MENU_LABELS = {"en": "Menu", "es": "Menú"}
 
@@ -1749,7 +2043,6 @@ CV_FACTS = {
         ("github.com/jparedesDS",),
         ("jparedesds.github.io",),
         ("local-first",),
-        ("Bilingual",),
         ("EIPSA",),
         ("Data Analyst & AI Engineer",),
         ("01/2024",), ("Present",),
@@ -1781,7 +2074,7 @@ CV_FACTS = {
         ("09/2021",), ("06/2022",),
         ("Advanced Vocational Degree in Telecommunications",),
         ("Padre Piquer",), ("2010",), ("2012",),
-        ("Spanish",), ("native",), ("English",), ("B2",),
+        ("Spanish (native)",), ("English (B2)",),
         ("33+",), ("268+",), ("10+",),
         ("Hugging Face",), ("v9",), ("v12",),
         ("Kaggle",),
@@ -1799,7 +2092,6 @@ CV_FACTS = {
         ("github.com/jparedesDS",),
         ("jparedesds.github.io",),
         ("local-first",),
-        ("Bilingüe",),
         ("EIPSA",),
         ("Analista de datos e ingeniero de IA",),
         ("01/2024",), ("actualidad",),
@@ -1831,7 +2123,7 @@ CV_FACTS = {
         ("09/2021",), ("06/2022",),
         ("Grado Superior en Telecomunicaciones",),
         ("Padre Piquer",), ("2010",), ("2012",),
-        ("Español",), ("nativo",), ("Inglés",), ("B2",),
+        ("Español (nativo)",), ("Inglés (B2)",),
         ("33+",), ("268+",), ("10+",),
         ("Hugging Face",), ("v9",), ("v12",),
         ("Kaggle",),
@@ -1839,8 +2131,12 @@ CV_FACTS = {
         ("ResNet152",),
     ],
 }
+# Final review: the CVs may only claim Spanish native + English B2 in
+# the Languages section; the "Bilingual"/"Bilingüe" summary overstatement
+# is banned alongside the tenure phrases and podium places.
 CV_BANNED = ("four years", "4 years", "cuatro años", "4 años",
-             "3rd place", "3er puesto", "tercer puesto")
+             "3rd place", "3er puesto", "tercer puesto",
+             "bilingual", "bilingüe")
 
 
 def _pdf_text(doc):
@@ -2019,6 +2315,14 @@ def main():
         else:
             print("PASS " + label)
             about_passed += 1
+    positioning_checks = check_positioning()
+    positioning_passed = 0
+    for label, failures in positioning_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            positioning_passed += 1
     contact_checks = check_contact()
     contact_passed = 0
     for label, failures in contact_checks:
@@ -2072,6 +2376,7 @@ def main():
             and hire_passed == len(hire_checks)
             and case_passed == len(case_checks)
             and about_passed == len(about_checks)
+            and positioning_passed == len(positioning_checks)
             and contact_passed == len(contact_checks)
             and sharing_passed == len(sharing_checks)
             and notfound_passed == len(notfound_checks)

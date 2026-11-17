@@ -59,7 +59,9 @@ Tres proyectos, cada uno con su problema, lo que hice y el resultado. Todo lo qu
   <li>CI</li>
 </ul>
 
-[Código en GitHub](https://github.com/jparedesDS/docflow)
+El repositorio público es DocFlow Lite, una aplicación de escritorio en CustomTkinter; el SaaS descrito aquí es interno.
+
+[DocFlow Lite en GitHub](https://github.com/jparedesDS/docflow)
 
 </section>
 

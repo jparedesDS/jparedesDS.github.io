@@ -59,7 +59,9 @@ Three builds, each with the problem, what I did and the result. Everything here 
   <li>CI</li>
 </ul>
 
-[Code on GitHub](https://github.com/jparedesDS/docflow)
+The public repository is DocFlow Lite, a CustomTkinter desktop app; the SaaS described here is internal.
+
+[DocFlow Lite on GitHub](https://github.com/jparedesDS/docflow)
 
 </section>
 

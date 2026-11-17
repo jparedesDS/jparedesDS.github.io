@@ -6,7 +6,7 @@ user = "about"
 showMetadata = false
 +++
 
-I am a data scientist and AI engineer based in Madrid. At [EIPSA](https://www.eipsa.es/) I build computer vision systems and data automation for industrial engineering, from inspection models on the production line to the tooling that surrounds them. Outside of work I build local-first AI products: tools that run on your own machine and keep your data there.
+I am a computer vision and ML engineer based in Madrid. At [EIPSA](https://www.eipsa.es/) I build computer vision systems and data automation for industrial engineering, from inspection models on the production line to the tooling that surrounds them. Outside of work I build local-first AI products: tools that run on your own machine and keep your data there.
 
 Resume: [PDF](/resume.pdf)
 

@@ -28,15 +28,29 @@ foreach ($t in $targets) {
     if (-not (Test-Path $html)) {
         throw "Missing template: $html"
     }
+    # Print to a temp file first: a failed or half-written Chrome run
+    # must never replace the shipped PDF (final review).
+    $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("cv-print-" + [guid]::NewGuid().ToString("N") + ".pdf")
     $url = "file:///" + ($html -replace "\\", "/")
     Write-Host "Printing $($t.Html) -> static/$($t.Pdf)"
-    Start-Process -FilePath $Chrome -Wait -NoNewWindow -ArgumentList @(
+    $proc = Start-Process -FilePath $Chrome -Wait -NoNewWindow -PassThru -ArgumentList @(
         "--headless=new",
         "--no-pdf-header-footer",
-        "--print-to-pdf=$pdf",
+        "--print-to-pdf=$tmp",
         $url
     )
-    if (-not (Test-Path $pdf)) {
-        throw "Chrome did not produce $pdf"
+    if ($proc.ExitCode -ne 0) {
+        Remove-Item $tmp -ErrorAction SilentlyContinue
+        throw "Chrome exited with code $($proc.ExitCode) printing $($t.Html); static/$($t.Pdf) left untouched"
     }
+    if (-not (Test-Path $tmp)) {
+        throw "Chrome did not produce a PDF for $($t.Html); static/$($t.Pdf) left untouched"
+    }
+    $size = (Get-Item $tmp).Length
+    if ($size -le 0) {
+        Remove-Item $tmp -ErrorAction SilentlyContinue
+        throw "Chrome produced an empty PDF for $($t.Html); static/$($t.Pdf) left untouched"
+    }
+    Move-Item -Path $tmp -Destination $pdf -Force
+    Write-Host "Replaced static/$($t.Pdf) ($size bytes)"
 }

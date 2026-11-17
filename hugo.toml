@@ -28,6 +28,9 @@ defaultContentLanguageInSubdir = false
 [languages.es.params]
   # Task 11: the Spanish CV ships as /resume-es.pdf.
   resumeUrl = "/resume-es.pdf"
+  # Localized positioning: every ES page inherits this description
+  # instead of the English one.
+  sitedescription = "Ingeniero de Computer Vision y ML en Madrid. Control de calidad industrial y productos de IA local-first."
 
 [module]
   [module.hugoVersion]
@@ -78,7 +81,7 @@ showReadingTime = true
 showTags = true
 showAuthors = false
 showCategories = false
-sitedescription = "Data scientist and AI engineer in Madrid."
+sitedescription = "Computer Vision & ML Engineer in Madrid. Industrial quality control and local-first AI products."
 footerHtml = '© 2026 Jose Paredes · Built with <a href="https://gohugo.io" class="footerLink">Hugo</a> and <a href="https://github.com/LordMathis/hugo-theme-nightfall" class="footerLink">Nightfall</a>'
 
 [params.author]
