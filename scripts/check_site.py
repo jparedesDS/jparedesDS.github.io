@@ -651,6 +651,148 @@ def check_about():
     return checks
 
 
+# Task 6: the Contact pages open with the approved availability line and
+# link the email with a prefilled subject. The subject is the plan's value
+# and is NOT translated: both languages must carry the very same string.
+# Availability dates, salary figures, work-mode and relocation claims are
+# not approved, so they are banned on both pages.
+CONTACT_COPY = {
+    "/contact/": {
+        "lang": "en",
+        "availability": "Madrid · Open to opportunities",
+        "intro": ("select AI, computer-vision and local-first product "
+                  "work"),
+    },
+    "/es/contact/": {
+        "lang": "es",
+        "availability": "Madrid · Abierto a oportunidades",
+        "intro": ("proyectos selectos de IA, visión por computador y "
+                  "productos local-first"),
+    },
+}
+CONTACT_MAILTO = ("mailto:jparedescolmenarejo@gmail.com"
+                  "?subject=Oportunidad%20CV%20/%20ML")
+CONTACT_EMAIL = "jparedescolmenarejo@gmail.com"
+# Same networks and same products on both pages (plan, Task 6 Step 2).
+CONTACT_NETWORKS = (
+    "https://github.com/jparedesDS",
+    "https://www.linkedin.com/in/jparedesDS/",
+    "https://x.com/xhitoCS",
+    "https://www.instagram.com/xhitoCS/",
+    "https://huggingface.co/jparedesDS",
+    "https://www.kaggle.com/joseparedesc",
+)
+CONTACT_PROJECTS = (
+    "https://subany.video/",
+    "https://subany.site/",
+    "https://www.cleanyourphone.org/",
+    "https://www.cleanyourmail.org/",
+    "https://propovcs2.com/",
+)
+CONTACT_PROPov_SOCIALS = (
+    "https://propovcs2.com/",
+    "https://www.youtube.com/@Pro.POV.CS2",
+    "https://www.tiktok.com/@propov_cs2",
+    "https://www.instagram.com/propovcs2",
+    "https://x.com/ProPOVCS2",
+    "https://www.twitch.tv/propovcs2",
+    "https://kick.com/propovcs2",
+)
+CONTACT_BANNED = (
+    "salary", "salario", "remuneración", "remuneracion",
+    "relocation", "relocate", "mudarse", "trasladarse",
+    "immediately", "inmediatamente",
+    "presencial", "híbrido", "hibrido", "hybrid",
+    "onsite", "on-site", "remote", "remoto",
+)
+
+
+def _lead_paragraph(text):
+    """HTML of the first <p> after the page h1 (the content lead)."""
+    h1 = text.find("<h1")
+    start = text.find("<p", h1 if h1 != -1 else 0)
+    if start == -1:
+        return None
+    end = text.find("</p>", start)
+    return None if end == -1 else text[start:end]
+
+
+def check_contact():
+    """Task 6 Contact assertions: (label, failures) pairs."""
+    checks = []
+
+    for route, copy in CONTACT_COPY.items():
+        failures = []
+        text, parser = _parse(route)
+        if parser is None:
+            checks.append(("contact " + route, ["missing page"]))
+            continue
+
+        # The lead paragraph opens with the approved availability line.
+        lead = _lead_paragraph(text)
+        if lead is None:
+            failures.append("no lead paragraph")
+        else:
+            if copy["availability"] not in lead:
+                failures.append("lead lacks availability: %r"
+                                % copy["availability"])
+            if copy["intro"] not in lead:
+                failures.append("lead lacks: %r" % copy["intro"])
+            if re.search(r"\b(19|20)\d{2}\b", lead):
+                failures.append("lead contains a date (not approved)")
+        if text.count(copy["availability"]) != 1:
+            failures.append("availability appears %d times, want 1"
+                            % text.count(copy["availability"]))
+
+        # The page language must match the copy.
+        match = re.search(r"<html[^>]*\blang=(\"([^\"]*)\"|([^\s>]+))", text)
+        lang_value = ""
+        if match is not None:
+            lang_value = match.group(2) or match.group(3) or ""
+        if not lang_value.startswith(copy["lang"]):
+            failures.append("html lang is %r, want %r"
+                            % (lang_value, copy["lang"]))
+
+        # The email link carries the plan's prefilled subject.
+        if not _href_present(text, CONTACT_MAILTO):
+            failures.append("no mailto with subject: %s" % CONTACT_MAILTO)
+        if not any(href == CONTACT_MAILTO and label == CONTACT_EMAIL
+                   for href, label in parser.anchors):
+            failures.append("no email link labelled %r" % CONTACT_EMAIL)
+
+        # Same networks and same products on both pages.
+        for url in CONTACT_NETWORKS:
+            if not _href_present(text, url):
+                failures.append("network link missing: %s" % url)
+        for url in CONTACT_PROJECTS:
+            if not _href_present(text, url):
+                failures.append("project link missing: %s" % url)
+        for url in CONTACT_PROPov_SOCIALS:
+            if not _href_present(text, url):
+                failures.append("Pro POV link missing: %s" % url)
+
+        lowered = text.casefold()
+        for phrase in CONTACT_BANNED:
+            if phrase.casefold() in lowered:
+                failures.append("unapproved claim present: %r" % phrase)
+        checks.append(("contact " + route, failures))
+
+    # Both languages must carry the same prefilled subject.
+    subjects = {}
+    for route in CONTACT_COPY:
+        text, _ = _parse(route)
+        match = re.search(
+            r"mailto:jparedescolmenarejo@gmail\.com\?subject=([^\"'&\s>]+)",
+            text or "")
+        subjects[route] = match.group(1) if match else None
+    failures = []
+    if None in subjects.values() or len(set(subjects.values())) != 1:
+        failures.append("subject differs between languages: %r" % subjects)
+    checks.append(("contact subject identical in both languages", failures))
+
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -725,12 +867,21 @@ def main():
             print("FAIL %s: %s" % (label, "; ".join(failures)))
         else:
             print("PASS " + label)
-            about_passed += 1
+        about_passed += 1
+    contact_checks = check_contact()
+    contact_passed = 0
+    for label, failures in contact_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+        contact_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
             and case_passed == len(case_checks)
-            and about_passed == len(about_checks)):
+            and about_passed == len(about_checks)
+            and contact_passed == len(contact_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

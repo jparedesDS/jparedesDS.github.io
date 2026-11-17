@@ -5,9 +5,9 @@ user = "contact"
 showMetadata = false
 +++
 
-I’m open to select AI, computer-vision and local-first product work.
+**Madrid · Open to opportunities.** I’m open to select AI, computer-vision and local-first product work.
 
-- Email: [jparedescolmenarejo@gmail.com](mailto:jparedescolmenarejo@gmail.com)
+- Email: [jparedescolmenarejo@gmail.com](mailto:jparedescolmenarejo@gmail.com?subject=Oportunidad%20CV%20/%20ML)
 - GitHub: [github.com/jparedesDS](https://github.com/jparedesDS)
 - LinkedIn: [linkedin.com/in/jparedesDS](https://www.linkedin.com/in/jparedesDS/)
 - X: [x.com/xhitoCS](https://x.com/xhitoCS)
