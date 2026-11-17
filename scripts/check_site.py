@@ -11,13 +11,9 @@ assertions to main()/check_route(). Stdlib only.
 """
 
 import json
-import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
-
-# Legacy redirect stubs (static/propovcs2/, static/cleanyourmail/) are kept
-# verbatim by the plan and carry no <main>; they are verified as redirects.
-REFRESH_RE = re.compile(r"<meta[^>]*http-equiv\s*=\s*[\"']?refresh[\"']?[^>]*>", re.I)
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -29,6 +25,35 @@ ROUTES = [
     "/blog/index.json", "/blog/index.xml", "/index.xml", "/sitemap.xml",
     "/propovcs2/", "/cleanyourmail/",
 ]
+
+# Controller ruling (Task 1 review): only these two preserved static
+# meta-refresh stubs may skip <main>, because they must not be modified.
+# Every other HTML route must contain <main; there is no general
+# "any refresh HTML" exemption.
+REDIRECT_ROUTES = {"/propovcs2/", "/cleanyourmail/"}
+
+
+class _RefreshParser(HTMLParser):
+    """Collect url= targets from <meta http-equiv="refresh"> tags only."""
+
+    def __init__(self):
+        super().__init__()
+        self.has_refresh = False
+        self.targets = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag != "meta":
+            return
+        attrs = {name: value or "" for name, value in attrs}
+        if attrs.get("http-equiv", "").strip().lower() != "refresh":
+            return
+        self.has_refresh = True
+        for part in attrs.get("content", "").split(";"):
+            part = part.strip()
+            if part.lower().startswith("url="):
+                target = part[4:].strip().strip("'\"")
+                if target:
+                    self.targets.append(target)
 
 
 def page(route):
@@ -44,12 +69,18 @@ def check_route(route):
         return ["missing file " + str(path.relative_to(ROOT))]
     failures = []
     if path.suffix == ".html":
-        text = path.read_text(encoding="utf-8")
-        if REFRESH_RE.search(text):
-            # Redirect stub: preserved verbatim, no <main>. Assert it points
-            # somewhere instead of requiring a content landmark.
-            if "url=" not in text.lower():
-                failures.append("redirect stub has no refresh target")
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError as exc:
+            return ["invalid UTF-8: %s" % exc]
+        if route in REDIRECT_ROUTES:
+            parser = _RefreshParser()
+            parser.feed(text)
+            parser.close()
+            if not parser.has_refresh:
+                failures.append("redirect stub has no <meta http-equiv=refresh>")
+            elif not parser.targets:
+                failures.append("redirect stub has no nonempty url= target in refresh content")
         elif "<main" not in text:
             failures.append("HTML page has no <main")
     if route == "/blog/index.json":
