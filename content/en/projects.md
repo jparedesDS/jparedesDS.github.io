@@ -28,11 +28,10 @@ Three builds, each with the problem, what I did and the result. Everything here 
 
 <ul class="caseChips">
   <li>YOLO11</li>
-  <li>PyTorch</li>
   <li>Hugging Face</li>
 </ul>
 
-[Models on Hugging Face](https://huggingface.co/jparedesDS) · [Welding detector on GitHub](https://github.com/jparedesDS/welding-defects-detection)
+[Penetrant model on Hugging Face](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) · [More models](https://huggingface.co/jparedesDS) · [Welding detector on GitHub](https://github.com/jparedesDS/welding-defects-detection)
 
 </section>
 
@@ -75,7 +74,7 @@ Three builds, each with the problem, what I did and the result. Everything here 
 
 **Problem.** Live streams have no subtitles in the viewer's language, and server-side transcription adds cost and latency.
 
-**What I did.** Built a fixed-delay HLS player with Whisper speech recognition, Silero VAD and ONNX/WebGPU inference — all in the browser, no servers.
+**What I did.** Built a fixed-delay player with Whisper speech recognition, Silero VAD and ONNX/WebGPU inference — all in the browser, no servers.
 
 **Result.** Measured 15.3 s fixed delay against a 15 s target, with a median subtitle offset of 0–40 ms.
 
@@ -83,7 +82,6 @@ Three builds, each with the problem, what I did and the result. Everything here 
   <li>Whisper</li>
   <li>Silero VAD</li>
   <li>ONNX/WebGPU</li>
-  <li>hls.js</li>
 </ul>
 
 [Open subany.video](https://subany.video/) · [How it works](/blog/2026/11/09/how-subany-video-works/)

@@ -16,7 +16,7 @@ Tres proyectos, cada uno con su problema, lo que hice y el resultado. Todo lo qu
 ### Visión artificial industrial — EIPSA {#vision}
 
 <figure class="caseMedia">
-  <img src="/images/case-vision.svg" alt="Diagrama del pipeline de visión de EIPSA: las imágenes de cámara forman un dataset etiquetado, YOLO11 detecta defectos y la inspección decide si la pieza pasa." width="1200" height="675">
+  <img src="/images/case-vision-es.svg" alt="Diagrama del pipeline de visión de EIPSA: las imágenes de cámara forman un dataset etiquetado, YOLO11 detecta defectos y la inspección decide si la pieza pasa." width="1200" height="675">
   <figcaption>cámara → dataset → YOLO11 → inspección</figcaption>
 </figure>
 
@@ -28,11 +28,10 @@ Tres proyectos, cada uno con su problema, lo que hice y el resultado. Todo lo qu
 
 <ul class="caseChips">
   <li>YOLO11</li>
-  <li>PyTorch</li>
   <li>Hugging Face</li>
 </ul>
 
-[Modelos en Hugging Face](https://huggingface.co/jparedesDS) · [Detector de soldadura en GitHub](https://github.com/jparedesDS/welding-defects-detection)
+[Modelo de penetrantes en Hugging Face](https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection) · [Más modelos](https://huggingface.co/jparedesDS) · [Detector de soldadura en GitHub](https://github.com/jparedesDS/welding-defects-detection)
 
 </section>
 
@@ -41,7 +40,7 @@ Tres proyectos, cada uno con su problema, lo que hice y el resultado. Todo lo qu
 ### DocFlow — SaaS de control documental {#docflow}
 
 <figure class="caseMedia">
-  <img src="/images/case-docflow.svg" alt="Diagrama de arquitectura de DocFlow: el correo y el ERP intercambian datos con un backend FastAPI de 21 routers y 24 servicios, un frontend React de 24 pantallas y DocuSign para las firmas; se despliega con Docker y CI." width="1200" height="675" loading="lazy">
+  <img src="/images/case-docflow-es.svg" alt="Diagrama de arquitectura de DocFlow: el correo y el ERP intercambian datos con un backend FastAPI de 21 routers y 24 servicios, un frontend React de 24 pantallas y DocuSign para las firmas; se despliega con Docker y CI." width="1200" height="675" loading="lazy">
   <figcaption>correo / ERP ↔ FastAPI ↔ React · DocuSign · Docker + CI</figcaption>
 </figure>
 
@@ -75,7 +74,7 @@ Tres proyectos, cada uno con su problema, lo que hice y el resultado. Todo lo qu
 
 **Problema.** Los directos no tienen subtítulos en el idioma de quien los ve, y transcribir en un servidor añade coste y latencia.
 
-**Qué hice.** Construí un reproductor HLS con retardo fijo: Whisper para el reconocimiento de voz, Silero VAD y ONNX/WebGPU para la inferencia, todo en el navegador y sin servidores.
+**Qué hice.** Construí un reproductor con retardo fijo: Whisper para el reconocimiento de voz, Silero VAD y ONNX/WebGPU para la inferencia, todo en el navegador y sin servidores.
 
 **Resultado.** Retardo fijo medido de 15,3 s sobre un objetivo de 15 s, con un desfase mediano de subtítulos de 0–40 ms.
 
@@ -83,7 +82,6 @@ Tres proyectos, cada uno con su problema, lo que hice y el resultado. Todo lo qu
   <li>Whisper</li>
   <li>Silero VAD</li>
   <li>ONNX/WebGPU</li>
-  <li>hls.js</li>
 </ul>
 
 [Abrir subany.video](https://subany.video/) · [Cómo funciona](/blog/2026/11/09/how-subany-video-works/)

@@ -353,7 +353,19 @@ def check_hiring():
 # is banned here. Each fact lists the accepted spellings (the minifier
 # keeps text as authored, but en/em dashes may vary by copy).
 CASE_ANCHORS = ("vision", "docflow", "subany")
-CASE_IMAGES = ("case-vision.svg", "case-docflow.svg", "case-subany.png")
+# Diagrams are localized: each language must reference its own variants
+# (review ruling); the subany capture is shared.
+CASE_DIAGRAMS = {
+    "/projects/": ("case-vision.svg", "case-docflow.svg"),
+    "/es/projects/": ("case-vision-es.svg", "case-docflow-es.svg"),
+}
+CASE_IMAGES = ("case-vision.svg", "case-docflow.svg",
+               "case-vision-es.svg", "case-docflow-es.svg", "case-subany.png")
+# Review ruling: only the fixed-fact stack may appear. "HLS" covers both
+# "HLS player" (EN) and "reproductor HLS" (ES); matched case-insensitive.
+CASE_BANNED = ("PyTorch", "hls.js", "HLS")
+CASE_MODEL_URL = ("https://huggingface.co/jparedesDS/"
+                  "fluorescent-penetrant-inspection")
 CASE_FACTS = {
     "/projects/": [
         ("21 API routers",),
@@ -426,6 +438,13 @@ def check_cases():
                 failures.append("missing fact: %s" % " / ".join(alternatives))
         if "500+" in text:
             failures.append("banned figure 500+ present (belongs in About)")
+        lowered = text.casefold()
+        for claim in CASE_BANNED:
+            if claim.casefold() in lowered:
+                failures.append("unapproved claim present: %r" % claim)
+        if not _href_present(text, CASE_MODEL_URL):
+            failures.append("direct penetrant model URL missing: "
+                            + CASE_MODEL_URL)
 
         if _class_pos(text, "caseList") == -1:
             failures.append("no .caseList markup")
@@ -436,8 +455,9 @@ def check_cases():
         if not _href_present(text, SUBANY_ARTICLE):
             failures.append("no link to the subany article %s" % SUBANY_ARTICLE)
 
-        # Every referenced local image must ship, and each case image
-        # must be referenced with meaningful alt text.
+        # Every referenced local image must ship; each case image must be
+        # referenced with meaningful alt text, and diagrams must match the
+        # page language (no EN diagrams on /es/, no ES diagrams on /).
         imgs = re.findall(r"<img\b[^>]*>", text)
         srcs = {}
         for tag in imgs:
@@ -446,13 +466,20 @@ def check_cases():
             if src.startswith("/images/"):
                 if not (ROOT / "dist" / src.lstrip("/")).is_file():
                     failures.append("referenced image missing: " + src)
-        for name in CASE_IMAGES:
+        for name in CASE_DIAGRAMS[route] + ("case-subany.png",):
             src = "/images/" + name
             tag = srcs.get(src)
             if tag is None:
                 failures.append("case image not referenced: " + src)
             elif not (_attr(tag, "alt") or "").strip():
                 failures.append("case image lacks alt text: " + src)
+        for other_route, names in CASE_DIAGRAMS.items():
+            if other_route == route:
+                continue
+            for name in names:
+                if "/images/" + name in srcs:
+                    failures.append("foreign-language diagram referenced: "
+                                    + name)
 
         # Active products and the archive/GitHub link stay below the cases.
         for url in ACTIVE_PRODUCT_URLS:
