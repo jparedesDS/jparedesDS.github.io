@@ -11,6 +11,7 @@ assertions to main()/check_route(). Stdlib only.
 """
 
 import json
+import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -224,6 +225,129 @@ def check_i18n():
     return checks
 
 
+# Task 3: hiring strip on both home pages. Copy is the approved text,
+# verbatim. The ES CV link keeps pointing at the English /resume.pdf
+# until Task 11 ships /resume-es.pdf. Hugo's minifier drops quotes
+# around simple attribute values, so href checks accept both forms.
+HIRE_COPY = {
+    "/": {
+        "lang": "en",
+        "role": "Computer Vision & ML Engineer",
+        "bio": ("I build computer-vision systems for industrial quality "
+                "control and local-first AI products."),
+        "availability": "Madrid · Open to opportunities",
+        "proof": ("Industrial computer vision since 2024 · 10+ models on "
+                  "Hugging Face · DocFlow in production"),
+        "proof_marker": "since 2024",
+        "cv": "Download CV",
+        "email": "Email me",
+        "projects": "Active projects",
+        "banned": "four years",
+    },
+    "/es/": {
+        "lang": "es",
+        "role": "Ingeniero de Computer Vision y ML",
+        "bio": ("Construyo sistemas de visión artificial para control de "
+                "calidad industrial y productos de IA que se ejecutan en "
+                "local."),
+        "availability": "Madrid · Abierto a oportunidades",
+        "proof": ("Visión artificial industrial desde 2024 · 10+ modelos "
+                  "en Hugging Face · DocFlow en producción"),
+        "proof_marker": "desde 2024",
+        "cv": "Descargar CV",
+        "email": "Escríbeme",
+        "projects": "Proyectos activos",
+        "banned": "cuatro años",
+    },
+}
+
+HIRE_MAILTO = ("mailto:jparedescolmenarejo@gmail.com"
+               "?subject=Oportunidad%20CV%20/%20ML")
+
+
+def _href_present(text, href):
+    """True for href="x" and the minified unquoted href=x alike."""
+    return ('href="%s"' % href) in text or ("href=" + href) in text
+
+
+def _class_pos(text, name):
+    """Position of class="name" / class=name, or -1 when absent."""
+    for needle in ('class="%s"' % name, "class=%s>" % name,
+                   "class=%s " % name):
+        pos = text.find(needle)
+        if pos != -1:
+            return pos
+    return -1
+
+
+def check_hiring():
+    """Task 3 hiring-strip assertions: (label, failures) pairs."""
+    checks = []
+
+    for route, copy in HIRE_COPY.items():
+        failures = []
+        text, parser = _parse(route)
+        if parser is None:
+            checks.append(("hiring strip " + route, ["missing page"]))
+            continue
+
+        lang = copy["lang"]
+        if not (("<html lang=%s>" % lang) in text
+                or ('<html lang="%s">' % lang) in text):
+            failures.append("html lang is not %r" % lang)
+        for key in ("role", "bio", "availability", "proof", "projects"):
+            # The minifier may render & as &amp; or bare; accept both.
+            wanted = copy[key]
+            if wanted not in text and wanted.replace("&", "&amp;") not in text:
+                failures.append("missing %s copy: %r" % (key, wanted))
+        if copy["proof_marker"] not in text:
+            failures.append("proof lacks %r" % copy["proof_marker"])
+        if copy["banned"].casefold() in text.casefold():
+            failures.append("banned phrase present: %r" % copy["banned"])
+        for cls in ("hireStrip", "hireAvailability", "hireProof",
+                    "hireActions"):
+            if _class_pos(text, cls) == -1:
+                failures.append("no .%s markup" % cls)
+
+        # CV button: /resume.pdf in both languages, with download.
+        if not _href_present(text, "/resume.pdf"):
+            failures.append('no href="/resume.pdf"')
+        cv_tag = re.search(
+            r'<a\b[^>]*href=(?:"/resume\.pdf"|/resume\.pdf)[^>]*>', text)
+        if cv_tag is None:
+            failures.append("no CV anchor tag")
+        elif "download" not in cv_tag.group(0):
+            failures.append("CV anchor lacks download attribute")
+        if not any(_norm(href) == "/resume.pdf" and label == copy["cv"]
+                   for href, label in parser.anchors):
+            failures.append("no CV button labelled %r" % copy["cv"])
+
+        # Email button: mailto with the approved subject.
+        if not _href_present(text, HIRE_MAILTO):
+            failures.append("no mailto with subject: %s" % HIRE_MAILTO)
+        if not any(href == HIRE_MAILTO and label == copy["email"]
+                   for href, label in parser.anchors):
+            failures.append("no email button labelled %r" % copy["email"])
+
+        # Role and proof must render before the active-project chips.
+        role_pos = text.find(copy["role"])
+        if role_pos == -1:
+            role_pos = text.find(copy["role"].replace("&", "&amp;"))
+        proof_pos = text.find(copy["proof"])
+        chips_pos = _class_pos(text, "activeProjects")
+        if not (-1 < role_pos < proof_pos < chips_pos):
+            failures.append(
+                "order wrong: role@%d proof@%d chips@%d"
+                % (role_pos, proof_pos, chips_pos))
+        checks.append(("hiring strip " + route, failures))
+
+    # The CV link target must actually ship, in both languages.
+    checks.append(("resume.pdf shipped",
+                   [] if (ROOT / "dist" / "resume.pdf").is_file()
+                   else ["dist/resume.pdf missing"]))
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -275,8 +399,17 @@ def main():
         else:
             print("PASS " + label)
             i18n_passed += 1
+    hire_checks = check_hiring()
+    hire_passed = 0
+    for label, failures in hire_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            hire_passed += 1
     total = len(ROUTES)
-    if passed == total and i18n_passed == len(i18n_checks):
+    if (passed == total and i18n_passed == len(i18n_checks)
+            and hire_passed == len(hire_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

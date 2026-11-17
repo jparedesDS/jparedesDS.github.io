@@ -57,3 +57,25 @@
 
 [older_posts]
   other = "older posts"
+
+# Hiring strip on the home page (Task 3).
+[hire_role]
+    other = "Computer Vision & ML Engineer"
+
+[hire_bio]
+    other = "I build computer-vision systems for industrial quality control and local-first AI products."
+
+[hire_availability]
+    other = "Madrid · Open to opportunities"
+
+[hire_proof]
+    other = "Industrial computer vision since 2024 · 10+ models on Hugging Face · DocFlow in production"
+
+[hire_cv]
+    other = "Download CV"
+
+[hire_email]
+    other = "Email me"
+
+[active_projects]
+    other = "Active projects"

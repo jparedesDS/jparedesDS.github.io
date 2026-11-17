@@ -57,3 +57,25 @@
 
 [older_posts]
   other = "entradas anteriores"
+
+# Franja de contratación en la portada (Task 3).
+[hire_role]
+    other = "Ingeniero de Computer Vision y ML"
+
+[hire_bio]
+    other = "Construyo sistemas de visión artificial para control de calidad industrial y productos de IA que se ejecutan en local."
+
+[hire_availability]
+    other = "Madrid · Abierto a oportunidades"
+
+[hire_proof]
+    other = "Visión artificial industrial desde 2024 · 10+ modelos en Hugging Face · DocFlow en producción"
+
+[hire_cv]
+    other = "Descargar CV"
+
+[hire_email]
+    other = "Escríbeme"
+
+[active_projects]
+    other = "Proyectos activos"

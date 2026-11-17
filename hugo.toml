@@ -11,6 +11,8 @@ defaultContentLanguageInSubdir = false
   languageName = "English"
   languageCode = "en"
   weight = 1
+[languages.en.params]
+  resumeUrl = "/resume.pdf"
 [languages.es]
   contentDir = "content/es"
   languageName = "Español"
@@ -18,6 +20,9 @@ defaultContentLanguageInSubdir = false
   weight = 2
   # The blog (and its tags) is English-only: no empty /es/tags/ scaffold.
   disableKinds = ["taxonomy", "term"]
+[languages.es.params]
+  # Task 11 switches this to /resume-es.pdf once the Spanish CV ships.
+  resumeUrl = "/resume.pdf"
 
 [module]
   [module.hugoVersion]
