@@ -2285,6 +2285,13 @@ def check_ui():
                 failures.append("EN/ES selector is not after the menu")
         checks.append(("ui selector order " + route, failures))
 
+    failures = []
+    if ".headerLinks{margin-left:auto" not in css:
+        failures.append("menu is not pushed to the right edge")
+    if ".langSwitchSite{display:flex;align-items:center;gap:.4rem;margin-left:1.2rem" not in css:
+        failures.append("EN/ES selector is not spaced after the menu")
+    checks.append(("ui header right aligned", failures))
+
     for route in ("/projects/", "/es/projects/"):
         text, _ = _parse(route)
         failures = []

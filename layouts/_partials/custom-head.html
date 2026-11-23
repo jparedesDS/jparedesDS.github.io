@@ -869,10 +869,17 @@
   /* Site-wide EN/ES selector in the header and the home hiring strip
      (hidden/unused on blog pages, so these rules are skipped there to
      keep blog HTML byte-identical). */
+  /* Keep the menu pinned to the right edge (as on the blog, where there
+     is no site selector), with EN/ES immediately after it. */
+  .headerLinks {
+    margin-left: auto;
+  }
+
   .langSwitchSite {
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    margin-left: 1.2rem;
     font-family: "Fira Mono", monospace;
     font-size: 0.8rem;
   }
