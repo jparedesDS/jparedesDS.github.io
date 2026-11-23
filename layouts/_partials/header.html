@@ -4,13 +4,15 @@
 <header class="headerWrapper">
     <div class="header">
         <div>
-            <a class="terminal" href="{{ .Site.BaseURL | relLangURL }}">
+            <a class="terminal" href="{{ "" | relLangURL }}">
                 <span>{{ $user }}@{{ .Site.Params.hostname }} ~ $</span>
             </a>
         </div>
-        <input class="side-menu" type="checkbox" id="side-menu">
-        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
-        <nav class="headerLinks">
+        <button type="button" class="menuToggle" aria-expanded="false" aria-controls="site-menu" aria-label="{{ i18n "menu_label" }}">
+            <span class="hamb-line"></span>
+        </button>
+        {{ partial "lang-switch.html" . }}
+        <nav id="site-menu" class="headerLinks">
             <ul>
                 {{ range .Site.Menus.header }}
                 <li>
@@ -23,3 +25,40 @@
         </nav>
     </div>
 </header>
+<script>
+    (function () {
+        var header = document.querySelector('.header');
+        var button = header.querySelector('.menuToggle');
+        var panel = document.getElementById('site-menu');
+        var mobile = window.matchMedia('(max-width: 768px)');
+        function setOpen(open) {
+            header.setAttribute('data-open', open ? 'true' : 'false');
+            button.setAttribute('aria-expanded', open ? 'true' : 'false');
+            /* inert takes the closed panel out of the tab order at once
+               (the CSS visibility flip waits for the 0.5s slide); it is
+               mobile-only so the desktop nav stays interactive. */
+            panel.inert = mobile.matches && !open;
+        }
+        button.addEventListener('click', function () {
+            setOpen(button.getAttribute('aria-expanded') !== 'true');
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+                setOpen(false);
+                button.focus();
+            }
+        });
+        document.addEventListener('click', function (event) {
+            var target = event.target;
+            if (button.getAttribute('aria-expanded') === 'true'
+                    && !button.contains(target)
+                    && !panel.contains(target)) {
+                setOpen(false);
+            }
+        });
+        mobile.addEventListener('change', function () {
+            setOpen(button.getAttribute('aria-expanded') === 'true');
+        });
+        setOpen(false);
+    })();
+</script>

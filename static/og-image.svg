@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Social card (Task 7). Nightfall palette: #292a2d background,
+       #f8f8ff text, #80aadd accent, mono labels. Rendered to
+       og-image.png with headless Chromium at 1200x630. -->
+  <rect width="1200" height="630" fill="#292a2d"/>
+  <g font-family="'Fira Mono', Consolas, 'Courier New', monospace">
+    <text x="80" y="118" font-size="22" letter-spacing="3" fill="#a8a8b3">MADRID · OPEN TO OPPORTUNITIES</text>
+    <rect x="80" y="148" width="72" height="6" fill="#80aadd"/>
+    <text x="80" y="262" font-size="88" font-weight="bold" fill="#f8f8ff">Jose Paredes</text>
+    <text x="80" y="330" font-size="38" fill="#80aadd">Computer Vision &amp; ML Engineer</text>
+    <g font-size="24" fill="#80aadd" text-anchor="middle">
+      <rect x="80" y="400" width="246" height="48" rx="24" fill="none" stroke="#3a3b3d"/>
+      <text x="203" y="431">Computer Vision</text>
+      <rect x="346" y="400" width="101" height="48" rx="24" fill="none" stroke="#3a3b3d"/>
+      <text x="396" y="431">YOLO</text>
+      <rect x="467" y="400" width="141" height="48" rx="24" fill="none" stroke="#3a3b3d"/>
+      <text x="537" y="431">PyTorch</text>
+      <rect x="628" y="400" width="141" height="48" rx="24" fill="none" stroke="#3a3b3d"/>
+      <text x="698" y="431">FastAPI</text>
+      <rect x="789" y="400" width="114" height="48" rx="24" fill="none" stroke="#3a3b3d"/>
+      <text x="846" y="431">React</text>
+      <rect x="923" y="400" width="128" height="48" rx="24" fill="none" stroke="#3a3b3d"/>
+      <text x="987" y="431">Docker</text>
+    </g>
+    <text x="80" y="560" font-size="26" fill="#a8a8b3">jparedesds.com</text>
+  </g>
+</svg>

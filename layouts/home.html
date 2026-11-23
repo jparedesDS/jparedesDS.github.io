@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Locale }}">
+<html lang="{{ .Site.Language.Lang }}">
 
 <head>
-    <title>
-        {{ i18n "home" }} | {{ .Site.Params.author.name }}
-    </title>
+    <title>{{ i18n "home_title" }}</title>
 
     {{ partial "head.html" . }}
+    {{ partial "person-jsonld.html" . }}
 
 </head>
 
@@ -20,12 +19,20 @@
                 <div class="indexWrapper profileCard">
                     <img class="profileAvatar" src="/profile.jpg" alt="Pixel-art portrait of Jose Paredes" width="170" height="170">
                     <h1 class="profileName">Jose Paredes</h1>
-                    <p class="profileRole">Data Scientist / AI Engineer</p>
-                    <p class="profileBio">I build computer-vision systems and local-first AI products in Madrid.</p>
+                    <h2 class="profileRole">{{ i18n "hire_role" }}</h2>
+                    <p class="profileBio">{{ i18n "hire_bio" }}</p>
+                    <div class="hireStrip">
+                        <p class="hireAvailability">{{ i18n "hire_availability" }}</p>
+                        <p class="hireProof">{{ i18n "hire_proof" }}</p>
+                        <div class="hireActions">
+                            <a class="hireButtonPrimary" href="{{ .Site.Params.resumeUrl }}" download>{{ i18n "hire_cv" }}</a>
+                            <a class="hireButtonSecondary" href="mailto:{{ .Site.Params.author.email }}?subject=Oportunidad%20CV%20/%20ML">{{ i18n "hire_email" }}</a>
+                        </div>
+                    </div>
                     {{ partial "profile-social.html" . }}
                     {{ with .Site.Params.activeProjects }}
                     <div class="activeProjects">
-                        <p class="activeProjectsLabel">Active projects</p>
+                        <p class="activeProjectsLabel">{{ i18n "active_projects" }}</p>
                         <div class="activeProjectsLinks">
                             {{ range . }}
                             <a href="{{ .url }}"{{ if hasPrefix .url "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .name }} <span aria-hidden="true">↗</span></a>

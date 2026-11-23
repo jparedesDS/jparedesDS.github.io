@@ -1,6 +1,6 @@
 # jparedesDS portfolio
 
-Personal portfolio of Jose Paredes, live at <https://jparedesds.github.io/>.
+Personal portfolio of Jose Paredes, live at <https://jparedesds.com/>.
 
 A static [Hugo](https://gohugo.io/) site with the
 [Nightfall](https://github.com/LordMathis/hugo-theme-nightfall) theme vendored in

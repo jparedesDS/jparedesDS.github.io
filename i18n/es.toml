@@ -1,0 +1,114 @@
+# Traducciones al español del sitio. Las claves replican
+# themes/nightfall/i18n/en.toml; las nuevas cadenas de UI van aquí.
+[not_found]
+    other = "NO ENCONTRADO"
+
+[not_found_desc]
+    other = "Acabas de llegar a una ruta que no existe..."
+
+[home]
+    other = "Inicio"
+
+[published]
+    other = "publicado"
+
+[reading_time]
+    other = "tiempo de lectura"
+
+[reading_time_desc]
+  one = "1 minuto"
+  other = "{{ .Count }} minutos"
+
+[authors]
+  other = "autores"
+
+[tags]
+  other = "etiquetas"
+
+[categories]
+  other = "categorías"
+
+[and]
+  other = "y"
+
+[powered_by]
+  other = "Hecho con"
+
+[theme]
+  other = "tema"
+
+[last_updated]
+  other = "última actualización"
+
+[back_to_home]
+  other = "volver al inicio"
+
+[page]
+  other = "página"
+
+[no_terms]
+  other = "no se encontraron términos"
+
+[posts_with_term]
+  other = "entradas con el término"
+
+[newer_posts]
+  other = "entradas recientes"
+
+[older_posts]
+  other = "entradas anteriores"
+
+# Botón accesible del menú móvil en la cabecera compartida (Task 9).
+[menu_label]
+    other = "Menú"
+
+# Enlace del pie al aviso de privacidad (Task 10).
+[privacy]
+    other = "Privacidad"
+
+# <title> de la portada y alt de la tarjeta social (Task 7).
+[home_title]
+    other = "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)"
+
+# Franja de contratación en la portada (Task 3).
+[hire_role]
+    other = "Ingeniero de Computer Vision y ML"
+
+[hire_bio]
+    other = "Construyo sistemas de visión artificial para control de calidad industrial y productos de IA que se ejecutan en local."
+
+[hire_availability]
+    other = "Madrid · Abierto a oportunidades"
+
+[hire_proof]
+    other = "Visión artificial industrial desde 2024 · 10+ modelos en Hugging Face · DocFlow en producción"
+
+[hire_cv]
+    other = "Descargar CV"
+
+[hire_email]
+    other = "Escríbeme"
+
+[active_projects]
+    other = "Proyectos activos"
+
+# Página 404 bilingüe (Task 8). Un solo documento (/404.html) sirve a los
+# dos idiomas: el bloque español se lee de este archivo y el inglés con
+# i18n.
+[nf_title]
+    other = "No encontrado"
+
+[nf_text]
+    other = "La página que buscas no existe o se ha movido. Usa los enlaces de abajo para continuar explorando el sitio."
+
+[nf_home]
+    other = "Volver al inicio"
+
+[nf_projects]
+    other = "Proyectos"
+
+[nf_contact]
+    other = "Contacto"
+
+[nf_blog]
+    other = "Blog"

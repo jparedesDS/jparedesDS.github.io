@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jparedesds.github.io/sitemap.xml
+Sitemap: https://jparedesds.com/sitemap.xml

@@ -8,7 +8,7 @@ showMetadata = false
 
 ## Who are you?
 
-I'm Jose Paredes, a data scientist and AI engineer in Madrid. I build computer-vision
+I'm Jose Paredes, a computer vision and ML engineer in Madrid. I build computer-vision
 systems, automation and local-first products.
 
 ## What do you write about?

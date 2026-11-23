@@ -1,5 +1,5 @@
 ﻿<link rel="stylesheet" href="/consent.css">
-<script defer src="/consent.js?v=2" data-ga="G-Y85VJ3E6W4"></script>
+<script defer src="/consent.js?v=2" data-ga="G-Y85VJ3E6W4" data-privacy="{{ "privacy/" | relLangURL }}"></script>
 <script defer src="https://pulse.subtitleme.workers.dev/t.js" data-site="pk_42a58793b14cbd7af3c6"></script>
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
@@ -11,7 +11,16 @@
 {{- if eq .RelPermalink "/blog/search/" }}
 <meta name="robots" content="noindex">
 {{- end }}
-{{- if and .IsPage (eq .Section "blog") }}
+{{- /* Complete OG/Twitter object on every page (final review). Blog
+       articles keep the article block below (with the ?lang=es
+       alternates and the ids the in-article language switch updates);
+       every other page gets the website block. The image tags are
+       shared, and the twitter card/title/description for non-articles
+       closes the set, so each page carries every tag exactly once. */ -}}
+{{- $isArticle := and .IsPage (eq .Section "blog") }}
+{{- $ogTitle := .Title }}
+{{- if .IsHome }}{{ $ogTitle = i18n "home_title" }}{{ end }}
+{{- if $isArticle }}
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" id="og-title" content="{{ .Title }}">
@@ -25,9 +34,42 @@
 <link rel="alternate" hreflang="x-default" href="{{ $.Permalink }}">
 {{- end }}
 <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" id="twitter-title" content="{{ .Title }}">
 <meta name="twitter:description" id="twitter-description" content="{{ .Description | default .Site.Params.sitedescription }}">
+{{- else }}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:description" content="{{ .Description | default .Site.Params.sitedescription }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="{{ if eq .Site.Language.Lang "es" }}es_ES{{ else }}en_US{{ end }}">
+{{- end }}
+{{- /* Social card image on every page (Task 7). The card itself is
+       English-only, so og:image:alt describes its English wording on
+       every page, in both languages (final review). */ -}}
+<meta property="og:image" content="{{ "og-image.png" | absURL }}">
+<meta property="og:image:alt" content="Social card reading 'Jose Paredes — Computer Vision &amp; ML Engineer' and 'Madrid · Open to opportunities', with Computer Vision, YOLO, PyTorch, FastAPI, React and Docker chips above jparedesds.com">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="{{ "og-image.png" | absURL }}">
+{{- if not $isArticle }}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $ogTitle }}">
+<meta name="twitter:description" content="{{ .Description | default .Site.Params.sitedescription }}">
+{{- end }}
+{{- /* Reciprocal hreflang for the bilingual site pages. Blog pages are
+       excluded: the article block above already emits its own ?lang=es
+       alternates. x-default points at the English version. */ -}}
+{{- if not (hasPrefix .RelPermalink "/blog") }}
+{{- $default := "" }}
+{{- range .AllTranslations }}
+{{- if eq .Lang "en" }}{{ $default = .Permalink }}{{ end }}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{- end }}
+{{- with $default }}
+<link rel="alternate" hreflang="x-default" href="{{ . }}">
+{{- end }}
 {{- end }}
 {{- if .HasShortcode "lang-panel" }}
 <noscript><style>.langPanel[hidden] { display: block !important; }</style></noscript>
@@ -92,6 +134,9 @@
     margin: 0.45rem 0 0;
     font-family: "Open Sans", sans-serif;
     font-size: 1.15rem;
+    /* The role is an h2 for the heading outline (final review); keep
+       the paragraph weight it had before. */
+    font-weight: 400;
     color: #c9c9cf;
   }
 
@@ -818,6 +863,286 @@
 
   .langPanel[hidden] {
     display: none;
+  }
+
+  {{- if not (hasPrefix .RelPermalink "/blog") }}
+  /* Site-wide EN/ES selector in the header and the home hiring strip
+     (hidden/unused on blog pages, so these rules are skipped there to
+     keep blog HTML byte-identical). */
+  .langSwitchSite {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.8rem;
+  }
+
+  .langSwitchSite a {
+    padding: 0.1rem 0.45rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 4px;
+    color: #a8a8b3;
+    text-decoration: none;
+    transition: color 0.18s ease, border-color 0.18s ease;
+  }
+
+  .langSwitchSite a:hover {
+    color: #80aadd;
+    border-color: #80aadd;
+  }
+
+  .langSwitchSite a[aria-current="true"] {
+    color: #f8f8ff;
+    border-color: #80aadd;
+  }
+
+  /* Hiring strip: mono role, availability, proof line and CV/email
+     calls to action. Overrides the shared .profileRole font only off
+     the blog. */
+  .profileRole {
+    font-family: "Fira Mono", monospace;
+    font-size: 1.05rem;
+  }
+
+  .hireStrip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 0 1.4rem;
+  }
+
+  .hireAvailability {
+    margin: 0;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.85rem;
+    color: #c9c9cf;
+  }
+
+  .hireProof {
+    margin: 0.55rem 0 0;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: #a8a8b3;
+  }
+
+  .hireActions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+  }
+
+  .hireActions a {
+    box-sizing: border-box;
+    padding: 0.55rem 1.2rem;
+    border-radius: 6px;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.18s ease, border-color 0.18s ease,
+      background-color 0.18s ease;
+  }
+
+  .hireActions a:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
+  }
+
+  .hireButtonPrimary {
+    border: 1px solid #80aadd;
+    color: #f8f8ff;
+    background: rgba(128, 170, 221, 0.14);
+  }
+
+  .hireButtonPrimary:hover {
+    border-color: #80aadd;
+    color: #f8f8ff;
+    background: rgba(128, 170, 221, 0.28);
+    text-decoration: none;
+  }
+
+  /* --border is only defined inside .blogShell; fall back to the chip
+     border colour used elsewhere on the dark shell. */
+  .hireButtonSecondary {
+    border: 1px solid var(--border, #3a3b3d);
+    color: #c9c9cf;
+  }
+
+  .hireButtonSecondary:hover {
+    border-color: #80aadd;
+    color: #80aadd;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .hireActions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .hireActions a {
+      width: 100%;
+      text-align: center;
+      /* 44px touch target (final review); flex centring keeps the
+         label vertically centred once the button grows. */
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  /* Projects case studies: bordered cards with media, problem/solution/
+     result paragraphs, stack chips and links. */
+  .caseList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 1.2rem 0 2.4rem;
+  }
+
+  .case {
+    padding: 1.4rem 1.5rem 1.5rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 10px;
+    background: #2e2e33;
+  }
+
+  .case h3 {
+    margin: 0 0 1rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    color: #f8f8ff;
+  }
+
+  .caseMedia {
+    margin: 0 0 1.1rem;
+  }
+
+  .caseMedia img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #292a2d;
+  }
+
+  .caseMedia figcaption {
+    margin-top: 0.5rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.72rem;
+    color: #a8a8b3;
+  }
+
+  .case p {
+    margin: 0 0 0.7rem;
+    line-height: 1.65;
+    color: #c9c9cf;
+  }
+
+  .case p strong {
+    color: #f8f8ff;
+  }
+
+  .caseChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.9rem 0 0.9rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .caseChips li {
+    padding: 0.25rem 0.7rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 999px;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.72rem;
+    color: #80aadd;
+  }
+
+  .case p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .case a {
+    color: #80aadd;
+  }
+
+  .case a:hover {
+    color: #f8f8ff;
+  }
+
+  @media (max-width: 768px) {
+    .case {
+      padding: 1rem;
+    }
+
+    .case h3 {
+      font-size: 1.05rem;
+    }
+  }
+  {{- end }}
+
+  /* Accessible mobile menu (Task 9). The header toggle is a real button
+     and the panel opens via [data-open] on .header instead of the old
+     checkbox; the three-line icon, its X animation and the 0.5s slide
+     keep the theme's look. */
+  .menuToggle {
+    display: none;
+    padding: 10px 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .menuToggle:focus-visible,
+  .headerLinks a:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .menuToggle {
+      display: block;
+    }
+
+    /* Keep the theme's 0.5s max-height slide, but take the closed
+       panel's links out of the tab order once it is fully closed.
+       The z-index lifts the panel above positioned page content (the
+       blog's .post-entry/.entry-link overlays painted over it before). */
+    .headerLinks {
+      z-index: 10;
+      visibility: hidden;
+      transition: max-height 0.5s ease-out, visibility 0s linear 0.5s;
+    }
+
+    [data-open="true"] .headerLinks {
+      max-height: 100%;
+      visibility: visible;
+      transition: max-height 0.5s ease-out;
+    }
+
+    [data-open="true"] .menuToggle .hamb-line {
+      background: transparent;
+    }
+
+    [data-open="true"] .menuToggle .hamb-line::before {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+
+    [data-open="true"] .menuToggle .hamb-line::after {
+      transform: rotate(45deg);
+      top: 0;
+    }
   }
 
   /* On 1080p the Nightfall layout reads small; emulate 125% page zoom. */

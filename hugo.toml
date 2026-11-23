@@ -1,8 +1,36 @@
-baseURL = "https://www.jparedesds.com/"
+baseURL = "https://jparedesds.com/"
 locale = "en-us"
 title = "Jose Paredes"
 theme = "nightfall"
 publishDir = "dist"
+# dist/ is a build artifact (gitignored): wipe the leftovers so a build
+# never ships a stale file, e.g. a second 404 document (Task 8).
+cleanDestinationDir = true
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[languages.en]
+  contentDir = "content/en"
+  languageName = "English"
+  languageCode = "en"
+  weight = 1
+[languages.en.params]
+  resumeUrl = "/resume.pdf"
+[languages.es]
+  contentDir = "content/es"
+  languageName = "Español"
+  languageCode = "es"
+  weight = 2
+  # The blog (and its tags) is English-only: no empty /es/tags/ scaffold.
+  # GitHub Pages serves only the root /404.html (Task 8): the Spanish
+  # 404 kind is disabled so a single bilingual 404 document ships.
+  disableKinds = ["taxonomy", "term", "404"]
+[languages.es.params]
+  # Task 11: the Spanish CV ships as /resume-es.pdf.
+  resumeUrl = "/resume-es.pdf"
+  # Localized positioning: every ES page inherits this description
+  # instead of the English one.
+  sitedescription = "Ingeniero de Computer Vision y ML en Madrid. Control de calidad industrial y productos de IA local-first."
 
 [module]
   [module.hugoVersion]
@@ -53,7 +81,7 @@ showReadingTime = true
 showTags = true
 showAuthors = false
 showCategories = false
-sitedescription = "Data scientist and AI engineer in Madrid."
+sitedescription = "Computer Vision & ML Engineer in Madrid. Industrial quality control and local-first AI products."
 footerHtml = '© 2026 Jose Paredes · Built with <a href="https://gohugo.io" class="footerLink">Hugo</a> and <a href="https://github.com/LordMathis/hugo-theme-nightfall" class="footerLink">Nightfall</a>'
 
 [params.author]

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>EIPSA industrial vision pipeline: camera, dataset, YOLO11, inspection</title>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto-start-reverse">
+      <path d="M0 0 L8 4.5 L0 9 z" fill="#80aadd"/>
+    </marker>
+  </defs>
+  <rect x="0.5" y="0.5" width="1199" height="674" rx="12" fill="#292a2d" stroke="#3a3b3d"/>
+  <g font-family="ui-monospace, 'Fira Mono', 'Cascadia Mono', Consolas, monospace">
+    <text x="60" y="80" font-size="30" fill="#f8f8ff">EIPSA · industrial computer vision</text>
+    <text x="60" y="114" font-size="17" fill="#a8a8b3">fluorescent penetrant inspection · welding defects</text>
+    <rect x="972" y="52" width="168" height="36" rx="18" fill="none" stroke="#80aadd" stroke-width="1.5"/>
+    <text x="1056" y="76" font-size="14" fill="#80aadd" text-anchor="middle">IN PRODUCTION</text>
+
+    <!-- stage 1: camera -->
+    <rect x="60" y="230" width="210" height="190" rx="10" fill="#2e2e33" stroke="#3a3b3d" stroke-width="1.5"/>
+    <rect x="153" y="262" width="24" height="10" rx="2" fill="none" stroke="#80aadd" stroke-width="2"/>
+    <rect x="131" y="272" width="68" height="46" rx="6" fill="none" stroke="#80aadd" stroke-width="2"/>
+    <circle cx="165" cy="295" r="13" fill="none" stroke="#f8f8ff" stroke-width="2"/>
+    <text x="165" y="362" font-size="20" fill="#f8f8ff" text-anchor="middle">camera</text>
+    <text x="165" y="390" font-size="13" fill="#a8a8b3" text-anchor="middle">production line</text>
+
+    <!-- stage 2: dataset -->
+    <rect x="350" y="230" width="210" height="190" rx="10" fill="#2e2e33" stroke="#3a3b3d" stroke-width="1.5"/>
+    <rect x="425" y="262" width="52" height="36" rx="3" fill="none" stroke="#3a3b3d" stroke-width="2"/>
+    <rect x="433" y="270" width="52" height="36" rx="3" fill="none" stroke="#80aadd" stroke-width="2" opacity="0.6"/>
+    <rect x="441" y="278" width="52" height="36" rx="3" fill="#292a2d" stroke="#80aadd" stroke-width="2"/>
+    <text x="455" y="362" font-size="20" fill="#f8f8ff" text-anchor="middle">dataset</text>
+    <text x="455" y="390" font-size="13" fill="#a8a8b3" text-anchor="middle">labelled frames</text>
+
+    <!-- stage 3: YOLO11 -->
+    <rect x="640" y="230" width="210" height="190" rx="10" fill="#2e2e33" stroke="#80aadd" stroke-width="2"/>
+    <rect x="713" y="262" width="64" height="52" fill="none" stroke="#80aadd" stroke-width="2" stroke-dasharray="6 4"/>
+    <rect x="741" y="284" width="22" height="16" fill="#80aadd" opacity="0.55"/>
+    <path d="M713 274 v-12 h12 M765 262 h12 v12 M777 302 v12 h-12 M725 314 h-12 v-12" fill="none" stroke="#f8f8ff" stroke-width="2"/>
+    <text x="745" y="362" font-size="20" fill="#f8f8ff" text-anchor="middle">YOLO11</text>
+    <text x="745" y="390" font-size="13" fill="#a8a8b3" text-anchor="middle">defect detection</text>
+
+    <!-- stage 4: inspection -->
+    <rect x="930" y="230" width="210" height="190" rx="10" fill="#2e2e33" stroke="#3a3b3d" stroke-width="1.5"/>
+    <circle cx="1035" cy="290" r="26" fill="none" stroke="#80aadd" stroke-width="2"/>
+    <path d="M1023 290 l9 9 l17 -19" fill="none" stroke="#f8f8ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1035" y="362" font-size="20" fill="#f8f8ff" text-anchor="middle">inspection</text>
+    <text x="1035" y="390" font-size="13" fill="#a8a8b3" text-anchor="middle">pass / fail</text>
+
+    <!-- flow arrows -->
+    <line x1="282" y1="325" x2="338" y2="325" stroke="#80aadd" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="572" y1="325" x2="628" y2="325" stroke="#80aadd" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="862" y1="325" x2="918" y2="325" stroke="#80aadd" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <line x1="60" y1="488" x2="1140" y2="488" stroke="#3a3b3d" stroke-width="1.5"/>
+    <text x="60" y="542" font-size="18" fill="#80aadd">10+ models published on Hugging Face</text>
+    <text x="60" y="576" font-size="14" fill="#a8a8b3">penetrant indications · weld defects · in use in production</text>
+  </g>
+</svg>
