@@ -2240,6 +2240,67 @@ def check_cv():
     return checks
 
 
+def check_ui():
+    """Local UI preferences: selector at the right, no page zoom, compact
+    GitHub-style stack chips, narrower project cards, no client name on
+    the Projects page. Checks the built output, not the templates."""
+    checks = []
+    css_parts = []
+    for style in (ROOT / "dist").rglob("*.css"):
+        css_parts.append(style.read_text(encoding="utf-8"))
+    home = (ROOT / "dist/index.html").read_text(encoding="utf-8")
+    inline = re.search(r"<style>(.*?)</style>", home, re.S)
+    if inline:
+        css_parts.append(inline.group(1))
+    css = re.sub(r"\s+", "", "".join(css_parts))
+
+    failures = []
+    if "zoom:1.25" in css:
+        failures.append("125% page zoom is still present")
+    checks.append(("ui default zoom", failures))
+
+    failures = []
+    if ".stackList{display:flex" not in css:
+        failures.append("stack list is not a flex row")
+    if "flex-wrap:wrap" not in css or "list-style:none" not in css:
+        failures.append("stack chips lack wrapping or no-bullet styling")
+    checks.append(("ui stack chips", failures))
+
+    failures = []
+    if ".case{display:flow-root;max-width:780px" not in css:
+        failures.append("project cards are not width-limited")
+    if ".caseMedia{float:left" not in css:
+        failures.append("project media is not compact/floated")
+    checks.append(("ui compact cases", failures))
+
+    for route in ("/", "/es/"):
+        text, _ = _parse(route)
+        failures = []
+        if text is None:
+            failures.append("missing page")
+        else:
+            menu = re.search(r"<nav\b[^>]*\bid=site-menu", text)
+            selector = re.search(r"<nav\b[^>]*\bclass=langSwitchSite", text)
+            if menu is None or selector is None or selector.start() < menu.start():
+                failures.append("EN/ES selector is not after the menu")
+        checks.append(("ui selector order " + route, failures))
+
+    for route in ("/projects/", "/es/projects/"):
+        text, _ = _parse(route)
+        failures = []
+        main = _main_html(text or "")
+        if "EIPSA" in main:
+            failures.append("client name present in the Projects page")
+        dead_repo = "https://github.com/jparedesDS/OCR-Identification-CS2-Weapons"
+        live_repo = "https://github.com/jparedesDS/cs2-yolo12m-weapon-detection"
+        if _href_present(text or "", dead_repo):
+            failures.append("dead OCR repository link present")
+        if not _href_present(text or "", live_repo):
+            failures.append("weapon-detection repository link missing")
+        checks.append(("ui projects links " + route, failures))
+    return checks
+
+
 def check_route(route):
     """Return failure messages for one route (empty list = pass)."""
     path = page(route)
@@ -2371,6 +2432,14 @@ def main():
         else:
             print("PASS " + label)
             cv_passed += 1
+    ui_checks = check_ui()
+    ui_passed = 0
+    for label, failures in ui_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            ui_passed += 1
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
@@ -2382,7 +2451,8 @@ def main():
             and notfound_passed == len(notfound_checks)
             and menu_passed == len(menu_checks)
             and privacy_passed == len(privacy_checks)
-            and cv_passed == len(cv_checks)):
+            and cv_passed == len(cv_checks)
+            and ui_passed == len(ui_checks)):
         print("OK %d/%d" % (passed, total))
         return 0
     print("FAIL %d/%d" % (passed, total))

@@ -13,10 +13,10 @@ Three builds, each with the problem, what I did and the result. Everything here 
 
 <section class="case">
 
-### Industrial computer vision — EIPSA {#vision}
+### Industrial computer vision {#vision}
 
 <figure class="caseMedia">
-  <img src="/images/case-vision.svg" alt="Diagram of the EIPSA vision pipeline: camera frames become a labelled dataset, YOLO11 detects defects, and inspection decides pass or fail." width="1200" height="675">
+  <img src="/images/case-vision.svg" alt="Diagram of an industrial vision pipeline: camera frames become a labelled dataset, YOLO11 detects defects, and inspection decides pass or fail." width="1200" height="675">
   <figcaption>camera → dataset → YOLO11 → inspection</figcaption>
 </figure>
 
@@ -104,7 +104,7 @@ The public repository is DocFlow Lite, a CustomTkinter desktop app; the SaaS des
 
 - [HLTV Team & Player Stats Scraper](https://github.com/jparedesDS/hltv-scraper) — CS2 statistics scraping and analysis.
 - [Technical Drawing Data Extraction](https://github.com/jparedesDS/extract-data-dxf) — deep learning for DXF technical drawings.
-- [OCR Weapon Detection](https://github.com/jparedesDS/OCR-Identification-CS2-Weapons) — screen capture and OCR for CS2 weapon names.
+- [CS2 Weapon Detection](https://github.com/jparedesDS/cs2-yolo12m-weapon-detection) - 19-class weapon detection with YOLO12m.
 
 ## Archive
 

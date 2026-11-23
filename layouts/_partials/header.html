@@ -11,7 +11,6 @@
         <button type="button" class="menuToggle" aria-expanded="false" aria-controls="site-menu" aria-label="{{ i18n "menu_label" }}">
             <span class="hamb-line"></span>
         </button>
-        {{ partial "lang-switch.html" . }}
         <nav id="site-menu" class="headerLinks">
             <ul>
                 {{ range .Site.Menus.header }}
@@ -23,6 +22,7 @@
                 {{ end }}
             </ul>
         </nav>
+        {{ partial "lang-switch.html" . }}
     </div>
 </header>
 <script>

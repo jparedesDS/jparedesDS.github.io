@@ -13,10 +13,10 @@ Tres proyectos, cada uno con su problema, lo que hice y el resultado. Todo lo qu
 
 <section class="case">
 
-### Visión artificial industrial — EIPSA {#vision}
+### Visión artificial industrial {#vision}
 
 <figure class="caseMedia">
-  <img src="/images/case-vision-es.svg" alt="Diagrama del pipeline de visión de EIPSA: las imágenes de cámara forman un dataset etiquetado, YOLO11 detecta defectos y la inspección decide si la pieza pasa." width="1200" height="675">
+  <img src="/images/case-vision-es.svg" alt="Diagrama de un pipeline de visión industrial: las imágenes de cámara forman un dataset etiquetado, YOLO11 detecta defectos y la inspección decide si la pieza pasa." width="1200" height="675">
   <figcaption>cámara → dataset → YOLO11 → inspección</figcaption>
 </figure>
 
@@ -104,7 +104,7 @@ El repositorio público es DocFlow Lite, una aplicación de escritorio en Custom
 
 - [HLTV Team & Player Stats Scraper](https://github.com/jparedesDS/hltv-scraper) — scraping y análisis de estadísticas de CS2.
 - [Technical Drawing Data Extraction](https://github.com/jparedesDS/extract-data-dxf) — deep learning para extracción de datos de planos DXF.
-- [OCR Weapon Detection](https://github.com/jparedesDS/OCR-Identification-CS2-Weapons) — captura de pantalla y OCR de nombres de armas de CS2.
+- [Detección de armas en CS2](https://github.com/jparedesDS/cs2-yolo12m-weapon-detection) - detección de 19 clases con YOLO12m.
 
 ## Archivo
 

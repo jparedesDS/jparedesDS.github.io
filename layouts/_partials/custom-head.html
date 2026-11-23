@@ -896,6 +896,26 @@
     border-color: #80aadd;
   }
 
+  /* About stack: compact GitHub-style topic chips instead of a list. */
+  .stackList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stackList li {
+    padding: 0.22rem 0.6rem;
+    border: 1px solid #3b4654;
+    border-radius: 999px;
+    background: #2a3038;
+    color: #9ec5f5;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.78rem;
+  }
+
   /* Hiring strip: mono role, availability, proof line and CV/email
      calls to action. Overrides the shared .profileRole font only off
      the blog. */
@@ -1001,27 +1021,31 @@
   .caseList {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin: 1.2rem 0 2.4rem;
+    gap: 1.1rem;
+    margin: 1.1rem 0 2rem;
   }
 
   .case {
-    padding: 1.4rem 1.5rem 1.5rem;
+    display: flow-root;
+    max-width: 780px;
+    padding: 1.1rem 1.25rem 1.2rem;
     border: 1px solid #3a3b3d;
     border-radius: 10px;
     background: #2e2e33;
   }
 
   .case h3 {
-    margin: 0 0 1rem;
+    margin: 0 0 0.7rem;
     font-family: "Fira Mono", monospace;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     letter-spacing: -0.01em;
     color: #f8f8ff;
   }
 
   .caseMedia {
-    margin: 0 0 1.1rem;
+    float: left;
+    width: 300px;
+    margin: 0 1.25rem 0.6rem 0;
   }
 
   .caseMedia img {
@@ -1088,6 +1112,12 @@
     .case h3 {
       font-size: 1.05rem;
     }
+
+    .caseMedia {
+      float: none;
+      width: 100%;
+      margin: 0 0 0.8rem;
+    }
   }
   {{- end }}
 
@@ -1145,17 +1175,6 @@
     }
   }
 
-  /* On 1080p the Nightfall layout reads small; emulate 125% page zoom. */
-  @media (min-width: 1280px) {
-    body {
-      zoom: 1.25;
-      min-height: calc(100vh / 1.25);
-    }
-
-    .flexWrapper {
-      min-height: calc(100vh / 1.25);
-    }
-  }
   /* Blog search. */
   .searchBox {
     margin-bottom: 10px;
