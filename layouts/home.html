@@ -25,7 +25,7 @@
                         <p class="hireAvailability">{{ i18n "hire_availability" }}</p>
                         <p class="hireProof">{{ i18n "hire_proof" }}</p>
                         <div class="hireActions">
-                            <a class="hireButtonPrimary" href="{{ .Site.Params.resumeUrl }}" download>{{ i18n "hire_cv" }}</a>
+                            <a class="hireButtonPrimary" href="{{ "/cv/" | relLangURL }}">{{ i18n "hire_cv" }}</a>
                             <a class="hireButtonSecondary" href="mailto:{{ .Site.Params.author.email }}?subject=Oportunidad%20CV%20/%20ML">{{ i18n "hire_email" }}</a>
                         </div>
                     </div>

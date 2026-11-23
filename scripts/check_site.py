@@ -33,7 +33,7 @@ ROUTES = [
     "/blog/index.json", "/blog/index.xml", "/index.xml", "/sitemap.xml",
     "/propovcs2/", "/cleanyourmail/", "/privacy/",
     "/es/", "/es/about/", "/es/projects/", "/es/contact/", "/es/privacy/",
-    "/es/blog/", "/repositories/", "/es/repositories/",
+    "/es/blog/", "/repositories/", "/es/repositories/", "/cv/", "/es/cv/",
     # Preserved routes outside the rebuild (final review): /work/ is a
     # redirect stub; /cs2pov/ and /murdoku/ are standalone app pages.
     "/work/", "/cs2pov/", "/murdoku/",
@@ -50,6 +50,7 @@ PAGE_PAIRS = [
     ("/contact/", "/es/contact/"),
     ("/privacy/", "/es/privacy/"),
     ("/repositories/", "/es/repositories/"),
+    ("/cv/", "/es/cv/"),
 ]
 
 # Controller ruling (Task 1 review, extended by the Task 7 review and
@@ -281,8 +282,8 @@ HIRE_COPY = {
         "proof": ("Industrial computer vision since 2024 · 10+ models on "
                   "Hugging Face · DocFlow in production"),
         "proof_marker": "since 2024",
-        "cv": "Download CV",
-        "cv_url": "/resume.pdf",
+        "cv": "CV",
+        "cv_url": "/cv/",
         "email": "Email me",
         "projects": "Active projects",
         "banned": ("four years", "4 years"),
@@ -297,8 +298,8 @@ HIRE_COPY = {
         "proof": ("Visión artificial industrial desde 2024 · 10+ modelos "
                   "en Hugging Face · DocFlow en producción"),
         "proof_marker": "desde 2024",
-        "cv": "Descargar CV",
-        "cv_url": "/resume-es.pdf",
+        "cv": "CV",
+        "cv_url": "/es/cv/",
         "email": "Escríbeme",
         "projects": "Proyectos activos",
         "banned": ("cuatro años", "4 años"),
@@ -363,17 +364,11 @@ def check_hiring():
             if _class_pos(text, cls) == -1:
                 failures.append("no .%s markup" % cls)
 
-        # CV button: the language's own PDF, with download.
+        # CV button: labelled simply "CV" and linked to the CV page,
+        # where the PDF lives.
         cv_url = copy["cv_url"]
         if not _href_present(text, cv_url):
             failures.append('no href="%s"' % cv_url)
-        cv_tag = re.search(
-            r'<a\b[^>]*href=(?:"%s"|%s)[^>]*>'
-            % (re.escape(cv_url), re.escape(cv_url)), text)
-        if cv_tag is None:
-            failures.append("no CV anchor tag")
-        elif "download" not in cv_tag.group(0):
-            failures.append("CV anchor lacks download attribute")
         if not any(_norm(href) == cv_url and label == copy["cv"]
                    for href, label in parser.anchors):
             failures.append("no CV button labelled %r" % copy["cv"])
@@ -703,9 +698,9 @@ ABOUT_SCOPE_FACTS = {
 }
 ABOUT_SECTIONS = {
     "/about/": ("Projects", "Open projects", "Stack", "Experience",
-                "Education", "Contact"),
+                "Education"),
     "/es/about/": ("Proyectos", "Proyectos abiertos", "Stack", "Experiencia",
-                   "Formación", "Contacto"),
+                   "Formación"),
 }
 ABOUT_BANNED = ("four years", "4 years", "cuatro años", "4 años",
                 "3rd place", "3er puesto", "tercer puesto")
@@ -805,6 +800,7 @@ DESCRIPTION_ROUTES = {
     "/es/": "es", "/es/about/": "es", "/es/projects/": "es",
     "/es/contact/": "es", "/es/privacy/": "es",
     "/repositories/": "en", "/es/repositories/": "es",
+    "/cv/": "en", "/es/cv/": "es",
 }
 
 
@@ -981,7 +977,7 @@ def check_contact():
                             % main.count(copy["availability"]))
 
         # No availability date is approved: none anywhere in the copy.
-        if re.search(r"\b(19|20)\d{2}\b", main):
+        if re.search(r"\b(19|20)\d{2}\b", _visible_text(main)):
             failures.append("page copy contains a date (not approved)")
 
         # The page language must match the copy.
@@ -1074,6 +1070,8 @@ OG_TITLES = {
     "/es/privacy/": "Privacidad",
     "/repositories/": "Repositories",
     "/es/repositories/": "Repositorios",
+    "/cv/": "CV",
+    "/es/cv/": "CV",
     "/blog/": "Blog",
     "/blog/search/": "Search",
     "/blog/tags/": "Tags",
@@ -2260,11 +2258,11 @@ def check_repos():
             continue
         if not re.search(r"<h1[^>]*>\s*%s\s*</h1>" % re.escape(heading), text):
             failures.append("missing h1 %r" % heading)
-        cards = len(re.findall(r'class=repoCard', text))
+        cards = len(re.findall(r'<a class=[^>]*repoCard', text))
         if cards != len(repos) + 1:  # +1 = the GitHub profile card
             failures.append("repo card count %d, expected %d"
                             % (cards, len(repos) + 1))
-        model_cards = len(re.findall(r'class=modelCard', text))
+        model_cards = len(re.findall(r'<a class=[^>]*modelCard', text))
         if model_cards != len(models):
             failures.append("model card count %d, expected %d"
                             % (model_cards, len(models)))
@@ -2286,6 +2284,33 @@ def check_repos():
             else "/repositories/"
         if not _href_present(text, menu_path):
             failures.append("repos page not linked in the menu")
+        if len(re.findall(r"class=reposMore", text)) != 2:
+            failures.append("expected two show-more buttons")
+        page_css = (ROOT / "dist/index.html").read_text(encoding="utf-8")
+        if not re.search(r"\.repoGrid\s+\.repoExtra\s*,\s*\.modelGrid\s+"
+                         r"\.modelExtra\s*\{\s*display:\s*none", page_css):
+            failures.append("extra repo cards are not hidden by default")
+        if not re.search(r"\.repoGrid\.expanded\s+\.repoExtra\s*,\s*"
+                         r"\.modelGrid\.expanded\s+\.modelExtra\s*\{\s*"
+                         r"display:\s*block", page_css):
+            failures.append("expanded repo cards do not become visible")
+        if len(re.findall(r'class="repoCard repoExtra"', text)) != max(0, len(repos) - 10):
+            failures.append("wrong number of collapsed repo cards")
+        if len(re.findall(r'class="modelCard modelExtra"', text)) != max(0, len(models) - 10):
+            failures.append("wrong number of collapsed model cards")
+        card_hrefs = [m.group(1).strip('"') for m in re.finditer(
+            r'class=repoCard[^>]*?href=([^ >]+)', text)]
+        # The first card is the GitHub profile, then the top 10 by stars.
+        expected = ["https://github.com/" + data["github_user"]] + [
+            r["url"] for r in sorted(repos, key=lambda x: -x["stars"])[:10]]
+        if card_hrefs[:len(expected)] != expected:
+            failures.append("GitHub cards are not sorted by stars")
+        model_hrefs = [m.group(1).strip('"') for m in re.finditer(
+            r'class=modelCard[^>]*?href=([^ >]+)', text)]
+        expected_models = [m["url"] for m in sorted(
+            models, key=lambda x: -x["likes"])[:10]]
+        if model_hrefs[:len(expected_models)] != expected_models:
+            failures.append("Hugging Face cards are not sorted by likes")
         checks.append(("repos " + route, failures))
     return checks
 
@@ -2386,10 +2411,6 @@ def check_ui():
             if heads != list(expected):
                 failures.append("section order %r, expected %r"
                                 % (heads, list(expected)))
-            contact = _section_html(
-                text, "Contact" if route == "/about/" else "Contacto")
-            if contact is None or 'href=/blog/' not in contact:
-                failures.append("Blog link missing from Contact")
             if len(re.findall(r"class=resumeBlock", text)) < 5:
                 failures.append("resume blocks missing")
             experience = ("Experience", "Education") if route == "/about/" \
@@ -2404,6 +2425,71 @@ def check_ui():
             if not _href_present(text, repos_link):
                 failures.append("no link to %s" % repos_link)
         checks.append(("ui about layout " + route, failures))
+
+    for route in MENU_ROUTES:
+        text, _ = _parse(route)
+        failures = []
+        if text is None or "footerContact" not in text or "footerName" not in text:
+            failures.append("footer contact block missing")
+        checks.append(("ui footer contact " + route, failures))
+
+    for route in CONTACT_COPY:
+        text, _ = _parse(route)
+        failures = []
+        if text is None:
+            failures.append("missing page")
+        else:
+            cards = len(re.findall(r"class=contactProject(?=[\s>])", text))
+            if cards != 5:
+                failures.append("expected 5 project cards, found %d" % cards)
+            block = re.search(r"<div class=propovIcons>(.*?)</div>", text, re.S)
+            links = len(re.findall(r"<a\b", block.group(1))) if block else 0
+            if links != 7:
+                failures.append("expected 7 Pro POV icons, found %d" % links)
+            for src in re.findall(r'<img\b[^>]*src=([^ >]+)', text):
+                src = src.strip('"')
+                if src.startswith("/images/"):
+                    if not (ROOT / "dist" / src.lstrip("/")).is_file():
+                        failures.append("missing project image: " + src)
+        checks.append(("ui contact cards " + route, failures))
+
+    for route, pdf in (("/cv/", "/resume.pdf"), ("/es/cv/", "/resume-es.pdf")):
+        text, _ = _parse(route)
+        failures = []
+        if text is None:
+            failures.append("missing page")
+        else:
+            if not re.search(r"<h1[^>]*>\s*CV\s*</h1>", text):
+                failures.append("missing CV h1")
+            tag = re.search(
+                r'<a\b[^>]*href=(?:"%s"|%s)[^>]*>'
+                % (re.escape(pdf), re.escape(pdf)), text)
+            if tag is None:
+                failures.append("no PDF download link " + pdf)
+            elif "download" not in tag.group(0):
+                failures.append("PDF link lacks download attribute")
+            if len(re.findall(r"<h3\b", text)) < 6:
+                failures.append("too few CV sections")
+            if len(re.findall(r'class="?cvEntry', text)) < 5:
+                failures.append("too few CV entries")
+            if "Download CV" in text or "Descargar CV" in text:
+                failures.append("old CTA label still present")
+        checks.append(("ui cv page " + route, failures))
+
+    for route in MENU_ROUTES:
+        text, _ = _parse(route)
+        failures = []
+        if text is None or "~/cv" not in text:
+            failures.append("CV link missing from the menu")
+        checks.append(("ui cv menu " + route, failures))
+
+    failures = []
+    if not (ROOT / "scripts/update_repositories.py").is_file():
+        failures.append("repository refresh script missing")
+    workflow = (ROOT / ".github/workflows/deploy.yml").read_text(encoding="utf-8")
+    if "update_repositories.py" not in workflow:
+        failures.append("deploy workflow does not refresh repository data")
+    checks.append(("ui auto refresh", failures))
     return checks
 
 

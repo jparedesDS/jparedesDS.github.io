@@ -102,14 +102,3 @@ Todos mis repositorios y modelos están en la página **[Repositorios](/es/repos
   <p class="resumeOrg">Centro de Formación Padre Piquer · Madrid</p>
   <p>Ciclo Formativo de Grado Superior en Telecomunicaciones.</p>
 </div>
-
-## Contacto
-
-- Email: [jparedescolmenarejo@gmail.com](mailto:jparedescolmenarejo@gmail.com)
-- GitHub: [github.com/jparedesDS](https://github.com/jparedesDS)
-- LinkedIn: [linkedin.com/in/jparedesDS](https://www.linkedin.com/in/jparedesDS/)
-- X: [x.com/xhitoCS](https://x.com/xhitoCS)
-- Instagram: [instagram.com/xhitoCS](https://www.instagram.com/xhitoCS/)
-- Hugging Face: [huggingface.co/jparedesDS](https://huggingface.co/jparedesDS)
-- Kaggle: [kaggle.com/joseparedesc](https://www.kaggle.com/joseparedesc)
-- Blog: [jparedesds.com/blog](/blog/)

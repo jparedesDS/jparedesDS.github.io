@@ -84,7 +84,7 @@
     other = "Industrial computer vision since 2024 · 10+ models on Hugging Face · DocFlow in production"
 
 [hire_cv]
-    other = "Download CV"
+    other = "CV"
 
 [hire_email]
     other = "Email me"
@@ -146,3 +146,12 @@
 
 [repos_likes]
     other = "likes"
+
+[repos_show_more]
+    other = "Show more…"
+
+[repos_show_less]
+    other = "Show less"
+
+[cv_title]
+    other = "CV"

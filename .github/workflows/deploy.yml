@@ -20,6 +20,10 @@ jobs:
         with:
           hugo-version: "0.169.0"
           extended: true
+      - name: Refresh GitHub and Hugging Face data
+        run: python3 scripts/update_repositories.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: hugo --gc --minify
       - run: touch dist/.nojekyll
       - uses: JamesIves/github-pages-deploy-action@v4

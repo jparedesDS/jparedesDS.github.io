@@ -1,14 +1,74 @@
 <footer class="footer">
-    {{ with .Site.Params.footerHtml }}
-        <span>{{ . | safeHTML }}</span>
-    {{ else }}
-        <span>
-            © {{ now.Format "2006" }} {{ .Site.Params.author.name }}, {{ i18n "powered_by" }}
-            <a href="https://gohugo.io" class="footerLink">Hugo</a> {{ i18n "and" }}
-            <a href="https://github.com/LordMathis/hugo-theme-nightfall" class="footerLink">Nightfall</a> {{ i18n "theme" }}
-        </span>
-    {{ end }}
-    {{- /* Task 10: localized privacy link appended to the existing line.
-           relLangURL resolves /privacy/ in EN and /es/privacy/ in ES. */}}
-    <span> · <a href="{{ "privacy/" | relLangURL }}" class="footerLink">{{ i18n "privacy" }}</a></span>
+    <div class="footerMeta">
+        {{ with .Site.Params.footerHtml }}
+            <span>{{ . | safeHTML }}</span>
+        {{ else }}
+            <span>
+                © {{ now.Format "2006" }} {{ .Site.Params.author.name }}, {{ i18n "powered_by" }}
+                <a href="https://gohugo.io" class="footerLink">Hugo</a> {{ i18n "and" }}
+                <a href="https://github.com/LordMathis/hugo-theme-nightfall" class="footerLink">Nightfall</a> {{ i18n "theme" }}
+            </span>
+        {{ end }}
+        <span> · <a href="{{ "privacy/" | relLangURL }}" class="footerLink">{{ i18n "privacy" }}</a></span>
+    </div>
+    <div class="footerContact">
+        <span class="footerName">{{ .Site.Params.author.name }}</span>
+        {{ partial "profile-social.html" . }}
+    </div>
 </footer>
+<style>
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem 1.5rem;
+    text-align: left;
+  }
+
+  .footerMeta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    color: #a8a8b3;
+    font-size: 0.85rem;
+  }
+
+  .footerContact {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-left: auto;
+  }
+
+  .footerName {
+    font-family: "Fira Mono", monospace;
+    font-size: 0.8rem;
+    color: #f8f8ff;
+  }
+
+  .footer .profileSocial {
+    gap: 0.7rem;
+  }
+
+  .footer .profileSocial a {
+    padding: 0.15rem;
+    color: #a8a8b3;
+  }
+
+  .footer .profileSocial svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .footerContact {
+      margin-left: 0;
+    }
+  }
+</style>

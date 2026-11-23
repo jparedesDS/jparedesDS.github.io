@@ -1029,7 +1029,46 @@
   }
 
   .repoGridProfile {
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    display: flex;
+    justify-content: center;
+  }
+
+  .repoGridProfile .repoCard {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .repoGrid .repoExtra,
+  .modelGrid .modelExtra {
+    display: none;
+  }
+
+  .repoGrid.expanded .repoExtra,
+  .modelGrid.expanded .modelExtra {
+    display: block;
+  }
+
+  .reposMore {
+    display: block;
+    margin: 1.2rem auto 0;
+    padding: 0.55rem 1.3rem;
+    border: 1px solid #80aadd;
+    border-radius: 6px;
+    background: rgba(128, 170, 221, 0.12);
+    color: #9ec5f5;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .reposMore:hover {
+    background: rgba(128, 170, 221, 0.24);
+    color: #f8f8ff;
+  }
+
+  .reposMore:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
   }
 
   .repoCard {
@@ -1065,11 +1104,13 @@
   }
 
   .modelCard {
-    display: block;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 124px;
+    padding: 0.85rem 0.9rem;
     border: 1px solid #3a3b3d;
     border-radius: 8px;
-    background: #2e2e33;
+    background: #191a1c;
     color: inherit;
     text-decoration: none;
     transition: border-color 0.18s ease, transform 0.18s ease;
@@ -1081,24 +1122,57 @@
     text-decoration: none;
   }
 
+  .modelHead {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .modelIcon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
   .modelCard h3 {
-    margin: 0 0 0.4rem;
+    margin: 0;
     font-family: "Fira Mono", monospace;
     font-size: 0.85rem;
     word-break: break-all;
-    color: #f8f8ff;
-  }
-
-  .modelTask {
-    margin: 0 0 0.5rem;
-    font-size: 0.8rem;
     color: #9ec5f5;
   }
 
+  .modelTask {
+    margin: 0 0 0.6rem;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: #c9c9cf;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
   .modelStats {
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem 0.9rem;
+    margin: auto 0 0;
     font-size: 0.75rem;
-    color: #a8a8b3;
+    color: #9b9c9d;
+  }
+
+  .modelStat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .modelStat svg {
+    width: 12px;
+    height: 12px;
+    color: #80aadd;
   }
 
   /* Hiring strip: mono role, availability, proof line and CV/email
@@ -1302,6 +1376,246 @@
       float: none;
       width: 100%;
       margin: 0 0 0.8rem;
+    }
+  }
+
+  /* Contact page: project cards with screenshots and a row of Pro POV
+     network icons. Each card is a direct link to the live website. */
+  .contactProjects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+  }
+
+  .contactProject {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #2e2e33;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .contactProject:hover {
+    border-color: #80aadd;
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .contactProject:focus-visible,
+  .propovIcons a:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
+  }
+
+  .contactProject img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid #3a3b3d;
+    background: #292a2d;
+  }
+
+  .contactProjectBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.85rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #a8a8b3;
+  }
+
+  .contactProjectBody strong {
+    font-family: "Fira Mono", monospace;
+    font-size: 0.95rem;
+    color: #f8f8ff;
+  }
+
+  .propovIcons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1rem 0;
+  }
+
+  .propovIcons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #2e2e33;
+    color: #a8a8b3;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: border-color 0.18s ease, color 0.18s ease;
+  }
+
+  .propovIcons a:hover {
+    border-color: #80aadd;
+    color: #80aadd;
+    text-decoration: none;
+  }
+
+  .propovIcons svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* CV page: al-folio-style structured CV in Nightfall colours. */
+  .cvShell {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+    text-align: left;
+  }
+
+  .cvHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cvHead h1 {
+    margin: 0;
+    font-family: "Fira Mono", monospace;
+    font-size: 2rem;
+    color: #f8f8ff;
+  }
+
+  .cvDownload {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid #80aadd;
+    border-radius: 6px;
+    background: rgba(128, 170, 221, 0.12);
+    color: #9ec5f5;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  .cvDownload:hover {
+    background: rgba(128, 170, 221, 0.24);
+    color: #f8f8ff;
+    text-decoration: none;
+  }
+
+  .cvDownload:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
+  }
+
+  .cvDownload svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .cvShell h3 {
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #333333;
+    font-family: "Fira Mono", monospace;
+    font-size: 1.1rem;
+    color: #f8f8ff;
+  }
+
+  .cvShell p {
+    margin: 0 0 0.7rem;
+    color: #c9c9cf;
+    line-height: 1.6;
+  }
+
+  .cvShell strong {
+    color: #f8f8ff;
+  }
+
+  .cvFacts {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+
+  .cvFacts td {
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid #333333;
+    font-size: 0.88rem;
+    color: #c9c9cf;
+  }
+
+  .cvFacts td:first-child {
+    width: 150px;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.78rem;
+    color: #9ec5f5;
+  }
+
+  .cvEntry {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #333333;
+  }
+
+  .cvWhen {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.78rem;
+    color: #9b9c9d;
+  }
+
+  .cvBody h4 {
+    margin: 0;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.95rem;
+    color: #f8f8ff;
+  }
+
+  .cvBody h5 {
+    margin: 0.2rem 0 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #9ec5f5;
+  }
+
+  .cvBody ul {
+    margin: 0.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+
+  .cvBody li {
+    margin: 0.2rem 0;
+    color: #c9c9cf;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 768px) {
+    .cvHead {
+      flex-wrap: wrap;
+    }
+
+    .cvEntry {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+
+    .cvFacts td:first-child {
+      width: 110px;
     }
   }
   {{- end }}

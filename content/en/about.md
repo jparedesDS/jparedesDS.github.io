@@ -103,14 +103,3 @@ Every repository and model is listed on the dedicated **[Repositories](/reposito
   <p class="resumeOrg">Centro de Formación Padre Piquer · Madrid</p>
   <p>Advanced Vocational Degree in Telecommunications.</p>
 </div>
-
-## Contact
-
-- Email: [jparedescolmenarejo@gmail.com](mailto:jparedescolmenarejo@gmail.com)
-- GitHub: [github.com/jparedesDS](https://github.com/jparedesDS)
-- LinkedIn: [linkedin.com/in/jparedesDS](https://www.linkedin.com/in/jparedesDS/)
-- X: [x.com/xhitoCS](https://x.com/xhitoCS)
-- Instagram: [instagram.com/xhitoCS](https://www.instagram.com/xhitoCS/)
-- Hugging Face: [huggingface.co/jparedesDS](https://huggingface.co/jparedesDS)
-- Kaggle: [kaggle.com/joseparedesc](https://www.kaggle.com/joseparedesc)
-- Blog: [jparedesds.com/blog](/blog/)

@@ -84,7 +84,7 @@
     other = "Visión artificial industrial desde 2024 · 10+ modelos en Hugging Face · DocFlow en producción"
 
 [hire_cv]
-    other = "Descargar CV"
+    other = "CV"
 
 [hire_email]
     other = "Escríbeme"
@@ -146,3 +146,12 @@
 
 [repos_likes]
     other = "me gusta"
+
+[repos_show_more]
+    other = "Ver más…"
+
+[repos_show_less]
+    other = "Ver menos"
+
+[cv_title]
+    other = "CV"

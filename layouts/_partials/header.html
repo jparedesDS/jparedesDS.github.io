@@ -25,6 +25,26 @@
         {{ partial "lang-switch.html" . }}
     </div>
 </header>
+<style>
+  /* Six menu items plus EN/ES and the page-aware terminal need a little
+     less room so the header never wraps, on any page. */
+  .header {
+    gap: 0.75rem;
+  }
+
+  .header .terminal,
+  .header .headerLinks {
+    font-size: 0.85rem;
+  }
+
+  .header .headerLinks ul li {
+    margin: 0.3rem;
+  }
+
+  .header .langSwitchSite {
+    font-size: 0.75rem;
+  }
+</style>
 <script>
     (function () {
         var header = document.querySelector('.header');

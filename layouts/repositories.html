@@ -32,13 +32,14 @@
           <section class="reposSection">
             <h2>{{ i18n "repos_github" }}</h2>
             <p class="reposMeta">{{ len .Site.Data.repositories.repos }} {{ i18n "repos_count" }}</p>
-            <div class="repoGrid">
-              {{- range .Site.Data.repositories.repos }}
-              <a class="repoCard" href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .full_name }}">
-                <img src="https://github-stats-extended.vercel.app/api/pin/?username=jparedesDS&amp;repo={{ .name }}&amp;theme=dark&amp;show_owner=true&amp;description_lines_count=2" alt="{{ .full_name }}" loading="lazy">
+            <div class="repoGrid" id="repoGrid">
+              {{- range $i, $repo := sort .Site.Data.repositories.repos "stars" "desc" }}
+              <a class="repoCard{{ if ge $i 10 }} repoExtra{{ end }}" href="{{ $repo.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $repo.full_name }}">
+                <img src="https://github-stats-extended.vercel.app/api/pin/?username=jparedesDS&amp;repo={{ $repo.name }}&amp;theme=dark&amp;show_owner=true&amp;description_lines_count=2" alt="{{ $repo.full_name }}" loading="lazy">
               </a>
               {{- end }}
             </div>
+            <button type="button" class="reposMore" data-more="repoGrid" aria-expanded="false" data-more-label="{{ i18n "repos_show_more" }}" data-less-label="{{ i18n "repos_show_less" }}">{{ i18n "repos_show_more" }}</button>
           </section>
 
           <hr class="reposRule">
@@ -46,15 +47,19 @@
           <section class="reposSection">
             <h2>{{ i18n "repos_hf" }}</h2>
             <p class="reposMeta">{{ len .Site.Data.repositories.models }} {{ i18n "repos_models" }} · {{ i18n "repos_hf_intro" }}</p>
-            <div class="repoGrid modelGrid">
-              {{- range .Site.Data.repositories.models }}
-              <a class="modelCard" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
-                <h3>{{ .id }}</h3>
-                {{- with .task }}<p class="modelTask">{{ . }}</p>{{ end }}
-                <p class="modelStats">{{ .downloads }} {{ i18n "repos_downloads" }} · {{ .likes }} {{ i18n "repos_likes" }}</p>
+            <div class="repoGrid modelGrid" id="modelGrid">
+              {{- range $i, $model := sort .Site.Data.repositories.models "likes" "desc" }}
+              <a class="modelCard{{ if ge $i 10 }} modelExtra{{ end }}" href="{{ $model.url }}" target="_blank" rel="noopener noreferrer">
+                <span class="modelHead"><span class="modelIcon" aria-hidden="true">🤗</span><h3>{{ $model.id }}</h3></span>
+                {{- with $model.task }}<p class="modelTask">{{ . }}</p>{{ end }}
+                <p class="modelStats">
+                  <span class="modelStat"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>{{ $model.likes }} {{ i18n "repos_likes" }}</span>
+                  <span class="modelStat"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 10l-7 7-7-7 1.41-1.41L11 14.17V2z"></path></svg>{{ $model.downloads }} {{ i18n "repos_downloads" }}</span>
+                </p>
               </a>
               {{- end }}
             </div>
+            <button type="button" class="reposMore" data-more="modelGrid" aria-expanded="false" data-more-label="{{ i18n "repos_show_more" }}" data-less-label="{{ i18n "repos_show_less" }}">{{ i18n "repos_show_more" }}</button>
           </section>
         </div>
       </main>
@@ -62,6 +67,18 @@
 
     {{ partial "footer.html" . }}
   </div>
+  <script>
+    (function () {
+      document.querySelectorAll('.reposMore').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var grid = document.getElementById(button.getAttribute('data-more'));
+          var open = grid.classList.toggle('expanded');
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
+          button.textContent = open ? button.dataset.lessLabel : button.dataset.moreLabel;
+        });
+      });
+    })();
+  </script>
 </body>
 
 </html>
