@@ -147,6 +147,12 @@
 [repos_likes]
     other = "likes"
 
+[repos_base]
+    other = "Base"
+
+[repos_updated]
+    other = "Updated"
+
 [repos_show_more]
     other = "Show more…"
 

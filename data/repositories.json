@@ -439,106 +439,217 @@
       "id": "jparedesDS/fortnite-yolo11m",
       "url": "https://huggingface.co/jparedesDS/fortnite-yolo11m",
       "task": "object-detection",
+      "base": "",
+      "family": "YOLO 11",
+      "tags": [
+        "tensorboard",
+        "fortnite",
+        "object"
+      ],
       "downloads": 0,
-      "likes": 75
+      "likes": 75,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/cs2-yolov10m",
       "url": "https://huggingface.co/jparedesDS/cs2-yolov10m",
       "task": "object-detection",
+      "base": "jameslahm/yolov10m",
+      "family": "YOLO V10",
+      "tags": [
+        "object detection",
+        "cs2",
+        "object-detection"
+      ],
       "downloads": 0,
-      "likes": 9
+      "likes": 9,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/cs2-yolov9c",
       "url": "https://huggingface.co/jparedesDS/cs2-yolov9c",
       "task": "",
+      "base": "Vombit/yolov9c_cs2",
+      "family": "YOLO V9",
+      "tags": [
+        "object identification",
+        "cs2"
+      ],
       "downloads": 0,
-      "likes": 2
+      "likes": 2,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/cs2-yolov10s",
       "url": "https://huggingface.co/jparedesDS/cs2-yolov10s",
       "task": "object-detection",
+      "base": "jameslahm/yolov10s",
+      "family": "YOLO V10",
+      "tags": [
+        "GAMES",
+        "COUNTER STRIKE2",
+        "CS2"
+      ],
       "downloads": 0,
-      "likes": 16
+      "likes": 16,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/cs2-yolov10b",
       "url": "https://huggingface.co/jparedesDS/cs2-yolov10b",
       "task": "",
+      "base": "onnx-community/yolov10b",
+      "family": "YOLO V10",
+      "tags": [],
       "downloads": 0,
-      "likes": 4
+      "likes": 4,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/valorant-yolov10b",
       "url": "https://huggingface.co/jparedesDS/valorant-yolov10b",
       "task": "object-detection",
+      "base": "jparedesDS/valorant-yolov10b",
+      "family": "YOLO V10",
+      "tags": [
+        "yolov10",
+        "valorant",
+        "aimbot"
+      ],
       "downloads": 0,
-      "likes": 18
+      "likes": 18,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/valorant-yolo11m",
       "url": "https://huggingface.co/jparedesDS/valorant-yolo11m",
       "task": "object-detection",
+      "base": "",
+      "family": "YOLO 11",
+      "tags": [
+        "tensorboard",
+        "yolo11",
+        "valorant"
+      ],
       "downloads": 0,
-      "likes": 58
+      "likes": 58,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/deadlock-yolo11l",
       "url": "https://huggingface.co/jparedesDS/deadlock-yolo11l",
       "task": "",
+      "base": "jparedesDS/deadlock-yolo11l",
+      "family": "YOLO 11",
+      "tags": [
+        "tensorboard",
+        "yolo11",
+        "deadlock"
+      ],
       "downloads": 0,
-      "likes": 8
+      "likes": 8,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/welding-defects-detection",
       "url": "https://huggingface.co/jparedesDS/welding-defects-detection",
       "task": "object-detection",
+      "base": "",
+      "family": "",
+      "tags": [
+        "welding",
+        "defects",
+        "detection"
+      ],
       "downloads": 0,
-      "likes": 21
+      "likes": 21,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/fluorescent-penetrant-inspection",
       "url": "https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection",
       "task": "",
+      "base": "",
+      "family": "",
+      "tags": [
+        "tensorboard",
+        "LIQUID",
+        "PENETRANT"
+      ],
       "downloads": 0,
-      "likes": 3
+      "likes": 3,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/ow2-yolo11m",
       "url": "https://huggingface.co/jparedesDS/ow2-yolo11m",
       "task": "object-detection",
+      "base": "",
+      "family": "YOLO 11",
+      "tags": [
+        "ow2",
+        "overwatch",
+        "object"
+      ],
       "downloads": 0,
-      "likes": 22
+      "likes": 22,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/lol-map-tracking-object-detection",
       "url": "https://huggingface.co/jparedesDS/lol-map-tracking-object-detection",
       "task": "object-detection",
+      "base": "",
+      "family": "",
+      "tags": [
+        "tensorboard",
+        "object-detection"
+      ],
       "downloads": 0,
-      "likes": 3
+      "likes": 3,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/cs2_yolo12s",
       "url": "https://huggingface.co/jparedesDS/cs2_yolo12s",
       "task": "object-detection",
+      "base": "",
+      "family": "YOLO 12",
+      "tags": [
+        "object-detection"
+      ],
       "downloads": 0,
-      "likes": 33
+      "likes": 33,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/cs2-yolo12m-weapon-detection",
       "url": "https://huggingface.co/jparedesDS/cs2-yolo12m-weapon-detection",
       "task": "object-detection",
+      "base": "",
+      "family": "YOLO 12",
+      "tags": [
+        "tensorboard",
+        "object-detection"
+      ],
       "downloads": 0,
-      "likes": 4
+      "likes": 4,
+      "updated": "2026-11-23"
     },
     {
       "id": "jparedesDS/nemotron-3-diarization-onnx",
       "url": "https://huggingface.co/jparedesDS/nemotron-3-diarization-onnx",
       "task": "voice-activity-detection",
+      "base": "nvidia/Nemotron-3-Diarization",
+      "family": "",
+      "tags": [
+        "onnx",
+        "int8",
+        "speaker-diarization"
+      ],
       "downloads": 0,
-      "likes": 0
+      "likes": 0,
+      "updated": "2026-11-17"
     }
   ]
 }

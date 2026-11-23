@@ -51,7 +51,13 @@
               {{- range $i, $model := sort .Site.Data.repositories.models "likes" "desc" }}
               <a class="modelCard{{ if ge $i 10 }} modelExtra{{ end }}" href="{{ $model.url }}" target="_blank" rel="noopener noreferrer">
                 <span class="modelHead"><span class="modelIcon" aria-hidden="true">🤗</span><h3>{{ $model.id }}</h3></span>
-                {{- with $model.task }}<p class="modelTask">{{ . }}</p>{{ end }}
+                <p class="modelMeta">
+                  {{- with $model.family }}<span class="modelChip">{{ . }}</span>{{ end }}
+                  {{- with $model.task }}<span class="modelKind">{{ . | replace "-" " " }}</span>{{ end }}
+                </p>
+                {{- with $model.base }}<p class="modelBase">{{ i18n "repos_base" }}: {{ . }}</p>{{ end }}
+                {{- with $model.tags }}<p class="modelTags">{{ range . }}<span>{{ . }}</span>{{ end }}</p>{{ end }}
+                {{- with $model.updated }}<p class="modelUpdated">{{ i18n "repos_updated" }} {{ . }}</p>{{ end }}
                 <p class="modelStats">
                   <span class="modelStat"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>{{ $model.likes }} {{ i18n "repos_likes" }}</span>
                   <span class="modelStat"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 10l-7 7-7-7 1.41-1.41L11 14.17V2z"></path></svg>{{ $model.downloads }} {{ i18n "repos_downloads" }}</span>

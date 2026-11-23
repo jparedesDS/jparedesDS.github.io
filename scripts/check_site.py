@@ -2280,6 +2280,8 @@ def check_repos():
             failures.append("non-dark card theme present")
         if "theme=dark" not in text:
             failures.append("dark card theme missing")
+        if "modelBase" not in text or "modelUpdated" not in text:
+            failures.append("Hugging Face cards lack the extra model details")
         menu_path = "/es/repositories/" if route.startswith("/es") \
             else "/repositories/"
         if not _href_present(text, menu_path):
@@ -2484,9 +2486,9 @@ def check_ui():
                 failures.append("left CV sidebar missing")
             toc = re.search(r'<nav id=cv-toc>(.*?)</nav>', text, re.S)
             toc_links = len(re.findall(r"<a\b", toc.group(1))) if toc else 0
-            if toc_links != 8:
-                failures.append("expected 8 CV TOC links, found %d" % toc_links)
-            if len(re.findall(r'class="?cvCard', text)) < 8:
+            if toc_links != 10:
+                failures.append("expected 10 CV TOC links, found %d" % toc_links)
+            if len(re.findall(r'class="?cvCard', text)) < 10:
                 failures.append("CV content cards missing")
         checks.append(("ui cv page " + route, failures))
 

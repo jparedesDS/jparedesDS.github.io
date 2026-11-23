@@ -1142,15 +1142,50 @@
     color: #9ec5f5;
   }
 
-  .modelTask {
-    margin: 0 0 0.6rem;
-    font-size: 0.78rem;
-    line-height: 1.45;
+  .modelMeta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .modelChip {
+    padding: 0.12rem 0.45rem;
+    border: 1px solid #3b4654;
+    border-radius: 999px;
+    background: #252c38;
+    color: #9ec5f5;
+    font-size: 0.68rem;
+  }
+
+  .modelKind {
+    color: #a8a8b3;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.68rem;
+    text-transform: capitalize;
+  }
+
+  .modelBase,
+  .modelTags,
+  .modelUpdated {
+    margin: 0 0 0.3rem;
+    color: #9b9c9d;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  .modelBase {
     color: #c9c9cf;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
+  }
+
+  .modelTags span {
+    margin-right: 0.4rem;
+    color: #9ec5f5;
+  }
+
+  .modelUpdated {
+    margin-bottom: 0.6rem;
   }
 
   .modelStats {
@@ -1424,10 +1459,12 @@
   .contactProject img {
     display: block;
     width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+    height: 150px;
+    padding: 0.75rem;
+    object-fit: contain;
+    object-position: center;
     border-bottom: 1px solid #3a3b3d;
-    background: #292a2d;
+    background: #252627;
   }
 
   .contactProjectBody {
@@ -1448,18 +1485,20 @@
 
   .contactLinks {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    padding: 0.5rem 0.75rem 0.7rem;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    padding: 0.5rem 0.6rem 0.65rem;
     border-top: 1px solid #3a3b3d;
+    overflow-x: auto;
   }
 
   .contactLinks a {
+    flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border: 1px solid #3a3b3d;
     border-radius: 6px;
     background: #292a2d;

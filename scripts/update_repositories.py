@@ -42,6 +42,57 @@ def main():
         print("update_repositories: empty API response; keeping existing data")
         return 0
 
+    enriched_models = []
+    for model in models:
+        model_id = model.get("id", "")
+        details = {}
+        if model_id:
+            try:
+                details = fetch_json(
+                    "https://huggingface.co/api/models/" + model_id)
+            except Exception:
+                details = {}
+        card = details.get("cardData") or {}
+        base = card.get("base_model") or ""
+        if isinstance(base, list):
+            base = ", ".join(str(item) for item in base)
+        base = base.replace("base_model:", "").strip()
+        task = (model.get("pipeline_tag") or card.get("pipeline_tag") or "")
+        if not task:
+            tags = [str(tag).lower() for tag in (model.get("tags") or [])]
+            if "object-detection" in tags or "object detection" in tags:
+                task = "object-detection"
+            elif "image-classification" in tags:
+                task = "image-classification"
+        labels = []
+        for tag in (model.get("tags") or []):
+            tag = str(tag)
+            if tag.startswith(("base_model", "region:", "en", "es")):
+                continue
+            if tag in ("yolo",) or ":" in tag:
+                continue
+            labels.append(tag)
+            if len(labels) == 3:
+                break
+        family = ""
+        lowered = model_id.lower()
+        for candidate in ("yolo11", "yolo12", "yolo10", "yolo9", "yolov11",
+                          "yolov10", "yolov9"):
+            if candidate in lowered:
+                family = candidate.upper().replace("YOLO", "YOLO ")
+                break
+        enriched_models.append({
+            "id": model_id,
+            "url": "https://huggingface.co/" + model_id,
+            "task": task,
+            "base": base,
+            "family": family,
+            "tags": labels,
+            "downloads": model.get("downloads", 0),
+            "likes": model.get("likes", 0),
+            "updated": (details.get("lastModified") or "")[:10],
+        })
+
     data = {
         "github_user": USER,
         "repos": [{
@@ -56,13 +107,7 @@ def main():
             "fork": bool(r.get("fork")),
             "updated": (r.get("pushed_at") or "")[:10],
         } for r in repos if not r.get("private")],
-        "models": [{
-            "id": m.get("id", ""),
-            "url": "https://huggingface.co/" + m.get("id", ""),
-            "task": m.get("pipeline_tag") or "",
-            "downloads": m.get("downloads", 0),
-            "likes": m.get("likes", 0),
-        } for m in models],
+        "models": enriched_models,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n",
