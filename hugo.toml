@@ -70,8 +70,12 @@ defaultContentLanguageInSubdir = false
     weight = 3
     url = "blog"
   [[menu.header]]
-    name = "contact"
+    name = "CV"
     weight = 4
+    url = "cv"
+  [[menu.header]]
+    name = "contact"
+    weight = 5
     url = "contact"
 
 [params]
@@ -135,6 +139,26 @@ key = 5
 name = "email"
 url = "mailto:jparedescolmenarejo@gmail.com"
 aria = "Email"
+
+[[params.social]]
+key = 6
+name = "kaggle"
+url = "https://www.kaggle.com/joseparedesc"
+target = "_blank"
+aria = "Kaggle Profile"
+
+[[params.social]]
+key = 7
+name = "buymeacoffee"
+url = "https://buymeacoffee.com/joseparedes"
+target = "_blank"
+aria = "Buy me a coffee"
+
+[[params.social]]
+key = 8
+name = "rss"
+url = "/blog/index.xml"
+aria = "Blog RSS"
 
 [[params.activeProjects]]
 name = "subany.video"

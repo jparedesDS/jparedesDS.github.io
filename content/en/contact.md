@@ -14,6 +14,7 @@ showMetadata = false
 - Instagram: [instagram.com/xhitoCS](https://www.instagram.com/xhitoCS/)
 - Hugging Face: [huggingface.co/jparedesDS](https://huggingface.co/jparedesDS)
 - Kaggle: [kaggle.com/joseparedesc](https://www.kaggle.com/joseparedesc)
+- Buy me a coffee: [buymeacoffee.com/joseparedes](https://buymeacoffee.com/joseparedes)
 
 ## Projects
 

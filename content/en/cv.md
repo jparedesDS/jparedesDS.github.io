@@ -131,23 +131,38 @@ showMetadata = false
 <div class="cvCard">
 <h3 id="open-source">Open source</h3>
 
-<p>33+ public repositories and 268+ followers on <a href="https://github.com/jparedesDS">GitHub</a>, including Pull Shark and Starstruck achievements. 10+ computer-vision models (YOLO v9–v12) on <a href="https://huggingface.co/jparedesDS">Hugging Face</a>. See the <a href="/repositories/">Repositories</a> page for the full list.</p>
+<ul>
+  <li><strong>Platforms:</strong> <a href="https://github.com/jparedesDS">GitHub</a>, <a href="https://huggingface.co/jparedesDS">Hugging Face</a>, <a href="https://www.kaggle.com/joseparedesc">Kaggle</a> and Tableau Public.</li>
+  <li><strong>Open source:</strong> 33+ public repositories and 268+ GitHub followers, including Pull Shark and Starstruck achievements.</li>
+  <li><strong>Computer vision:</strong> 10+ YOLO models (v9–v12) for real-time object detection, deployed on Hugging Face.</li>
+  <li><strong>Notable repositories:</strong> DocFlow, object-detection-models, CleanYourPhone, CleanYourMail, welding and penetrant detectors, HLTV scraper and the Polymarket bot.</li>
+</ul>
+<p>Full list with links and stats: <a href="/repositories/">Repositories</a>.</p>
 </div>
 
 <div class="cvCard">
 <h3 id="certifications">Certifications &amp; Documentation</h3>
 
-<p>Document control and technical submissions under <strong>ISO 9001:2015</strong>, <strong>ATEX</strong> and <strong>IECEx</strong> for international contractors. Internal training in Docker, CI/CD and AI-assisted development.</p>
+<ul>
+  <li>Technical document control and submissions for international contractors under <strong>ISO 9001:2015</strong>, <strong>ATEX</strong> and <strong>IECEx</strong>.</li>
+  <li><strong>DocuSign API</strong> e-signature integration in DocFlow, plus multi-tenant architecture and i18n.</li>
+  <li><strong>Docker</strong>, Docker Compose and GitHub Actions CI/CD used in day-to-day delivery.</li>
+  <li>AI-assisted development with the <strong>Claude/Anthropic API</strong>: agent orchestration, prompt and context engineering, LLM integration.</li>
+</ul>
 </div>
 
 <div class="cvCard">
 <h3 id="awards">Awards</h3>
 
-<p><strong>Kaggle bronze medal</strong> in multilabel image classification (ResNet152).</p>
+<ul>
+  <li><strong>Kaggle Bronze Medal</strong> — Multilabel Image Classification, 3rd place with ResNet152 and Keras/TensorFlow.</li>
+  <li>GitHub <strong>Pull Shark</strong> and <strong>Starstruck</strong> achievements for open-source contributions.</li>
+</ul>
 </div>
 
 <div class="cvCard">
 <h3 id="languages">Languages</h3>
 
-<p><strong>Spanish:</strong> native. <strong>English:</strong> B2.</p>
+<p><strong>Spanish:</strong> native speaker.<br><strong>English:</strong> professional working proficiency (B2).</p>
+<p>Bilingual (Spanish/English).</p>
 </div>

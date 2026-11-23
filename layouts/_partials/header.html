@@ -23,6 +23,7 @@
             </ul>
         </nav>
         {{ partial "lang-switch.html" . }}
+        {{- if hasPrefix .RelPermalink "/blog" }}<span class="langSwitchSpacer" aria-hidden="true"></span>{{ end }}
     </div>
 </header>
 <style>
@@ -43,6 +44,11 @@
 
   .header .langSwitchSite {
     font-size: 0.75rem;
+  }
+
+  .langSwitchSpacer {
+    width: 92px;
+    flex: 0 0 auto;
   }
 </style>
 <script>

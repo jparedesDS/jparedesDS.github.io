@@ -30,6 +30,7 @@ ROUTES = [
     "/blog/tags/", "/blog/tags/hls/", "/blog/archives/", "/blog/faq/",
     "/blog/2026/11/09/how-subany-video-works/",
     "/blog/2026/11/09/como-funciona-subany-video/",
+    "/blog/2026/11/23/welding-defects-detection/",
     "/blog/index.json", "/blog/index.xml", "/index.xml", "/sitemap.xml",
     "/propovcs2/", "/cleanyourmail/", "/privacy/",
     "/es/", "/es/about/", "/es/projects/", "/es/contact/", "/es/privacy/",
@@ -282,7 +283,7 @@ HIRE_COPY = {
         "proof": ("Industrial computer vision since 2024 · 10+ models on "
                   "Hugging Face · DocFlow in production"),
         "proof_marker": "since 2024",
-        "cv": "CV",
+        "cv": "Download CV",
         "cv_url": "/cv/",
         "email": "Email me",
         "projects": "Active projects",
@@ -298,7 +299,7 @@ HIRE_COPY = {
         "proof": ("Visión artificial industrial desde 2024 · 10+ modelos "
                   "en Hugging Face · DocFlow en producción"),
         "proof_marker": "desde 2024",
-        "cv": "CV",
+        "cv": "Descargar CV",
         "cv_url": "/es/cv/",
         "email": "Escríbeme",
         "projects": "Proyectos activos",
@@ -364,8 +365,8 @@ def check_hiring():
             if _class_pos(text, cls) == -1:
                 failures.append("no .%s markup" % cls)
 
-        # CV button: labelled simply "CV" and linked to the CV page,
-        # where the PDF lives.
+        # CV button: labelled "Download CV"/"Descargar CV" and linked to
+        # the CV page, where the PDF lives.
         cv_url = copy["cv_url"]
         if not _href_present(text, cv_url):
             failures.append('no href="%s"' % cv_url)
@@ -1006,6 +1007,8 @@ def check_contact():
         for url in CONTACT_PROPOV_SOCIALS:
             if not _href_present(text, url):
                 failures.append("Pro POV link missing: %s" % url)
+        if not _href_present(text, "https://buymeacoffee.com/joseparedes"):
+            failures.append("Buy me a coffee link missing")
 
         # Unapproved claims are scanned in the page copy only.
         lowered = main.casefold()
@@ -1080,10 +1083,13 @@ OG_TITLES = {
     "/blog/faq/": "FAQ",
     "/blog/2026/11/09/how-subany-video-works/":
         "How subany.video works: live subtitles in the browser",
+    "/blog/2026/11/23/welding-defects-detection/":
+        "Detecting welding defects with YOLO11x",
 }
 # The only article among the sharing routes: it keeps og:type=article,
 # article:published_time and the og:locale:alternate/hreflang block.
-ARTICLE_ROUTES = {"/blog/2026/11/09/how-subany-video-works/"}
+ARTICLE_ROUTES = {"/blog/2026/11/09/how-subany-video-works/",
+                  "/blog/2026/11/23/welding-defects-detection/"}
 PERSON_JOBTITLES = {
     "/": "Computer Vision & ML Engineer",
     "/es/": "Ingeniero de Computer Vision y ML",
@@ -2431,9 +2437,22 @@ def check_ui():
     for route in MENU_ROUTES:
         text, _ = _parse(route)
         failures = []
-        if text is None or "footerContact" not in text or "footerName" not in text:
-            failures.append("footer contact block missing")
+        if text is None:
+            failures.append("missing page")
+        else:
+            if "footerContact" not in text or "footerName" not in text:
+                failures.append("footer contact block missing")
+            if not _href_present(text, "https://buymeacoffee.com/joseparedes"):
+                failures.append("Buy me a coffee missing from footer")
         checks.append(("ui footer contact " + route, failures))
+
+    blog_text, _ = _parse("/blog/")
+    failures = []
+    if blog_text is None or "profileSocial" not in blog_text:
+        failures.append("blog social row is missing the shared icon list")
+    if blog_text and "buymeacoffee.com/joseparedes" not in blog_text:
+        failures.append("blog social row lacks Buy me a coffee")
+    checks.append(("ui blog socials", failures))
 
     for route in CONTACT_COPY:
         text, _ = _parse(route)
@@ -2495,8 +2514,13 @@ def check_ui():
     for route in MENU_ROUTES:
         text, _ = _parse(route)
         failures = []
-        if text is None or "~/cv" in text:
-            failures.append("CV link still present in the top menu")
+        if text is None:
+            failures.append("missing page")
+        else:
+            blog_pos = text.find("~/blog")
+            cv_pos = text.find("~/CV")
+            if cv_pos < 0 or blog_pos < 0 or cv_pos < blog_pos:
+                failures.append("~/CV is not directly after ~/blog in the menu")
         checks.append(("ui cv menu " + route, failures))
 
     failures = []
@@ -2538,8 +2562,8 @@ def check_route(route):
         else:
             if not isinstance(data, list):
                 failures.append("expected a list, got " + type(data).__name__)
-            elif len(data) != 1:
-                failures.append("expected exactly 1 element, got %d" % len(data))
+            elif len(data) != 2:
+                failures.append("expected exactly 2 elements, got %d" % len(data))
     return failures
 
 

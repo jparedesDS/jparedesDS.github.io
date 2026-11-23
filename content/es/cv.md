@@ -131,23 +131,38 @@ showMetadata = false
 <div class="cvCard">
 <h3 id="codigo-abierto">Código abierto</h3>
 
-<p>33+ repositorios públicos y 268+ seguidores en <a href="https://github.com/jparedesDS">GitHub</a>, con logros Pull Shark y Starstruck. 10+ modelos de visión artificial (YOLO v9–v12) en <a href="https://huggingface.co/jparedesDS">Hugging Face</a>. La lista completa está en la página de <a href="/es/repositories/">Repositorios</a>.</p>
+<ul>
+  <li><strong>Plataformas:</strong> <a href="https://github.com/jparedesDS">GitHub</a>, <a href="https://huggingface.co/jparedesDS">Hugging Face</a>, <a href="https://www.kaggle.com/joseparedesc">Kaggle</a> y Tableau Public.</li>
+  <li><strong>Código abierto:</strong> 33+ repositorios públicos y 268+ seguidores en GitHub, con logros Pull Shark y Starstruck.</li>
+  <li><strong>Visión artificial:</strong> 10+ modelos YOLO (v9–v12) para detección de objetos en tiempo real, desplegados en Hugging Face.</li>
+  <li><strong>Repositorios destacados:</strong> DocFlow, object-detection-models, CleanYourPhone, CleanYourMail, detectores de soldadura y penetrantes, scraper de HLTV y bot de Polymarket.</li>
+</ul>
+<p>Lista completa con enlaces y métricas: <a href="/es/repositories/">Repositorios</a>.</p>
 </div>
 
 <div class="cvCard">
 <h3 id="certificaciones">Certificaciones y documentación</h3>
 
-<p>Control documental y envíos técnicos bajo <strong>ISO 9001:2015</strong>, <strong>ATEX</strong> e <strong>IECEx</strong> para contratistas internacionales. Formación interna en Docker, CI/CD y desarrollo asistido por IA.</p>
+<ul>
+  <li>Control documental y envíos técnicos para contratistas internacionales bajo <strong>ISO 9001:2015</strong>, <strong>ATEX</strong> e <strong>IECEx</strong>.</li>
+  <li>Integración de firmas con la <strong>API de DocuSign</strong> en DocFlow, además de arquitectura multiempresa e i18n.</li>
+  <li><strong>Docker</strong>, Docker Compose y GitHub Actions CI/CD en el día a día.</li>
+  <li>Desarrollo asistido por IA con la <strong>API de Claude/Anthropic</strong>: orquestación de agentes, diseño de prompts y contexto, integración de LLM.</li>
+</ul>
 </div>
 
 <div class="cvCard">
 <h3 id="premios">Premios</h3>
 
-<p><strong>Medalla de bronce en Kaggle</strong> en clasificación multilabel de imágenes (ResNet152).</p>
+<ul>
+  <li><strong>Medalla de bronce en Kaggle</strong> — Clasificación multilabel de imágenes, tercer puesto con ResNet152 y Keras/TensorFlow.</li>
+  <li>Logros de GitHub <strong>Pull Shark</strong> y <strong>Starstruck</strong> por contribuciones open source.</li>
+</ul>
 </div>
 
 <div class="cvCard">
 <h3 id="idiomas">Idiomas</h3>
 
-<p><strong>Español:</strong> nativo. <strong>Inglés:</strong> B2.</p>
+<p><strong>Español:</strong> lengua materna.<br><strong>Inglés:</strong> competencia profesional (B2).</p>
+<p>Bilingüe (español/inglés).</p>
 </div>
