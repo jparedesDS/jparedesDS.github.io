@@ -1395,21 +1395,30 @@
     border: 1px solid #3a3b3d;
     border-radius: 8px;
     background: #2e2e33;
-    color: inherit;
-    text-decoration: none;
     transition: border-color 0.18s ease, transform 0.18s ease;
   }
 
   .contactProject:hover {
     border-color: #80aadd;
     transform: translateY(-2px);
+  }
+
+  .contactProjectMain {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
     text-decoration: none;
   }
 
-  .contactProject:focus-visible,
-  .propovIcons a:focus-visible {
+  .contactProjectMain:hover,
+  .contactProjectMain:focus-visible {
+    text-decoration: none;
+  }
+
+  .contactProjectMain:focus-visible,
+  .contactLinks a:focus-visible {
     outline: 2px solid #80aadd;
-    outline-offset: 2px;
+    outline-offset: -2px;
   }
 
   .contactProject img {
@@ -1425,7 +1434,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-    padding: 0.85rem;
+    padding: 0.85rem 0.85rem 0.6rem;
     font-size: 0.85rem;
     line-height: 1.5;
     color: #a8a8b3;
@@ -1437,45 +1446,102 @@
     color: #f8f8ff;
   }
 
-  .propovIcons {
+  .contactLinks {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    margin: 1rem 0;
+    gap: 0.35rem;
+    padding: 0.5rem 0.75rem 0.7rem;
+    border-top: 1px solid #3a3b3d;
   }
 
-  .propovIcons a {
+  .contactLinks a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    width: 30px;
+    height: 30px;
     border: 1px solid #3a3b3d;
-    border-radius: 8px;
-    background: #2e2e33;
+    border-radius: 6px;
+    background: #292a2d;
     color: #a8a8b3;
-    font-size: 1.1rem;
     text-decoration: none;
     transition: border-color 0.18s ease, color 0.18s ease;
   }
 
-  .propovIcons a:hover {
+  .contactLinks a:hover {
     border-color: #80aadd;
     color: #80aadd;
     text-decoration: none;
   }
 
-  .propovIcons svg {
-    width: 20px;
-    height: 20px;
+  .contactLinks svg {
+    width: 15px;
+    height: 15px;
   }
 
   /* CV page: al-folio-style structured CV in Nightfall colours. */
   .cvShell {
-    max-width: 780px;
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem 1.25rem 3rem;
     text-align: left;
+  }
+
+  .cvSidebar {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+  }
+
+  .cvSidebarTitle {
+    margin: 0 0 0.6rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9b9c9d;
+  }
+
+  .cvSidebar a {
+    display: block;
+    padding: 0.25rem 0;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.78rem;
+    color: #a8a8b3;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+
+  .cvSidebar a:hover,
+  .cvSidebar a.active {
+    color: #f8f8ff;
+    border-left-color: #80aadd;
+    text-decoration: none;
+  }
+
+  .cvSidebar nav a {
+    padding-left: 0.55rem;
+  }
+
+  .cvSideRule {
+    border: 0;
+    border-top: 1px solid #333333;
+    margin: 1rem 0;
+  }
+
+  .cvMain {
+    min-width: 0;
+  }
+
+  .cvCard {
+    padding: 1rem 1.1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #2e2e33;
   }
 
   .cvHead {
@@ -1605,6 +1671,25 @@
   }
 
   @media (max-width: 768px) {
+    .cvShell {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .cvSidebar {
+      position: static;
+    }
+
+    .cvSidebar nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem 0.8rem;
+    }
+
+    .cvSidebar nav a {
+      padding-left: 0.3rem;
+    }
+
     .cvHead {
       flex-wrap: wrap;
     }

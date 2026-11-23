@@ -6,12 +6,14 @@ user = "cv"
 showMetadata = false
 +++
 
+
 <header class="cvHead">
   <h1>CV</h1>
   <a class="cvDownload" href="/resume-es.pdf" download aria-label="Descargar el CV en PDF"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 10l-7 7-7-7 1.41-1.41L11 14.17V2z"></path></svg> PDF</a>
 </header>
 
-### Datos de contacto
+<div class="cvCard">
+<h3 id="datos-de-contacto">Datos de contacto</h3>
 
 <table class="cvFacts">
   <tr><td>Nombre</td><td>Jose Paredes Colmenarejo</td></tr>
@@ -21,11 +23,15 @@ showMetadata = false
   <tr><td>Enlaces</td><td>GitHub · LinkedIn · Hugging Face · Kaggle</td></tr>
 </table>
 
-### Resumen profesional
+</div>
+<div class="cvCard">
+<h3 id="resumen-profesional">Resumen profesional</h3>
 
 Ingeniero de computer vision y ML afincado en Madrid, centrado en control de calidad industrial y productos de IA local-first. Construyo modelos de inspección con YOLO, los pipelines de datos que los rodean y las herramientas internas que los ponen a trabajar. Colaborador open source con 33+ repositorios públicos y 10+ modelos de visión artificial publicados en Hugging Face.
 
-### Experiencia
+</div>
+<div class="cvCard">
+<h3 id="experiencia">Experiencia</h3>
 
 <div class="cvEntry">
   <div class="cvWhen"><span>2024 — actualidad</span><span>Madrid</span></div>
@@ -60,7 +66,9 @@ Ingeniero de computer vision y ML afincado en Madrid, centrado en control de cal
   </div>
 </div>
 
-### Formación
+</div>
+<div class="cvCard">
+<h3 id="formacion">Formación</h3>
 
 <div class="cvEntry">
   <div class="cvWhen"><span>2021 — 2022</span><span>Madrid</span></div>
@@ -80,19 +88,28 @@ Ingeniero de computer vision y ML afincado en Madrid, centrado en control de cal
   </div>
 </div>
 
-### Habilidades
+</div>
+<div class="cvCard">
+<h3 id="habilidades">Habilidades</h3>
 
 <p><strong>Machine learning:</strong> PyTorch, TensorFlow, Keras, XGBoost, scikit-learn, YOLO, OpenCV, NLP.</p>
 <p><strong>Ingeniería:</strong> Python, JavaScript, TypeScript, FastAPI, React, Docker, GitHub Actions, SQL.</p>
 
-### Código abierto
+</div>
+<div class="cvCard">
+<h3 id="codigo-abierto">Código abierto</h3>
 
 <p>33+ repositorios públicos y 268+ seguidores en <a href="https://github.com/jparedesDS">GitHub</a>; 10+ modelos de visión artificial (YOLO v9–v12) en <a href="https://huggingface.co/jparedesDS">Hugging Face</a>. La lista completa está en la página de <a href="/es/repositories/">Repositorios</a>.</p>
 
-### Premios
+</div>
+<div class="cvCard">
+<h3 id="premios">Premios</h3>
 
 <p><strong>Medalla de bronce en Kaggle</strong> en clasificación multilabel de imágenes (ResNet152).</p>
 
-### Idiomas
+</div>
+<div class="cvCard">
+<h3 id="idiomas">Idiomas</h3>
 
 <p><strong>Español:</strong> nativo. <strong>Inglés:</strong> B2.</p>
+</div>

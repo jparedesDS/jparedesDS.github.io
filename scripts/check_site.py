@@ -2442,10 +2442,16 @@ def check_ui():
             cards = len(re.findall(r"class=contactProject(?=[\s>])", text))
             if cards != 5:
                 failures.append("expected 5 project cards, found %d" % cards)
-            block = re.search(r"<div class=propovIcons>(.*?)</div>", text, re.S)
-            links = len(re.findall(r"<a\b", block.group(1))) if block else 0
-            if links != 7:
-                failures.append("expected 7 Pro POV icons, found %d" % links)
+            if "propovIcons" in text:
+                failures.append("old Pro POV icon row still present")
+            if len(re.findall(r'class="?contactLinks', text)) != 5:
+                failures.append("each project card needs icon links")
+            propov = re.search(r'<strong>Pro POV CS2</strong>.*?contactLinks>(.*?)</div>',
+                               text, re.S)
+            links = len(re.findall(r"<a\b", propov.group(1))) if propov else 0
+            if links != 6:
+                failures.append("expected 6 Pro POV links in the card, found %d"
+                                % links)
             for src in re.findall(r'<img\b[^>]*src=([^ >]+)', text):
                 src = src.strip('"')
                 if src.startswith("/images/"):
@@ -2474,13 +2480,21 @@ def check_ui():
                 failures.append("too few CV entries")
             if "Download CV" in text or "Descargar CV" in text:
                 failures.append("old CTA label still present")
+            if "cvSidebar" not in text or "cv-toc" not in text:
+                failures.append("left CV sidebar missing")
+            toc = re.search(r'<nav id=cv-toc>(.*?)</nav>', text, re.S)
+            toc_links = len(re.findall(r"<a\b", toc.group(1))) if toc else 0
+            if toc_links != 8:
+                failures.append("expected 8 CV TOC links, found %d" % toc_links)
+            if len(re.findall(r'class="?cvCard', text)) < 8:
+                failures.append("CV content cards missing")
         checks.append(("ui cv page " + route, failures))
 
     for route in MENU_ROUTES:
         text, _ = _parse(route)
         failures = []
-        if text is None or "~/cv" not in text:
-            failures.append("CV link missing from the menu")
+        if text is None or "~/cv" in text:
+            failures.append("CV link still present in the top menu")
         checks.append(("ui cv menu " + route, failures))
 
     failures = []

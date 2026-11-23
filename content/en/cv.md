@@ -6,12 +6,14 @@ user = "cv"
 showMetadata = false
 +++
 
+
 <header class="cvHead">
   <h1>CV</h1>
   <a class="cvDownload" href="/resume.pdf" download aria-label="Download the PDF CV"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 10l-7 7-7-7 1.41-1.41L11 14.17V2z"></path></svg> PDF</a>
 </header>
 
-### Contact Information
+<div class="cvCard">
+<h3 id="contact-information">Contact Information</h3>
 
 <table class="cvFacts">
   <tr><td>Name</td><td>Jose Paredes Colmenarejo</td></tr>
@@ -21,11 +23,15 @@ showMetadata = false
   <tr><td>Links</td><td>GitHub · LinkedIn · Hugging Face · Kaggle</td></tr>
 </table>
 
-### Professional Summary
+</div>
+<div class="cvCard">
+<h3 id="professional-summary">Professional Summary</h3>
 
 Computer vision and ML engineer based in Madrid, working on industrial quality control and local-first AI products. I build YOLO-based inspection models, the data pipelines around them and the internal tools that put them to work. Open-source contributor with 33+ public repositories and 10+ computer-vision models published on Hugging Face.
 
-### Experience
+</div>
+<div class="cvCard">
+<h3 id="experience">Experience</h3>
 
 <div class="cvEntry">
   <div class="cvWhen"><span>2024 — Now</span><span>Madrid</span></div>
@@ -60,7 +66,9 @@ Computer vision and ML engineer based in Madrid, working on industrial quality c
   </div>
 </div>
 
-### Education
+</div>
+<div class="cvCard">
+<h3 id="education">Education</h3>
 
 <div class="cvEntry">
   <div class="cvWhen"><span>2021 — 2022</span><span>Madrid</span></div>
@@ -80,19 +88,28 @@ Computer vision and ML engineer based in Madrid, working on industrial quality c
   </div>
 </div>
 
-### Skills
+</div>
+<div class="cvCard">
+<h3 id="skills">Skills</h3>
 
 <p><strong>Machine learning:</strong> PyTorch, TensorFlow, Keras, XGBoost, scikit-learn, YOLO, OpenCV, NLP.</p>
 <p><strong>Engineering:</strong> Python, JavaScript, TypeScript, FastAPI, React, Docker, GitHub Actions, SQL.</p>
 
-### Open source
+</div>
+<div class="cvCard">
+<h3 id="open-source">Open source</h3>
 
 <p>33+ public repositories and 268+ followers on <a href="https://github.com/jparedesDS">GitHub</a>; 10+ computer-vision models (YOLO v9–v12) on <a href="https://huggingface.co/jparedesDS">Hugging Face</a>. See the <a href="/repositories/">Repositories</a> page for the full list.</p>
 
-### Awards
+</div>
+<div class="cvCard">
+<h3 id="awards">Awards</h3>
 
 <p><strong>Kaggle bronze medal</strong> in multilabel image classification (ResNet152).</p>
 
-### Languages
+</div>
+<div class="cvCard">
+<h3 id="languages">Languages</h3>
 
 <p><strong>Spanish:</strong> native. <strong>English:</strong> B2.</p>
+</div>

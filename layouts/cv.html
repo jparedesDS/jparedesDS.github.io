@@ -13,13 +13,68 @@
     <div class="content">
       <main class="main">
         <div class="cvShell">
-          {{ .Content }}
+          <aside class="cvSidebar" aria-label="{{ if eq .Lang "es" }}Índice del CV{{ else }}CV contents{{ end }}">
+            <p class="cvSidebarTitle">{{ if eq .Lang "es" }}Contenido{{ else }}Contents{{ end }}</p>
+            <nav id="cv-toc">
+              {{- if eq .Lang "es" }}
+              <a href="#datos-de-contacto">Datos de contacto</a>
+              <a href="#resumen-profesional">Resumen profesional</a>
+              <a href="#experiencia">Experiencia</a>
+              <a href="#formacion">Formación</a>
+              <a href="#habilidades">Habilidades</a>
+              <a href="#codigo-abierto">Código abierto</a>
+              <a href="#premios">Premios</a>
+              <a href="#idiomas">Idiomas</a>
+              {{- else }}
+              <a href="#contact-information">Contact Information</a>
+              <a href="#professional-summary">Professional Summary</a>
+              <a href="#experience">Experience</a>
+              <a href="#education">Education</a>
+              <a href="#skills">Skills</a>
+              <a href="#open-source">Open source</a>
+              <a href="#awards">Awards</a>
+              <a href="#languages">Languages</a>
+              {{- end }}
+            </nav>
+            <hr class="cvSideRule">
+            <nav class="cvSideSite" aria-label="Site">
+              <a href="{{ "/" | relLangURL }}">~/home</a>
+              <a href="{{ "about/" | relLangURL }}">~/about</a>
+              <a href="{{ "projects/" | relLangURL }}">~/projects</a>
+              <a href="{{ "repositories/" | relLangURL }}">~/repos</a>
+              <a href="{{ "blog/" | relLangURL }}">~/blog</a>
+              <a href="{{ "contact/" | relLangURL }}">~/contact</a>
+            </nav>
+          </aside>
+          <div class="cvMain">
+            {{ .Content }}
+          </div>
         </div>
       </main>
     </div>
 
     {{ partial "footer.html" . }}
   </div>
+  <script>
+    (function () {
+      var links = [].slice.call(document.querySelectorAll('#cv-toc a'));
+      var sections = links.map(function (link) {
+        return document.querySelector(link.getAttribute('href'));
+      });
+      if (!('IntersectionObserver' in window)) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          links.forEach(function (link) {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        });
+      }, { rootMargin: '-10% 0px -75% 0px' });
+      sections.forEach(function (section) {
+        if (section) observer.observe(section);
+      });
+    })();
+  </script>
 </body>
 
 </html>
