@@ -24,26 +24,9 @@ Languages: Spanish (native) · English (B2)
 - [Pro POV CS2](https://propovcs2.com/) — a computer-vision project for Counter-Strike 2 POV clips.
 - [GitHub](https://github.com/jparedesDS) — the rest of the code, including the models published on Hugging Face.
 
-## Computer Vision / Object Detection
-
-<div class="case featureProject">
-
-### Object detection models
-
-A curated model zoo of **14 YOLO-based detectors** for industrial inspection, esports and real-time computer vision. Weights, metrics and training notebooks, with models published on Hugging Face.
-
-<ul class="caseChips">
-  <li>YOLO v9–v12</li>
-  <li>OpenCV</li>
-  <li>PyTorch</li>
-  <li>Hugging Face</li>
-</ul>
-
-[Repository](https://github.com/jparedesDS/object-detection-models) · [Models on Hugging Face](https://huggingface.co/jparedesDS)
-
-</div>
-
 ## Open projects
+
+Every repository and model is listed on the dedicated **[Repositories](/repositories/)** page.
 
 - 33+ public repositories on [GitHub](https://github.com/jparedesDS) and 268+ followers.
 - 10+ computer-vision models on [Hugging Face](https://huggingface.co/jparedesDS) (YOLO v9–v12).

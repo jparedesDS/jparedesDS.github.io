@@ -62,12 +62,16 @@ defaultContentLanguageInSubdir = false
     weight = 1
     url = "projects"
   [[menu.header]]
-    name = "blog"
+    name = "repos"
     weight = 2
+    url = "repositories"
+  [[menu.header]]
+    name = "blog"
+    weight = 3
     url = "blog"
   [[menu.header]]
     name = "contact"
-    weight = 3
+    weight = 4
     url = "contact"
 
 [params]

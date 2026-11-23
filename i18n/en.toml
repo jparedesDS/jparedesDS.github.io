@@ -112,3 +112,37 @@
 
 [nf_blog]
     other = "Blog"
+
+# Repositories page (GitHub + Hugging Face), styled after al-folio.
+[repos_title]
+    other = "Repositories"
+
+[repos_heading]
+    other = "Repositories"
+
+[repos_intro]
+    other = "Every public repository and machine-learning model I have released, in one place. Cards link straight to GitHub and Hugging Face."
+
+[repos_user]
+    other = "GitHub profile"
+
+[repos_github]
+    other = "GitHub repositories"
+
+[repos_hf]
+    other = "Hugging Face models"
+
+[repos_hf_intro]
+    other = "Computer-vision models published on Hugging Face, with weights and metrics."
+
+[repos_count]
+    other = "repositories"
+
+[repos_models]
+    other = "models"
+
+[repos_downloads]
+    other = "downloads"
+
+[repos_likes]
+    other = "likes"

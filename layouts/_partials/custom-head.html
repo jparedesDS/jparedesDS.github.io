@@ -977,6 +977,130 @@
     line-height: 1.55;
   }
 
+  /* Repositories page: al-folio-style GitHub pin cards and HF model
+     cards, in Nightfall colours. */
+  .reposShell {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+    text-align: left;
+  }
+
+  .reposHeader h1 {
+    margin: 0 0 0.5rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 1.9rem;
+    color: #f8f8ff;
+  }
+
+  .reposHeader p {
+    margin: 0;
+    color: #a8a8b3;
+    line-height: 1.6;
+  }
+
+  .reposSection {
+    margin-top: 2rem;
+  }
+
+  .reposSection h2 {
+    margin: 0 0 1rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 1.1rem;
+    color: #f8f8ff;
+  }
+
+  .reposMeta {
+    margin: 0 0 0.9rem;
+    font-size: 0.85rem;
+    color: #9ec5f5;
+  }
+
+  .reposRule {
+    border: 0;
+    border-top: 1px solid #333333;
+    margin: 2rem 0;
+  }
+
+  .repoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .repoGridProfile {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .repoCard {
+    display: block;
+    overflow: hidden;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #2e2e33;
+    text-decoration: none;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .repoCard:hover {
+    border-color: #80aadd;
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .repoCard:focus-visible,
+  .modelCard:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
+  }
+
+  .repoCard img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .modelGrid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+
+  .modelCard {
+    display: block;
+    padding: 1rem;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #2e2e33;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .modelCard:hover {
+    border-color: #80aadd;
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .modelCard h3 {
+    margin: 0 0 0.4rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.85rem;
+    word-break: break-all;
+    color: #f8f8ff;
+  }
+
+  .modelTask {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    color: #9ec5f5;
+  }
+
+  .modelStats {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #a8a8b3;
+  }
+
   /* Hiring strip: mono role, availability, proof line and CV/email
      calls to action. Overrides the shared .profileRole font only off
      the blog. */

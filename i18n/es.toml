@@ -112,3 +112,37 @@
 
 [nf_blog]
     other = "Blog"
+
+# Página de repositorios (GitHub + Hugging Face), con el estilo de al-folio.
+[repos_title]
+    other = "Repositorios"
+
+[repos_heading]
+    other = "Repositorios"
+
+[repos_intro]
+    other = "Todos mis repositorios públicos y modelos de machine learning, en un solo lugar. Las tarjetas enlazan directamente con GitHub y Hugging Face."
+
+[repos_user]
+    other = "Perfil de GitHub"
+
+[repos_github]
+    other = "Repositorios de GitHub"
+
+[repos_hf]
+    other = "Modelos en Hugging Face"
+
+[repos_hf_intro]
+    other = "Modelos de visión artificial publicados en Hugging Face, con pesos y métricas."
+
+[repos_count]
+    other = "repositorios"
+
+[repos_models]
+    other = "modelos"
+
+[repos_downloads]
+    other = "descargas"
+
+[repos_likes]
+    other = "me gusta"

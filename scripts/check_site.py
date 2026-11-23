@@ -33,7 +33,7 @@ ROUTES = [
     "/blog/index.json", "/blog/index.xml", "/index.xml", "/sitemap.xml",
     "/propovcs2/", "/cleanyourmail/", "/privacy/",
     "/es/", "/es/about/", "/es/projects/", "/es/contact/", "/es/privacy/",
-    "/es/blog/",
+    "/es/blog/", "/repositories/", "/es/repositories/",
     # Preserved routes outside the rebuild (final review): /work/ is a
     # redirect stub; /cs2pov/ and /murdoku/ are standalone app pages.
     "/work/", "/cs2pov/", "/murdoku/",
@@ -49,6 +49,7 @@ PAGE_PAIRS = [
     ("/projects/", "/es/projects/"),
     ("/contact/", "/es/contact/"),
     ("/privacy/", "/es/privacy/"),
+    ("/repositories/", "/es/repositories/"),
 ]
 
 # Controller ruling (Task 1 review, extended by the Task 7 review and
@@ -665,11 +666,6 @@ ABOUT_SCOPE_FACTS = {
             ("50+",),
             ("95%+",),
         ],
-        "Computer Vision / Object Detection": [
-            ("object-detection-models",),
-            ("14 YOLO-based detectors",),
-            ("Hugging Face",),
-        ],
         "Open projects": [
             ("33+",),
             ("268+",),
@@ -695,11 +691,6 @@ ABOUT_SCOPE_FACTS = {
             ("50+",),
             ("95%+", "al menos el 95%"),
         ],
-        "Visión artificial / Detección de objetos": [
-            ("object-detection-models",),
-            ("14 detectores basados en YOLO",),
-            ("Hugging Face",),
-        ],
         "Proyectos abiertos": [
             ("33+",),
             ("268+",),
@@ -711,12 +702,10 @@ ABOUT_SCOPE_FACTS = {
     },
 }
 ABOUT_SECTIONS = {
-    "/about/": ("Projects", "Computer Vision / Object Detection",
-                "Open projects", "Stack", "Experience", "Education",
-                "Contact"),
-    "/es/about/": ("Proyectos", "Visión artificial / Detección de objetos",
-                   "Proyectos abiertos", "Stack", "Experiencia", "Formación",
-                   "Contacto"),
+    "/about/": ("Projects", "Open projects", "Stack", "Experience",
+                "Education", "Contact"),
+    "/es/about/": ("Proyectos", "Proyectos abiertos", "Stack", "Experiencia",
+                   "Formación", "Contacto"),
 }
 ABOUT_BANNED = ("four years", "4 years", "cuatro años", "4 años",
                 "3rd place", "3er puesto", "tercer puesto")
@@ -815,6 +804,7 @@ DESCRIPTION_ROUTES = {
     "/blog/archives/": "en", "/blog/faq/": "en",
     "/es/": "es", "/es/about/": "es", "/es/projects/": "es",
     "/es/contact/": "es", "/es/privacy/": "es",
+    "/repositories/": "en", "/es/repositories/": "es",
 }
 
 
@@ -1082,6 +1072,8 @@ OG_TITLES = {
     "/es/contact/": "Contacto",
     "/privacy/": "Privacy",
     "/es/privacy/": "Privacidad",
+    "/repositories/": "Repositories",
+    "/es/repositories/": "Repositorios",
     "/blog/": "Blog",
     "/blog/search/": "Search",
     "/blog/tags/": "Tags",
@@ -2252,6 +2244,52 @@ def check_cv():
     return checks
 
 
+def check_repos():
+    """Repositories page: every GitHub repo and Hugging Face model linked,
+    al-folio-style dark pin cards, and the page reachable from the menu."""
+    checks = []
+    data = json.loads((ROOT / "data/repositories.json").read_text(encoding="utf-8"))
+    repos, models = data["repos"], data["models"]
+    for route, heading in (("/repositories/", "Repositories"),
+                           ("/es/repositories/", "Repositorios")):
+        text, _ = _parse(route)
+        failures = []
+        if text is None:
+            failures.append("missing page")
+            checks.append(("repos " + route, failures))
+            continue
+        if not re.search(r"<h1[^>]*>\s*%s\s*</h1>" % re.escape(heading), text):
+            failures.append("missing h1 %r" % heading)
+        cards = len(re.findall(r'class=repoCard', text))
+        if cards != len(repos) + 1:  # +1 = the GitHub profile card
+            failures.append("repo card count %d, expected %d"
+                            % (cards, len(repos) + 1))
+        model_cards = len(re.findall(r'class=modelCard', text))
+        if model_cards != len(models):
+            failures.append("model card count %d, expected %d"
+                            % (model_cards, len(models)))
+        for repo in repos:
+            if not _href_present(text, repo["url"]):
+                failures.append("missing repo link: " + repo["url"])
+            pin = ("github-stats-extended.vercel.app/api/pin/"
+                   "?username=jparedesDS&amp;repo=" + repo["name"])
+            if pin not in text:
+                failures.append("missing dark pin for " + repo["name"])
+        for model in models:
+            if not _href_present(text, model["url"]):
+                failures.append("missing model link: " + model["url"])
+        if "theme=default" in text or "theme=light" in text:
+            failures.append("non-dark card theme present")
+        if "theme=dark" not in text:
+            failures.append("dark card theme missing")
+        menu_path = "/es/repositories/" if route.startswith("/es") \
+            else "/repositories/"
+        if not _href_present(text, menu_path):
+            failures.append("repos page not linked in the menu")
+        checks.append(("repos " + route, failures))
+    return checks
+
+
 def check_ui():
     """Local UI preferences: selector at the right, no page zoom, compact
     GitHub-style stack chips, narrower project cards, no client name on
@@ -2361,11 +2399,10 @@ def check_ui():
                 if "<ul" in section:
                     failures.append("bullets in %s; keep uniform explanations"
                                     % heading)
-            cv_section = _section_html(
-                text, "Computer Vision / Object Detection" if route == "/about/"
-                else "Visión artificial / Detección de objetos")
-            if cv_section is None or "object-detection-models" not in cv_section:
-                failures.append("object-detection section missing")
+            repos_link = "/es/repositories/" if route == "/es/about/" \
+                else "/repositories/"
+            if not _href_present(text, repos_link):
+                failures.append("no link to %s" % repos_link)
         checks.append(("ui about layout " + route, failures))
     return checks
 
@@ -2501,6 +2538,14 @@ def main():
         else:
             print("PASS " + label)
             cv_passed += 1
+    repos_checks = check_repos()
+    repos_passed = 0
+    for label, failures in repos_checks:
+        if failures:
+            print("FAIL %s: %s" % (label, "; ".join(failures)))
+        else:
+            print("PASS " + label)
+            repos_passed += 1
     ui_checks = check_ui()
     ui_passed = 0
     for label, failures in ui_checks:
@@ -2521,6 +2566,7 @@ def main():
             and menu_passed == len(menu_checks)
             and privacy_passed == len(privacy_checks)
             and cv_passed == len(cv_checks)
+            and repos_passed == len(repos_checks)
             and ui_passed == len(ui_checks)):
         print("OK %d/%d" % (passed, total))
         return 0

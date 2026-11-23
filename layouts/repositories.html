@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+
+<head>
+  <title>{{ i18n "repos_title" }} | {{ .Site.Params.author.name }}</title>
+  {{ partial "head.html" . }}
+</head>
+
+<body>
+  <div class="flexWrapper">
+    {{ partial "header.html" . }}
+
+    <div class="content">
+      <main class="main">
+        <div class="reposShell">
+          <header class="reposHeader">
+            <h1>{{ i18n "repos_heading" }}</h1>
+            <p>{{ i18n "repos_intro" }}</p>
+          </header>
+
+          <section class="reposSection">
+            <h2>{{ i18n "repos_user" }}</h2>
+            <div class="repoGrid repoGridProfile">
+              <a class="repoCard" href="https://github.com/{{ .Site.Data.repositories.github_user }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .Site.Data.repositories.github_user }} on GitHub">
+                <img src="https://github-stats-extended.vercel.app/api/?username={{ .Site.Data.repositories.github_user }}&amp;theme=dark&amp;locale={{ .Lang }}&amp;show_icons=true" alt="GitHub stats for {{ .Site.Data.repositories.github_user }}" loading="lazy">
+              </a>
+            </div>
+          </section>
+
+          <hr class="reposRule">
+
+          <section class="reposSection">
+            <h2>{{ i18n "repos_github" }}</h2>
+            <p class="reposMeta">{{ len .Site.Data.repositories.repos }} {{ i18n "repos_count" }}</p>
+            <div class="repoGrid">
+              {{- range .Site.Data.repositories.repos }}
+              <a class="repoCard" href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .full_name }}">
+                <img src="https://github-stats-extended.vercel.app/api/pin/?username=jparedesDS&amp;repo={{ .name }}&amp;theme=dark&amp;show_owner=true&amp;description_lines_count=2" alt="{{ .full_name }}" loading="lazy">
+              </a>
+              {{- end }}
+            </div>
+          </section>
+
+          <hr class="reposRule">
+
+          <section class="reposSection">
+            <h2>{{ i18n "repos_hf" }}</h2>
+            <p class="reposMeta">{{ len .Site.Data.repositories.models }} {{ i18n "repos_models" }} · {{ i18n "repos_hf_intro" }}</p>
+            <div class="repoGrid modelGrid">
+              {{- range .Site.Data.repositories.models }}
+              <a class="modelCard" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+                <h3>{{ .id }}</h3>
+                {{- with .task }}<p class="modelTask">{{ . }}</p>{{ end }}
+                <p class="modelStats">{{ .downloads }} {{ i18n "repos_downloads" }} · {{ .likes }} {{ i18n "repos_likes" }}</p>
+              </a>
+              {{- end }}
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    {{ partial "footer.html" . }}
+  </div>
+</body>
+
+</html>
