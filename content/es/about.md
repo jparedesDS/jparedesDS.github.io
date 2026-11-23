@@ -23,9 +23,27 @@ Idiomas: español nativo · inglés B2
 - [Pro POV CS2](https://propovcs2.com/) — un proyecto de visión artificial para clips POV de Counter-Strike 2.
 - [GitHub](https://github.com/jparedesDS) — el resto del código, incluidos los modelos publicados en Hugging Face.
 
+## Visión artificial / Detección de objetos
+
+<div class="case featureProject">
+
+### Modelos de detección de objetos
+
+Un catálogo de **14 detectores basados en YOLO** para inspección industrial, esports y visión artificial en tiempo real. Pesos, métricas y cuadernos de entrenamiento, con modelos publicados en Hugging Face.
+
+<ul class="caseChips">
+  <li>YOLO v9–v12</li>
+  <li>OpenCV</li>
+  <li>PyTorch</li>
+  <li>Hugging Face</li>
+</ul>
+
+[Repositorio](https://github.com/jparedesDS/object-detection-models) · [Modelos en Hugging Face](https://huggingface.co/jparedesDS)
+
+</div>
+
 ## Proyectos abiertos
 
-- [Modelos de detección de objetos](https://github.com/jparedesDS/object-detection-models) — 14 detectores basados en YOLO para inspección industrial, esports y visión artificial en tiempo real, con pesos, métricas y cuadernos de entrenamiento.
 - 33+ repositorios públicos en [GitHub](https://github.com/jparedesDS) y 268+ seguidores.
 - 10+ modelos de visión artificial en [Hugging Face](https://huggingface.co/jparedesDS) (YOLO v9–v12).
 - Kaggle: medalla de bronce en clasificación multilabel de imágenes (ResNet152).
@@ -73,13 +91,7 @@ Idiomas: español nativo · inglés B2
 <div class="resumeBlock">
   <div class="resumeHead"><h3>Analista de datos e ingeniero de IA</h3><span class="resumeDate">2024 — actualidad</span></div>
   <p class="resumeOrg">EIPSA · Madrid</p>
-  <p>Visión artificial para inspección metalúrgica y automatización de datos: modelos YOLO para detección de defectos, pipelines de anotación y evaluación, y las herramientas internas que los ponen a trabajar.</p>
-  <ul>
-    <li>DocFlow, un SaaS interno en producción: 21 routers de API, 24 capas de servicio y 24 pantallas, con DocuSign, JWT y Docker + CI. Desarrollo asistido por IA con Claude.</li>
-    <li>Extracción de datos de planos técnicos DXF: un 80% menos de tiempo de procesado manual.</li>
-    <li>Automatización correo→ERP: 500+ documentos entrantes al mes.</li>
-    <li>Cuadros de mando en Tableau para el seguimiento de la documentación de proyectos.</li>
-  </ul>
+  <p>Visión artificial para inspección metalúrgica y automatización de datos: modelos YOLO para detección de defectos, pipelines de anotación y evaluación, y las herramientas internas que los ponen a trabajar. DocFlow, un SaaS interno en producción: 21 routers de API, 24 capas de servicio y 24 pantallas, con DocuSign, JWT y Docker + CI. Desarrollo asistido por IA con Claude. Extracción de datos de planos técnicos DXF: un 80% menos de tiempo de procesado manual. Automatización correo→ERP: 500+ documentos entrantes al mes. Cuadros de mando en Tableau para el seguimiento de la documentación de proyectos.</p>
 </div>
 
 <div class="resumeBlock">

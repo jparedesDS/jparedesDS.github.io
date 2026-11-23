@@ -24,9 +24,27 @@ Languages: Spanish (native) · English (B2)
 - [Pro POV CS2](https://propovcs2.com/) — a computer-vision project for Counter-Strike 2 POV clips.
 - [GitHub](https://github.com/jparedesDS) — the rest of the code, including the models published on Hugging Face.
 
+## Computer Vision / Object Detection
+
+<div class="case featureProject">
+
+### Object detection models
+
+A curated model zoo of **14 YOLO-based detectors** for industrial inspection, esports and real-time computer vision. Weights, metrics and training notebooks, with models published on Hugging Face.
+
+<ul class="caseChips">
+  <li>YOLO v9–v12</li>
+  <li>OpenCV</li>
+  <li>PyTorch</li>
+  <li>Hugging Face</li>
+</ul>
+
+[Repository](https://github.com/jparedesDS/object-detection-models) · [Models on Hugging Face](https://huggingface.co/jparedesDS)
+
+</div>
+
 ## Open projects
 
-- [Object detection models](https://github.com/jparedesDS/object-detection-models) — 14 YOLO-based detectors for industrial inspection, esports and real-time computer vision, with weights, metrics and training notebooks.
 - 33+ public repositories on [GitHub](https://github.com/jparedesDS) and 268+ followers.
 - 10+ computer-vision models on [Hugging Face](https://huggingface.co/jparedesDS) (YOLO v9–v12).
 - Kaggle bronze medal in multilabel image classification (ResNet152).
@@ -74,13 +92,7 @@ Languages: Spanish (native) · English (B2)
 <div class="resumeBlock">
   <div class="resumeHead"><h3>Data Analyst &amp; AI Engineer</h3><span class="resumeDate">2024 — Now</span></div>
   <p class="resumeOrg">EIPSA · Madrid</p>
-  <p>Computer vision for metallurgy inspection and data automation: YOLO models for defect detection, annotation and evaluation pipelines, and the internal tools that put them to work.</p>
-  <ul>
-    <li>DocFlow, an internal SaaS in production: 21 API routers, 24 service layers and 24 frontend screens, with DocuSign, JWT and Docker + CI. Built with AI-assisted development using Claude.</li>
-    <li>DXF technical-drawing extraction: 80% less manual processing time.</li>
-    <li>Email→ERP automation: 500+ incoming documents per month.</li>
-    <li>Tableau dashboards for project documentation tracking.</li>
-  </ul>
+  <p>Computer vision for metallurgy inspection and data automation: YOLO models for defect detection, annotation and evaluation pipelines, and the internal tools that put them to work. DocFlow, an internal SaaS in production: 21 API routers, 24 service layers and 24 frontend screens, with DocuSign, JWT and Docker + CI. Built with AI-assisted development using Claude. DXF technical-drawing extraction: 80% less manual processing time. Email→ERP automation: 500+ incoming documents per month. Tableau dashboards for project documentation tracking.</p>
 </div>
 
 <div class="resumeBlock">

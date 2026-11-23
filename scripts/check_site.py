@@ -665,6 +665,11 @@ ABOUT_SCOPE_FACTS = {
             ("50+",),
             ("95%+",),
         ],
+        "Computer Vision / Object Detection": [
+            ("object-detection-models",),
+            ("14 YOLO-based detectors",),
+            ("Hugging Face",),
+        ],
         "Open projects": [
             ("33+",),
             ("268+",),
@@ -672,8 +677,6 @@ ABOUT_SCOPE_FACTS = {
             ("Kaggle",),
             ("bronze medal in multilabel image classification",),
             ("ResNet152",),
-            ("object-detection-models",),
-            ("14 YOLO-based detectors",),
         ],
     },
     "/es/about/": {
@@ -692,6 +695,11 @@ ABOUT_SCOPE_FACTS = {
             ("50+",),
             ("95%+", "al menos el 95%"),
         ],
+        "Visión artificial / Detección de objetos": [
+            ("object-detection-models",),
+            ("14 detectores basados en YOLO",),
+            ("Hugging Face",),
+        ],
         "Proyectos abiertos": [
             ("33+",),
             ("268+",),
@@ -699,16 +707,16 @@ ABOUT_SCOPE_FACTS = {
             ("Kaggle",),
             ("medalla de bronce en clasificación multilabel de imágenes",),
             ("ResNet152",),
-            ("object-detection-models",),
-            ("14 detectores basados en YOLO",),
         ],
     },
 }
 ABOUT_SECTIONS = {
-    "/about/": ("Projects", "Open projects", "Stack", "Experience",
-                "Education", "Contact"),
-    "/es/about/": ("Proyectos", "Proyectos abiertos", "Stack", "Experiencia",
-                   "Formación", "Contacto"),
+    "/about/": ("Projects", "Computer Vision / Object Detection",
+                "Open projects", "Stack", "Experience", "Education",
+                "Contact"),
+    "/es/about/": ("Proyectos", "Visión artificial / Detección de objetos",
+                   "Proyectos abiertos", "Stack", "Experiencia", "Formación",
+                   "Contacto"),
 }
 ABOUT_BANNED = ("four years", "4 years", "cuatro años", "4 años",
                 "3rd place", "3er puesto", "tercer puesto")
@@ -2319,6 +2327,8 @@ def check_ui():
         hf = text.find("Hugging Face Profile")
         if gh < 0 or hf < 0 or hf < gh:
             failures.append("Hugging Face icon is not after GitHub")
+        if text and "M12.025 1.13" not in text:
+            failures.append("official Hugging Face icon path is missing")
     checks.append(("ui social icons", failures))
 
     failures = []
@@ -2344,6 +2354,18 @@ def check_ui():
                 failures.append("Blog link missing from Contact")
             if len(re.findall(r"class=resumeBlock", text)) < 5:
                 failures.append("resume blocks missing")
+            experience = ("Experience", "Education") if route == "/about/" \
+                else ("Experiencia", "Formación")
+            for heading in experience:
+                section = _section_html(text, heading) or ""
+                if "<ul" in section:
+                    failures.append("bullets in %s; keep uniform explanations"
+                                    % heading)
+            cv_section = _section_html(
+                text, "Computer Vision / Object Detection" if route == "/about/"
+                else "Visión artificial / Detección de objetos")
+            if cv_section is None or "object-detection-models" not in cv_section:
+                failures.append("object-detection section missing")
         checks.append(("ui about layout " + route, failures))
     return checks
 
