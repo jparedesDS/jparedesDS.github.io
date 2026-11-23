@@ -21,7 +21,7 @@ El sitio también ejecuta un script de analítica propio y sin cookies (`pulse.s
 
 Tu elección del banner se guarda en el `localStorage` de tu navegador con la clave `ga_consent_v1` (una cookie `ga_consent` la refleja). No hay cuenta.
 
-Para cambiar tu elección, borra los datos de este sitio en tu navegador: elimina las cookies y los datos de sitio de `jparedesds.github.io` (en la mayoría de navegadores, abre el icono del candado o de ajustes en la barra de direcciones y busca «Cookies y datos de sitios», o usa los ajustes de privacidad del navegador) y recarga la página. El banner volverá a aparecer y podrás aceptar o rechazar de nuevo. Rechazar mantiene Google Analytics desactivado.
+Para cambiar tu elección, borra los datos de este sitio en tu navegador: elimina las cookies y los datos de sitio de `jparedesds.com` (en la mayoría de navegadores, abre el icono del candado o de ajustes en la barra de direcciones y busca «Cookies y datos de sitios», o usa los ajustes de privacidad del navegador) y recarga la página. El banner volverá a aparecer y podrás aceptar o rechazar de nuevo. Rechazar mantiene Google Analytics desactivado.
 
 ## Lo que este sitio no hace
 

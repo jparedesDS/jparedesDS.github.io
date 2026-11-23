@@ -39,7 +39,7 @@ ROUTES = [
     "/work/", "/cs2pov/", "/murdoku/",
 ]
 
-BASE_URL = "https://jparedesds.github.io"
+BASE_URL = "https://jparedesds.com"
 
 # Task 2: EN/ES page pairs. Slugs are identical in both languages; the
 # blog stays English-only and is deliberately absent from this list.
@@ -1049,7 +1049,7 @@ OG_IMAGE_URL = BASE_URL + "/og-image.png"
 OG_IMAGE_ALT = ("Social card reading 'Jose Paredes — Computer Vision & "
                 "ML Engineer' and 'Madrid · Open to opportunities', with "
                 "Computer Vision, YOLO, PyTorch, FastAPI, React and "
-                "Docker chips above jparedesds.github.io")
+                "Docker chips above jparedesds.com")
 SHARING_ROUTES = [r for r in ROUTES
                   if r.endswith("/") and r not in REDIRECT_STUBS
                   and r not in STANDALONE_PAGES]
@@ -2041,7 +2041,7 @@ CV_FACTS = {
         ("jparedescolmenarejo@gmail.com",),
         ("linkedin.com/in/jparedesDS",),
         ("github.com/jparedesDS",),
-        ("jparedesds.github.io",),
+        ("jparedesds.com",),
         ("local-first",),
         ("EIPSA",),
         ("Data Analyst & AI Engineer",),
@@ -2090,7 +2090,7 @@ CV_FACTS = {
         ("jparedescolmenarejo@gmail.com",),
         ("linkedin.com/in/jparedesDS",),
         ("github.com/jparedesDS",),
-        ("jparedesds.github.io",),
+        ("jparedesds.com",),
         ("local-first",),
         ("EIPSA",),
         ("Analista de datos e ingeniero de IA",),

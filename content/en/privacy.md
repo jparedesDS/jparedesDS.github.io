@@ -21,7 +21,7 @@ The site also runs a first-party, cookieless analytics script (`pulse.subtitleme
 
 Your banner choice is stored in your browser's `localStorage` under the key `ga_consent_v1` (a `ga_consent` cookie mirrors it). There is no account.
 
-To change your choice, clear this site's data in your browser: delete the cookies and site data for `jparedesds.github.io` (in most browsers, open the padlock or settings icon in the address bar and look for "Cookies and site data", or use the browser's privacy settings), then reload the page. The banner will appear again and you can accept or decline anew. Declining keeps Google Analytics off.
+To change your choice, clear this site's data in your browser: delete the cookies and site data for `jparedesds.com` (in most browsers, open the padlock or settings icon in the address bar and look for "Cookies and site data", or use the browser's privacy settings), then reload the page. The banner will appear again and you can accept or decline anew. Declining keeps Google Analytics off.
 
 ## What this site does not do
 
