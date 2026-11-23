@@ -665,13 +665,15 @@ ABOUT_SCOPE_FACTS = {
             ("50+",),
             ("95%+",),
         ],
-        "Open source": [
+        "Open projects": [
             ("33+",),
             ("268+",),
             ("10+",),
             ("Kaggle",),
             ("bronze medal in multilabel image classification",),
             ("ResNet152",),
+            ("object-detection-models",),
+            ("14 YOLO-based detectors",),
         ],
     },
     "/es/about/": {
@@ -690,21 +692,23 @@ ABOUT_SCOPE_FACTS = {
             ("50+",),
             ("95%+", "al menos el 95%"),
         ],
-        "Código abierto": [
+        "Proyectos abiertos": [
             ("33+",),
             ("268+",),
             ("10+",),
             ("Kaggle",),
             ("medalla de bronce en clasificación multilabel de imágenes",),
             ("ResNet152",),
+            ("object-detection-models",),
+            ("14 detectores basados en YOLO",),
         ],
     },
 }
 ABOUT_SECTIONS = {
-    "/about/": ("Projects", "Experience", "Open source", "Education",
-                "Stack", "Writing", "Contact"),
-    "/es/about/": ("Proyectos", "Experiencia", "Código abierto", "Formación",
-                   "Stack", "Blog", "Contacto"),
+    "/about/": ("Projects", "Open projects", "Stack", "Experience",
+                "Education", "Contact"),
+    "/es/about/": ("Proyectos", "Proyectos abiertos", "Stack", "Experiencia",
+                   "Formación", "Contacto"),
 }
 ABOUT_BANNED = ("four years", "4 years", "cuatro años", "4 años",
                 "3rd place", "3er puesto", "tercer puesto")
@@ -2305,6 +2309,42 @@ def check_ui():
         if not _href_present(text or "", live_repo):
             failures.append("weapon-detection repository link missing")
         checks.append(("ui projects links " + route, failures))
+
+    text, _ = _parse("/")
+    failures = []
+    if text is None:
+        failures.append("missing home page")
+    else:
+        gh = text.find("GitHub Profile")
+        hf = text.find("Hugging Face Profile")
+        if gh < 0 or hf < 0 or hf < gh:
+            failures.append("Hugging Face icon is not after GitHub")
+    checks.append(("ui social icons", failures))
+
+    failures = []
+    match = re.search(r"\.activeProjectsLabel\{([^}]*)\}", css)
+    if match is None or "font-size:.92rem" not in match.group(1):
+        failures.append("Active projects label was not enlarged")
+    checks.append(("ui active projects label", failures))
+
+    for route, expected in ABOUT_SECTIONS.items():
+        text, _ = _parse(route)
+        failures = []
+        if text is None:
+            failures.append("missing page")
+        else:
+            heads = [m.group(1).strip() for m in re.finditer(
+                r"<h2\b[^>]*>\s*([^<]+?)\s*</h2>", text)]
+            if heads != list(expected):
+                failures.append("section order %r, expected %r"
+                                % (heads, list(expected)))
+            contact = _section_html(
+                text, "Contact" if route == "/about/" else "Contacto")
+            if contact is None or 'href=/blog/' not in contact:
+                failures.append("Blog link missing from Contact")
+            if len(re.findall(r"class=resumeBlock", text)) < 5:
+                failures.append("resume blocks missing")
+        checks.append(("ui about layout " + route, failures))
     return checks
 
 
