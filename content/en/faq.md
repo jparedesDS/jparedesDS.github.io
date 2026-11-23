@@ -1,7 +1,7 @@
 +++
 title = "FAQ"
 date = 2026-11-11
-url = "/blog/faq/"
+url = "/en/blog/faq/"
 layout = "blogpage"
 showMetadata = false
 +++

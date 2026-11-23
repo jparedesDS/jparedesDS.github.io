@@ -26,7 +26,7 @@ Languages: Spanish (native) · English (B2)
 
 ## Open projects
 
-Every repository and model is listed on the dedicated **[Repositories](/repositories/)** page.
+Every repository and model is listed on the dedicated **[Repositories](/en/repositories/)** page.
 
 - 33+ public repositories on [GitHub](https://github.com/jparedesDS) and 268+ followers.
 - 10+ computer-vision models on [Hugging Face](https://huggingface.co/jparedesDS) (YOLO v9–v12).

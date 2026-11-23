@@ -122,7 +122,7 @@
 
     try {
       var url = new URL(window.location.href);
-      if (lang === 'en') {
+      if (lang === 'es') {
         url.searchParams.delete('lang');
       } else {
         url.searchParams.set('lang', lang);
@@ -141,11 +141,11 @@
     });
   });
 
-  var initial = 'en';
+  var initial = 'es';
   try {
-    initial = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('blog-lang') || 'en';
+    initial = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('blog-lang') || 'es';
   } catch (error) {}
-  setLanguage(initial === 'es' ? 'es' : 'en');
+  setLanguage(initial === 'en' ? 'en' : 'es');
 })();
 </script>
 {{ end }}

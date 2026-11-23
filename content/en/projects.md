@@ -86,7 +86,7 @@ The public repository is DocFlow Lite, a CustomTkinter desktop app; the SaaS des
   <li>ONNX/WebGPU</li>
 </ul>
 
-[Open subany.video](https://subany.video/) · [How it works](/blog/2026/11/09/how-subany-video-works/)
+[Open subany.video](https://subany.video/) · [How it works](/en/blog/2026/11/09/how-subany-video-works/)
 
 </section>
 

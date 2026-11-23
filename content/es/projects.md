@@ -86,7 +86,7 @@ El repositorio público es DocFlow Lite, una aplicación de escritorio en Custom
   <li>ONNX/WebGPU</li>
 </ul>
 
-[Abrir subany.video](https://subany.video/) · [Cómo funciona](/blog/2026/11/09/how-subany-video-works/)
+[Abrir subany.video](https://subany.video/) · [Cómo funciona](/en/blog/2026/11/09/how-subany-video-works/)
 
 </section>
 

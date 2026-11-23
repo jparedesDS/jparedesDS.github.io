@@ -18,7 +18,7 @@
 <div class="searchResults" id="blog-search-results"></div>
 
 <noscript>
-  <p class="langNotice">Search needs JavaScript. <a href="/blog/">Browse the blog</a>.<br>La búsqueda necesita JavaScript. <a href="/blog/">Ver el blog</a>.</p>
+  <p class="langNotice">Search needs JavaScript. <a href="/en/blog/">Browse the blog</a>.<br>La búsqueda necesita JavaScript. <a href="/en/blog/">Ver el blog</a>.</p>
 </noscript>
 
 </div>
@@ -133,7 +133,7 @@
     });
   }
 
-  fetch("{{ "/blog/index.json" | relURL }}", { cache: 'no-store' })
+  fetch("{{ "/blog/index.json" | relLangURL }}", { cache: 'no-store' })
     .then(function (response) {
       if (!response.ok) throw new Error('HTTP ' + response.status);
       return response.json();

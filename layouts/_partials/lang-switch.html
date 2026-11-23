@@ -1,8 +1,8 @@
 {{- /* Site-wide EN/ES selector. Hidden on /blog... pages: the articles
        carry their own in-page EN/ES toggle (?lang=es). */ -}}
-{{- if not (hasPrefix .RelPermalink "/blog") -}}
-{{- $en := "/" -}}
-{{- $es := "/es/" -}}
+{{- if and (not (hasPrefix .RelPermalink "/blog")) (not (hasPrefix .RelPermalink "/en/blog")) -}}
+{{- $es := "/" -}}
+{{- $en := "/en/" -}}
 {{- range .AllTranslations -}}
   {{- if eq .Lang "en" -}}{{- $en = .RelPermalink -}}{{- end -}}
   {{- if eq .Lang "es" -}}{{- $es = .RelPermalink -}}{{- end -}}

@@ -26,17 +26,22 @@ except ImportError:  # pragma: no cover - reported as a check failure.
 ROOT = Path(__file__).resolve().parent.parent
 
 ROUTES = [
-    "/", "/about/", "/projects/", "/contact/", "/blog/", "/blog/search/",
-    "/blog/tags/", "/blog/tags/hls/", "/blog/archives/", "/blog/faq/",
-    "/blog/2026/11/09/how-subany-video-works/",
-    "/blog/2026/11/09/como-funciona-subany-video/",
-    "/blog/2026/11/23/welding-defects-detection/",
-    "/blog/index.json", "/blog/index.xml", "/index.xml", "/sitemap.xml",
-    "/propovcs2/", "/cleanyourmail/", "/privacy/",
-    "/es/", "/es/about/", "/es/projects/", "/es/contact/", "/es/privacy/",
-    "/es/blog/", "/repositories/", "/es/repositories/", "/cv/", "/es/cv/",
-    # Preserved routes outside the rebuild (final review): /work/ is a
-    # redirect stub; /cs2pov/ and /murdoku/ are standalone app pages.
+    # Spanish is the default language and lives at the root; English at /en/.
+    "/", "/about/", "/projects/", "/contact/", "/privacy/",
+    "/repositories/", "/cv/",
+    "/en/", "/en/about/", "/en/projects/", "/en/contact/", "/en/privacy/",
+    "/en/repositories/", "/en/cv/",
+    # The blog only exists in English.
+    "/en/blog/", "/en/blog/search/", "/en/blog/tags/", "/en/blog/tags/hls/",
+    "/en/blog/archives/", "/en/blog/faq/",
+    "/en/blog/2026/11/09/how-subany-video-works/",
+    "/en/blog/2026/11/23/welding-defects-detection/",
+    "/en/blog/index.json", "/en/blog/index.xml",
+    "/index.xml", "/sitemap.xml",
+    "/propovcs2/", "/cleanyourmail/",
+    "/es/", "/es/blog/", "/blog/", "/blog/2026/11/09/como-funciona-subany-video/",
+    # Preserved routes outside the rebuild: /work/ is a redirect stub;
+    # /cs2pov/ and /murdoku/ are standalone app pages.
     "/work/", "/cs2pov/", "/murdoku/",
 ]
 
@@ -45,13 +50,13 @@ BASE_URL = "https://jparedesds.com"
 # Task 2: EN/ES page pairs. Slugs are identical in both languages; the
 # blog stays English-only and is deliberately absent from this list.
 PAGE_PAIRS = [
-    ("/", "/es/"),
-    ("/about/", "/es/about/"),
-    ("/projects/", "/es/projects/"),
-    ("/contact/", "/es/contact/"),
-    ("/privacy/", "/es/privacy/"),
-    ("/repositories/", "/es/repositories/"),
-    ("/cv/", "/es/cv/"),
+    ("/", "/en/"),
+    ("/about/", "/en/about/"),
+    ("/projects/", "/en/projects/"),
+    ("/contact/", "/en/contact/"),
+    ("/privacy/", "/en/privacy/"),
+    ("/repositories/", "/en/repositories/"),
+    ("/cv/", "/en/cv/"),
 ]
 
 # Controller ruling (Task 1 review, extended by the Task 7 review and
@@ -66,7 +71,9 @@ REDIRECT_STUBS = {
     "/propovcs2/",
     "/cleanyourmail/",
     "/blog/2026/11/09/como-funciona-subany-video/",
+    "/es/",
     "/es/blog/",
+    "/blog/",
     "/work/",
 }
 
@@ -76,8 +83,10 @@ REFRESH_TARGETS = {
     "/propovcs2/": "https://propovcs2.com/",
     "/cleanyourmail/": "https://cleanyourmail.org/",
     "/blog/2026/11/09/como-funciona-subany-video/":
-        "/blog/2026/11/09/how-subany-video-works/?lang=es",
-    "/es/blog/": "/blog/",
+        "/en/blog/2026/11/09/how-subany-video-works/?lang=es",
+    "/es/": "/",
+    "/es/blog/": "/en/blog/",
+    "/blog/": "/en/blog/",
     "/work/": "/projects/",
 }
 
@@ -191,7 +200,7 @@ def check_i18n():
     """Task 2 cross-language assertions: (label, failures) pairs."""
     checks = []
 
-    for en_route, es_route in PAGE_PAIRS:
+    for es_route, en_route in PAGE_PAIRS:
         failures = []
         en_text, en_parser = _parse(en_route)
         es_text, es_parser = _parse(es_route)
@@ -206,7 +215,7 @@ def check_i18n():
                 alternates = {lang: _norm(href)
                               for lang, href in parser.alternates}
                 for lang, want in (("en", en_route), ("es", es_route),
-                                   ("x-default", en_route)):
+                                   ("x-default", es_route)):
                     if alternates.get(lang) != want:
                         failures.append(
                             "%s page: hreflang=%s is %r, want %r"
@@ -233,8 +242,8 @@ def check_i18n():
         checks.append(("i18n pair %s <-> %s" % (en_route, es_route), failures))
 
     # The blog keeps its own in-article EN/ES toggle: the site selector
-    # must stay hidden on every /blog... page and visible on /es/.
-    for route in ("/blog/", "/blog/2026/11/09/how-subany-video-works/"):
+    # must stay hidden on every /en/blog... page and visible on the root.
+    for route in ("/en/blog/", "/en/blog/2026/11/09/how-subany-video-works/"):
         text, _ = _parse(route)
         failures = []
         if text is None:
@@ -242,8 +251,8 @@ def check_i18n():
         elif _has_selector(text):
             failures.append("blog page must not render langSwitchSite")
         checks.append(("selector hidden on " + route, failures))
-    text, _ = _parse("/es/")
-    checks.append(("selector visible on /es/",
+    text, _ = _parse("/")
+    checks.append(("selector visible on /",
                    [] if text is not None and _has_selector(text)
                    else ["missing page or no langSwitchSite selector"]))
 
@@ -256,14 +265,14 @@ def check_i18n():
         refresh = _RefreshParser()
         refresh.feed(text)
         refresh.close()
-        if not any(_norm(t) == "/blog/" for t in refresh.targets):
-            failures.append("no meta refresh to /blog/")
-        if _norm(parser.canonical or "") != "/blog/":
-            failures.append("canonical is %r, want %s/blog/"
+        if not any(_norm(t) == "/en/blog/" for t in refresh.targets):
+            failures.append("no meta refresh to /en/blog/")
+        if _norm(parser.canonical or "") != "/en/blog/":
+            failures.append("canonical is %r, want %s/en/blog/"
                             % (parser.canonical, BASE_URL))
-        if not any(_norm(href) == "/blog/" and text_
+        if not any(_norm(href) == "/en/blog/" and text_
                    for href, text_ in parser.anchors):
-            failures.append("no visible link to /blog/")
+            failures.append("no visible link to /en/blog/")
     checks.append(("/es/blog/ redirect", failures))
 
     return checks
@@ -275,21 +284,6 @@ def check_i18n():
 # attribute values, so href checks accept both forms.
 HIRE_COPY = {
     "/": {
-        "lang": "en",
-        "role": "Computer Vision & ML Engineer",
-        "bio": ("I build computer-vision systems for industrial quality "
-                "control and local-first AI products."),
-        "availability": "Madrid · Open to opportunities",
-        "proof": ("Industrial computer vision since 2024 · 10+ models on "
-                  "Hugging Face · DocFlow in production"),
-        "proof_marker": "since 2024",
-        "cv": "Download CV",
-        "cv_url": "/cv/",
-        "email": "Email me",
-        "projects": "Active projects",
-        "banned": ("four years", "4 years"),
-    },
-    "/es/": {
         "lang": "es",
         "role": "Ingeniero de Computer Vision y ML",
         "bio": ("Construyo sistemas de visión artificial para control de "
@@ -300,10 +294,25 @@ HIRE_COPY = {
                   "en Hugging Face · DocFlow en producción"),
         "proof_marker": "desde 2024",
         "cv": "Descargar CV",
-        "cv_url": "/es/cv/",
+        "cv_url": "/cv/",
         "email": "Escríbeme",
         "projects": "Proyectos activos",
         "banned": ("cuatro años", "4 años"),
+    },
+    "/en/": {
+        "lang": "en",
+        "role": "Computer Vision & ML Engineer",
+        "bio": ("I build computer-vision systems for industrial quality "
+                "control and local-first AI products."),
+        "availability": "Madrid · Open to opportunities",
+        "proof": ("Industrial computer vision since 2024 · 10+ models on "
+                  "Hugging Face · DocFlow in production"),
+        "proof_marker": "since 2024",
+        "cv": "Download CV",
+        "cv_url": "/en/cv/",
+        "email": "Email me",
+        "projects": "Active projects",
+        "banned": ("four years", "4 years"),
     },
 }
 
@@ -439,8 +448,8 @@ CASE_ANCHORS = ("vision", "docflow", "subany")
 # Diagrams are localized: each language must reference its own variants
 # (review ruling); the subany capture is shared.
 CASE_DIAGRAMS = {
-    "/projects/": ("case-vision.svg", "case-docflow.svg"),
-    "/es/projects/": ("case-vision-es.svg", "case-docflow-es.svg"),
+    "/projects/": ("case-vision-es.svg", "case-docflow-es.svg"),
+    "/en/projects/": ("case-vision.svg", "case-docflow.svg"),
 }
 CASE_IMAGES = ("case-vision.svg", "case-docflow.svg",
                "case-vision-es.svg", "case-docflow-es.svg", "case-subany.png")
@@ -451,21 +460,21 @@ CASE_MODEL_URL = ("https://huggingface.co/jparedesDS/"
                   "fluorescent-penetrant-inspection")
 CASE_FACTS = {
     "/projects/": [
-        ("21 API routers",),
-        ("24 services",),
-        ("24 screens",),
-        ("0–40 ms", "0-40 ms"),
-        ("15.3",),
-    ],
-    "/es/projects/": [
         ("21 routers",),
         ("24 servicios",),
         ("24 pantallas",),
         ("0–40 ms", "0-40 ms"),
         ("15,3",),
     ],
+    "/en/projects/": [
+        ("21 API routers",),
+        ("24 services",),
+        ("24 screens",),
+        ("0–40 ms", "0-40 ms"),
+        ("15.3",),
+    ],
 }
-SUBANY_ARTICLE = "/blog/2026/11/09/how-subany-video-works/"
+SUBANY_ARTICLE = "/en/blog/2026/11/09/how-subany-video-works/"
 # Final review: the public docflow repository is DocFlow Lite, a
 # CustomTkinter desktop app — not the internal SaaS the case describes.
 # The link label and the clarifying sentence are pinned; the old
@@ -473,18 +482,18 @@ SUBANY_ARTICLE = "/blog/2026/11/09/how-subany-video-works/"
 DOCFLOW_REPO_URL = "https://github.com/jparedesDS/docflow"
 DOCFLOW_LITE = {
     "/projects/": {
-        "label": "DocFlow Lite on GitHub",
-        "sentence": ("The public repository is DocFlow Lite, a "
-                     "CustomTkinter desktop app; the SaaS described "
-                     "here is internal."),
-        "old_label": "Code on GitHub",
-    },
-    "/es/projects/": {
         "label": "DocFlow Lite en GitHub",
         "sentence": ("El repositorio público es DocFlow Lite, una "
                      "aplicación de escritorio en CustomTkinter; el "
                      "SaaS descrito aquí es interno."),
         "old_label": "Código en GitHub",
+    },
+    "/en/projects/": {
+        "label": "DocFlow Lite on GitHub",
+        "sentence": ("The public repository is DocFlow Lite, a "
+                     "CustomTkinter desktop app; the SaaS described "
+                     "here is internal."),
+        "old_label": "Code on GitHub",
     },
 }
 ACTIVE_PRODUCT_URLS = (
@@ -643,35 +652,11 @@ def check_cases():
 # mask a deleted bullet. "95%+" keeps its plus; the approved ES wording
 # is "al menos el 95%".
 ABOUT_INTRO_FACTS = {
-    "/about/": [("Languages:",), ("native",), ("B2",)],
-    "/es/about/": [("Idiomas:",), ("nativo",), ("B2",)],
+    "/about/": [("Idiomas:",), ("nativo",), ("B2",)],
+    "/en/about/": [("Languages:",), ("native",), ("B2",)],
 }
 ABOUT_SCOPE_FACTS = {
     "/about/": {
-        "Experience": [
-            ("DocFlow",),
-            ("internal SaaS in production",),
-            ("21 API routers",),
-            ("24 service layers",),
-            ("24 frontend screens",),
-            ("80% less manual processing time",),
-            ("500+ incoming documents per month",),
-            ("Tableau dashboards for project documentation tracking",),
-            ("10,000+",),
-            ("25%",),
-            ("50+",),
-            ("95%+",),
-        ],
-        "Open projects": [
-            ("33+",),
-            ("268+",),
-            ("10+",),
-            ("Kaggle",),
-            ("bronze medal in multilabel image classification",),
-            ("ResNet152",),
-        ],
-    },
-    "/es/about/": {
         "Experiencia": [
             ("DocFlow",),
             ("SaaS interno en producción",),
@@ -696,12 +681,36 @@ ABOUT_SCOPE_FACTS = {
             ("ResNet152",),
         ],
     },
+    "/en/about/": {
+        "Experience": [
+            ("DocFlow",),
+            ("internal SaaS in production",),
+            ("21 API routers",),
+            ("24 service layers",),
+            ("24 frontend screens",),
+            ("80% less manual processing time",),
+            ("500+ incoming documents per month",),
+            ("Tableau dashboards for project documentation tracking",),
+            ("10,000+",),
+            ("25%",),
+            ("50+",),
+            ("95%+",),
+        ],
+        "Open projects": [
+            ("33+",),
+            ("268+",),
+            ("10+",),
+            ("Kaggle",),
+            ("bronze medal in multilabel image classification",),
+            ("ResNet152",),
+        ],
+    },
 }
 ABOUT_SECTIONS = {
-    "/about/": ("Projects", "Open projects", "Stack", "Experience",
-                "Education"),
-    "/es/about/": ("Proyectos", "Proyectos abiertos", "Stack", "Experiencia",
-                   "Formación"),
+    "/about/": ("Proyectos", "Proyectos abiertos", "Stack", "Experiencia",
+                "Formación"),
+    "/en/about/": ("Projects", "Open projects", "Stack", "Experience",
+                   "Education"),
 }
 ABOUT_BANNED = ("four years", "4 years", "cuatro años", "4 años",
                 "3rd place", "3er puesto", "tercer puesto")
@@ -744,7 +753,7 @@ def check_about():
         for phrase in ABOUT_BANNED:
             if phrase.casefold() in lowered:
                 failures.append("banned phrase present: %r" % phrase)
-        if route == "/es/about/" and "provisional" in lowered:
+        if route == "/about/" and "provisional" in lowered:
             failures.append("provisional stub notice still present")
         for name in ABOUT_SECTIONS[route]:
             if re.search(r"<h2\b[^>]*>\s*%s\s*</h2>" % re.escape(name),
@@ -753,7 +762,7 @@ def check_about():
 
         # CV link sits right under the intro paragraph: after the h1 and
         # before the first section h2. Each language links its own PDF.
-        cv_url = "/resume-es.pdf" if route == "/es/about/" else "/resume.pdf"
+        cv_url = "/resume-es.pdf" if route == "/about/" else "/resume.pdf"
         cv = re.search(
             r'<a\b[^>]*href=(?:"%s"|%s)[^>]*>'
             % (re.escape(cv_url), re.escape(cv_url)), text)
@@ -787,21 +796,20 @@ SITE_DESCRIPTIONS = {
 POSITIONING_OLD = ("data scientist and ai engineer",
                    "científico de datos e ingeniero de ia")
 POSITIONING_INTROS = {
-    "/about/": "I am a computer vision and ML engineer based in Madrid.",
-    "/es/about/": "Soy ingeniero de computer vision y ML y vivo en Madrid.",
-    "/blog/faq/": "a computer vision and ML engineer in Madrid",
+    "/about/": "Soy ingeniero de computer vision y ML y vivo en Madrid.",
+    "/en/about/": "I am a computer vision and ML engineer based in Madrid.",
+    "/en/blog/faq/": "a computer vision and ML engineer in Madrid",
 }
 # Pages that inherit the global sitedescription (no description of
 # their own in front matter), mapped to the language they must use.
 DESCRIPTION_ROUTES = {
-    "/": "en", "/about/": "en", "/projects/": "en", "/contact/": "en",
-    "/privacy/": "en", "/blog/": "en", "/blog/search/": "en",
-    "/blog/tags/": "en", "/blog/tags/hls/": "en",
-    "/blog/archives/": "en", "/blog/faq/": "en",
-    "/es/": "es", "/es/about/": "es", "/es/projects/": "es",
-    "/es/contact/": "es", "/es/privacy/": "es",
-    "/repositories/": "en", "/es/repositories/": "es",
-    "/cv/": "en", "/es/cv/": "es",
+    "/": "es", "/about/": "es", "/projects/": "es", "/contact/": "es",
+    "/privacy/": "es", "/repositories/": "es", "/cv/": "es",
+    "/en/": "en", "/en/about/": "en", "/en/projects/": "en",
+    "/en/contact/": "en", "/en/privacy/": "en",
+    "/en/blog/": "en", "/en/blog/search/": "en",
+    "/en/blog/tags/": "en", "/en/blog/tags/hls/": "en",
+    "/en/blog/archives/": "en", "/en/blog/faq/": "en",
 }
 
 
@@ -862,16 +870,16 @@ def check_positioning():
 # not approved, so they are banned on both pages.
 CONTACT_COPY = {
     "/contact/": {
-        "lang": "en",
-        "availability": "Madrid · Open to opportunities",
-        "intro": ("select AI, computer-vision and local-first product "
-                  "work"),
-    },
-    "/es/contact/": {
         "lang": "es",
         "availability": "Madrid · Abierto a oportunidades",
         "intro": ("proyectos selectos de IA, visión por computador y "
                   "productos local-first"),
+    },
+    "/en/contact/": {
+        "lang": "en",
+        "availability": "Madrid · Open to opportunities",
+        "intro": ("select AI, computer-vision and local-first product "
+                  "work"),
     },
 }
 CONTACT_MAILTO = ("mailto:jparedescolmenarejo@gmail.com"
@@ -1055,44 +1063,42 @@ SHARING_ROUTES = [r for r in ROUTES
                   if r.endswith("/") and r not in REDIRECT_STUBS
                   and r not in STANDALONE_PAGES]
 HOME_TITLES = {
-    "/": "Jose Paredes — Computer Vision & ML Engineer (Madrid)",
-    "/es/": "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)",
+    "/": "Jose Paredes — Ingeniero de Computer Vision y ML (Madrid)",
+    "/en/": "Jose Paredes — Computer Vision & ML Engineer (Madrid)",
 }
 # Expected og:title per non-stub page (final review): the home pages
 # share their full <title>, every other page its own .Title.
 OG_TITLES = {
     "/": HOME_TITLES["/"],
-    "/es/": HOME_TITLES["/es/"],
-    "/about/": "About",
-    "/es/about/": "Sobre mí",
-    "/projects/": "Projects",
-    "/es/projects/": "Proyectos",
-    "/contact/": "Contact",
-    "/es/contact/": "Contacto",
-    "/privacy/": "Privacy",
-    "/es/privacy/": "Privacidad",
-    "/repositories/": "Repositories",
-    "/es/repositories/": "Repositorios",
+    "/en/": HOME_TITLES["/en/"],
+    "/about/": "Sobre mí",
+    "/en/about/": "About",
+    "/projects/": "Proyectos",
+    "/en/projects/": "Projects",
+    "/contact/": "Contacto",
+    "/en/contact/": "Contact",
+    "/privacy/": "Privacidad",
+    "/en/privacy/": "Privacy",
+    "/repositories/": "Repositorios",
+    "/en/repositories/": "Repositories",
     "/cv/": "CV",
-    "/es/cv/": "CV",
-    "/blog/": "Blog",
-    "/blog/search/": "Search",
-    "/blog/tags/": "Tags",
-    "/blog/tags/hls/": "Hls",
-    "/blog/archives/": "Archive",
-    "/blog/faq/": "FAQ",
-    "/blog/2026/11/09/how-subany-video-works/":
+    "/en/cv/": "CV",
+    "/en/blog/": "Blog",
+    "/en/blog/search/": "Search",
+    "/en/blog/tags/": "Tags",
+    "/en/blog/tags/hls/": "Hls",
+    "/en/blog/archives/": "Archive",
+    "/en/blog/faq/": "FAQ",
+    "/en/blog/2026/11/09/how-subany-video-works/":
         "How subany.video works: live subtitles in the browser",
-    "/blog/2026/11/23/welding-defects-detection/":
+    "/en/blog/2026/11/23/welding-defects-detection/":
         "Detecting welding defects with YOLO11x",
 }
-# The only article among the sharing routes: it keeps og:type=article,
-# article:published_time and the og:locale:alternate/hreflang block.
-ARTICLE_ROUTES = {"/blog/2026/11/09/how-subany-video-works/",
-                  "/blog/2026/11/23/welding-defects-detection/"}
+ARTICLE_ROUTES = {"/en/blog/2026/11/09/how-subany-video-works/",
+                  "/en/blog/2026/11/23/welding-defects-detection/"}
 PERSON_JOBTITLES = {
-    "/": "Computer Vision & ML Engineer",
-    "/es/": "Ingeniero de Computer Vision y ML",
+    "/": "Ingeniero de Computer Vision y ML",
+    "/en/": "Computer Vision & ML Engineer",
 }
 PERSON_KNOWSABOUT = ("Computer Vision", "YOLO", "PyTorch", "FastAPI",
                      "React", "Docker")
@@ -1147,7 +1153,7 @@ def check_sharing():
                     failures.append("refresh targets %r, want %r"
                                     % (refresh.targets, want_target))
             robots = _meta_values(text, "name", "robots")
-            if not any("noindex" in value for value in robots):
+            if route != "/es/" and not any("noindex" in value for value in robots):
                 failures.append("no noindex robots meta")
         checks.append(("redirect stub " + route, failures))
 
@@ -1200,7 +1206,7 @@ def check_sharing():
         # the twitter mirrors — not just the image tags.
         is_article = route in ARTICLE_ROUTES
         want_type = "article" if is_article else "website"
-        want_locale = "es_ES" if route.startswith("/es/") else "en_US"
+        want_locale = "en_US" if route.startswith("/en/") else "es_ES"
         for prop, want in (("og:type", want_type),
                            ("og:site_name", "Jose Paredes"),
                            ("og:title", OG_TITLES[route]),
@@ -1389,13 +1395,13 @@ NF_TEXT = {
 }
 # href -> the visible label the link must carry.
 NF_LINKS = {
-    "/": "Back to the home page",
-    "/es/": "Volver al inicio",
-    "/projects/": "Projects",
-    "/es/projects/": "Proyectos",
-    "/contact/": "Contact",
-    "/es/contact/": "Contacto",
-    "/blog/": "Blog",
+    "/": "Volver al inicio",
+    "/projects/": "Proyectos",
+    "/contact/": "Contacto",
+    "/en/": "Back to the home page",
+    "/en/projects/": "Projects",
+    "/en/contact/": "Contact",
+    "/en/blog/": "Blog",
 }
 
 
@@ -1674,8 +1680,8 @@ def check_menu():
                 if _attr(tag, name) != want:
                     failures.append("menuToggle %s is %r, want %r"
                                     % (name, _attr(tag, name), want))
-            want_label = MENU_LABELS["es" if route.startswith("/es/")
-                                     else "en"]
+            want_label = MENU_LABELS["en" if route.startswith("/en/")
+                                     else "es"]
             if _attr(tag, "aria-label") != want_label:
                 failures.append("menuToggle aria-label is %r, want %r"
                                 % (_attr(tag, "aria-label"), want_label))
@@ -1747,14 +1753,14 @@ def check_menu():
 # untouched, so the checks prove its tag survives and the consent
 # script never references it. The copy may only use the verified facts:
 # no legal entity, VAT number or retention claims.
-PRIVACY_PAGES = ("/privacy/", "/es/privacy/")
+PRIVACY_PAGES = ("/privacy/", "/en/privacy/")
 PRIVACY_LABELS = {"en": "Privacy", "es": "Privacidad"}
 PRIVACY_EMAIL = "jparedescolmenarejo@gmail.com"
 PRIVACY_GA_ID = "G-Y85VJ3E6W4"
 PULSE_SRC = "https://pulse.subtitleme.workers.dev/t.js"
 PULSE_SITE = "pk_42a58793b14cbd7af3c6"
 PRIVACY_FACTS = {
-    "/privacy/": [
+    "/en/privacy/": [
         ("Jose Paredes",), ("Madrid",),
         ("Google Analytics",), ("G-Y85VJ3E6W4",), ("_ga",),
         ("consent",),
@@ -1764,7 +1770,7 @@ PRIVACY_FACTS = {
         ("ga_consent_v1",),
         (PRIVACY_EMAIL,),
     ],
-    "/es/privacy/": [
+    "/privacy/": [
         ("Jose Paredes",), ("Madrid",),
         ("Google Analytics",), ("G-Y85VJ3E6W4",), ("_ga",),
         ("consentimiento",),
@@ -1786,7 +1792,7 @@ PRIVACY_BANNED = (r"\bVAT\b", r"\bCIF\b", r"\bNIF\b", r"\bS\.L\.",
 # the revocation steps or reversing the Do Not Track sentence must
 # fail. "banned" lists the reversed polarities explicitly.
 PRIVACY_DISCLOSURES = {
-    "/privacy/": {
+    "/en/privacy/": {
         "required": [
             "only after you accept",
             "if you decline, it never loads",
@@ -1815,7 +1821,7 @@ PRIVACY_DISCLOSURES = {
             "i only use your message to reply",
         ],
     },
-    "/es/privacy/": {
+    "/privacy/": {
         "required": [
             "solo después de que aceptes",
             "si lo rechazas, no se carga nunca",
@@ -1950,7 +1956,7 @@ def check_privacy():
             checks.append(("consent data-privacy " + route,
                            ["missing page"]))
             continue
-        want = "/es/privacy/" if route.startswith("/es/") else "/privacy/"
+        want = "/en/privacy/" if route.startswith("/en/") else "/privacy/"
         want_attrs = [("defer", None), ("src", CONSENT_SRC),
                       ("data-ga", PRIVACY_GA_ID), ("data-privacy", want)]
         tags = [t for t in _script_tags(text)
@@ -1976,9 +1982,9 @@ def check_privacy():
         if footer is None:
             checks.append(("footer privacy " + route, ["no <footer>"]))
             continue
-        is_es = route.startswith("/es/")
-        want = "/es/privacy/" if is_es else "/privacy/"
-        label = PRIVACY_LABELS["es" if is_es else "en"]
+        is_en = route.startswith("/en/")
+        want = "/en/privacy/" if is_en else "/privacy/"
+        label = PRIVACY_LABELS["en" if is_en else "es"]
         for needle in ("2026 Jose Paredes", "Built with"):
             if needle not in footer:
                 failures.append("existing footer line lost: %r" % needle)
@@ -2254,8 +2260,8 @@ def check_repos():
     checks = []
     data = json.loads((ROOT / "data/repositories.json").read_text(encoding="utf-8"))
     repos, models = data["repos"], data["models"]
-    for route, heading in (("/repositories/", "Repositories"),
-                           ("/es/repositories/", "Repositorios")):
+    for route, heading in (("/repositories/", "Repositorios"),
+                           ("/en/repositories/", "Repositories")):
         text, _ = _parse(route)
         failures = []
         if text is None:
@@ -2288,7 +2294,7 @@ def check_repos():
             failures.append("dark card theme missing")
         if "modelBase" not in text or "modelUpdated" not in text:
             failures.append("Hugging Face cards lack the extra model details")
-        menu_path = "/es/repositories/" if route.startswith("/es") \
+        menu_path = "/en/repositories/" if route.startswith("/en") \
             else "/repositories/"
         if not _href_present(text, menu_path):
             failures.append("repos page not linked in the menu")
@@ -2356,7 +2362,7 @@ def check_ui():
         failures.append("project media is not compact/floated")
     checks.append(("ui compact cases", failures))
 
-    for route in ("/", "/es/"):
+    for route in ("/", "/en/"):
         text, _ = _parse(route)
         failures = []
         if text is None:
@@ -2375,7 +2381,7 @@ def check_ui():
         failures.append("EN/ES selector is not spaced after the menu")
     checks.append(("ui header right aligned", failures))
 
-    for route in ("/projects/", "/es/projects/"):
+    for route in ("/projects/", "/en/projects/"):
         text, _ = _parse(route)
         failures = []
         main = _main_html(text or "")
@@ -2428,7 +2434,7 @@ def check_ui():
                 if "<ul" in section:
                     failures.append("bullets in %s; keep uniform explanations"
                                     % heading)
-            repos_link = "/es/repositories/" if route == "/es/about/" \
+            repos_link = "/en/repositories/" if route == "/en/about/" \
                 else "/repositories/"
             if not _href_present(text, repos_link):
                 failures.append("no link to %s" % repos_link)
@@ -2446,7 +2452,7 @@ def check_ui():
                 failures.append("Buy me a coffee missing from footer")
         checks.append(("ui footer contact " + route, failures))
 
-    blog_text, _ = _parse("/blog/")
+    blog_text, _ = _parse("/en/blog/")
     failures = []
     if blog_text is None or "profileSocial" not in blog_text:
         failures.append("blog social row is missing the shared icon list")
@@ -2480,7 +2486,7 @@ def check_ui():
                         failures.append("missing project image: " + src)
         checks.append(("ui contact cards " + route, failures))
 
-    for route, pdf in (("/cv/", "/resume.pdf"), ("/es/cv/", "/resume-es.pdf")):
+    for route, pdf in (("/cv/", "/resume-es.pdf"), ("/en/cv/", "/resume.pdf")):
         text, _ = _parse(route)
         failures = []
         if text is None:
@@ -2514,13 +2520,8 @@ def check_ui():
     for route in MENU_ROUTES:
         text, _ = _parse(route)
         failures = []
-        if text is None:
-            failures.append("missing page")
-        else:
-            blog_pos = text.find("~/blog")
-            cv_pos = text.find("~/CV")
-            if cv_pos < 0 or blog_pos < 0 or cv_pos < blog_pos:
-                failures.append("~/CV is not directly after ~/blog in the menu")
+        if text is None or "~/CV" in text:
+            failures.append("CV link is back in the top menu")
         checks.append(("ui cv menu " + route, failures))
 
     failures = []
@@ -2554,7 +2555,7 @@ def check_route(route):
                 failures.append("redirect stub has no nonempty url= target in refresh content")
         elif "<main" not in text:
             failures.append("HTML page has no <main")
-    if route == "/blog/index.json":
+    if route == "/en/blog/index.json":
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, UnicodeDecodeError) as exc:

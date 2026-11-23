@@ -25,7 +25,7 @@ showMetadata = false
     <span class="contactProjectBody"><strong>subany.video</strong><span>subtítulos y traducción en directo en el navegador.</span></span>
   </a>
   <div class="contactLinks">
-    <a href="/blog/2026/11/09/how-subany-video-works/" target="_blank" rel="noopener noreferrer" aria-label="How it works" title="How it works"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM1.5 8a6.5 6.5 0 1 1 13 0 6.5 6.5 0 0 1-13 0zM8 1.5c-1.2 1.4-2 3.6-2 6.5s.8 5.1 2 6.5c1.2-1.4 2-3.6 2-6.5S9.2 2.9 8 1.5zM1.7 6.5h12.6c-.3-1-.7-1.8-1.2-2.5H2.9c-.5.7-.9 1.5-1.2 2.5zm0 3c.3 1 .7 1.8 1.2 2.5h10.2c.5-.7.9-1.5 1.2-2.5H1.7z"></path></svg></a>
+    <a href="/en/blog/2026/11/09/how-subany-video-works/" target="_blank" rel="noopener noreferrer" aria-label="How it works" title="How it works"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM1.5 8a6.5 6.5 0 1 1 13 0 6.5 6.5 0 0 1-13 0zM8 1.5c-1.2 1.4-2 3.6-2 6.5s.8 5.1 2 6.5c1.2-1.4 2-3.6 2-6.5S9.2 2.9 8 1.5zM1.7 6.5h12.6c-.3-1-.7-1.8-1.2-2.5H2.9c-.5.7-.9 1.5-1.2 2.5zm0 3c.3 1 .7 1.8 1.2 2.5h10.2c.5-.7.9-1.5 1.2-2.5H1.7z"></path></svg></a>
   </div>
 </div>
 <div class="contactProject">

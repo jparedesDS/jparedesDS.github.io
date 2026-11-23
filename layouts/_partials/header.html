@@ -23,7 +23,7 @@
             </ul>
         </nav>
         {{ partial "lang-switch.html" . }}
-        {{- if hasPrefix .RelPermalink "/blog" }}<span class="langSwitchSpacer" aria-hidden="true"></span>{{ end }}
+        {{- if or (hasPrefix .RelPermalink "/blog") (hasPrefix .RelPermalink "/en/blog") }}<span class="langSwitchSpacer" aria-hidden="true"></span>{{ end }}
     </div>
 </header>
 <style>

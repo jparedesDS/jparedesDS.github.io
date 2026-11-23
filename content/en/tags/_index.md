@@ -1,4 +1,4 @@
 +++
 title = "Tags"
-url = "/blog/tags/"
+url = "/en/blog/tags/"
 +++

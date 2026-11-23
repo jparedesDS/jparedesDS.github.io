@@ -25,7 +25,7 @@ Idiomas: español nativo · inglés B2
 
 ## Proyectos abiertos
 
-Todos mis repositorios y modelos están en la página **[Repositorios](/es/repositories/)**.
+Todos mis repositorios y modelos están en la página **[Repositorios](/repositories/)**.
 
 - 33+ repositorios públicos en [GitHub](https://github.com/jparedesDS) y 268+ seguidores.
 - 10+ modelos de visión artificial en [Hugging Face](https://huggingface.co/jparedesDS) (YOLO v9–v12).

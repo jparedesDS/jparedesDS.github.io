@@ -1,6 +1,6 @@
 +++
 title = "Repositories"
-url = "/repositories/"
+url = "/en/repositories/"
 translationKey = "repositories"
 layout = "repositories"
 user = "repos"

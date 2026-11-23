@@ -10,15 +10,20 @@ keeps a single source of truth.
 No JavaScript: the two blocks are static markup separated by a rule.
 */ -}}
 {{- $esRaw := os.ReadFile "i18n/es.toml" -}}
+{{- $enRaw := os.ReadFile "i18n/en.toml" -}}
 {{- if not $esRaw -}}
     {{- errorf "i18n/es.toml is missing or empty: the bilingual 404 needs the Spanish translation table" -}}
 {{- end -}}
+{{- if not $enRaw -}}
+    {{- errorf "i18n/en.toml is missing or empty: the bilingual 404 needs the English translation table" -}}
+{{- end -}}
 {{- $es := transform.Unmarshal (dict "format" "toml") $esRaw -}}
+{{- $en := transform.Unmarshal (dict "format" "toml") $enRaw -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
 
 <head>
-    <title>{{ i18n "nf_title" }} · {{ $es.nf_title.other }} · {{ .Site.Params.author.name }}</title>
+    <title>{{ $en.nf_title.other }} · {{ $es.nf_title.other }} · {{ .Site.Params.author.name }}</title>
 
     {{ partial "head.html" . }}
 
@@ -97,13 +102,13 @@ No JavaScript: the two blocks are static markup separated by a rule.
             <main class="main">
                 <article class="notFound">
                     <section class="notFoundBlock" lang="en">
-                        <h1>{{ i18n "nf_title" }}</h1>
-                        <p>{{ i18n "nf_text" }}</p>
+                        <h1>{{ $en.nf_title.other }}</h1>
+                        <p>{{ $en.nf_text.other }}</p>
                         <ul class="notFoundLinks">
-                            <li><a href="/">{{ i18n "nf_home" }}</a></li>
-                            <li><a href="/projects/">{{ i18n "nf_projects" }}</a></li>
-                            <li><a href="/contact/">{{ i18n "nf_contact" }}</a></li>
-                            <li><a href="/blog/">{{ i18n "nf_blog" }}</a></li>
+                            <li><a href="/en/">{{ $en.nf_home.other }}</a></li>
+                            <li><a href="/en/projects/">{{ $en.nf_projects.other }}</a></li>
+                            <li><a href="/en/contact/">{{ $en.nf_contact.other }}</a></li>
+                            <li><a href="/en/blog/">{{ $en.nf_blog.other }}</a></li>
                         </ul>
                     </section>
                     <hr>
@@ -111,10 +116,10 @@ No JavaScript: the two blocks are static markup separated by a rule.
                         <h2>{{ $es.nf_title.other }}</h2>
                         <p>{{ $es.nf_text.other }}</p>
                         <ul class="notFoundLinks">
-                            <li><a href="/es/">{{ $es.nf_home.other }}</a></li>
-                            <li><a href="/es/projects/">{{ $es.nf_projects.other }}</a></li>
-                            <li><a href="/es/contact/">{{ $es.nf_contact.other }}</a></li>
-                            <li><a href="/blog/">{{ $es.nf_blog.other }}</a></li>
+                            <li><a href="/">{{ $es.nf_home.other }}</a></li>
+                            <li><a href="/projects/">{{ $es.nf_projects.other }}</a></li>
+                            <li><a href="/contact/">{{ $es.nf_contact.other }}</a></li>
+                            <li><a href="/en/blog/">{{ $es.nf_blog.other }}</a></li>
                         </ul>
                     </section>
                 </article>

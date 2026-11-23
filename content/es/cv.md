@@ -17,10 +17,6 @@ showMetadata = false
 <table class="cvFacts">
   <tr><td>Nombre</td><td>Jose Paredes Colmenarejo</td></tr>
   <tr><td>Título profesional</td><td>Ingeniero de Computer Vision y ML</td></tr>
-  <tr><td>Email</td><td>jparedescolmenarejo@gmail.com</td></tr>
-  <tr><td>Ubicación</td><td>Madrid, España</td></tr>
-  <tr><td>Experiencia</td><td>13+ años en total · desde 2024 en IA industrial</td></tr>
-  <tr><td>Enlaces</td><td>GitHub · LinkedIn · Hugging Face · Kaggle</td></tr>
 </table>
 </div>
 
@@ -137,7 +133,7 @@ showMetadata = false
   <li><strong>Visión artificial:</strong> 10+ modelos YOLO (v9–v12) para detección de objetos en tiempo real, desplegados en Hugging Face.</li>
   <li><strong>Repositorios destacados:</strong> DocFlow, object-detection-models, CleanYourPhone, CleanYourMail, detectores de soldadura y penetrantes, scraper de HLTV y bot de Polymarket.</li>
 </ul>
-<p>Lista completa con enlaces y métricas: <a href="/es/repositories/">Repositorios</a>.</p>
+<p>Lista completa con enlaces y métricas: <a href="/repositories/">Repositorios</a>.</p>
 </div>
 
 <div class="cvCard">

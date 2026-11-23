@@ -1,6 +1,6 @@
 +++
 title = "Search"
-url = "/blog/search/"
+url = "/en/blog/search/"
 layout = "blogsearch"
 user = "blog"
 showMetadata = false
