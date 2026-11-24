@@ -440,69 +440,43 @@ def check_hiring():
     return checks
 
 
-# Task 4: three case studies on Projects. Facts are fixed by the plan;
-# "500+" belongs to the correo->ERP automation and lives in About, so it
-# is banned here. Each fact lists the accepted spellings (the minifier
-# keeps text as authored, but en/em dashes may vary by copy).
-CASE_ANCHORS = ("vision", "docflow", "subany")
-# Diagrams are localized: each language must reference its own variants
-# (review ruling); the subany capture is shared.
-CASE_DIAGRAMS = {
-    "/projects/": ("case-vision-es.svg", "case-docflow-es.svg"),
-    "/en/projects/": ("case-vision.svg", "case-docflow.svg"),
+# Task 4: visual projects gallery. One column of nine uniform cards,
+# each with a local image, alt text and live links, in both languages.
+PROJECT_IMAGES = {
+    "/projects/": (
+        "case-vision-es.svg", "case-docflow-es.svg", "case-subany.png",
+        "cleanyourphone-thumb.png", "cleanyourmail-thumb.png",
+        "propov-cs2.png", "myhltv.png", "mydxf.png", "ocr-identification.png",
+    ),
+    "/en/projects/": (
+        "case-vision.svg", "case-docflow.svg", "case-subany.png",
+        "cleanyourphone-thumb.png", "cleanyourmail-thumb.png",
+        "propov-cs2.png", "myhltv.png", "mydxf.png", "ocr-identification.png",
+    ),
 }
-CASE_IMAGES = ("case-vision.svg", "case-docflow.svg",
-               "case-vision-es.svg", "case-docflow-es.svg", "case-subany.png")
-# Review ruling: only the fixed-fact stack may appear. "HLS" covers both
-# "HLS player" (EN) and "reproductor HLS" (ES); matched case-insensitive.
-CASE_BANNED = ("PyTorch", "hls.js", "HLS")
-CASE_MODEL_URL = ("https://huggingface.co/jparedesDS/"
-                  "fluorescent-penetrant-inspection")
-CASE_FACTS = {
-    "/projects/": [
-        ("21 routers",),
-        ("24 servicios",),
-        ("24 pantallas",),
-        ("0–40 ms", "0-40 ms"),
-        ("15,3",),
-    ],
-    "/en/projects/": [
-        ("21 API routers",),
-        ("24 services",),
-        ("24 screens",),
-        ("0–40 ms", "0-40 ms"),
-        ("15.3",),
-    ],
-}
-SUBANY_ARTICLE = "/en/blog/2026/11/09/how-subany-video-works/"
-# Final review: the public docflow repository is DocFlow Lite, a
-# CustomTkinter desktop app — not the internal SaaS the case describes.
-# The link label and the clarifying sentence are pinned; the old
-# "Code on GitHub" wording must not return.
-DOCFLOW_REPO_URL = "https://github.com/jparedesDS/docflow"
-DOCFLOW_LITE = {
-    "/projects/": {
-        "label": "DocFlow Lite en GitHub",
-        "sentence": ("El repositorio público es DocFlow Lite, una "
-                     "aplicación de escritorio en CustomTkinter; el "
-                     "SaaS descrito aquí es interno."),
-        "old_label": "Código en GitHub",
-    },
-    "/en/projects/": {
-        "label": "DocFlow Lite on GitHub",
-        "sentence": ("The public repository is DocFlow Lite, a "
-                     "CustomTkinter desktop app; the SaaS described "
-                     "here is internal."),
-        "old_label": "Code on GitHub",
-    },
-}
-ACTIVE_PRODUCT_URLS = (
+PROJECT_URLS = (
+    "https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection",
+    "https://huggingface.co/jparedesDS",
+    "https://github.com/jparedesDS/welding-defects-detection",
+    "https://github.com/jparedesDS/docflow",
     "https://subany.video/",
-    "https://subany.site/",
+    "/en/blog/2026/11/09/how-subany-video-works/",
     "https://www.cleanyourphone.org/",
     "https://www.cleanyourmail.org/",
     "https://propovcs2.com/",
+    "https://www.tiktok.com/@propov_cs2",
+    "https://github.com/jparedesDS/hltv-scraper",
+    "https://github.com/jparedesDS/extract-data-dxf",
+    "https://github.com/jparedesDS/cs2-yolo12m-weapon-detection",
 )
+PROJECT_LEGACY = ("caseList", "caseMedia", "caseChips", "class=case",
+                  "class=\"case\"")
+DEAD_OCR_REPO = "https://github.com/jparedesDS/OCR-Identification-CS2-Weapons"
+LIVE_WEAPON_REPO = (
+    "https://github.com/jparedesDS/cs2-yolo12m-weapon-detection")
+SHIPPED_CASE_IMAGES = ("case-vision.svg", "case-docflow.svg",
+                       "case-vision-es.svg", "case-docflow-es.svg",
+                       "case-subany.png")
 
 
 def _attr(tag, name):
@@ -513,116 +487,69 @@ def _attr(tag, name):
     return match.group(1) if match.group(1) is not None else match.group(2)
 
 
-def check_cases():
-    """Task 4 case-study assertions: (label, failures) pairs."""
+def check_projects():
+    """Visual gallery assertions: nine uniform cards, image + alt + links."""
     checks = []
-
-    for route, facts in CASE_FACTS.items():
+    for route, images in PROJECT_IMAGES.items():
         failures = []
         text, parser = _parse(route)
         if text is None:
-            checks.append(("cases " + route, ["missing page"]))
+            checks.append(("projects " + route, ["missing page"]))
             continue
-
-        # Anchors must sit on the case h3 headings, in order, under an h2.
-        h1_pos = text.find("<h1")
-        h2_pos = text.find("<h2")
-        h3_pos = text.find("<h3")
-        if not (-1 < h1_pos < h2_pos < h3_pos):
-            failures.append("heading order wrong: h1@%d h2@%d h3@%d"
-                            % (h1_pos, h2_pos, h3_pos))
-        anchor_positions = []
-        for anchor in CASE_ANCHORS:
-            match = re.search(
-                r'<h3\b[^>]*\bid=(?:"%s"|%s(?=[\s>]))' % (anchor, anchor),
-                text)
-            if match is None:
-                failures.append('no h3 with id="%s"' % anchor)
-            else:
-                anchor_positions.append(match.start())
-        if len(anchor_positions) == len(CASE_ANCHORS):
-            if anchor_positions != sorted(anchor_positions):
-                failures.append("case anchors out of order")
-            if h2_pos != -1 and anchor_positions[0] < h2_pos:
-                failures.append("first case h3 precedes the section h2")
-
-        for alternatives in facts:
-            if not any(alt in text for alt in alternatives):
-                failures.append("missing fact: %s" % " / ".join(alternatives))
-        # The claim bans apply to the page copy (<main>), not to the
-        # head: the shared social-card alt describes the card's stack
-        # chips (PyTorch among them) on every page (final review).
-        main = _main_html(text) or ""
-        if "500+" in main:
-            failures.append("banned figure 500+ present (belongs in About)")
-        lowered = main.casefold()
-        for claim in CASE_BANNED:
-            if claim.casefold() in lowered:
-                failures.append("unapproved claim present: %r" % claim)
-        if not _href_present(text, CASE_MODEL_URL):
-            failures.append("direct penetrant model URL missing: "
-                            + CASE_MODEL_URL)
-
-        if _class_pos(text, "caseList") == -1:
-            failures.append("no .caseList markup")
-        case_count = len(re.findall(
-            r'<section\b[^>]*\bclass=(?:"case"|case(?=[\s>]))', text))
-        if case_count != 3:
-            failures.append("expected 3 .case sections, found %d" % case_count)
-        if not _href_present(text, SUBANY_ARTICLE):
-            failures.append("no link to the subany article %s" % SUBANY_ARTICLE)
-
-        # Every referenced local image must ship; each case image must be
-        # referenced with meaningful alt text, and diagrams must match the
-        # page language (no EN diagrams on /es/, no ES diagrams on /).
-        imgs = re.findall(r"<img\b[^>]*>", text)
-        srcs = {}
-        for tag in imgs:
+        if _class_pos(text, "projectGallery") == -1:
+            failures.append("no .projectGallery markup")
+        rows = re.findall(
+            r'<section\b[^>]*\bclass=(?:"projectRow"|projectRow(?=[\s>]))'
+            r'[\s\S]*?</section>', text)
+        if len(rows) != 9:
+            failures.append("expected 9 project rows, found %d" % len(rows))
+        for index, row in enumerate(rows):
+            tags = re.findall(r"<img\b[^>]*>", row)
+            if len(tags) != 1:
+                failures.append("row %d has %d images" % (index + 1, len(tags)))
+                continue
+            tag = tags[0]
             src = _attr(tag, "src") or ""
-            srcs[src] = tag
+            expected = "/images/" + images[index]
+            if src != expected:
+                failures.append("row %d image %r, expected %r"
+                                % (index + 1, src, expected))
+            alt = (_attr(tag, "alt") or "").strip()
+            if not alt:
+                failures.append("row %d image lacks alt text" % (index + 1))
             if src.startswith("/images/"):
                 if not (ROOT / "dist" / src.lstrip("/")).is_file():
-                    failures.append("referenced image missing: " + src)
-        for name in CASE_DIAGRAMS[route] + ("case-subany.png",):
-            src = "/images/" + name
-            tag = srcs.get(src)
-            if tag is None:
-                failures.append("case image not referenced: " + src)
-            elif not (_attr(tag, "alt") or "").strip():
-                failures.append("case image lacks alt text: " + src)
-        for other_route, names in CASE_DIAGRAMS.items():
-            if other_route == route:
-                continue
-            for name in names:
-                if "/images/" + name in srcs:
-                    failures.append("foreign-language diagram referenced: "
-                                    + name)
-
-        # Active products and the archive/GitHub link stay below the cases.
-        for url in ACTIVE_PRODUCT_URLS:
+                    failures.append("row %d image missing: %s" % (index + 1, src))
+            if _class_pos(row, "projectBody") == -1:
+                failures.append("row %d lacks .projectBody" % (index + 1))
+            if _class_pos(row, "projectChips") == -1:
+                failures.append("row %d lacks .projectChips" % (index + 1))
+            if _class_pos(row, "projectLinks") == -1:
+                failures.append("row %d lacks .projectLinks" % (index + 1))
+        for url in PROJECT_URLS:
             if not _href_present(text, url):
-                failures.append("active product link missing: " + url)
-        if not _href_present(text, "https://github.com/jparedesDS"):
-            failures.append("archive GitHub link missing")
+                failures.append("missing project link: " + url)
+        if _href_present(text, DEAD_OCR_REPO):
+            failures.append("dead OCR repository link present")
+        if not _href_present(text, LIVE_WEAPON_REPO):
+            failures.append("live weapon-detection link missing")
+        main = _main_html(text) or ""
+        if "EIPSA" in main:
+            failures.append("client name present in the Projects page")
+        lowered = text.casefold()
+        for legacy in PROJECT_LEGACY:
+            if legacy.casefold() in lowered:
+                failures.append("old case-study markup present: " + legacy)
+        other = "/en/projects/" if route == "/projects/" else "/projects/"
+        for name in PROJECT_IMAGES[other]:
+            if name.endswith("-es.svg") or name in ("case-vision.svg",
+                                                    "case-docflow.svg"):
+                if "/images/" + name in text:
+                    failures.append("foreign-language image: " + name)
+        checks.append(("projects " + route, failures))
 
-        # The DocFlow evidence link names the Lite desktop repo, and the
-        # case says the SaaS itself is internal (final review).
-        lite = DOCFLOW_LITE[route]
-        if not any(href == DOCFLOW_REPO_URL and label == lite["label"]
-                   for href, label in parser.anchors):
-            failures.append("no link labelled %r to %s"
-                            % (lite["label"], DOCFLOW_REPO_URL))
-        if lite["sentence"] not in text:
-            failures.append("missing Lite clarification: %r"
-                            % lite["sentence"])
-        if lite["old_label"] in text:
-            failures.append("old evidence label present: %r"
-                            % lite["old_label"])
-        checks.append(("cases " + route, failures))
-
-    # The three case images ship at 1200x675 (SVG root size / PNG IHDR).
     failures = []
-    for name in CASE_IMAGES:
+    for name in SHIPPED_CASE_IMAGES:
         path = ROOT / "dist" / "images" / name
         if not path.is_file():
             failures.append("dist/images/%s missing" % name)
@@ -636,9 +563,8 @@ def check_cases():
             size = (int.from_bytes(data[16:20], "big"),
                     int.from_bytes(data[20:24], "big"))
             if data[:8] != b"\x89PNG\r\n\x1a\n" or size != (1200, 675):
-                failures.append("%s is not a 1200x675 PNG (got %r)"
-                                % (name, size))
-    checks.append(("case images shipped 1200x675", failures))
+                failures.append("%s is not a 1200x675 PNG" % name)
+    checks.append(("project images shipped 1200x675", failures))
     return checks
 
 
@@ -2601,14 +2527,14 @@ def main():
         else:
             print("PASS " + label)
             hire_passed += 1
-    case_checks = check_cases()
-    case_passed = 0
-    for label, failures in case_checks:
+    project_checks = check_projects()
+    project_passed = 0
+    for label, failures in project_checks:
         if failures:
             print("FAIL %s: %s" % (label, "; ".join(failures)))
         else:
             print("PASS " + label)
-            case_passed += 1
+            project_passed += 1
     about_checks = check_about()
     about_passed = 0
     for label, failures in about_checks:
@@ -2692,7 +2618,7 @@ def main():
     total = len(ROUTES)
     if (passed == total and i18n_passed == len(i18n_checks)
             and hire_passed == len(hire_checks)
-            and case_passed == len(case_checks)
+            and project_passed == len(project_checks)
             and about_passed == len(about_checks)
             and positioning_passed == len(positioning_checks)
             and contact_passed == len(contact_checks)
