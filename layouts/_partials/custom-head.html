@@ -1041,6 +1041,18 @@
     margin: 2rem 0;
   }
 
+  .reposColumns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .reposColumns .repoGrid,
+  .reposColumns .modelGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .repoGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1431,18 +1443,37 @@
       width: 100%;
       margin: 0 0 0.8rem;
     }
+
+    .reposColumns {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .contactProject {
+      flex-basis: calc(50% - 0.5rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contactProject {
+      flex-basis: 100%;
+    }
   }
 
   /* Contact page: project cards with screenshots and a row of Pro POV
      network icons. Each card is a direct link to the live website. */
   .contactProjects {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     margin: 1rem 0 2rem;
   }
 
   .contactProject {
+    box-sizing: border-box;
+    flex: 0 0 calc(25% - 0.75rem);
+    min-width: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;

@@ -21,13 +21,6 @@ showMetadata = false
 </div>
 
 <div class="cvCard">
-<h3 id="resumen-profesional">Resumen profesional</h3>
-
-<p>Ingeniero de computer vision y ML afincado en Madrid, con más de 13 años de experiencia profesional. Construyo modelos de inspección con YOLO para producción, los pipelines de datos que los rodean y las herramientas internas que los ponen a trabajar. También diseño productos SaaS con IA y herramientas local-first que se ejecutan en el equipo del usuario.</p>
-<p>Colaborador open source con 33+ repositorios públicos, 268+ seguidores en GitHub y 10+ modelos de visión artificial publicados en Hugging Face. Dominio de Python, FastAPI, React, Docker y flujos de datos de extremo a extremo.</p>
-</div>
-
-<div class="cvCard">
 <h3 id="experiencia">Experiencia</h3>
 
 <div class="cvEntry">

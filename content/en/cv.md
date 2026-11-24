@@ -21,13 +21,6 @@ showMetadata = false
 </div>
 
 <div class="cvCard">
-<h3 id="professional-summary">Professional Summary</h3>
-
-<p>Computer vision and ML engineer based in Madrid with 13+ years of professional experience. I build production-grade YOLO inspection models, the data pipelines around them and the internal tools that put them to work. I also design AI-assisted SaaS products and local-first tools that run on the user's machine.</p>
-<p>Open-source contributor with 33+ public repositories, 268+ GitHub followers and 10+ computer-vision models published on Hugging Face. Strong in Python, FastAPI, React, Docker and end-to-end data workflows.</p>
-</div>
-
-<div class="cvCard">
 <h3 id="experience">Experience</h3>
 
 <div class="cvEntry">

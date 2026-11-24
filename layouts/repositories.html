@@ -29,6 +29,7 @@
 
           <hr class="reposRule">
 
+          <div class="reposColumns">
           <section class="reposSection">
             <h2>{{ i18n "repos_github" }}</h2>
             <p class="reposMeta">{{ len .Site.Data.repositories.repos }} {{ i18n "repos_count" }}</p>
@@ -41,8 +42,6 @@
             </div>
             <button type="button" class="reposMore" data-more="repoGrid" aria-expanded="false" data-more-label="{{ i18n "repos_show_more" }}" data-less-label="{{ i18n "repos_show_less" }}">{{ i18n "repos_show_more" }}</button>
           </section>
-
-          <hr class="reposRule">
 
           <section class="reposSection">
             <h2>{{ i18n "repos_hf" }}</h2>
@@ -67,6 +66,7 @@
             </div>
             <button type="button" class="reposMore" data-more="modelGrid" aria-expanded="false" data-more-label="{{ i18n "repos_show_more" }}" data-less-label="{{ i18n "repos_show_less" }}">{{ i18n "repos_show_more" }}</button>
           </section>
+          </div>
         </div>
       </main>
     </div>
