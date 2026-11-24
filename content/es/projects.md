@@ -34,7 +34,7 @@ Nueve proyectos, cada uno con su imagen, una explicación corta y sus enlaces. T
 <h3>subany.video — subtítulos en el navegador</h3>
 <p>Subtítulos en directo procesados en local con Whisper, Silero VAD y ONNX/WebGPU, sin servidores. Retardo fijo de 15,3 s y desfase mediano de 0–40 ms.</p>
 <ul class="projectChips"><li>Whisper</li><li>Silero VAD</li><li>WebGPU</li></ul>
-<p class="projectLinks"><a href="https://subany.video/" target="_blank" rel="noopener noreferrer">Abrir subany.video</a><a href="/en/blog/2026/11/09/how-subany-video-works/">Cómo funciona</a></p>
+<p class="projectLinks"><a href="https://subany.video/" target="_blank" rel="noopener noreferrer">Abrir subany.video</a><a href="https://subany.site/" target="_blank" rel="noopener noreferrer">subany.site</a><a href="/en/blog/2026/11/09/how-subany-video-works/">Cómo funciona</a></p>
 </div>
 <img src="/images/case-subany.png" alt="Página de inicio de subany.video con el campo para pegar un enlace y verlo subtitulado." width="320" height="180" loading="lazy">
 </section>

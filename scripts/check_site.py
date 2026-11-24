@@ -460,6 +460,8 @@ PROJECT_URLS = (
     "https://github.com/jparedesDS/welding-defects-detection",
     "https://github.com/jparedesDS/docflow",
     "https://subany.video/",
+    "https://subany.site/",
+    "https://github.com/jparedesDS",
     "/en/blog/2026/11/09/how-subany-video-works/",
     "https://www.cleanyourphone.org/",
     "https://www.cleanyourmail.org/",
@@ -2290,6 +2292,7 @@ def check_ui():
         ".projectRow{",
         "grid-template-columns:minmax(0,1fr)320px",
         ".projectRowimg{display:block;width:320px;height:180px;object-fit:cover",
+        "min-height:290px",
     )
     for rule in css_rules:
         if rule not in css:

@@ -1381,6 +1381,14 @@
     background: #292a2d;
   }
 
+  /* Between the two-column breakpoint and the wide layout, wrapped text
+     would otherwise make some rows taller than others. */
+  @media (min-width: 901px) and (max-width: 1200px) {
+    .projectRow {
+      min-height: 290px;
+    }
+  }
+
   @media (max-width: 900px) {
     .projectRow {
       grid-template-columns: 1fr;

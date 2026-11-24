@@ -34,7 +34,7 @@ Nine projects, each with an image, a short explanation and its links. Everything
 <h3>subany.video — subtitles in the browser</h3>
 <p>Live subtitles processed locally with Whisper, Silero VAD and ONNX/WebGPU, with no servers. Fixed 15.3 s delay and a median subtitle offset of 0–40 ms.</p>
 <ul class="projectChips"><li>Whisper</li><li>Silero VAD</li><li>WebGPU</li></ul>
-<p class="projectLinks"><a href="https://subany.video/" target="_blank" rel="noopener noreferrer">Open subany.video</a><a href="/en/blog/2026/11/09/how-subany-video-works/">How it works</a></p>
+<p class="projectLinks"><a href="https://subany.video/" target="_blank" rel="noopener noreferrer">Open subany.video</a><a href="https://subany.site/" target="_blank" rel="noopener noreferrer">subany.site</a><a href="/en/blog/2026/11/09/how-subany-video-works/">How it works</a></p>
 </div>
 <img src="/images/case-subany.png" alt="The subany.video home page with the field for pasting a stream link to watch it subtitled." width="320" height="180" loading="lazy">
 </section>
