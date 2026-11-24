@@ -445,12 +445,12 @@ def check_hiring():
 PROJECT_IMAGES = {
     "/projects/": (
         "case-vision-es.svg", "case-docflow-es.svg", "case-subany.png",
-        "cleanyourphone-thumb.png", "cleanyourmail-thumb.png",
+        "cleanyourphone-thumb.png", "cleanyourmail.png",
         "propov-cs2.png", "myhltv.png", "mydxf.png", "ocr-identification.png",
     ),
     "/en/projects/": (
         "case-vision.svg", "case-docflow.svg", "case-subany.png",
-        "cleanyourphone-thumb.png", "cleanyourmail-thumb.png",
+        "cleanyourphone-thumb.png", "cleanyourmail.png",
         "propov-cs2.png", "myhltv.png", "mydxf.png", "ocr-identification.png",
     ),
 }
@@ -528,6 +528,10 @@ def check_projects():
                 failures.append("row %d lacks .projectChips" % (index + 1))
             if _class_pos(row, "projectLinks") == -1:
                 failures.append("row %d lacks .projectLinks" % (index + 1))
+            img_pos = row.find("<img")
+            body_pos = _class_pos(row, "projectBody")
+            if img_pos == -1 or body_pos == -1 or img_pos > body_pos:
+                failures.append("row %d image is not before the text" % (index + 1))
         for url in PROJECT_URLS:
             if not _href_present(text, url):
                 failures.append("missing project link: " + url)
@@ -2290,9 +2294,11 @@ def check_ui():
         ".projectGallery{position:relative;left:50%;transform:translateX(-50%)",
         ".projectGallery{display:grid",
         ".projectRow{",
-        "grid-template-columns:minmax(0,1fr)320px",
-        ".projectRowimg{display:block;width:320px;height:180px;object-fit:cover",
-        "min-height:290px",
+        "grid-template-columns:320pxminmax(0,1fr)",
+        ".projectRowimg{display:block;width:320px;height:150px;object-fit:contain",
+        "min-height:180px",
+        'content:"";position:absolute;inset:0',
+        "cursor:pointer",
     )
     for rule in css_rules:
         if rule not in css:
