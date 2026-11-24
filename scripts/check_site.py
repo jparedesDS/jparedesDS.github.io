@@ -2358,11 +2358,17 @@ def check_ui():
     checks.append(("ui stack chips", failures))
 
     failures = []
-    if ".case{display:flow-root;max-width:780px" not in css:
-        failures.append("project cards are not width-limited")
-    if ".caseMedia{float:left" not in css:
-        failures.append("project media is not compact/floated")
-    checks.append(("ui compact cases", failures))
+    css_rules = (
+        ".projectGallery{position:relative;left:50%;transform:translateX(-50%)",
+        ".projectGallery{display:grid",
+        ".projectRow{",
+        "grid-template-columns:minmax(0,1fr)320px",
+        ".projectRowimg{display:block;width:320px;height:180px;object-fit:cover",
+    )
+    for rule in css_rules:
+        if rule not in css:
+            failures.append("gallery CSS missing: " + rule)
+    checks.append(("ui gallery layout", failures))
 
     for route in ("/", "/en/"):
         text, _ = _parse(route)

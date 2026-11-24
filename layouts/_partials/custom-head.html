@@ -1279,74 +1279,59 @@
     }
   }
 
-  /* Projects case studies: bordered cards with media, problem/solution/
-     result paragraphs, stack chips and links. */
-  .caseList {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    margin: 1.1rem 0 2rem;
+  /* Projects gallery: one column of wide, evenly sized rows. The list
+     breaks out of the theme's narrow .main without moving the page title. */
+  .projectGallery {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1200px;
+    max-width: calc(100vw - 40px);
   }
 
-  .case {
-    display: flow-root;
-    max-width: 780px;
-    padding: 1.1rem 1.25rem 1.2rem;
+  .projectGallery {
+    display: grid;
+    gap: 1rem;
+    margin: 1.2rem 0 2rem;
+  }
+
+  .projectRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1.5rem;
+    align-items: center;
+    min-height: 210px;
+    box-sizing: border-box;
+    padding: 1.25rem 1.4rem;
     border: 1px solid #3a3b3d;
     border-radius: 10px;
     background: #2e2e33;
   }
 
-  .case h3 {
-    margin: 0 0 0.7rem;
+  .projectBody h3 {
+    margin: 0 0 0.5rem;
     font-family: "Fira Mono", monospace;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     letter-spacing: -0.01em;
     color: #f8f8ff;
   }
 
-  .caseMedia {
-    float: left;
-    width: 300px;
-    margin: 0 1.25rem 0.6rem 0;
-  }
-
-  .caseMedia img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid #3a3b3d;
-    border-radius: 8px;
-    background: #292a2d;
-  }
-
-  .caseMedia figcaption {
-    margin-top: 0.5rem;
-    font-family: "Fira Mono", monospace;
-    font-size: 0.72rem;
-    color: #a8a8b3;
-  }
-
-  .case p {
-    margin: 0 0 0.7rem;
-    line-height: 1.65;
+  .projectBody p {
+    margin: 0 0 0.65rem;
+    line-height: 1.6;
     color: #c9c9cf;
   }
 
-  .case p strong {
-    color: #f8f8ff;
-  }
-
-  .caseChips {
+  .projectChips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
-    margin: 0.9rem 0 0.9rem;
+    margin: 0 0 0.8rem;
     padding: 0;
     list-style: none;
   }
 
-  .caseChips li {
+  .projectChips li {
     padding: 0.25rem 0.7rem;
     border: 1px solid #3a3b3d;
     border-radius: 999px;
@@ -1355,33 +1340,62 @@
     color: #80aadd;
   }
 
-  .case p:last-of-type {
-    margin-bottom: 0;
+  .projectLinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
   }
 
-  .case a {
-    color: #80aadd;
+  .projectLinks a {
+    box-sizing: border-box;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid #80aadd;
+    border-radius: 6px;
+    background: rgba(128, 170, 221, 0.12);
+    color: #9ec5f5;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: background-color 0.18s ease, color 0.18s ease;
   }
 
-  .case a:hover {
+  .projectLinks a:hover {
+    background: rgba(128, 170, 221, 0.28);
     color: #f8f8ff;
+    text-decoration: none;
   }
 
-  @media (max-width: 768px) {
-    .case {
+  .projectLinks a:focus-visible {
+    outline: 2px solid #80aadd;
+    outline-offset: 2px;
+  }
+
+  .projectRow img {
+    display: block;
+    width: 320px;
+    height: 180px;
+    object-fit: cover;
+    border: 1px solid #3a3b3d;
+    border-radius: 8px;
+    background: #292a2d;
+  }
+
+  @media (max-width: 900px) {
+    .projectRow {
+      grid-template-columns: 1fr;
+      gap: 1rem;
       padding: 1rem;
     }
 
-    .case h3 {
-      font-size: 1.05rem;
-    }
-
-    .caseMedia {
-      float: none;
+    .projectRow img {
       width: 100%;
-      margin: 0 0 0.8rem;
+      max-width: 320px;
+      height: 180px;
     }
+  }
 
+  @media (max-width: 768px) {
     .reposColumns {
       grid-template-columns: 1fr;
       gap: 1.2rem;
