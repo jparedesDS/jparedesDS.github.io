@@ -8,14 +8,6 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#292a2d">
-{{- if or (hasPrefix .RelPermalink "/contact") (hasPrefix .RelPermalink "/en/contact") (hasPrefix .RelPermalink "/repositories") (hasPrefix .RelPermalink "/en/repositories") }}
-<style>
-  /* These two data-heavy pages need more room than the theme's 760px. */
-  @media (min-width: 992px) {
-    .main { width: 1240px; }
-  }
-</style>
-{{- end }}
 {{- if eq .Params.layout "blogsearch" }}
 <meta name="robots" content="noindex">
 {{- end }}
@@ -1007,7 +999,7 @@
   /* Repositories page: al-folio-style GitHub pin cards and HF model
      cards, in Nightfall colours. */
   .reposShell {
-    max-width: 1240px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 2rem 1.25rem 3rem;
     text-align: left;
@@ -1058,7 +1050,13 @@
 
   .reposColumns .repoGrid,
   .reposColumns .modelGrid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reposColumns .repoCard {
+    display: flex;
+    align-items: center;
+    min-height: 140px;
   }
 
   .repoGrid {
@@ -1471,6 +1469,11 @@
   /* Contact page: project cards with screenshots and a row of Pro POV
      network icons. Each card is a direct link to the live website. */
   .contactProjects {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1240px;
+    max-width: calc(100vw - 40px);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

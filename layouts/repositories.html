@@ -36,7 +36,7 @@
             <div class="repoGrid" id="repoGrid">
               {{- range $i, $repo := sort .Site.Data.repositories.repos "stars" "desc" }}
               <a class="repoCard{{ if ge $i 10 }} repoExtra{{ end }}" href="{{ $repo.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $repo.full_name }}">
-                <img src="https://github-stats-extended.vercel.app/api/pin/?username=jparedesDS&amp;repo={{ $repo.name }}&amp;theme=dark&amp;show_owner=true&amp;description_lines_count=2" alt="{{ $repo.full_name }}" loading="lazy">
+                <img src="https://github-stats-extended.vercel.app/api/pin/?username=jparedesDS&amp;repo={{ $repo.name }}&amp;theme=dark&amp;show_owner=true&amp;description_lines_count=4" alt="{{ $repo.full_name }}" loading="lazy">
               </a>
               {{- end }}
             </div>
