@@ -133,7 +133,7 @@
     other = "Modelos en Hugging Face"
 
 [repos_hf_intro]
-    other = "Modelos de visión artificial publicados en Hugging Face, con pesos y métricas."
+    other = "Modelos de visión artificial."
 
 [repos_count]
     other = "repositorios"
