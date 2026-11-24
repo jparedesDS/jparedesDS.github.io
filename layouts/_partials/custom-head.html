@@ -1301,7 +1301,7 @@
     grid-template-columns: 320px minmax(0, 1fr);
     gap: 1.25rem;
     align-items: center;
-    min-height: 180px;
+    min-height: 210px;
     box-sizing: border-box;
     padding: 0.9rem 1rem;
     border: 1px solid #3a3b3d;
@@ -1313,6 +1313,14 @@
 
   .projectRow:hover {
     border-color: #80aadd;
+  }
+
+  .projectDate {
+    margin: 0 0 0.25rem;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: #9ec5f5;
   }
 
   .projectBody h3 {
@@ -1381,6 +1389,16 @@
     z-index: 2;
   }
 
+  .projectLinks span {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border: 1px dashed #3a3b3d;
+    border-radius: 6px;
+    color: #9b9c9d;
+    font-family: "Fira Mono", monospace;
+    font-size: 0.75rem;
+  }
+
   .projectLinks a:hover {
     background: rgba(128, 170, 221, 0.28);
     color: #f8f8ff;
@@ -1406,7 +1424,7 @@
      would otherwise make some rows taller than others. */
   @media (min-width: 901px) and (max-width: 1200px) {
     .projectRow {
-      min-height: 210px;
+      min-height: 260px;
     }
   }
 

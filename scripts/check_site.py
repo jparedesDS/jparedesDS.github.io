@@ -444,15 +444,26 @@ def check_hiring():
 # each with a local image, alt text and live links, in both languages.
 PROJECT_IMAGES = {
     "/projects/": (
-        "case-vision-es.svg", "case-docflow-es.svg", "case-subany.png",
-        "cleanyourphone-thumb.png", "cleanyourmail.png",
-        "propov-cs2.png", "myhltv.png", "mydxf.png", "ocr-identification.png",
+        "case-subany.png", "cleanyourphone-thumb.png", "cleanyourmail.png",
+        "propov-cs2.png", "case-docflow-es.svg", "cs2-vrs.svg",
+        "cs2ai.svg", "polymarket.png", "ocr-identification.png",
+        "case-vision-es.svg", "myhltv.png", "mydxf.png", "docucontrol.png",
     ),
     "/en/projects/": (
-        "case-vision.svg", "case-docflow.svg", "case-subany.png",
-        "cleanyourphone-thumb.png", "cleanyourmail.png",
-        "propov-cs2.png", "myhltv.png", "mydxf.png", "ocr-identification.png",
+        "case-subany.png", "cleanyourphone-thumb.png", "cleanyourmail.png",
+        "propov-cs2.png", "case-docflow.svg", "cs2-vrs.svg",
+        "cs2ai.svg", "polymarket.png", "ocr-identification.png",
+        "case-vision.svg", "myhltv.png", "mydxf.png", "docucontrol.png",
     ),
+}
+# Repository creation dates, newest first, as shown on each card.
+PROJECT_DATES = (
+    "2026-11", "2026-10", "2026-10", "2026-09", "2026-05", "2026-04",
+    "2026-03", "2026-02", "2025-04", "2024-11", "2024-09", "2024-05",
+)
+PROJECT_UNKNOWN_DATE = {
+    "/projects/": "Fecha desconocida",
+    "/en/projects/": "Unknown date",
 }
 PROJECT_URLS = (
     "https://huggingface.co/jparedesDS/fluorescent-penetrant-inspection",
@@ -490,7 +501,7 @@ def _attr(tag, name):
 
 
 def check_projects():
-    """Visual gallery assertions: nine uniform cards, image + alt + links."""
+    """Gallery assertions: dated, ordered cards with image, alt and links."""
     checks = []
     for route, images in PROJECT_IMAGES.items():
         failures = []
@@ -503,8 +514,8 @@ def check_projects():
         rows = re.findall(
             r'<section\b[^>]*\bclass=(?:"projectRow"|projectRow(?=[\s>]))'
             r'[\s\S]*?</section>', text)
-        if len(rows) != 9:
-            failures.append("expected 9 project rows, found %d" % len(rows))
+        if len(rows) != 13:
+            failures.append("expected 13 project rows, found %d" % len(rows))
         for index, row in enumerate(rows):
             tags = re.findall(r"<img\b[^>]*>", row)
             if len(tags) != 1:
@@ -532,6 +543,21 @@ def check_projects():
             body_pos = _class_pos(row, "projectBody")
             if img_pos == -1 or body_pos == -1 or img_pos > body_pos:
                 failures.append("row %d image is not before the text" % (index + 1))
+            date_match = re.search(
+                r'<p\b[^>]*\bclass=(?:"projectDate"|projectDate(?=[\s>]))'
+                r'[^>]*>([^<]*)</p>', row)
+            if date_match is None:
+                failures.append("row %d lacks a creation date" % (index + 1))
+            else:
+                expected_date = (PROJECT_DATES[index] if index < len(PROJECT_DATES)
+                                 else PROJECT_UNKNOWN_DATE[route])
+                if date_match.group(1).strip() != expected_date:
+                    failures.append("row %d date %r, expected %r"
+                                    % (index + 1, date_match.group(1).strip(),
+                                       expected_date))
+        private_label = "privado" if route == "/projects/" else "private"
+        if len(re.findall(private_label, text, re.I)) < 6:
+            failures.append("private/internal projects are not labelled")
         for url in PROJECT_URLS:
             if not _href_present(text, url):
                 failures.append("missing project link: " + url)
@@ -2296,7 +2322,8 @@ def check_ui():
         ".projectRow{",
         "grid-template-columns:320pxminmax(0,1fr)",
         ".projectRowimg{display:block;width:320px;height:150px;object-fit:contain",
-        "min-height:180px",
+        "min-height:210px",
+        "min-height:260px",
         'content:"";position:absolute;inset:0',
         "cursor:pointer",
     )
