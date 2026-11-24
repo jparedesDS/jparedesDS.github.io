@@ -2292,8 +2292,10 @@ def check_repos():
             failures.append("non-dark card theme present")
         if "theme=dark" not in text:
             failures.append("dark card theme missing")
-        if "modelBase" not in text or "modelUpdated" not in text:
-            failures.append("Hugging Face cards lack the extra model details")
+        if "modelPin" not in text or "data-testid=hearts" not in text:
+            failures.append("Hugging Face cards do not mirror the GitHub pin with hearts")
+        if not all(str(m["likes"]) in text for m in models):
+            failures.append("Hugging Face like counts missing from the pin cards")
         menu_path = "/en/repositories/" if route.startswith("/en") \
             else "/repositories/"
         if not _href_present(text, menu_path):

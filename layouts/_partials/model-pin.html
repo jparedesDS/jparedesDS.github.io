@@ -1,0 +1,85 @@
+{{- /* Hugging Face model card that mirrors the GitHub "pin" card exactly
+       (same 400x150 SVG template, fonts and colours), swapping the star
+       glyph for a heart (likes) and forks for downloads. */ -}}
+{{- $model := . -}}
+{{- $family := default "" $model.family -}}
+{{- $task := replace (default "" $model.task) "-" " " -}}
+{{- $base := default "" $model.base -}}
+{{- $tags := default (slice) $model.tags -}}
+
+{{- $langLabel := $family -}}
+{{- if not $langLabel }}{{ $langLabel = $task }}{{ end -}}
+{{- if not $langLabel }}{{ $langLabel = "Model" }}{{ end -}}
+
+{{- $line1 := "" -}}
+{{- if and $family $task -}}
+  {{- $line1 = printf "%s · %s model" $family $task -}}
+{{- else if $family -}}
+  {{- $line1 = printf "%s model" $family -}}
+{{- else if $task -}}
+  {{- $line1 = printf "%s model" $task -}}
+{{- else -}}
+  {{- $line1 = "Hugging Face model" -}}
+{{- end -}}
+
+{{- $line2 := "" -}}
+{{- $shownTags := first 3 $tags -}}
+{{- if $shownTags -}}
+  {{- $line2 = delimit $shownTags " · " -}}
+{{- else if $base -}}
+  {{- $line2 = printf "Base: %s" $base -}}
+{{- else -}}
+  {{- $line2 = "Computer vision model" -}}
+{{- end -}}
+
+{{- $likes := printf "%.0f" $model.likes -}}
+{{- $downloads := printf "%.0f" $model.downloads -}}
+{{- $heartX := add 25 (mul (len $langLabel) 8) -}}
+{{- $downloadX := add $heartX (add 38 (mul (len $likes) 8)) -}}
+<svg class="modelPin" width="400" height="150" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{{ $model.id }} on Hugging Face">
+  <title>{{ $model.id }}</title>
+
+  <rect data-testid="card-bg" class="card-bg" x="0.5" y="0.5" rx="4.5" height="99%" stroke="#e4e2e2" width="399" fill="#151515" stroke-opacity="1"></rect>
+
+  <g data-testid="card-title" transform="translate(25, 35)">
+    <g transform="translate(0, 0)">
+      <svg class="mp-icon" x="0" y="-13" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+        <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
+      </svg>
+    </g>
+    <g transform="translate(25, 0)">
+      <text x="0" y="0" class="mp-header" data-testid="header">{{ $model.id }}</text>
+    </g>
+  </g>
+
+  <g data-testid="main-card-body" transform="translate(0, 55)">
+    <text class="mp-description" x="25" y="-5">
+      <tspan dy="1.2em" x="25">{{ $line1 }}</tspan><tspan dy="1.2em" x="25">{{ $line2 }}</tspan>
+    </text>
+
+    <g transform="translate(30, 75)">
+      <g transform="translate(0, 0)">
+        <g data-testid="primary-lang">
+          <circle data-testid="lang-color" cx="0" cy="-5" r="6" fill="#FFD21E"></circle>
+          <text data-testid="lang-name" class="mp-gray" x="15">{{ $langLabel }}</text>
+        </g>
+      </g>
+      <g transform="translate({{ $heartX }}, 0)">
+        <g transform="translate(0, 0)">
+          <svg class="mp-icon" y="-12" viewBox="0 0 24 24" version="1.1" width="16" height="16">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+          </svg>
+        </g>
+        <g transform="translate(20, 0)"><text data-testid="hearts" class="mp-gray">{{ $likes }}</text></g>
+      </g>
+      <g transform="translate({{ $downloadX }}, 0)">
+        <g transform="translate(0, 0)">
+          <svg class="mp-icon" y="-12" viewBox="0 0 24 24" version="1.1" width="16" height="16">
+            <path d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 10l-7 7-7-7 1.41-1.41L11 14.17V2z"></path>
+          </svg>
+        </g>
+        <g transform="translate(20, 0)"><text data-testid="downloads" class="mp-gray">{{ $downloads }}</text></g>
+      </g>
+    </g>
+  </g>
+</svg>

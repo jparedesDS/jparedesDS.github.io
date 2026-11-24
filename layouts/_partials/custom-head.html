@@ -1053,12 +1053,6 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .reposColumns .repoCard {
-    display: flex;
-    align-items: center;
-    min-height: 140px;
-  }
-
   .repoGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1137,18 +1131,18 @@
   }
 
   .modelGrid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 
+  /* Hugging Face cards reuse the exact same pin template as the GitHub
+     cards: same 400x150 SVG, frame, fonts and colours. The only visual
+     difference is a heart (likes) in place of the star. */
   .modelCard {
-    display: flex;
-    flex-direction: column;
-    min-height: 124px;
-    padding: 0.85rem 0.9rem;
+    display: block;
+    overflow: hidden;
     border: 1px solid #3a3b3d;
     border-radius: 8px;
-    background: #191a1c;
-    color: inherit;
+    background: #2e2e33;
     text-decoration: none;
     transition: border-color 0.18s ease, transform 0.18s ease;
   }
@@ -1159,92 +1153,30 @@
     text-decoration: none;
   }
 
-  .modelHead {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.6rem;
+  .modelCard svg.modelPin {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
-  .modelIcon {
-    font-size: 1rem;
-    line-height: 1;
+  .modelPin .mp-header {
+    font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+    fill: #fff;
   }
 
-  .modelCard h3 {
-    margin: 0;
-    font-family: "Fira Mono", monospace;
-    font-size: 0.85rem;
-    word-break: break-all;
-    color: #9ec5f5;
+  .modelPin .mp-description {
+    font: 400 13px 'Segoe UI', Ubuntu, Sans-Serif;
+    fill: #9f9f9f;
   }
 
-  .modelMeta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin: 0 0 0.5rem;
+  .modelPin .mp-gray {
+    font: 400 12px 'Segoe UI', Ubuntu, Sans-Serif;
+    fill: #9f9f9f;
   }
 
-  .modelChip {
-    padding: 0.12rem 0.45rem;
-    border: 1px solid #3b4654;
-    border-radius: 999px;
-    background: #252c38;
-    color: #9ec5f5;
-    font-size: 0.68rem;
-  }
-
-  .modelKind {
-    color: #a8a8b3;
-    font-family: "Fira Mono", monospace;
-    font-size: 0.68rem;
-    text-transform: capitalize;
-  }
-
-  .modelBase,
-  .modelTags,
-  .modelUpdated {
-    margin: 0 0 0.3rem;
-    color: #9b9c9d;
-    font-size: 0.7rem;
-    line-height: 1.4;
-    word-break: break-word;
-  }
-
-  .modelBase {
-    color: #c9c9cf;
-  }
-
-  .modelTags span {
-    margin-right: 0.4rem;
-    color: #9ec5f5;
-  }
-
-  .modelUpdated {
-    margin-bottom: 0.6rem;
-  }
-
-  .modelStats {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.45rem 0.9rem;
-    margin: auto 0 0;
-    font-size: 0.75rem;
-    color: #9b9c9d;
-  }
-
-  .modelStat {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .modelStat svg {
-    width: 12px;
-    height: 12px;
-    color: #80aadd;
+  .modelPin .mp-icon {
+    fill: #79ff97;
+    display: block;
   }
 
   /* Hiring strip: mono role, availability, proof line and CV/email
