@@ -36,6 +36,7 @@ ROUTES = [
     "/en/blog/archives/", "/en/blog/faq/",
     "/en/blog/2026/11/09/how-subany-video-works/",
     "/en/blog/2026/11/23/welding-defects-detection/",
+    "/en/blog/2026/11/25/fluorescent-penetrant-inspection/",
     "/en/blog/index.json", "/en/blog/index.xml",
     "/index.xml", "/sitemap.xml",
     "/propovcs2/", "/cleanyourmail/",
@@ -243,7 +244,9 @@ def check_i18n():
 
     # The blog keeps its own in-article EN/ES toggle: the site selector
     # must stay hidden on every /en/blog... page and visible on the root.
-    for route in ("/en/blog/", "/en/blog/2026/11/09/how-subany-video-works/"):
+    for route in ("/en/blog/", "/en/blog/2026/11/09/how-subany-video-works/",
+                  "/en/blog/2026/11/23/welding-defects-detection/",
+                  "/en/blog/2026/11/25/fluorescent-penetrant-inspection/"):
         text, _ = _parse(route)
         failures = []
         if text is None:
@@ -1051,9 +1054,12 @@ OG_TITLES = {
         "How subany.video works: live subtitles in the browser",
     "/en/blog/2026/11/23/welding-defects-detection/":
         "Detecting welding defects with YOLO11x",
+    "/en/blog/2026/11/25/fluorescent-penetrant-inspection/":
+        "Detecting penetrant indications with YOLO11l",
 }
 ARTICLE_ROUTES = {"/en/blog/2026/11/09/how-subany-video-works/",
-                  "/en/blog/2026/11/23/welding-defects-detection/"}
+                  "/en/blog/2026/11/23/welding-defects-detection/",
+                  "/en/blog/2026/11/25/fluorescent-penetrant-inspection/"}
 PERSON_JOBTITLES = {
     "/": "Ingeniero de Computer Vision y ML",
     "/en/": "Computer Vision & ML Engineer",
@@ -2533,8 +2539,8 @@ def check_route(route):
         else:
             if not isinstance(data, list):
                 failures.append("expected a list, got " + type(data).__name__)
-            elif len(data) != 2:
-                failures.append("expected exactly 2 elements, got %d" % len(data))
+            elif len(data) != 3:
+                failures.append("expected exactly 3 elements, got %d" % len(data))
     return failures
 
 
